@@ -320,18 +320,37 @@ FAVICON_SVG_XML = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
 """
 
 
-def _sample_logo_pixel(nx: float, ny: float) -> tuple[int, int, int]:
-    """Samples the CamberDesk Symbol #07 (Compass Quadrant Lock) in normalized 64x64 coordinates."""
+def _sample_logo_pixel(nx: float, ny: float) -> tuple[int, int, int, int]:
+    """Samples the CamberDesk Symbol #07 (Compass Quadrant Lock) in normalized 64x64 RGBA coordinates with rounded-square badge."""
     import math
 
-    vellum = (250, 248, 245)
-    obsidian = (10, 13, 20)
-    navy = (30, 58, 138)
+    vellum = (250, 248, 245, 255)
+    obsidian = (10, 13, 20, 255)
+    navy = (30, 58, 138, 255)
+    transparent = (0, 0, 0, 0)
 
-    if nx < 3.0 or nx > 61.0 or ny < 3.0 or ny > 61.0:
+    # Outer rounded square (0..64, corner radius 13)
+    r_outer = 13.0
+    qx = max(abs(nx - 32.0) - (32.0 - r_outer), 0.0)
+    qy = max(abs(ny - 32.0) - (32.0 - r_outer), 0.0)
+    if math.hypot(qx, qy) > r_outer:
+        return transparent
+
+    # Inner rounded square (3.5..60.5, corner radius 9.5)
+    r_inner = 9.5
+    ix = max(abs(nx - 32.0) - (28.5 - r_inner), 0.0)
+    iy = max(abs(ny - 32.0) - (28.5 - r_inner), 0.0)
+    if math.hypot(ix, iy) > r_inner:
         return obsidian
+
+    # Blueprint Navy upper-right quadrant block (with slight rounded corner rx=2.5)
     if 36.0 <= nx <= 52.0 and 11.0 <= ny <= 27.0:
-        return navy
+        bx = max(abs(nx - 44.0) - 5.5, 0.0)
+        by = max(abs(ny - 19.0) - 5.5, 0.0)
+        if math.hypot(bx, by) <= 2.5:
+            return navy
+
+    # Obsidian Ink 270-degree compass sector
     dx = nx - 32.0
     dy = ny - 32.0
     if math.hypot(dx, dy) <= 23.0 and not (dx > 0 and dy < 0):
@@ -339,7 +358,7 @@ def _sample_logo_pixel(nx: float, ny: float) -> tuple[int, int, int]:
     return vellum
 
 
-def _encode_rgb_png(width: int, height: int, raw_rows: list[bytes]) -> bytes:
+def _encode_rgb_png(width: int, height: int, raw_rows: list[bytes], color_type: int = 2) -> bytes:
     import struct
     import zlib
 
@@ -349,31 +368,40 @@ def _encode_rgb_png(width: int, height: int, raw_rows: list[bytes]) -> bytes:
         crc = zlib.crc32(chunk_type + data) & 0xFFFFFFFF
         return struct.pack(">I", len(data)) + chunk_type + data + struct.pack(">I", crc)
 
-    ihdr = struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0)
+    ihdr = struct.pack(">IIBBBBB", width, height, 8, color_type, 0, 0, 0)
     idat = zlib.compress(raw_data, level=9)
     return b"\x89PNG\r\n\x1a\n" + _chunk(b"IHDR", ihdr) + _chunk(b"IDAT", idat) + _chunk(b"IEND", b"")
 
 
 def _render_logo_png_bytes(dim: int = 64) -> bytes:
-    """Renders a square CamberDesk Symbol #07 PNG icon (e.g. 64x64 favicon.png or 180x180 apple-touch-icon.png)."""
+    """Renders an anti-aliased RGBA (color_type=6) CamberDesk Symbol #07 PNG icon for Google Search SERPs & mobile browsers."""
     rows = []
+    sub_offsets = (0.25, 0.75)
     for y in range(dim):
-        row = bytearray(1 + dim * 3)
+        row = bytearray(1 + dim * 4)
         row[0] = 0
-        ny = (y + 0.5) / dim * 64.0
         for x in range(dim):
-            nx = (x + 0.5) / dim * 64.0
-            r, g, b = _sample_logo_pixel(nx, ny)
-            idx = 1 + x * 3
-            row[idx] = r
-            row[idx + 1] = g
-            row[idx + 2] = b
+            r_sum = g_sum = b_sum = a_sum = 0
+            for sy in sub_offsets:
+                ny = (y + sy) / dim * 64.0
+                for sx in sub_offsets:
+                    nx = (x + sx) / dim * 64.0
+                    r, g, b, a = _sample_logo_pixel(nx, ny)
+                    r_sum += r
+                    g_sum += g
+                    b_sum += b
+                    a_sum += a
+            idx = 1 + x * 4
+            row[idx] = r_sum >> 2
+            row[idx + 1] = g_sum >> 2
+            row[idx + 2] = b_sum >> 2
+            row[idx + 3] = a_sum >> 2
         rows.append(bytes(row))
-    return _encode_rgb_png(dim, dim, rows)
+    return _encode_rgb_png(dim, dim, rows, color_type=6)
 
 
-def _render_logo_ico_bytes(dims: tuple[int, ...] = (16, 32, 48)) -> bytes:
-    """Renders a multi-resolution (16x16, 32x32, 48x48) uncompressed 32-bit BGRA BITMAPINFOHEADER DIB .ICO for Google Search, iOS Safari, Android & Windows."""
+def _render_logo_ico_bytes(dims: tuple[int, ...] = (48, 96)) -> bytes:
+    """Renders a 48px-multiple (48x48 primary, 96x96 secondary — zero 16x16) 32-bit BGRA BITMAPINFOHEADER DIB .ICO per Google Search Favicon guidelines."""
     import struct
 
     dib_blobs = []
@@ -384,12 +412,12 @@ def _render_logo_ico_bytes(dims: tuple[int, ...] = (16, 32, 48)) -> bytes:
             ny = (src_y + 0.5) / dim * 64.0
             for x in range(dim):
                 nx = (x + 0.5) / dim * 64.0
-                r, g, b = _sample_logo_pixel(nx, ny)
+                r, g, b, a = _sample_logo_pixel(nx, ny)
                 idx = (y * dim + x) * 4
                 xor_mask[idx] = b
                 xor_mask[idx + 1] = g
                 xor_mask[idx + 2] = r
-                xor_mask[idx + 3] = 255
+                xor_mask[idx + 3] = a
 
         and_row_bytes = ((dim + 31) // 32) * 4
         and_mask = bytes(and_row_bytes * dim)
@@ -448,7 +476,11 @@ def _render_og_image_png_bytes(width: int = 1200, height: int = 630) -> bytes:
             elif x0 <= x < x0 + logo_box and y0 <= y < y0 + logo_box:
                 nx = (x - x0) / logo_box * 64.0
                 ny = (y - y0) / logo_box * 64.0
-                r, g, b = _sample_logo_pixel(nx, ny)
+                pr, pg, pb, pa = _sample_logo_pixel(nx, ny)
+                if pa > 0:
+                    r, g, b = pr, pg, pb
+                else:
+                    r, g, b = vellum
             else:
                 r, g, b = vellum
             idx = 1 + x * 3
@@ -456,7 +488,7 @@ def _render_og_image_png_bytes(width: int = 1200, height: int = 630) -> bytes:
             row[idx + 1] = g
             row[idx + 2] = b
         rows.append(bytes(row))
-    return _encode_rgb_png(width, height, rows)
+    return _encode_rgb_png(width, height, rows, color_type=2)
 
 
 WEB_MANIFEST_JSON = json.dumps(
@@ -469,12 +501,12 @@ WEB_MANIFEST_JSON = json.dumps(
         "background_color": "#FAF8F5",
         "theme_color": "#0A0D14",
         "icons": [
-            {"src": "/favicon-32x32.png?v=4", "sizes": "32x32", "type": "image/png"},
-            {"src": "/favicon-48x48.png?v=4", "sizes": "48x48", "type": "image/png"},
-            {"src": "/favicon-96x96.png?v=4", "sizes": "96x96", "type": "image/png"},
-            {"src": "/apple-touch-icon.png?v=4", "sizes": "180x180", "type": "image/png"},
-            {"src": "/favicon-192x192.png?v=4", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
-            {"src": "/favicon-512x512.png?v=4", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"},
+            {"src": "https://camberdesk.com/favicon-48x48.png?v=6", "sizes": "48x48", "type": "image/png"},
+            {"src": "https://camberdesk.com/favicon-96x96.png?v=6", "sizes": "96x96", "type": "image/png"},
+            {"src": "https://camberdesk.com/favicon-144x144.png?v=6", "sizes": "144x144", "type": "image/png"},
+            {"src": "https://camberdesk.com/apple-touch-icon.png?v=6", "sizes": "180x180", "type": "image/png"},
+            {"src": "https://camberdesk.com/favicon-192x192.png?v=6", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+            {"src": "https://camberdesk.com/favicon-512x512.png?v=6", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"},
         ],
     },
     indent=2,
@@ -482,7 +514,7 @@ WEB_MANIFEST_JSON = json.dumps(
 
 
 def _generate_favicon_assets() -> None:
-    """Generates SVG, multi-size 16/32/48 DIB .ICO, Google Search PNGs (32, 48, 64, 96, 180, 192, 512), 1200x630 OpenGraph PNG, and site.webmanifest."""
+    """Generates SVG, 48x48+96x96 DIB .ICO (zero 16x16), Google Search RGBA PNGs (32, 48, 64, 96, 144, 180, 192, 512), 1200x630 OpenGraph PNG, and site.webmanifest."""
     lettings_dir = os.path.join(BASE_DIR, "lettings")
     os.makedirs(lettings_dir, exist_ok=True)
 
@@ -497,8 +529,9 @@ def _generate_favicon_assets() -> None:
     size_map = {
         "favicon-32x32.png": 32,
         "favicon-48x48.png": 48,
-        "favicon.png": 64,
+        "favicon.png": 48,
         "favicon-96x96.png": 96,
+        "favicon-144x144.png": 144,
         "apple-touch-icon.png": 180,
         "favicon-192x192.png": 192,
         "favicon-512x512.png": 512,
@@ -509,7 +542,7 @@ def _generate_favicon_assets() -> None:
             with open(os.path.join(target_dir, fname), "wb") as fh:
                 fh.write(raw_png)
 
-    ico_multi = _render_logo_ico_bytes((16, 32, 48))
+    ico_multi = _render_logo_ico_bytes((48, 96))
     og_png = _render_og_image_png_bytes(1200, 630)
 
     for ico_p in (os.path.join(BASE_DIR, "favicon.ico"), os.path.join(lettings_dir, "favicon.ico")):
@@ -526,7 +559,7 @@ def build_social_and_favicon_head(
     canonical_url: str = "https://camberdesk.com/",
     rel_prefix: str = "",
 ) -> str:
-    """Renders Google Search + Mobile Browser + iMessage/SMS OpenGraph tags & Schema.org JSON-LD (matching SignalTender's verified head structure)."""
+    """Renders Google Search (48x48 / 96x96 / 144x144 / 192x192 / 512x512) + Mobile Browser + iMessage/SMS OpenGraph tags & Schema.org JSON-LD."""
     schema_ld = json.dumps(
         {
             "@context": "https://schema.org",
@@ -538,11 +571,11 @@ def build_social_and_favicon_head(
                     "url": "https://camberdesk.com/",
                     "logo": {
                         "@type": "ImageObject",
-                        "url": "https://camberdesk.com/favicon-512x512.png?v=4",
+                        "url": "https://camberdesk.com/favicon-512x512.png?v=6",
                         "width": 512,
                         "height": 512,
                     },
-                    "image": "https://camberdesk.com/og-image.png?v=4",
+                    "image": "https://camberdesk.com/og-image.png?v=6",
                     "description": page_desc,
                 },
                 {
@@ -567,27 +600,27 @@ def build_social_and_favicon_head(
         }
     )
     return f"""  <meta name="theme-color" content="#FAF8F5" />
-  <link rel="icon" type="image/png" sizes="96x96" href="https://camberdesk.com/favicon-96x96.png?v=4" />
-  <link rel="icon" type="image/png" sizes="512x512" href="https://camberdesk.com/favicon-512x512.png?v=4" />
-  <link rel="icon" type="image/png" sizes="192x192" href="https://camberdesk.com/favicon-192x192.png?v=4" />
-  <link rel="icon" type="image/png" sizes="48x48" href="https://camberdesk.com/favicon-48x48.png?v=4" />
-  <link rel="icon" type="image/png" sizes="32x32" href="https://camberdesk.com/favicon-32x32.png?v=4" />
-  <link rel="icon" type="image/png" sizes="64x64" href="{rel_prefix}favicon.png?v=4" />
-  <link rel="icon" type="image/x-icon" href="https://camberdesk.com/favicon.ico?v=4" />
-  <link rel="shortcut icon" href="https://camberdesk.com/favicon.ico?v=4" />
-  <link rel="apple-touch-icon" sizes="180x180" href="https://camberdesk.com/apple-touch-icon.png?v=4" />
-  <link rel="apple-touch-icon-precomposed" sizes="180x180" href="https://camberdesk.com/apple-touch-icon.png?v=4" />
-  <link rel="icon" type="image/svg+xml" href="https://camberdesk.com/favicon.svg?v=4" />
-  <link rel="manifest" href="https://camberdesk.com/site.webmanifest?v=4" />
+  <link rel="icon" type="image/png" sizes="96x96" href="https://camberdesk.com/favicon-96x96.png?v=6" />
+  <link rel="icon" type="image/png" sizes="512x512" href="https://camberdesk.com/favicon-512x512.png?v=6" />
+  <link rel="icon" type="image/png" sizes="192x192" href="https://camberdesk.com/favicon-192x192.png?v=6" />
+  <link rel="icon" type="image/png" sizes="144x144" href="https://camberdesk.com/favicon-144x144.png?v=6" />
+  <link rel="icon" type="image/svg+xml" href="https://camberdesk.com/favicon.svg?v=6" />
+  <link rel="icon" type="image/png" sizes="48x48" href="https://camberdesk.com/favicon-48x48.png?v=6" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://camberdesk.com/favicon-32x32.png?v=6" />
+  <link rel="icon" type="image/x-icon" sizes="48x48" href="https://camberdesk.com/favicon.ico?v=6" />
+  <link rel="shortcut icon" href="https://camberdesk.com/favicon.ico?v=6" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://camberdesk.com/apple-touch-icon.png?v=6" />
+  <link rel="apple-touch-icon-precomposed" sizes="180x180" href="https://camberdesk.com/apple-touch-icon.png?v=6" />
+  <link rel="manifest" href="https://camberdesk.com/site.webmanifest?v=6" />
   <link rel="canonical" href="{canonical_url}" />
   <meta property="og:site_name" content="CamberDesk" />
   <meta property="og:title" content="{page_title}" />
   <meta property="og:description" content="{page_desc}" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="{canonical_url}" />
-  <meta property="og:logo" content="https://camberdesk.com/favicon-512x512.png?v=4" />
-  <meta property="og:image" content="https://camberdesk.com/og-image.png?v=4" />
-  <meta property="og:image:secure_url" content="https://camberdesk.com/og-image.png?v=4" />
+  <meta property="og:logo" content="https://camberdesk.com/favicon-512x512.png?v=6" />
+  <meta property="og:image" content="https://camberdesk.com/og-image.png?v=6" />
+  <meta property="og:image:secure_url" content="https://camberdesk.com/og-image.png?v=6" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -595,7 +628,7 @@ def build_social_and_favicon_head(
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="{page_title}" />
   <meta name="twitter:description" content="{page_desc}" />
-  <meta name="twitter:image" content="https://camberdesk.com/og-image.png?v=4" />
+  <meta name="twitter:image" content="https://camberdesk.com/og-image.png?v=6" />
   <meta name="twitter:image:alt" content="CamberDesk — 50-State DOT Bid-Tab, Prevailing-Wage &amp; Construction Takeoff Intelligence" />
   <script type="application/ld+json">{schema_ld}</script>"""
 

@@ -22,7 +22,7 @@ load_dotenv(dotenv_path=str(ROOT_DIR / ".env"))
 
 BASE_URL = os.getenv(
     "CAMBERDESK_API_BASE_URL",
-    "https://camberdesk-api-gateway.onrender.com",
+    "https://api.camberdesk.com",
 ).rstrip("/")
 PROXY_SECRET = (os.getenv("RAPIDAPI_PROXY_SECRET") or "").split(",")[0].strip()
 RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY")

@@ -221,11 +221,22 @@ console.log(JSON.stringify({ ok: errs.length === 0, errors: errs }));
 
 
 def check_favicon_and_og_binary_assets() -> List[str]:
-    """Verify binary signatures and dimensions of favicon.ico, favicon.png, apple-touch-icon.png, and og-image.png."""
+    """Verify binary signatures and dimensions of favicon.ico (48x48 primary entry, zero 16x16), RGBA PNG favicons, apple-touch-icon.png, and og-image.png."""
     errors: List[str] = []
     for sub in ("", "lettings"):
         folder = os.path.join(BASE_DIR, sub) if sub else BASE_DIR
-        for fname in ("favicon.svg", "favicon.png", "apple-touch-icon.png", "favicon.ico", "og-image.png"):
+        for fname in (
+            "favicon.svg",
+            "favicon.png",
+            "favicon-48x48.png",
+            "favicon-96x96.png",
+            "favicon-144x144.png",
+            "favicon-192x192.png",
+            "favicon-512x512.png",
+            "apple-touch-icon.png",
+            "favicon.ico",
+            "og-image.png",
+        ):
             fpath = os.path.join(folder, fname)
             if not os.path.exists(fpath) or os.path.getsize(fpath) < 100:
                 errors.append(f"Missing or empty binary icon asset: {fpath}")
@@ -237,6 +248,8 @@ def check_favicon_and_og_binary_assets() -> List[str]:
             elif fname.endswith(".ico"):
                 if not raw.startswith(b"\x00\x00\x01\x00") or raw[14:18] == b"\x89PNG":
                     errors.append(f"{fpath} must be an uncompressed 32-bit DIB .ICO (not PNG-in-ICO)")
+                elif raw[6] != 48 or raw[7] != 48:
+                    errors.append(f"{fpath} primary ICO frame must be 48x48 (got {raw[6]}x{raw[7]}); Google Search rejects 16x16 favicons")
     return errors
 
 

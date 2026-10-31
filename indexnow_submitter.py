@@ -18,7 +18,7 @@ from dotenv import load_dotenv
 ROOT_DIR = Path(__file__).resolve().parent
 load_dotenv(dotenv_path=str(ROOT_DIR / ".env"))
 
-INDEXNOW_KEY = "cb78566065a033354720ea9182736455"
+INDEXNOW_KEY = os.getenv("CAMBERDESK_INDEXNOW_KEY", "a4f8e2c91b7d3056e8a12f4c9d0b3e71").strip()
 
 
 def ensure_bimi_on_primary_domain() -> bool:
@@ -48,7 +48,7 @@ def ensure_bimi_on_primary_domain() -> bool:
 
 def submit_sitemap_to_indexnow() -> dict:
     sitemap_path = ROOT_DIR / "sitemap.xml"
-    urls = ["https://camberdesk.com/", "https://camberdesk.com/apis", "https://camberdesk.com/lettings"]
+    urls = ["https://camberdesk.com/", "https://camberdesk.com/apis.html", "https://camberdesk.com/lettings/index.html"]
     if sitemap_path.exists():
         xml = sitemap_path.read_text(encoding="utf-8")
         found = re.findall(r"<loc>(https://camberdesk\.com[^<]+)</loc>", xml)

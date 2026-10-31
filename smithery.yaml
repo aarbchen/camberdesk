@@ -6,7 +6,7 @@ startCommand:
     properties:
       rapidApiKey:
         type: string
-        description: Optional RapidAPI key for routing through RapidAPI Hub; defaults to direct https://camberdesk.com stateless execution.
+        description: Optional RapidAPI key for routing through RapidAPI Hub; defaults to direct https://api.camberdesk.com stateless execution.
   commandFunction: |-
     (config) => ({
       command: 'node',
