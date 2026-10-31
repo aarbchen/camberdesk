@@ -688,11 +688,23 @@ try {
   }
   sandbox.openTrustModal('account');
   sandbox.closeTrustModals();
+  const ansHi = sandbox.buildConciergeAnswer('hi', '');
+  const ansUnsub = sandbox.buildConciergeAnswer('How do I cancel or unsubscribe and get a receipt?', '');
+  const ansSky = sandbox.buildConciergeAnswer('what color is the sky', '');
+  const ansLetting = sandbox.buildConciergeAnswer('Tell me about TXDOT-2026-0914', '');
   const ans50 = sandbox.buildConciergeAnswer('Which 50 State DOT portals are monitored?', '');
   const ansZip = sandbox.buildConciergeAnswer('What is inside the 6-File .ZIP Bid Package?', '');
   const ansUnit = sandbox.buildConciergeAnswer('How do 36-month DOT unit-price bid tabulations work?', '');
   const ansPrice = sandbox.buildConciergeAnswer('How do plans, pricing, and MCP/REST API keys work?', '');
-  if (!ans50 || !ans50.text.includes('52 active public construction portals') || ans50.text === ansZip.text || ansUnit.text === ansPrice.text) {
+  if (!ansHi || !ansHi.text.includes('Welcome to the CamberDesk AI Preconstruction') || ansHi.text.includes('matching live DOT letting')) {
+    throw new Error('buildConciergeAnswer("hi") failed to return welcome greeting');
+  }
+  for (const r of [ansHi, ansUnsub, ansSky, ansLetting, ans50, ansZip, ansUnit, ansPrice]) {
+    if (!r || !r.text || r.text.includes('undefined')) {
+      throw new Error('buildConciergeAnswer() returned empty or undefined in response: ' + (r && r.text));
+    }
+  }
+  if (!ans50.text.includes('52 active public construction portals') || ans50.text === ansZip.text || ansUnit.text === ansPrice.text || ansUnsub.text === ansPrice.text) {
     throw new Error('buildConciergeAnswer() did not return distinct, question-specific answers');
   }
   console.log(JSON.stringify({ ok: true }));

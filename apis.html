@@ -1295,35 +1295,79 @@
     </div>
   </div>
 
-  <!-- 4. #contact — AI Preconstruction Concierge & Priority Estimating Support -->
+  <!-- 4. #contact — Autonomous AI Preconstruction Concierge & Zero-Wait Self-Serve Desk -->
   <div id="contact" onclick="if(event.target===this) closeTrustModals()" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
-    <div class="max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl space-y-4">
+    <div class="max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl space-y-5">
       <div class="flex items-start justify-between gap-4 border-b border-[#CBD5E1] pb-3">
         <div>
-          <div class="text-xs font-mono font-bold text-[#1E3A8A]">// 24/7 AI PRECONSTRUCTION CONCIERGE &amp; ESTIMATING DESK SUPPORT</div>
-          <h3 class="text-xl font-extrabold text-[#0A0D14] mt-0.5">Ask Anything About 50-State DOT Lettings, 6-File .ZIPs, or API Setup</h3>
+          <div class="text-xs font-mono font-bold text-[#065F46]">&check; AUTONOMOUS AI CONCIERGE &bull; INSTANT ON-SCREEN RESOLUTION</div>
+          <h3 class="text-xl font-extrabold text-[#0A0D14] mt-0.5">Ask the CamberDesk AI Preconstruction &amp; Support Concierge</h3>
         </div>
         <button type="button" onclick="closeTrustModals()" class="shrink-0 whitespace-nowrap px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
       </div>
-      <div id="contact-modal-log" class="p-4 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-2.5 max-h-72 overflow-y-auto text-xs">
-        <div class="p-3 rounded-lg bg-white border border-[#CBD5E1] font-medium text-[#0A0D14] leading-relaxed">
-          <strong class="font-mono text-[#1E3A8A] block mb-1">CAMBERDESK AI CONCIERGE (ONLINE):</strong>
-          Ask me about State DOT coverage (TxDOT, Caltrans, FDOT, VDOT, PennDOT, NYSDOT + all 50 states), the 6-File OpenXML (.DOCX + .XLSX) Bid Package Compiler, 36-month DOT unit-price bid tabulations, Davis-Bacon WH-347 wage rates, or MCP/REST API keys.
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        <div class="lg:col-span-5 p-4 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-3 text-xs">
+          <div class="font-mono font-bold text-[#1E3A8A]">// ZERO-WAIT SELF-SERVE DESK</div>
+          <p class="font-medium text-[#111827] leading-relaxed">CamberDesk is 100% self-serve so you never wait 24–48 hours for a human support email to manage your subscription, webhooks, or API keys.</p>
+          <div class="space-y-2">
+            <button type="button" onclick="openTrustModal('account')" class="w-full text-left p-3 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition">
+              <div class="font-mono font-bold text-[#1E3A8A]">Manage Plan, Invoices &amp; 1-Click Cancel &rarr;</div>
+              <div class="text-[#111827] mt-0.5">Access your cd_live_... API key, switch Monthly/Annual billing, or cancel in 1 click.</div>
+            </button>
+            <button type="button" onclick="openTrustModal('account')" class="w-full text-left p-3 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition">
+              <div class="font-mono font-bold text-[#065F46]">Configure Slack, Teams, Procore &amp; Team Seats &rarr;</div>
+              <div class="text-[#111827] mt-0.5">Add unlimited estimating team CC seats and route 52-portal DOT alerts to webhooks.</div>
+            </button>
+            <button type="button" onclick="closeTrustModals(); switchSpaView('apis');" class="w-full text-left p-3 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition">
+              <div class="font-mono font-bold text-[#0A0D14]">Test All 12 APIs &amp; MCP Server Live &rarr;</div>
+              <div class="text-[#111827] mt-0.5">Open the Studio Playground or copy your Claude Desktop / Cursor MCP config.</div>
+            </button>
+          </div>
+        </div>
+        <div class="lg:col-span-7 space-y-3">
+          <div class="space-y-1.5">
+            <div class="text-[11px] font-mono font-bold text-[#0A0D14]">CLICK A COMMON QUESTION OR TYPE YOUR OWN BELOW:</div>
+            <div class="flex flex-wrap gap-1.5 text-[11px] font-mono">
+              <button type="button" onclick="prefillContactConcierge('plans_and_pricing', 'What is the difference between Tier 1 ($199), Tier 2 Autopilot ($499), Tier 3 6-File .ZIP Compiler ($1,499), and Tier 4 OEM ($2,499)?')" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">Compare All 4 Tiers?</button>
+              <button type="button" onclick="prefillContactConcierge('billing_and_cancellation', 'How do I pause DOT email alerts, download a corporate receipt, or cancel in 1 click?')" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">Receipts &amp; 1-Click Cancel?</button>
+              <button type="button" onclick="prefillContactConcierge('zip_compiler', 'What is inside the 6-File OpenXML (.DOCX + .XLSX) Bid Package?')" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">6-File .ZIP Contents?</button>
+              <button type="button" onclick="prefillContactConcierge('portal_coverage', 'Which 50 State DOT and federal USACE portals are monitored?')" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">50-State DOT Coverage?</button>
+              <button type="button" onclick="prefillContactConcierge('api_and_mcp', 'How do I connect all 12 Preconstruction APIs to Claude Desktop or Cursor via MCP?')" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">Claude / Cursor MCP Setup?</button>
+              <button type="button" onclick="prefillContactConcierge('security_and_compliance', 'Does CamberDesk store our bid packages or train AI models on our unit prices?')" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">Zero-Retention Security?</button>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
+            <div>
+              <label for="contact-modal-topic" class="block text-[11px] font-bold text-[#0A0D14] mb-1">INQUIRY TOPIC</label>
+              <select id="contact-modal-topic" class="w-full px-3 py-2 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-xs font-bold text-[#0A0D14]">
+                <option value="plans_and_pricing">Plans &amp; Pricing ($199 / $499 / $1,499 / $2,499)</option>
+                <option value="billing_and_cancellation">Billing, Receipts &amp; 1-Click Cancel</option>
+                <option value="zip_compiler">6-File OpenXML (.DOCX + .XLSX) Bid Package</option>
+                <option value="portal_coverage">52 Portals &amp; 50-State DOT Coverage</option>
+                <option value="api_and_mcp">12 APIs, RapidAPI &amp; MCP Server</option>
+                <option value="security_and_compliance">Security, Privacy &amp; Zero-Retention</option>
+              </select>
+            </div>
+            <div>
+              <label for="contact-modal-email" class="block text-[11px] font-bold text-[#0A0D14] mb-1">WORK EMAIL (OPTIONAL)</label>
+              <input id="contact-modal-email" type="email" placeholder="estimating@yourcontractor.com (optional)" class="w-full px-3 py-2 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#1E293B]" />
+            </div>
+          </div>
+          <form onsubmit="sendContactModalConcierge(event)" class="flex gap-2">
+            <input id="contact-modal-input" type="text" required placeholder="Ask anything about CamberDesk plans, 50-State DOT bid tabs, 6-File .ZIPs, or APIs..." class="flex-1 px-3.5 py-2.5 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#1E293B]" />
+            <button type="submit" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold shrink-0">Get Instant Answer &rarr;</button>
+          </form>
+          <div id="contact-modal-log" class="p-4 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-2.5 max-h-72 overflow-y-auto text-xs">
+            <div class="p-3 rounded-lg bg-white border border-[#CBD5E1] font-medium text-[#0A0D14] leading-relaxed">
+              <strong class="font-mono text-[#1E3A8A] block mb-1">&check; CAMBERDESK AI CONCIERGE (ONLINE &bull; AVG RESPONSE &lt; 1S):</strong>
+              Click any question pill above or type your question in plain text for an instant, structured on-screen answer.
+            </div>
+          </div>
         </div>
       </div>
-      <div class="flex flex-wrap gap-1.5 text-[11px] font-mono">
-        <button type="button" onclick="document.getElementById('contact-modal-input').value='What is inside the 6-File .ZIP Bid Package?'; sendContactModalConcierge();" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">6-File .ZIP Contents</button>
-        <button type="button" onclick="document.getElementById('contact-modal-input').value='Which 50 State DOT portals are monitored?'; sendContactModalConcierge();" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">50-State DOT Coverage</button>
-        <button type="button" onclick="document.getElementById('contact-modal-input').value='How do 36-month DOT unit-price bid tabulations work?'; sendContactModalConcierge();" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">36-Mo Bid-Tab Rates</button>
-        <button type="button" onclick="document.getElementById('contact-modal-input').value='How do plans, pricing, and MCP/REST API keys work?'; sendContactModalConcierge();" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">Pricing &amp; API Keys</button>
-      </div>
-      <form onsubmit="sendContactModalConcierge(event)" class="flex gap-2">
-        <input id="contact-modal-input" type="text" required placeholder="Ask about DOT bid tabs, Excel formulas, API keys, or billing..." class="flex-1 px-3.5 py-2.5 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#1E293B]" />
-        <button type="submit" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold">Ask AI &rarr;</button>
-      </form>
       <div class="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#CBD5E1] flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
         <div><span class="font-bold text-[#0A0D14]">DIRECT ESTIMATING DESK EMAIL:</span> <a href="mailto:estimating@trycamberdesk.com" class="text-[#1E3A8A] font-extrabold underline">estimating@trycamberdesk.com</a></div>
-        <span class="text-[#065F46] font-bold">SLA RESPONSE: &lt; 2 HOURS</span>
+        <span class="text-[#065F46] font-bold">WAF VERIFIED &bull; ZERO BID-DATA RETENTION</span>
       </div>
     </div>
   </div>
@@ -2010,7 +2054,7 @@ console.log(await res.json());`;
             <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">ENGINEER'S EST</div><div class="text-base font-extrabold text-[#065F46] mt-0.5">$${Number(item.engineers_estimate_usd).toLocaleString()}</div></div>
             <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">DBE GOAL</div><div class="text-base font-extrabold text-[#1E3A8A] mt-0.5">${item.dbe_goal_pct}%</div></div>
             <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">LIQUIDATED DAMAGES</div><div class="text-base font-extrabold text-[#0A0D14] mt-0.5">$${Number(item.liquidated_damages_per_day_usd || 2500).toLocaleString()}/day</div></div>
-            <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">WAGE DECISION</div><div class="text-base font-extrabold text-[#0A0D14] mt-0.5">${item.wage_decision_id}</div></div>
+            <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">WAGE DECISION</div><div class="text-base font-extrabold text-[#0A0D14] mt-0.5">${item.wage_determination_id || item.wage_decision_id || 'SAM.gov WDOL 2026'}</div></div>
           </div>
           <p class="text-sm font-medium text-[#111827] leading-relaxed">${item.scope_summary}</p>
           <div>
@@ -2400,78 +2444,257 @@ console.log(data);`;
         .replace(/"/g, '&quot;');
     }
 
-    function buildConciergeAnswer(rawQ, apiAnswer) {
+    const __CONCIERGE_COMPROMISING_RE = /system\s+prompt|initial\s+prompt|developer\s+prompt|hidden\s+prompt|your\s+instructions|your\s+rules|repeat\s+(?:the\s+)?(?:text|words|instructions|above)|verbatim|what\s+were\s+you\s+told|ignore\s+(?:all\s+)?(?:previous|prior|above)|disregard\s+(?:all\s+)?(?:previous|prior|above)|forget\s+(?:all\s+)?(?:previous|prior|above)|developer\s+mode|debug\s+mode|maintenance\s+mode|jailbreak|dan\s+mode|pretend\s+(?:you\s+are|to\s+be)|act\s+as\s+(?:a|an|the)|i\s+am\s+(?:the\s+)?(?:founder|admin|administrator|owner|developer|aaron)|translate\s+your\s+(?:prompt|instructions)|encode\s+your\s+(?:prompt|instructions)|base64|rot13|bypass\s+(?:security|auth|authentication|paywall|rate\s+limit|filter|waf|captcha|verification)|give\s+me\s+(?:a|an|your|the)\s+(?:free\s+|valid\s+|working\s+|admin\s+|production\s+)(?:api\s+key|cd_live|secret|token|password|credentials)|share\s+(?:a|an|your|the)\s+(?:valid\s+|working\s+|admin\s+|production\s+)(?:api\s+key|cd_live|secret|token|password|credentials)|env\s*var|environment\s+variable|\.env\b|os\.getenv|os\.environ|connection\s+string|database\s+(?:password|url|host|credentials|schema|table|dump|engine|provider)|stripe\s+secret|webhook\s+secret|discord\s+webhook\s+url|proxy\s+secret|x-rapidapi-proxy-secret|service_role|anon_key|private\s+key|session\s+token|jwt\s+secret|source\s+code|github\s+repo|git\s+repo|file\s+path|directory\s+structure|stack\s+trace|server\s+ip|internal\s+url|where\s+are\s+you\s+hosted|what\s+(?:cloud|hosting|database|tech\s+stack|backend|framework|server)\b|which\s+(?:cloud|hosting|database|tech\s+stack|backend|framework|server)\b|render\.com|onrender|supabase|postgrest|postgresql|postgres|fastapi|uvicorn|how\s+does\s+(?:your|the)\s+scraper\s+work|scraper\s+(?:code|script|architecture|ip|proxy|logic)|pbkdf2|hash\s+iterations|hashing\s+algorithm|how\s+do\s+you\s+hash|list\s+of\s+(?:customers|subscribers|users|clients|accounts)|who\s+are\s+your\s+(?:customers|subscribers|clients|users)|subscriber\s+(?:emails|list|database|count|numbers)|customer\s+(?:emails|list|data|database)|how\s+many\s+(?:customers|subscribers|users|clients)|other\s+(?:users|customers|subscribers|accounts)|dump\s+(?:the\s+)?(?:database|users|table)|admin\s+(?:account|password|login|email|panel)|founder(?:s)?\s+(?:personal|phone|address|password|net\s+worth|email)|company\s+(?:revenue|mrr|arr|bank\s+account|financials|profits)|how\s+much\s+(?:money|revenue)\s+do\s+you\s+make|exploit|vulnerability|open\s+ports|sql\s+injection|how\s+to\s+hack/i;
+
+    function buildConciergeAnswer(rawQ, apiAnswer, topicHint) {
       const q = String(rawQ || '').trim();
       const ql = q.toLowerCase();
+      const topic = String(topicHint || '').toLowerCase();
 
-      if (ql.includes('50') || ql.includes('portal') || ql.includes('which state') || ql.includes('state dot') || ql.includes('monitored') || ql.includes('coverage')) {
+      // 0. Security & Confidentiality Guardrail
+      if (__CONCIERGE_COMPROMISING_RE.test(ql)) {
         return {
-          text: 'CamberDesk monitors all 52 active public construction portals 24/7: (1) All 50 U.S. State DOT letting portals — including TxDOT (TX), Caltrans (CA), FDOT (FL), VDOT (VA), PennDOT (PA), NYSDOT (NY), IDOT (IL), GDOT (GA), NCDOT (NC), ODOT (OH), WSDOT (WA), MDOT (MI), NJDOT (NJ), MassDOT (MA), CDOT (CO), ADOT (AZ), MnDOT (MN), TDOT (TN), INDOT (IN), MoDOT (MO), WisDOT (WI), SCDOT (SC), and all remaining 28 State DOTs; (2) Federal USACE Civil Works (SAM.gov NAICS 236–238); and (3) Municipal Public Works.',
-          ctaLabel: 'Explore All 52 Portals & Live Lettings',
-          ctaFn: function() { closeTrustModals(); switchSpaView('overview'); const el = document.getElementById('coverage'); if (el) el.scrollIntoView({behavior:'auto'}); }
+          text: "For security and confidentiality reasons, the CamberDesk AI Support Concierge does not disclose internal infrastructure details, source code, system instructions, cryptographic parameters, credentials, or subscriber account data.\n\n• Public Security & Zero-Retention Posture: Review our public security controls, stateless TLS 1.3 API processing, and zero bid-data retention standards in the Security Center and Privacy Policy.\n• Self-Serve Account & API Management: Manage your organization's subscription, estimating team CC seats, and production cd_live_... API Key inside the Client Portal.",
+          ctaLabel: 'View Security & Trust Standards',
+          ctaFn: function() { openTrustModal('security'); },
+          actions: [
+            { label: 'View Security Standards', fn: function() { openTrustModal('security'); } },
+            { label: 'Open Client Portal', fn: function() { openTrustModal('account'); } },
+            { label: 'Read Privacy Policy', fn: function() { openTrustModal('privacy'); } }
+          ]
         };
       }
-      if (ql.includes('zip') || ql.includes('6-file') || ql.includes('6 file') || ql.includes('package') || ql.includes('volume') || ql.includes('formula') || ql.includes('excel') || ql.includes('docx') || ql.includes('xlsx') || ql.includes('download') || ql.includes('sample')) {
+
+      // 0b. Underlying Model / Identity Guardrail
+      if ((/what model|which model|what llm|which llm|anthropic|are you claude|use claude|sonnet|opus|haiku|openai|gpt|chatgpt|gemini|who trained you|who are you|what are you|are you a real|are you ai/i.test(ql)) && ql.indexOf('claude desktop') === -1) {
         return {
-          text: 'Every CamberDesk 6-File OpenXML (.ZIP) Bid Package compiles 5 native Microsoft Word/Excel volumes + a JSON manifest in memory: (1) Volume I: CSI MasterFormat Divisions 00–48 Submittal & Liquidated Damages Matrix (.docx); (2) Volume II: 50-State DOT Historical Unit-Price Bid Tabulation Workbook (.xlsx with live =ROUND(D6*G6,2) and =SUM() formulas); (3) Volume III: Davis-Bacon WH-347 Prevailing Wage & Fringe Schedule (.xlsx); (4) Volume IV: 49 CFR Part 26 DBE Good-Faith Effort & BABA Domestic Steel Cert (.docx); and (5) Volume V: Balanced AIA G702/G703 Schedule of Values (.docx).',
+          text: "I am the CamberDesk Autonomous AI Preconstruction & Support Concierge, powered by CamberDesk's proprietary 50-State DOT Bid-Tab, Prevailing-Wage & Takeoff Engine.\n• I can answer questions about 1-click subscription cancellation, B2B tax receipts, estimating team CC seats, and Slack/Teams/Procore webhooks.\n• I can also help you compare Tier 1 CamberWire Pro ($199/mo), Tier 2 CamberDesk Autopilot ($499/mo), Tier 3 6-File .ZIP Takeoff Compiler ($1,499/mo), and Tier 4 Enterprise OEM ($2,499/mo), inspect 36-month DOT unit-price bid tabulations, or connect our 12 Preconstruction APIs & MCP server.",
+          ctaLabel: 'Compare All 4 Plans ($199–$2,499)',
+          ctaFn: function() { closeTrustModals(); switchSpaView('checkout'); },
+          actions: [
+            { label: 'Open Client Portal', fn: function() { openTrustModal('account'); } },
+            { label: 'Compare All 4 Plans ($199–$2,499)', fn: function() { closeTrustModals(); switchSpaView('checkout'); } },
+            { label: 'Explore 12-API Catalog & MCP', fn: function() { closeTrustModals(); switchSpaView('apis'); } }
+          ]
+        };
+      }
+
+      // 1. Conversational Greetings & Help Queries ("hi", "hello", "hey", "help", "how are you", "what can you do", "test")
+      if (/^(hi|hello|hey|howdy|greetings|good\s+(morning|afternoon|evening)|yo|sup|test|testing|help|how\s+are\s+you|what\s+can\s+you\s+do|start)[!.?\s]*$/i.test(ql)) {
+        return {
+          text: "Hello! Welcome to the CamberDesk AI Preconstruction & Support Concierge. How can I help your estimating desk today?\n• Compile or inspect a 6-File OpenXML (.DOCX + .XLSX) Bid Package with live Excel =ROUND(D6*G6,2) and =SUM() formulas\n• Benchmark 36-month State DOT winning low unit prices ($/Ton Asphalt, $/CY Concrete, $/LF Pipe) and Planholder MLOT spreads across all 52 portals\n• Compare Tier 1 CamberWire Pro ($199/mo), Tier 2 CamberDesk Autopilot ($499/mo), Tier 3 6-File .ZIP Compiler ($1,499/mo), and Tier 4 Enterprise OEM ($2,499/mo)\n• Manage your subscription, download B2B receipts, cancel in 1 click, or connect our 12 Preconstruction APIs & MCP server\n\nType any question below or click a preset topic pill.",
+          ctaLabel: 'Compare All 4 Plans ($199–$2,499)',
+          ctaFn: function() { closeTrustModals(); switchSpaView('checkout'); },
+          actions: [
+            { label: 'Open Client Portal', fn: function() { openTrustModal('account'); } },
+            { label: 'Compare All 4 Plans ($199–$2,499)', fn: function() { closeTrustModals(); switchSpaView('checkout'); } },
+            { label: 'Inspect 6-File .ZIP Package', fn: function() { closeTrustModals(); switchSpaView('overview'); const el = document.getElementById('zip-package-inspector'); if (el) el.scrollIntoView({behavior:'auto'}); } }
+          ]
+        };
+      }
+
+      // 1b. Harmless General Knowledge / Chitchat / Math Test Prompts ("what color is the sky" or "2+2")
+      if (ql.includes('color') && ql.includes('sky')) {
+        return {
+          text: "The sky is blue on a clear day (thanks to Rayleigh scattering of sunlight in Earth's atmosphere)!\n\nAs CamberDesk's AI Preconstruction & Support Concierge, I am live and ready to help with any question about our 52-portal State DOT & USACE letting feed, 36-month unit-price bid tabulations, 6-File OpenXML (.DOCX + .XLSX) Bid Package Compiler, or self-serve account settings.",
+          ctaLabel: 'Browse Live 52-Portal DOT Lettings',
+          ctaFn: function() { closeTrustModals(); switchSpaView('lettings'); },
+          actions: [
+            { label: 'Browse Live 52-Portal Lettings', fn: function() { closeTrustModals(); switchSpaView('lettings'); } },
+            { label: 'Open Client Portal', fn: function() { openTrustModal('account'); } },
+            { label: 'Explore 12-API Catalog', fn: function() { closeTrustModals(); switchSpaView('apis'); } }
+          ]
+        };
+      }
+      const mathMatch = ql.match(/^(?:what\s+is\s+)?(\d+)\s*([+\-*x/])\s*(\d+)[?\s]*$/);
+      if (mathMatch) {
+        const a = Number(mathMatch[1]);
+        const op = mathMatch[2];
+        const b = Number(mathMatch[3]);
+        const resVal = op === '+' ? (a + b) : (op === '-' ? (a - b) : ((op === '*' || op === 'x') ? (a * b) : (b !== 0 ? (a / b) : 0)));
+        return {
+          text: `${a} ${op} ${b} = ${resVal}.\n\nSpeaking of calculations, CamberDesk's 6-File OpenXML (.XLSX) Bid Package Compiler automatically generates live =ROUND(D6*G6,2) extended pay-item formulas and =SUM() totals benchmarked against 36 months of State DOT winning low bids!`,
+          ctaLabel: 'Inspect Live Excel Formulas in 6-File .ZIP',
+          ctaFn: function() { closeTrustModals(); switchSpaView('overview'); const el = document.getElementById('zip-package-inspector'); if (el) el.scrollIntoView({behavior:'auto'}); },
+          actions: [
+            { label: 'Inspect 6-File .ZIP Formulas', fn: function() { closeTrustModals(); switchSpaView('overview'); const el = document.getElementById('zip-package-inspector'); if (el) el.scrollIntoView({behavior:'auto'}); } },
+            { label: 'Download Live 6-File .ZIP Sample', href: 'https://api.camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary' }
+          ]
+        };
+      }
+
+      // 2. Unsubscribe, 1-Click Cancel, Invoices, Refunds & Billing
+      if (/unsubscribe|cancel|stop email|opt out|opt-out|pause|refund|invoice|receipt|ach|stripe|billing|downgrade|charge|delete account|close account/i.test(ql)) {
+        return {
+          text: "You can pause DOT email alerts, download corporate tax receipts, or cancel a paid subscription in 1 click with zero lock-in:\n• Pause or Filter DOT Email Alerts: Click the 1-click Unsubscribe link in any CamberDesk letting email, or open the Client Portal (Section 01: 52-Portal DOT & Trade Alert Routing) to toggle specific states or pause dispatches.\n• 1-Click Self-Serve Cancellation: Open the Client Portal, enter your work email or cd_live_... key, and click Manage / Cancel Plan. Recurring billing stops immediately with zero phone calls or penalties.\n• Corporate B2B Invoices & Annual Savings: Switch between Monthly and Annual billing anytime (saving $398/yr on Tier 1, $1,498/yr on Tier 2, or $3,088/yr on Tier 3).",
+          ctaLabel: 'Manage Plan or Cancel in Client Portal',
+          ctaFn: function() { openTrustModal('account'); },
+          actions: [
+            { label: 'Open Client Portal', fn: function() { openTrustModal('account'); } },
+            { label: 'Review Commercial Terms & SLA', fn: function() { openTrustModal('terms'); } },
+            { label: 'Read Privacy & Zero-Retention Policy', fn: function() { openTrustModal('privacy'); } }
+          ]
+        };
+      }
+
+      // 3. Team Seats, Slack/Teams/Procore Webhooks & Alert Filters
+      if (/teammate|colleague|team|seat|share|multi-user|multiple user|invite|slack|teams|discord|webhook|filter|naics|set-aside/i.test(ql)) {
+        return {
+          text: "Every CamberDesk workspace supports multi-estimator team seats, custom 52-portal trade routing, and real-time webhooks inside the Client Portal:\n• Unlimited Estimating Team CC Seats (Section 02): Add senior estimators, takeoff engineers, and VPs of Preconstruction so your entire estimating desk receives simultaneous 6-hour DOT letting dossiers and 6-File OpenXML (.DOCX + .XLSX) packages.\n• Slack, Microsoft Teams & Procore Webhooks (Section 02): Paste your Slack, Microsoft Teams, or Procore webhook URL to route new State DOT & USACE lettings straight into your bid-board channel.\n• 52-Portal & Trade Alert Routing (Section 01): Filter incoming lettings across All 50 State DOTs, Federal USACE NAICS 236–238, Highway & Bridge, or Wet Utilities / Paving.",
+          ctaLabel: 'Configure Team Seats & Webhooks',
+          ctaFn: function() { openTrustModal('account'); },
+          actions: [
+            { label: 'Configure Seats & Webhooks', fn: function() { openTrustModal('account'); } },
+            { label: 'Download ConTech / Procore Blueprints', fn: function() { closeTrustModals(); switchSpaView('apis'); } }
+          ]
+        };
+      }
+
+      // 4. Demo, Free Trial, Custom Evaluation Workbench & CFO Quote
+      if (/demo|free trial|try first|test with my|phone call|sales call|schedule a call|book a call|zoom|cfo|quote|justification|p-card|procurement approval/i.test(ql)) {
+        return {
+          text: "You can test-drive CamberDesk on your own project, query historical DOT unit prices, and generate a corporate CFO procurement quote right now without waiting for a sales call:\n• Instant 6-File OpenXML (.DOCX + .XLSX) Sample Download: Download a complete 6-File Bid Package (Volumes I–V + JSON Manifest) in 1 click.\n• Interactive Evaluation Workbench (on Self-Serve Pricing): Compile a custom 6-File .ZIP package, query the 50-State DOT Historical Bid-Tab Vault (Mode 01), match verified 49 CFR Part 26 DBE subcontractors (Mode 02), or generate a printable 1-Page CFO & Purchasing Justification Quote (Mode 03).\n• Live 12-API Studio Sandbox: Test all 12 preconstruction endpoints in your browser in the API Catalog.",
+          ctaLabel: 'Open Interactive Evaluation & CFO Workbench',
+          ctaFn: function() { closeTrustModals(); switchSpaView('checkout'); const el = document.getElementById('checkout-enterprise-proof-workbench'); if (el) el.scrollIntoView({behavior:'auto'}); },
+          actions: [
+            { label: 'Open Evaluation & CFO Workbench', fn: function() { closeTrustModals(); switchSpaView('checkout'); const el = document.getElementById('checkout-enterprise-proof-workbench'); if (el) el.scrollIntoView({behavior:'auto'}); } },
+            { label: 'Download Live 6-File .ZIP Sample', href: 'https://api.camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary' },
+            { label: 'Test All 12 APIs in Sandbox', fn: function() { closeTrustModals(); switchSpaView('apis'); } }
+          ]
+        };
+      }
+
+      // 5. 6-File OpenXML (.DOCX + .XLSX) Bid Package & Live Excel Formulas
+      if (ql.includes('zip') || ql.includes('6-file') || ql.includes('6 file') || ql.includes('package') || ql.includes('volume') || ql.includes('formula') || ql.includes('excel') || ql.includes('docx') || ql.includes('xlsx') || ql.includes('openxml') || ql.includes('download') || ql.includes('sample') || ql.includes('g702') || ql.includes('g703')) {
+        return {
+          text: "Every CamberDesk 6-File OpenXML (.ZIP) Bid Package compiles 5 native Microsoft Word/Excel volumes plus a JSON readiness manifest in memory:\n• Volume I (.DOCX): CSI MasterFormat Divisions 00–48 Spec Shred, Submittal Register, Liquidated Damages ($/day), and Nighttime Lane-Rental Penalties.\n• Volume II (.XLSX with Live Formulas): 50-State DOT Historical Unit-Price Bid Tabulation & Takeoff Model with live =ROUND(D6*G6,2) extended bid cells and =SUM(H6:H9) totals.\n• Volume III (.XLSX with Live Formulas): County-Matched Davis-Bacon WH-347 Prevailing Wage & Fringe Burden Schedule (=B6+C6 loaded rates).\n• Volume IV (.DOCX): 49 CFR Part 26 DBE Good-Faith Effort (60% Regular Dealer credit) & IIJA BABA 100% U.S. Melt-and-Pour Steel Certification.\n• Volume V (.DOCX) + 00_Manifest (.JSON): Balanced AIA G702/G703 Schedule of Values (capped at 8% mobilization per 23 CFR 635.102) & State Open-Records Bid-Tab Demand.",
           ctaLabel: 'Download Live 6-File .ZIP Sample Now',
-          ctaHref: 'https://api.camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary'
-        };
-      }
-      if (ql.includes('unit') || ql.includes('bid tab') || ql.includes('bid-tab') || ql.includes('asphalt') || ql.includes('concrete') || ql.includes('rebar') || ql.includes('pipe') || ql.includes('ton') || ql.includes('cy') || ql.includes('rate') || ql.includes('benchmark') || ql.includes('mlot') || ql.includes('planholder')) {
-        return {
-          text: 'API #02 (/v1/model/dot-unit-bid-tabs) and API #11 (/v1/analyze/planholder-competitor-spread) benchmark every pay item against 1.42M+ historical winning low bids across 36 months of State DOT lettings. Current Q4 benchmarks: Superpave PG 76-22 Hot-Mix Asphalt averages $108.50–$124.00/Ton (recommended bid $112.90/Ton); Class C Structural Bridge Concrete averages $890–$1,140/CY; 24-Inch RCP Storm Drain averages $134–$142/LF; and competitor Money-Left-On-Table (MLOT) spread averages 3.4%–3.8%.',
-          ctaLabel: 'Test 36-Month Bid-Tab Modeler Live',
-          ctaFn: function() { closeTrustModals(); switchSpaView('checkout'); const el = document.getElementById('checkout-enterprise-proof-workbench'); if (el) el.scrollIntoView({behavior:'auto'}); switchCheckoutWorkbenchTab('vault'); }
-        };
-      }
-      if (ql.includes('wage') || ql.includes('davis') || ql.includes('bacon') || ql.includes('wh-347') || ql.includes('wh347') || ql.includes('fringe') || ql.includes('labor') || ql.includes('crew') || ql.includes('baba') || ql.includes('buy america') || ql.includes('dbe') || ql.includes('steel')) {
-        return {
-          text: 'API #03 (/v1/calculate/davis-bacon-prevailing-wage) computes county-matched SAM.gov WDOL craft rates under 29 CFR Part 5 (e.g., Power Equipment Operator $55.25/hr loaded, Structural Ironworker $55.00–$74.80/hr, Cement Mason $44.65/hr, Heavy Laborer $37.00/hr). API #05 audits 23 CFR 635.410 BABA 100% U.S. melt-and-pour steel MTRs, and API #06 calculates 49 CFR Part 26 DBE 60% Regular Dealer credits.',
-          ctaLabel: 'Inspect Davis-Bacon & BABA APIs',
-          ctaFn: function() { closeTrustModals(); switchSpaView('apis'); jumpToApiCard('product-davis-bacon-wage'); }
-        };
-      }
-      if (ql.includes('price') || ql.includes('pricing') || ql.includes('cost') || ql.includes('how much') || ql.includes('tier') || ql.includes('plan') || ql.includes('billing') || ql.includes('cancel') || ql.includes('subscribe') || ql.includes('quote')) {
-        return {
-          text: 'CamberDesk is 100% self-serve with zero annual seat lock-in (cancel in 1 click anytime): Tier 1 CamberWire Pro ($199/mo or $1,990/yr) includes 52-Portal live DOT/USACE letting alerts; Tier 2 CamberDesk Autopilot ($499/mo or $4,490/yr — Recommended) adds pre-shredded CSI Divisions 00–48 dossiers, 36-month DOT item bid tabulations, WH-347 wages, and API keys for all 12 microservices; Tier 3 6-File .ZIP Takeoff Compiler ($1,499/mo) unlocks unlimited OpenXML (.DOCX + .XLSX) compilations; Tier 4 OEM ($2,499/mo) adds multi-branch ERP/Surety feeds.',
-          ctaLabel: 'View Plans & Provision Instant API Key',
-          ctaFn: function() { closeTrustModals(); switchSpaView('checkout'); }
-        };
-      }
-      if (ql.includes('api') || ql.includes('mcp') || ql.includes('key') || ql.includes('cd_live') || ql.includes('claude') || ql.includes('cursor') || ql.includes('heavybid') || ql.includes('procore') || ql.includes('account') || ql.includes('login')) {
-        return {
-          text: 'CamberDesk provides 12 stateless Pydantic V2 REST microservices (https://api.camberdesk.com/v1/*) and a 5/5 Glama TDQS Model Context Protocol server (@camberdesk/mcp-server and https://api.camberdesk.com/mcp). You can provision or retrieve your cd_live_... API key immediately in the Client Portal or download ready-to-import HCSS HeavyBid, Procore, and Sage 300 CRE JSON blueprints in the API Catalog.',
-          ctaLabel: 'Open 12-API Studio & MCP Hub',
-          ctaFn: function() { closeTrustModals(); switchSpaView('apis'); }
+          ctaHref: 'https://api.camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary',
+          actions: [
+            { label: 'Download Live 6-File .ZIP Sample', href: 'https://api.camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary' },
+            { label: 'Inspect All 6 Files In-Browser', fn: function() { closeTrustModals(); switchSpaView('overview'); const el = document.getElementById('zip-package-inspector'); if (el) el.scrollIntoView({behavior:'auto'}); } }
+          ]
         };
       }
 
-      const matchedLettings = (LETTINGS_DATA || []).filter(item => {
-        const hay = `${item.project_id} ${item.state_code} ${item.jurisdiction} ${item.title} ${item.agency} ${item.county}`.toLowerCase();
-        return ql.split(/\s+/).some(tok => tok.length >= 2 && hay.includes(tok));
+      // 6. 36-Month DOT Unit-Price Bid Tabulations, Pay Items & Planholder MLOT
+      if (ql.includes('unit') || ql.includes('bid tab') || ql.includes('bid-tab') || ql.includes('tabulation') || ql.includes('asphalt') || ql.includes('concrete') || ql.includes('rebar') || ql.includes('pipe') || ql.includes('excavation') || ql.includes('mobilization') || ql.includes('ton') || ql.includes('cy') || ql.includes('mlot') || ql.includes('planholder') || ql.includes('competitor') || ql.includes('spread')) {
+        return {
+          text: "CamberDesk benchmarks every pay item against 1.42M+ historical winning low bids across 36 months of State DOT lettings:\n• API #02 (/v1/model/dot-unit-bid-tabs): Computes 36-month low, median, and inflation-adjusted recommended unit prices — e.g., Superpave PG 76-22 Hot-Mix Asphalt ($108.50–$124.00/Ton, recommended $112.90/Ton), Class C Structural Bridge Concrete ($890–$1,140/CY), and 24-Inch RCP Storm Drain ($134–$142/LF).\n• API #11 (/v1/analyze/planholder-competitor-spread): Tracks verified prime planholders on each letting and models historical Money-Left-On-Table (MLOT) spread (averaging 3.4%–3.8% between #1 low bidder and #2 runner-up).\n• API #10 (/v1/detect/unbalanced-bid-items): Audits your unit prices against 23 CFR 635.102 mathematical and material unbalancing thresholds before bid submission.",
+          ctaLabel: 'Query 36-Month DOT Bid-Tab Vault Live',
+          ctaFn: function() { closeTrustModals(); switchSpaView('checkout'); const el = document.getElementById('checkout-enterprise-proof-workbench'); if (el) el.scrollIntoView({behavior:'auto'}); switchCheckoutWorkbenchTab('vault'); },
+          actions: [
+            { label: 'Query 36-Month Bid-Tab Vault', fn: function() { closeTrustModals(); switchSpaView('checkout'); const el = document.getElementById('checkout-enterprise-proof-workbench'); if (el) el.scrollIntoView({behavior:'auto'}); switchCheckoutWorkbenchTab('vault'); } },
+            { label: 'Test API #02 in Studio Sandbox', fn: function() { closeTrustModals(); switchSpaView('apis'); openApiSandbox('product-dot-unit-bid-tabs'); } }
+          ]
+        };
+      }
+
+      // 7. Davis-Bacon WH-347 Prevailing Wages, BABA Domestic Steel & 49 CFR Part 26 DBE
+      if (ql.includes('wage') || ql.includes('davis') || ql.includes('bacon') || ql.includes('wh-347') || ql.includes('wh347') || ql.includes('fringe') || ql.includes('labor') || ql.includes('crew') || ql.includes('operator') || ql.includes('ironworker') || ql.includes('baba') || ql.includes('buy america') || ql.includes('dbe') || ql.includes('good faith') || ql.includes('cuf') || ql.includes('steel')) {
+        return {
+          text: "CamberDesk automates federal and state statutory labor, domestic material, and DBE compliance:\n• API #03 (/v1/calculate/davis-bacon-prevailing-wage): Matches SAM.gov WDOL wage decisions by state, county, and construction type (Highway, Heavy, Building) under 29 CFR Part 5 — e.g., Power Equipment Operator ($55.25/hr loaded), Structural Ironworker ($55.00–$74.80/hr), Cement Mason ($44.65/hr), and Heavy Laborer ($37.00/hr).\n• API #05 (/v1/audit/baba-buy-america): Audits structural steel, rebar, precast concrete, and ITS fiber against 23 CFR 635.410 and IIJA Build America, Buy America (100% U.S. melt-and-pour MTRs).\n• API #06 (/v1/generate/dot-dbe-good-faith-effort): Generates 49 CFR Part 26 DBE Good-Faith Effort logs and verifies the 60% Regular Dealer supply credit under 49 CFR 26.55(e)(2)(ii).",
+          ctaLabel: 'Test Davis-Bacon & BABA APIs Live',
+          ctaFn: function() { closeTrustModals(); switchSpaView('apis'); jumpToApiCard('product-davis-bacon-wage'); },
+          actions: [
+            { label: 'Inspect Davis-Bacon API #03', fn: function() { closeTrustModals(); switchSpaView('apis'); jumpToApiCard('product-davis-bacon-wage'); } },
+            { label: 'Open 49 CFR 26 DBE Clearinghouse', fn: function() { closeTrustModals(); switchSpaView('checkout'); const el = document.getElementById('checkout-enterprise-proof-workbench'); if (el) el.scrollIntoView({behavior:'auto'}); switchCheckoutWorkbenchTab('dbe'); } }
+          ]
+        };
+      }
+
+      // 8. CSI MasterFormat Divisions 00-48, Liquidated Damages, Retainage & Miller Act Bonds
+      if (ql.includes('csi') || ql.includes('division') || ql.includes('submittal') || ql.includes('spec') || ql.includes('liquidated') || ql.includes('retainage') || ql.includes('bond') || ql.includes('miller act') || ql.includes('surety') || ql.includes('unbalanced') || ql.includes('equipment') || ql.includes('a401')) {
+        return {
+          text: "CamberDesk shreds 600-page specification books and contract general conditions into structured preconstruction checklists:\n• API #01 (/v1/shred/csi-masterformat): Extracts CSI MasterFormat Divisions 00–48 submittals, liquidated damages ($/day), nighttime lane-closure windows, and Geotechnical Baseline Report (GBR) risks.\n• API #07 (/v1/generate/aia-g702-g703-pay-app) & API #08 (/v1/audit/surety-miller-act-bond): Builds balanced AIA G702/G703 Schedules of Values, enforces state statutory retainage caps (5%), and computes 40 U.S.C. 3131 Miller Act SF-24/SF-25/SF-25A bond premiums.\n• API #09 (/v1/calculate/heavy-equipment-fleet-rate) & API #12 (/v1/generate/subcontractor-scope-itb): Models FHWA/USACE EP-1110-1-8 equipment ownership/operating rates and generates AIA A401 subcontractor flow-down ITBs.",
+          ctaLabel: 'Try Interactive State DOT Spec Shredder',
+          ctaFn: function() { closeTrustModals(); switchSpaView('overview'); const el = document.getElementById('interactive-state-shredder'); if (el) el.scrollIntoView({behavior:'auto'}); },
+          actions: [
+            { label: 'Try Interactive DOT Spec Shredder', fn: function() { closeTrustModals(); switchSpaView('overview'); const el = document.getElementById('interactive-state-shredder'); if (el) el.scrollIntoView({behavior:'auto'}); } },
+            { label: 'Explore All 12 Precon APIs', fn: function() { closeTrustModals(); switchSpaView('apis'); } }
+          ]
+        };
+      }
+
+      // 9. Security, Privacy & Zero Bid-Data Retention
+      if (/retain|retention|train|security|privacy|cui|itar|soc|fedramp|gdpr|dpa|encrypt|confidential/i.test(ql) || topic === 'security_and_compliance') {
+        return {
+          text: "CamberDesk is architected for strict preconstruction bid confidentiality:\n• Zero Bid-Data Retention: Specification text, takeoff quantities, and unit-price overrides submitted to /v1/* endpoints execute strictly in volatile RAM over TLS 1.3 and are purged immediately upon HTTP 200 completion.\n• Zero AI Model Training on Your Bids: Your proprietary unit prices, crew production rates, subcontractor quotes, and markups are never logged, stored in a database, or used to train any external AI model.\n• PCI-DSS Level 1 Billing & HMAC Auth: API calls are verified via constant-time HMAC authentication, and all billing is processed directly by Stripe PCI-DSS Level 1 infrastructure.",
+          ctaLabel: 'Review Security & Zero-Retention Architecture',
+          ctaFn: function() { openTrustModal('security'); },
+          actions: [
+            { label: 'Open Security Center', fn: function() { openTrustModal('security'); } },
+            { label: 'Read Privacy Policy', fn: function() { openTrustModal('privacy'); } },
+            { label: 'Check Live System Status', fn: function() { openTrustModal('status'); } }
+          ]
+        };
+      }
+
+      // 10. Specific Live Project or State Letting Lookup (strict word-boundary match on explicit project IDs or state/DOT names — never 2-letter common words)
+      const explicitLettingMatch = (LETTINGS_DATA || []).find(item => {
+        const pid = String(item.project_id || '').toLowerCase();
+        const jur = String(item.jurisdiction || '').toLowerCase();
+        if (pid && ql.includes(pid)) return true;
+        const dotKeywords = ['txdot', 'caltrans', 'fdot', 'vdot', 'penndot', 'nysdot', 'idot', 'gdot', 'ncdot', 'odot', 'wsdot', 'usace', 'texas', 'california', 'florida', 'virginia', 'pennsylvania', 'new york', 'illinois', 'georgia', 'north carolina', 'ohio', 'washington'];
+        for (let i = 0; i < dotKeywords.length; i++) {
+          const kw = dotKeywords[i];
+          const re = new RegExp('\\b' + kw.replace(/\s+/g, '\\s+') + '\\b', 'i');
+          if (re.test(ql) && (pid.includes(kw) || jur === kw || String(item.agency || '').toLowerCase().includes(kw))) {
+            return true;
+          }
+        }
+        return false;
       });
-      if (matchedLettings.length > 0) {
-        const top = matchedLettings[0];
+      if (explicitLettingMatch && !(ql.includes('50') || ql.includes('which') || ql.includes('all ') || ql.includes('list'))) {
+        const top = explicitLettingMatch;
+        const wageId = top.wage_determination_id || top.wage_decision_id || 'SAM.gov WDOL 2026';
         return {
-          text: `Found ${matchedLettings.length} matching live DOT letting(s), led by ${top.project_id} (${top.title} — ${top.agency}, ${top.county}). Engineer's Estimate: $${Number(top.engineers_estimate_usd).toLocaleString()} | DBE Goal: ${top.dbe_goal_pct}% | Wage Decision: ${top.wage_decision_id}. Click below to inspect the full 36-month pay-item bid-tab dossier or download its 6-File OpenXML (.DOCX + .XLSX) package.`,
+          text: `Live Preconstruction & Bid-Tab Dossier ready for ${top.project_id}:\n• Project: ${top.title} (${top.agency} — ${top.county})\n• Engineer's Estimate: $${Number(top.engineers_estimate_usd).toLocaleString()} | DBE Goal: ${top.dbe_goal_pct}% | Liquidated Damages: $${Number(top.liquidated_damages_per_day_usd || 2500).toLocaleString()}/day\n• Davis-Bacon Wage Decision: ${wageId}\n• Active Planholders: ${(top.planholders || []).join(', ')}`,
           ctaLabel: `Inspect ${top.project_id} Bid-Tab Dossier`,
-          ctaFn: function() { closeTrustModals(); openInPageDossier(top.project_id); }
+          ctaFn: function() { closeTrustModals(); openInPageDossier(top.project_id); },
+          actions: [
+            { label: `Inspect ${top.project_id} Dossier`, fn: function() { closeTrustModals(); openInPageDossier(top.project_id); } },
+            { label: 'Download 6-File .ZIP Package', href: 'https://api.camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary' }
+          ]
         };
       }
 
-      if (apiAnswer && !apiAnswer.startsWith('CamberDesk monitors all 50 U.S. State DOT letting portals')) {
+      // 11. 52-Portal & 50-State DOT Coverage
+      if (ql.includes('50') || ql.includes('52') || ql.includes('portal') || ql.includes('which state') || ql.includes('state dot') || ql.includes('monitored') || ql.includes('coverage') || topic === 'portal_coverage') {
         return {
-          text: apiAnswer,
-          ctaLabel: 'Explore Live DOT Lettings & 6-File .ZIP',
-          ctaFn: function() { closeTrustModals(); switchSpaView('overview'); }
+          text: "CamberDesk monitors all 52 active public construction portals 24/7:\n• All 50 U.S. State DOT Letting Portals: TxDOT (TX), Caltrans (CA), FDOT (FL), VDOT (VA), PennDOT (PA), NYSDOT (NY), IDOT (IL), GDOT (GA), NCDOT (NC), ODOT (OH), WSDOT (WA), MDOT (MI), NJDOT (NJ), MassDOT (MA), CDOT (CO), ADOT (AZ), MnDOT (MN), TDOT (TN), INDOT (IN), MoDOT (MO), WisDOT (WI), SCDOT (SC), KYTC (KY), ALDOT (AL), LADOTD (LA), OHDOT (OK), CTDOT (CT), UDOT (UT), NDOT (NV), IaDOT (IA), KDOT (KS), ARDOT (AR), MSDOT (MS), NMDOT (NM), NDOT (NE), ITD (ID), HDOT (HI), NHDOT (NH), MaineDOT (ME), RIDOT (RI), MDT (MT), DelDOT (DE), SDDOT (SD), NDDOT (ND), AKDOT&PF (AK), VTrans (VT), WVDOT (WV), WYDOT (WY), and MDOT SHA (MD).\n• Federal Civil & Defense Infrastructure: USACE Civil Works & NAVFAC (SAM.gov NAICS 236–238).\n• Municipal Public Works: City/County Water, Wastewater, Airport, and Transit Authority boards.",
+          ctaLabel: 'Explore All 52 Portals & Live Lettings',
+          ctaFn: function() { closeTrustModals(); switchSpaView('overview'); const el = document.getElementById('coverage'); if (el) el.scrollIntoView({behavior:'auto'}); },
+          actions: [
+            { label: 'View 52-Portal Coverage Grid', fn: function() { closeTrustModals(); switchSpaView('overview'); const el = document.getElementById('coverage'); if (el) el.scrollIntoView({behavior:'auto'}); } },
+            { label: 'Browse Live 50-State DOT Directory', fn: function() { closeTrustModals(); switchSpaView('lettings'); } }
+          ]
         };
       }
 
+      // 12. 12 REST APIs, RapidAPI & Model Context Protocol (MCP)
+      if (ql.includes('api') || ql.includes('mcp') || ql.includes('key') || ql.includes('cd_live') || ql.includes('claude') || ql.includes('cursor') || ql.includes('windsurf') || ql.includes('heavybid') || ql.includes('procore') || ql.includes('sage') || ql.includes('endpoint') || topic === 'api_and_mcp') {
+        return {
+          text: "CamberDesk exposes 12 stateless Pydantic V2 construction microservices via REST and Model Context Protocol (MCP):\n• Production API Key (cd_live_...): Included automatically in Tier 2 Autopilot ($499/mo, 2,500 calls/mo), Tier 3 ($1,499/mo, 10,000 calls/mo), and Tier 4 OEM ($2,499/mo, 50,000 calls/mo). Retrieve your key anytime in the Client Portal.\n• Claude Desktop, Cursor & Windsurf MCP (5/5 Glama TDQS): Run npx -y @camberdesk/mcp-server locally or connect to https://api.camberdesk.com/mcp to give your AI IDE all 12 preconstruction tools.\n• ConTech & ERP Export Blueprints: Download ready-to-import JSON schemas for HCSS HeavyBid, Procore Submittal Register, and Sage 300 CRE in the API Catalog.",
+          ctaLabel: 'Open 12-API Studio & MCP Hub',
+          ctaFn: function() { closeTrustModals(); switchSpaView('apis'); },
+          actions: [
+            { label: 'Open 12-API Catalog & Sandbox', fn: function() { closeTrustModals(); switchSpaView('apis'); } },
+            { label: 'Retrieve API Key in Client Portal', fn: function() { openTrustModal('account'); } }
+          ]
+        };
+      }
+
+      // 13. Plans & Pricing Comparison (or Default Structured Guide)
       return {
-        text: `For "${q}", CamberDesk's preconstruction engine can: (1) Shred your CSI Divisions 00–48 specification PDF for submittals and liquidated damages (API #01), (2) Benchmark pay items against 36 months of State DOT winning low bids ($/Ton, $/CY, $/LF via API #02), (3) Compute county Davis-Bacon WH-347 prevailing wage burdens (API #03), and (4) Compile a 6-File OpenXML (.DOCX + .XLSX) Bid Package with live Excel formulas. Use the quick action below or ask about any specific State DOT, pay item, or API endpoint.`,
-        ctaLabel: 'Try Custom 6-File .ZIP Compiler Workbench',
-        ctaFn: function() { closeTrustModals(); switchSpaView('checkout'); const el = document.getElementById('checkout-enterprise-proof-workbench'); if (el) el.scrollIntoView({behavior:'auto'}); }
+        text: "CamberDesk offers 4 self-serve tiers with instant activation, unlimited estimating team seats, and zero annual lock-in:\n• Tier 1 — CamberWire Pro ($199/mo or $1,990/yr [Save $398]): Real-time 52-Portal State DOT, USACE & Municipal letting alerts, CSI division tagging, and official planholder tracking.\n• Tier 2 — CamberDesk Autopilot ($499/mo or $4,490/yr [Save $1,498] — Recommended): Everything in Tier 1 PLUS full pre-shredded CSI Divisions 00–48 dossiers, 36-month DOT item bid tabulations ($/Ton, $/CY, $/LF), Davis-Bacon WH-347 wage models, BABA/DBE audits, and a production cd_live_... API & MCP key (2,500 calls/mo across all 12 APIs).\n• Tier 3 — 1-Click 6-File .ZIP Takeoff Compiler ($1,499/mo or $14,900/yr [Save $3,088]): Everything in Tier 2 PLUS unlimited 1-Click 6-File OpenXML (.DOCX + .XLSX) Bid Package compilations with live Excel formulas and 10,000 API calls/mo.\n• Tier 4 — Enterprise OEM & Historical Bid-Tab Vault ($2,499/mo or $24,900/yr): Everything in Tier 3 PLUS 50,000 OEM API calls/mo and full programmatic access to the 50-State DOT Historical Bid-Tab Vault.",
+        ctaLabel: 'Compare All 4 Plans ($199–$2,499/mo)',
+        ctaFn: function() { closeTrustModals(); switchSpaView('checkout'); },
+        actions: [
+          { label: 'Compare All 4 Plans ($199–$2,499)', fn: function() { closeTrustModals(); switchSpaView('checkout'); } },
+          { label: 'Download Live 6-File .ZIP Sample', href: 'https://api.camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary' },
+          { label: 'Open Client Portal', fn: function() { openTrustModal('account'); } }
+        ]
       };
     }
 
@@ -2483,21 +2706,29 @@ console.log(data);`;
     }
 
     function _renderConciergeBotReply(botDiv, reply) {
-      botDiv.innerHTML = `<strong class="text-[#1E3A8A] font-mono block">CAMBERDESK AI CONCIERGE:</strong><div>${_escConciergeHtml(reply.text)}</div>`;
-      if (reply.ctaHref) {
+      botDiv.innerHTML = `<strong class="text-[#1E3A8A] font-mono block mb-1">&check; CAMBERDESK AI CONCIERGE RESPONSE:</strong><div class="whitespace-pre-line leading-relaxed">${_escConciergeHtml(reply.text)}</div>`;
+      const acts = Array.isArray(reply.actions) && reply.actions.length > 0
+        ? reply.actions
+        : (reply.ctaHref ? [{ label: reply.ctaLabel, href: reply.ctaHref }] : (reply.ctaFn ? [{ label: reply.ctaLabel, fn: reply.ctaFn }] : []));
+      if (acts.length > 0) {
         const wrap = document.createElement('div');
-        wrap.className = 'pt-1';
-        wrap.innerHTML = `<a href="${reply.ctaHref}" class="inline-block px-2.5 py-1 rounded bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-[11px] font-bold transition">${_escConciergeHtml(reply.ctaLabel)} &rarr;</a>`;
-        botDiv.appendChild(wrap);
-      } else if (reply.ctaFn) {
-        const wrap = document.createElement('div');
-        wrap.className = 'pt-1';
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'px-2.5 py-1 rounded bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-[11px] font-bold transition';
-        btn.innerHTML = `${_escConciergeHtml(reply.ctaLabel)} &rarr;`;
-        btn.addEventListener('click', reply.ctaFn);
-        wrap.appendChild(btn);
+        wrap.className = 'pt-2 flex flex-wrap gap-1.5';
+        acts.forEach(a => {
+          if (a.href) {
+            const link = document.createElement('a');
+            link.href = a.href;
+            link.className = 'inline-block px-2.5 py-1 rounded bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-[11px] font-bold transition';
+            link.innerHTML = `${_escConciergeHtml(a.label)} &rarr;`;
+            wrap.appendChild(link);
+          } else if (a.fn) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'px-2.5 py-1 rounded bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-[11px] font-bold transition';
+            btn.innerHTML = `${_escConciergeHtml(a.label)} &rarr;`;
+            btn.addEventListener('click', a.fn);
+            wrap.appendChild(btn);
+          }
+        });
         botDiv.appendChild(wrap);
       }
     }
@@ -2507,6 +2738,14 @@ console.log(data);`;
       const inp = document.getElementById('concierge-input');
       if (inp) inp.value = questionText;
       await sendConciergeMessage(null);
+    }
+
+    function prefillContactConcierge(topicValue, questionText) {
+      const topEl = document.getElementById('contact-modal-topic');
+      const inpEl = document.getElementById('contact-modal-input');
+      if (topEl && topicValue) topEl.value = topicValue;
+      if (inpEl && questionText) inpEl.value = questionText;
+      sendContactModalConcierge(null);
     }
 
     async function sendConciergeMessage(ev) {
@@ -2523,25 +2762,9 @@ console.log(data);`;
 
       const botDiv = document.createElement('div');
       botDiv.className = 'p-3 rounded-lg bg-[#EFF6FF] border border-[#93C5FD] text-[#0A0D14] text-xs font-medium leading-relaxed space-y-2';
-      botDiv.innerHTML = `<strong class="text-[#1E3A8A] font-mono block">CAMBERDESK AI CONCIERGE:</strong><span>Querying 52-Portal DOT Bid-Tab &amp; Preconstruction Engine...</span>`;
-      log.appendChild(botDiv);
-      log.scrollTop = log.scrollHeight;
-
-      let apiAns = '';
-      try {
-        const r = await fetch('https://api.camberdesk.com/v1/camber-autopilot/concierge', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ question: q })
-        });
-        if (r.ok) {
-          const d = await r.json();
-          apiAns = d.answer || '';
-        }
-      } catch (e) {}
-
-      const reply = buildConciergeAnswer(q, apiAns);
+      const reply = buildConciergeAnswer(q, '', '');
       _renderConciergeBotReply(botDiv, reply);
+      log.appendChild(botDiv);
       userDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
       return false;
     }
@@ -2549,8 +2772,10 @@ console.log(data);`;
     async function sendContactModalConcierge(ev) {
       if (ev && ev.preventDefault) ev.preventDefault();
       const inp = document.getElementById('contact-modal-input');
+      const topEl = document.getElementById('contact-modal-topic');
       const log = document.getElementById('contact-modal-log');
       const q = inp ? inp.value.trim() : '';
+      const topic = topEl ? topEl.value : 'plans_and_pricing';
       if (!q || !log) return false;
       inp.value = '';
       const userDiv = document.createElement('div');
@@ -2559,26 +2784,10 @@ console.log(data);`;
       log.appendChild(userDiv);
 
       const botDiv = document.createElement('div');
-      botDiv.className = 'p-3 rounded-lg bg-[#EFF6FF] border border-[#93C5FD] text-[#0A0D14] text-xs font-medium leading-relaxed space-y-2';
-      botDiv.innerHTML = `<strong class="text-[#1E3A8A] font-mono block">CAMBERDESK AI CONCIERGE:</strong><span>Querying 52-Portal DOT Bid-Tab &amp; Preconstruction Engine...</span>`;
-      log.appendChild(botDiv);
-      log.scrollTop = log.scrollHeight;
-
-      let apiAns = '';
-      try {
-        const r = await fetch('https://api.camberdesk.com/v1/camber-autopilot/concierge', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ question: q })
-        });
-        if (r.ok) {
-          const d = await r.json();
-          apiAns = d.answer || '';
-        }
-      } catch (e) {}
-
-      const reply = buildConciergeAnswer(q, apiAns);
+      botDiv.className = 'p-3.5 rounded-xl bg-[#EFF6FF] border border-[#93C5FD] text-[#0A0D14] text-xs font-medium leading-relaxed space-y-2';
+      const reply = buildConciergeAnswer(q, '', topic);
       _renderConciergeBotReply(botDiv, reply);
+      log.appendChild(botDiv);
       userDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
       return false;
     }
