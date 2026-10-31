@@ -1,0 +1,25 @@
+{
+  "name": "@camberdesk/mcp-server",
+  "version": "1.0.0",
+  "description": "Model Context Protocol (MCP) server for CamberDesk — 50-State DOT Historical Item Bid Tabulation, Davis-Bacon Prevailing Wage (WH-347), CSI MasterFormat Spec Shredder, and BABA/DBE Preconstruction APIs.",
+  "main": "index.js",
+  "bin": {
+    "camberdesk-mcp": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "mcp",
+    "construction",
+    "dot-letting",
+    "bid-tabulation",
+    "davis-bacon",
+    "prevailing-wage",
+    "csi-masterformat",
+    "preconstruction",
+    "aia-g702"
+  ],
+  "license": "MIT"
+}
+

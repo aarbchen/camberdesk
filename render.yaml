@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: camberdesk-api-gateway
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api_gateway.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /v1/health
+    envVars:
+      - key: ANTHROPIC_MODEL
+        value: claude-sonnet-5-5
+      - key: RAPIDAPI_PROXY_SECRET
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+

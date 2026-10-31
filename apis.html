@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CamberDesk API Catalog | 12 Construction, DOT Bid-Tab &amp; Prevailing-Wage Microservices</title>
+  <meta name="description" content="Stateless REST and MCP APIs for CSI MasterFormat specification shredding, 50-State DOT unit-price bid tabulations, Davis-Bacon WH-347 prevailing wages, and AIA G702/G703 schedules of values." />
+  <link rel="icon" type="image/svg+xml" href="lettings/favicon.svg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { color: #0A0D14; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    p, li, td, th, label, span { letter-spacing: -0.005em; }
+    pre, code, textarea { font-variant-ligatures: none; }
+  </style>
+</head>
+<body class="bg-[#FAF8F5] text-[#0A0D14] font-sans antialiased">
+  <header class="sticky top-0 z-40 border-b border-[#CBD5E1] bg-white/95 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" onclick="if(window.switchSpaView && 'index.html'.startsWith('#')) switchSpaView('overview')" class="group inline-flex flex-col">
+      <div class="inline-flex items-center gap-[6px]">
+        <svg viewBox="0 0 64 64" class="w-[23px] h-[23px] shrink-0 -translate-y-[1px]" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#0A0D14" d="M32 8A24 24 0 1 0 56 32H32V8Z"/>
+          <rect x="37" y="11" width="16" height="16" rx="2" fill="#1E3A8A"/>
+        </svg>
+        <span class="text-[23px] font-bold tracking-[-0.035em] text-[#0A0D14] leading-none whitespace-nowrap">CamberDesk</span>
+        <span class="ml-1.5 px-2 py-0.5 text-[11px] font-mono font-bold uppercase tracking-wider rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] leading-none">50-STATE DOT &amp; CIVIL</span>
+      </div>
+      <span class="text-xs font-mono font-semibold text-[#1E3A8A] mt-1">12 STATELESS PRECONSTRUCTION REST & MCP MICROSERVICES</span>
+    </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-bold">
+        <a href="index.html" class="text-[#0A0D14] hover:text-[#1E3A8A]">Overview</a>
+        <a href="lettings/index.html" class="text-[#0A0D14] hover:text-[#1E3A8A]">Live DOT Lettings</a>
+        <a href="apis.html" class="text-[#1E3A8A] font-extrabold">API Catalog</a>
+        <a href="index.html#checkout" class="px-4 py-2 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold transition">Self-Serve Pricing</a>
+      </nav>
+    </div>
+  </header>
+  <main class="max-w-7xl mx-auto px-6 py-12">
+    
+    <div class="space-y-8">
+      <div class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#1E3A8A]">
+            <span>12 LIVE ENDPOINTS</span> &bull; <span>12 MCP TOOLS</span> &bull; <span>5/5 GLAMA TDQS</span>
+          </div>
+          <h2 class="text-2xl font-extrabold text-[#0A0D14] mt-1">Stateless Preconstruction, DOT Bid-Tab &amp; Prevailing-Wage APIs</h2>
+          <p class="text-sm font-medium text-[#111827] mt-1">Connect via REST (<code class="text-[#1E3A8A] font-bold">X-RapidAPI-Proxy-Secret</code> / <code class="text-[#1E3A8A] font-bold">cd_live_...</code>) or Remote Streamable-HTTP MCP (<code class="text-[#1E3A8A] font-bold">/mcp</code>).</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="flex-1">
+            <input id="api-search-input" type="text" oninput="filterApiCatalog(this.value)" placeholder="Filter 12 endpoints..." class="w-full px-3.5 py-2 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-sm font-medium text-[#0A0D14] placeholder-[#1E293B] focus:outline-none focus:border-[#0A0D14]" />
+          </div>
+          <span id="api-modules-count-badge" class="shrink-0 px-3 py-2 rounded-lg bg-[#EAE6DF] border border-[#94A3B8] text-xs font-mono font-bold text-[#0A0D14]">12 / 12 SHOWN</span>
+        </div>
+      </div>
+
+      <!-- In-Page RapidAPI & MCP Studio Playground Modal / Panel -->
+      <div id="api-studio-playground" class="p-6 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-sm space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div class="text-xs font-mono font-bold text-[#0A0D14]">// IN-PAGE PRECONSTRUCTION API STUDIO PLAYGROUND — SELECT MICROSERVICE (12)</div>
+          <select id="sandbox-api-select" onchange="openApiSandbox(this.value)" class="px-3 py-1.5 rounded bg-[#F4F1EA] border border-[#94A3B8] text-xs font-mono font-bold text-[#0A0D14]">
+            <option value="product-csi-masterformat">01 — CSI MasterFormat Divisions 00–48 Spec & Submittal Shredder API</option><option value="product-dot-unit-bid-tabs">02 — 50-State DOT Historical Item Bid Tabulation & Spread Modeler API</option><option value="product-davis-bacon-wage">03 — Davis-Bacon (29 CFR 5) & State Prevailing Wage Fringe Calculator API</option><option value="product-live-lettings">04 — 52-Portal Live State DOT Lettings, USACE & Public Works Feed API</option><option value="product-baba-buy-america">05 — Build America, Buy America (BABA / 23 CFR 635.410) Material Auditor API</option><option value="product-dbe-good-faith">06 — DOT DBE (49 CFR Part 26) Subcontractor & Good Faith Effort Generator API</option><option value="product-aia-g702-g703">07 — AIA G702 / G703 Schedule of Values (SOV) & Retainage Billing API</option><option value="product-surety-miller-act">08 — Miller Act (40 U.S.C. 3131) & Surety Bond Capacity Underwriter API</option><option value="product-rfi-change-order">09 — Construction RFI, Differing Site Conditions & AIA G701 Change Order API</option><option value="product-osha-emr-safety">10 — OSHA 29 CFR 1926, USACE EM 385-1-1 AHA & Insurance EMR Auditor API</option><option value="product-planholder-spread">11 — DOT Planholder List, Competitor Bid Behavior & MLOT Analyzer API</option><option value="product-subcontractor-itb">12 — Trade Subcontractor Invitation to Bid (ITB), Scope Gap & AIA A401 API</option>
+          </select>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div>
+            <div class="text-xs font-mono font-bold text-[#0A0D14] mb-1.5">JSON Request Payload</div>
+            <textarea id="sandbox-req-box" rows="6" class="w-full p-3.5 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#0F172A] leading-relaxed">{
+  "spec_text": "SECTION 01 10 00 SUMMARY: Replace 4 prestressed bridge spans and place 68,000 tons of Item 341 Superpave HMA. Liquidated damages are $4,200/day.",
+  "project_id": "TXDOT-CSJ-0015-13-412",
+  "target_trade": "Heavy Civil / Highway & Bridge"
+}</textarea>
+          </div>
+          <div>
+            <div class="text-xs font-mono font-bold text-[#0A0D14] mb-1.5">Live Structured Response (200 OK)</div>
+            <pre id="sandbox-res-box" class="p-3.5 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#064E3B] leading-relaxed overflow-x-auto">{
+  "status": "success",
+  "project_id": "TXDOT-CSJ-0015-13-412",
+  "liquidated_damages_per_day_usd": 4200,
+  "retainage_terms": "5.0% statutory public works retainage cap",
+  "shredded_csi_divisions": [
+    {
+      "division": "Division 01 \u2014 General Requirements",
+      "mandatory_submittals": [
+        "Baseline Primavera P6 CPM Schedule (15 Days Post-NTP)"
+      ]
+    },
+    {
+      "division": "Division 03/05 \u2014 Concrete & Structural Steel",
+      "mandatory_submittals": [
+        "HPC Class S Mix Design",
+        "AISC Shop Drawings & BABA Mill Certs"
+      ]
+    }
+  ]
+}</pre>
+          </div>
+        </div>
+        <button type="button" onclick="executeSandboxCall()" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Execute Stateless API Call</button>
+      </div>
+
+      <!-- Quick-Jump Directory -->
+      <div id="api-directory-list" style="overflow-anchor: none;" class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+        <a href="#product-csi-masterformat" onclick="jumpToApiCard('product-csi-masterformat')" data-api-row="product-csi-masterformat" class="flex items-center justify-between p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">01</span>
+                <span class="text-sm font-bold text-[#0A0D14]">CSI MasterFormat Divisions 00–48 Spec & Submittal Shredder API</span>
+              </div>
+              <div class="flex items-center gap-2 text-xs font-mono">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/shred/csi-masterformat</span>
+              </div>
+            </a><a href="#product-dot-unit-bid-tabs" onclick="jumpToApiCard('product-dot-unit-bid-tabs')" data-api-row="product-dot-unit-bid-tabs" class="flex items-center justify-between p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">02</span>
+                <span class="text-sm font-bold text-[#0A0D14]">50-State DOT Historical Item Bid Tabulation & Spread Modeler API</span>
+              </div>
+              <div class="flex items-center gap-2 text-xs font-mono">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/model/dot-unit-bid-tabs</span>
+              </div>
+            </a><a href="#product-davis-bacon-wage" onclick="jumpToApiCard('product-davis-bacon-wage')" data-api-row="product-davis-bacon-wage" class="flex items-center justify-between p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">03</span>
+                <span class="text-sm font-bold text-[#0A0D14]">Davis-Bacon (29 CFR 5) & State Prevailing Wage Fringe Calculator API</span>
+              </div>
+              <div class="flex items-center gap-2 text-xs font-mono">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/calculate/davis-bacon-prevailing-wage</span>
+              </div>
+            </a><a href="#product-live-lettings" onclick="jumpToApiCard('product-live-lettings')" data-api-row="product-live-lettings" class="flex items-center justify-between p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">04</span>
+                <span class="text-sm font-bold text-[#0A0D14]">52-Portal Live State DOT Lettings, USACE & Public Works Feed API</span>
+              </div>
+              <div class="flex items-center gap-2 text-xs font-mono">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">GET /v1/lettings/live</span>
+              </div>
+            </a><a href="#product-baba-buy-america" onclick="jumpToApiCard('product-baba-buy-america')" data-api-row="product-baba-buy-america" class="flex items-center justify-between p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">05</span>
+                <span class="text-sm font-bold text-[#0A0D14]">Build America, Buy America (BABA / 23 CFR 635.410) Material Auditor API</span>
+              </div>
+              <div class="flex items-center gap-2 text-xs font-mono">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/audit/baba-buy-america</span>
+              </div>
+            </a><a href="#product-dbe-good-faith" onclick="jumpToApiCard('product-dbe-good-faith')" data-api-row="product-dbe-good-faith" class="flex items-center justify-between p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">06</span>
+                <span class="text-sm font-bold text-[#0A0D14]">DOT DBE (49 CFR Part 26) Subcontractor & Good Faith Effort Generator API</span>
+              </div>
+              <div class="flex items-center gap-2 text-xs font-mono">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/generate/dbe-good-faith-effort</span>
+              </div>
+            </a><a href="#product-aia-g702-g703" onclick="jumpToApiCard('product-aia-g702-g703')" data-api-row="product-aia-g702-g703" class="flex items-center justify-between p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">07</span>
+                <span class="text-sm font-bold text-[#0A0D14]">AIA G702 / G703 Schedule of Values (SOV) & Retainage Billing API</span>
+              </div>
+              <div class="flex items-center gap-2 text-xs font-mono">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/generate/aia-g702-g703-pay-app</span>
+              </div>
+            </a><a href="#product-surety-miller-act" onclick="jumpToApiCard('product-surety-miller-act')" data-api-row="product-surety-miller-act" class="flex items-center justify-between p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">08</span>
+                <span class="text-sm font-bold text-[#0A0D14]">Miller Act (40 U.S.C. 3131) & Surety Bond Capacity Underwriter API</span>
+              </div>
+              <div class="flex items-center gap-2 text-xs font-mono">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/audit/surety-miller-act-bond</span>
+              </div>
+            </a><a href="#product-rfi-change-order" onclick="jumpToApiCard('product-rfi-change-order')" data-api-row="product-rfi-change-order" class="flex items-center justify-between p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">09</span>
+                <span class="text-sm font-bold text-[#0A0D14]">Construction RFI, Differing Site Conditions & AIA G701 Change Order API</span>
+              </div>
+              <div class="flex items-center gap-2 text-xs font-mono">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/generate/rfi-change-order-claim</span>
+              </div>
+            </a><a href="#product-osha-emr-safety" onclick="jumpToApiCard('product-osha-emr-safety')" data-api-row="product-osha-emr-safety" class="flex items-center justify-between p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">10</span>
+                <span class="text-sm font-bold text-[#0A0D14]">OSHA 29 CFR 1926, USACE EM 385-1-1 AHA & Insurance EMR Auditor API</span>
+              </div>
+              <div class="flex items-center gap-2 text-xs font-mono">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/audit/osha-emr-site-safety</span>
+              </div>
+            </a><a href="#product-planholder-spread" onclick="jumpToApiCard('product-planholder-spread')" data-api-row="product-planholder-spread" class="flex items-center justify-between p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">11</span>
+                <span class="text-sm font-bold text-[#0A0D14]">DOT Planholder List, Competitor Bid Behavior & MLOT Analyzer API</span>
+              </div>
+              <div class="flex items-center gap-2 text-xs font-mono">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/analyze/planholder-competitor-spread</span>
+              </div>
+            </a><a href="#product-subcontractor-itb" onclick="jumpToApiCard('product-subcontractor-itb')" data-api-row="product-subcontractor-itb" class="flex items-center justify-between p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm">
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">12</span>
+                <span class="text-sm font-bold text-[#0A0D14]">Trade Subcontractor Invitation to Bid (ITB), Scope Gap & AIA A401 API</span>
+              </div>
+              <div class="flex items-center gap-2 text-xs font-mono">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/generate/subcontractor-scope-itb</span>
+              </div>
+            </a>
+      </div>
+
+      <!-- Full Product Module Cards -->
+      <div id="catalog-modules" style="overflow-anchor: none;" class="space-y-6">
+        <article id="product-csi-masterformat" data-api-card="product-csi-masterformat" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <div class="lg:col-span-7 space-y-4">
+                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                  <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #01 // CSI SPEC SHREDDER</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/shred/csi-masterformat</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: shred_csi_masterformat</span>
+                </div>
+                <h3 class="text-xl font-extrabold text-[#0A0D14]">CSI MasterFormat Divisions 00–48 Spec & Submittal Shredder API</h3>
+                <p class="text-sm font-medium text-[#111827] leading-relaxed">Shreds 500-page Project Manuals and Special Provisions into structured CSI Divisions 00–48 submittal logs, liquidated damages ($/day), retainage caps, and warranty terms.</p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2 text-xs font-mono">
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">BASIC</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$0 / mo</div><div class="text-xs font-semibold text-[#1E293B]">10 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">PRO</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$49 / mo</div><div class="text-xs font-semibold text-[#1E293B]">200 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#EFF6FF] border-2 border-[#1E3A8A]"><div class="text-[#1E3A8A] font-extrabold">ULTRA (REC)</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$149 / mo</div><div class="text-xs font-bold text-[#1E3A8A]">1,000 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">MEGA</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$399 / mo</div><div class="text-xs font-semibold text-[#1E293B]">4,000 calls/mo</div></div>
+                </div>
+                <div class="pt-2 flex flex-wrap gap-3">
+                  <button type="button" onclick="openApiSandbox('product-csi-masterformat')" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
+                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Tier 2 ($499/mo)</a>
+                </div>
+              </div>
+              <div class="lg:col-span-5 space-y-3">
+                <div class="text-xs font-mono font-bold text-[#0A0D14]">// REQUEST &amp; RESPONSE SCHEMA PREVIEW</div>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#0F172A] leading-relaxed overflow-x-auto">{
+  "spec_text": "SECTION 01 10 00 SUMMARY: Replace 4 prestressed bridge spans and place 68,000 tons of Item 341 Superpave HMA. Liquidated damages are $4,200/day.",
+  "project_id": "TXDOT-CSJ-0015-13-412",
+  "target_trade": "Heavy Civil / Highway & Bridge"
+}</pre>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#064E3B] leading-relaxed overflow-x-auto">{
+  "status": "success",
+  "project_id": "TXDOT-CSJ-0015-13-412",
+  "liquidated_damages_per_day_usd": 4200,
+  "retainage_terms": "5.0% statutory public works retainage cap",
+  "shredded_csi_divisions": [
+    {
+      "division": "Division 01 \u2014 General Requirements",
+      "mandatory_submittals": [
+        "Baseline Primavera P6 CPM Schedule (15 Days Post-NTP)"
+      ]
+    },
+    {
+      "division": "Division 03/05 \u2014 Concrete & Structural Steel",
+      "mandatory_submittals": [
+        "HPC Class S Mix Design",
+        "AISC Shop Drawings & BABA Mill Certs"
+      ]
+    }
+  ]
+}</pre>
+              </div>
+            </article><article id="product-dot-unit-bid-tabs" data-api-card="product-dot-unit-bid-tabs" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <div class="lg:col-span-7 space-y-4">
+                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                  <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #02 // DOT UNIT BID TABS</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/model/dot-unit-bid-tabs</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: model_dot_unit_bid_tabs</span>
+                </div>
+                <h3 class="text-xl font-extrabold text-[#0A0D14]">50-State DOT Historical Item Bid Tabulation & Spread Modeler API</h3>
+                <p class="text-sm font-medium text-[#111827] leading-relaxed">Queries 36-month historical State DOT unit bid tabulations by pay item, state, and takeoff quantity to output low/median/75th-percentile unit prices ($/Ton, $/LF, $/CY) and Recommended Unit Bid.</p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2 text-xs font-mono">
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">BASIC</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$0 / mo</div><div class="text-xs font-semibold text-[#1E293B]">10 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">PRO</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$49 / mo</div><div class="text-xs font-semibold text-[#1E293B]">200 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#EFF6FF] border-2 border-[#1E3A8A]"><div class="text-[#1E3A8A] font-extrabold">ULTRA (REC)</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$149 / mo</div><div class="text-xs font-bold text-[#1E3A8A]">1,000 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">MEGA</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$399 / mo</div><div class="text-xs font-semibold text-[#1E293B]">4,000 calls/mo</div></div>
+                </div>
+                <div class="pt-2 flex flex-wrap gap-3">
+                  <button type="button" onclick="openApiSandbox('product-dot-unit-bid-tabs')" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
+                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Tier 2 ($499/mo)</a>
+                </div>
+              </div>
+              <div class="lg:col-span-5 space-y-3">
+                <div class="text-xs font-mono font-bold text-[#0A0D14]">// REQUEST &amp; RESPONSE SCHEMA PREVIEW</div>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#0F172A] leading-relaxed overflow-x-auto">{
+  "state_code": "TX",
+  "pay_item_description": "Dense-Graded Hot-Mix Asphalt (Superpave SP-C PG 76-22)",
+  "unit": "TON",
+  "quantity": 68000
+}</pre>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#064E3B] leading-relaxed overflow-x-auto">{
+  "status": "success",
+  "state_code": "TX",
+  "historical_36mo_lettings_sampled": 42,
+  "unit_price_benchmarks": {
+    "historical_winning_low_unit_usd": 117.59,
+    "historical_median_bid_unit_usd": 127.02,
+    "recommended_competitive_unit_bid_usd": 121.17
+  },
+  "unbalanced_bid_guardrail": "Compliant under 23 CFR 635.102"
+}</pre>
+              </div>
+            </article><article id="product-davis-bacon-wage" data-api-card="product-davis-bacon-wage" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <div class="lg:col-span-7 space-y-4">
+                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                  <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #03 // DAVIS-BACON WH-347</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/calculate/davis-bacon-prevailing-wage</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: calculate_davis_bacon_prevailing_wage</span>
+                </div>
+                <h3 class="text-xl font-extrabold text-[#0A0D14]">Davis-Bacon (29 CFR 5) & State Prevailing Wage Fringe Calculator API</h3>
+                <p class="text-sm font-medium text-[#111827] leading-relaxed">Maps project county and construction type to SAM.gov WDOL / state prevailing wage base hourly rates, health/pension fringes, weighted crew burden, and Form WH-347 certified payroll compliance.</p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2 text-xs font-mono">
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">BASIC</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$0 / mo</div><div class="text-xs font-semibold text-[#1E293B]">10 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">PRO</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$49 / mo</div><div class="text-xs font-semibold text-[#1E293B]">200 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#EFF6FF] border-2 border-[#1E3A8A]"><div class="text-[#1E3A8A] font-extrabold">ULTRA (REC)</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$149 / mo</div><div class="text-xs font-bold text-[#1E3A8A]">1,000 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">MEGA</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$399 / mo</div><div class="text-xs font-semibold text-[#1E293B]">4,000 calls/mo</div></div>
+                </div>
+                <div class="pt-2 flex flex-wrap gap-3">
+                  <button type="button" onclick="openApiSandbox('product-davis-bacon-wage')" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
+                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Tier 2 ($499/mo)</a>
+                </div>
+              </div>
+              <div class="lg:col-span-5 space-y-3">
+                <div class="text-xs font-mono font-bold text-[#0A0D14]">// REQUEST &amp; RESPONSE SCHEMA PREVIEW</div>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#0F172A] leading-relaxed overflow-x-auto">{
+  "state_code": "TX",
+  "county": "Travis County",
+  "construction_type": "Highway",
+  "estimated_crew_hours": 14500
+}</pre>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#064E3B] leading-relaxed overflow-x-auto">{
+  "status": "success",
+  "wage_determination_reference": "TX20260028 (Highway Construction \u2014 29 CFR Part 5)",
+  "weighted_composite_hourly_usd": 54.21,
+  "fully_burdened_crew_hourly_usd": 64.24,
+  "total_estimated_prevailing_labor_usd": 931480.0
+}</pre>
+              </div>
+            </article><article id="product-live-lettings" data-api-card="product-live-lettings" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <div class="lg:col-span-7 space-y-4">
+                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                  <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #04 // 52-PORTAL LETTING FEED</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">GET /v1/lettings/live</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: get_live_dot_lettings</span>
+                </div>
+                <h3 class="text-xl font-extrabold text-[#0A0D14]">52-Portal Live State DOT Lettings, USACE & Public Works Feed API</h3>
+                <p class="text-sm font-medium text-[#111827] leading-relaxed">Exposes pre-vetted heavy-civil, highway, bridge, utility, and commercial construction lettings across all 50 State DOTs, USACE Civil Works, and Municipal portals.</p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2 text-xs font-mono">
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">BASIC</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$0 / mo</div><div class="text-xs font-semibold text-[#1E293B]">10 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">PRO</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$49 / mo</div><div class="text-xs font-semibold text-[#1E293B]">200 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#EFF6FF] border-2 border-[#1E3A8A]"><div class="text-[#1E3A8A] font-extrabold">ULTRA (REC)</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$149 / mo</div><div class="text-xs font-bold text-[#1E3A8A]">1,000 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">MEGA</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$399 / mo</div><div class="text-xs font-semibold text-[#1E293B]">4,000 calls/mo</div></div>
+                </div>
+                <div class="pt-2 flex flex-wrap gap-3">
+                  <button type="button" onclick="openApiSandbox('product-live-lettings')" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
+                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Tier 2 ($499/mo)</a>
+                </div>
+              </div>
+              <div class="lg:col-span-5 space-y-3">
+                <div class="text-xs font-mono font-bold text-[#0A0D14]">// REQUEST &amp; RESPONSE SCHEMA PREVIEW</div>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#0F172A] leading-relaxed overflow-x-auto">{
+  "state": "TX",
+  "limit": 5
+}</pre>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#064E3B] leading-relaxed overflow-x-auto">{
+  "status": "success",
+  "portals_monitored": 52,
+  "count": 12,
+  "lettings": [
+    {
+      "project_id": "TXDOT-CSJ-0015-13-412",
+      "agency": "Texas Department of Transportation (TxDOT)",
+      "engineers_estimate_usd": 18450000.0,
+      "dbe_goal_pct": 11.5
+    }
+  ]
+}</pre>
+              </div>
+            </article><article id="product-baba-buy-america" data-api-card="product-baba-buy-america" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <div class="lg:col-span-7 space-y-4">
+                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                  <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #05 // BABA DOMESTIC STEEL</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/audit/baba-buy-america</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: audit_baba_buy_america</span>
+                </div>
+                <h3 class="text-xl font-extrabold text-[#0A0D14]">Build America, Buy America (BABA / 23 CFR 635.410) Material Auditor API</h3>
+                <p class="text-sm font-medium text-[#111827] leading-relaxed">Audits Bill of Materials (BOM) submittals against federal/FHWA domestic iron, steel, and manufactured product thresholds (>55% US cost) and OMB M-24-02 De Minimis waivers.</p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2 text-xs font-mono">
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">BASIC</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$0 / mo</div><div class="text-xs font-semibold text-[#1E293B]">10 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">PRO</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$49 / mo</div><div class="text-xs font-semibold text-[#1E293B]">200 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#EFF6FF] border-2 border-[#1E3A8A]"><div class="text-[#1E3A8A] font-extrabold">ULTRA (REC)</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$149 / mo</div><div class="text-xs font-bold text-[#1E3A8A]">1,000 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">MEGA</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$399 / mo</div><div class="text-xs font-semibold text-[#1E293B]">4,000 calls/mo</div></div>
+                </div>
+                <div class="pt-2 flex flex-wrap gap-3">
+                  <button type="button" onclick="openApiSandbox('product-baba-buy-america')" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
+                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Tier 2 ($499/mo)</a>
+                </div>
+              </div>
+              <div class="lg:col-span-5 space-y-3">
+                <div class="text-xs font-mono font-bold text-[#0A0D14]">// REQUEST &amp; RESPONSE SCHEMA PREVIEW</div>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#0F172A] leading-relaxed overflow-x-auto">{
+  "project_id": "USACE-W912EP-27-B-0004",
+  "funding_agency": "FHWA / USACE Infrastructure"
+}</pre>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#064E3B] leading-relaxed overflow-x-auto">{
+  "status": "success",
+  "project_id": "USACE-W912EP-27-B-0004",
+  "overall_baba_posture": "COMPLIANT (99.3% Domestic US Melt/Manufacture; 0.7% OMB M-24-02 De Minimis)"
+}</pre>
+              </div>
+            </article><article id="product-dbe-good-faith" data-api-card="product-dbe-good-faith" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <div class="lg:col-span-7 space-y-4">
+                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                  <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #06 // DBE 49 CFR PART 26</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/generate/dbe-good-faith-effort</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: generate_dbe_good_faith_effort</span>
+                </div>
+                <h3 class="text-xl font-extrabold text-[#0A0D14]">DOT DBE (49 CFR Part 26) Subcontractor & Good Faith Effort Generator API</h3>
+                <p class="text-sm font-medium text-[#111827] leading-relaxed">Calculates certified DBE/MBE/WBE participation credit (100% subcontractor vs. 60% regular dealer), verifies Commercially Useful Function (CUF), and builds Good Faith Effort (GFE) logs.</p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2 text-xs font-mono">
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">BASIC</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$0 / mo</div><div class="text-xs font-semibold text-[#1E293B]">10 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">PRO</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$49 / mo</div><div class="text-xs font-semibold text-[#1E293B]">200 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#EFF6FF] border-2 border-[#1E3A8A]"><div class="text-[#1E3A8A] font-extrabold">ULTRA (REC)</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$149 / mo</div><div class="text-xs font-bold text-[#1E3A8A]">1,000 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">MEGA</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$399 / mo</div><div class="text-xs font-semibold text-[#1E293B]">4,000 calls/mo</div></div>
+                </div>
+                <div class="pt-2 flex flex-wrap gap-3">
+                  <button type="button" onclick="openApiSandbox('product-dbe-good-faith')" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
+                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Tier 2 ($499/mo)</a>
+                </div>
+              </div>
+              <div class="lg:col-span-5 space-y-3">
+                <div class="text-xs font-mono font-bold text-[#0A0D14]">// REQUEST &amp; RESPONSE SCHEMA PREVIEW</div>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#0F172A] leading-relaxed overflow-x-auto">{
+  "project_id": "TXDOT-CSJ-0015-13-412",
+  "total_bid_amount_usd": 17850000.0,
+  "dbe_goal_pct": 11.5
+}</pre>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#064E3B] leading-relaxed overflow-x-auto">{
+  "status": "success",
+  "contract_dbe_goal_pct": 11.5,
+  "achieved_dbe_participation_pct": 12.18,
+  "goal_compliance_status": "GOAL MET OR EXCEEDED \u2014 Full responsiveness under 49 CFR 26.53"
+}</pre>
+              </div>
+            </article><article id="product-aia-g702-g703" data-api-card="product-aia-g702-g703" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <div class="lg:col-span-7 space-y-4">
+                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                  <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #07 // AIA G702 / G703 SOV</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/generate/aia-g702-g703-pay-app</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: generate_aia_g702_g703_pay_app</span>
+                </div>
+                <h3 class="text-xl font-extrabold text-[#0A0D14]">AIA G702 / G703 Schedule of Values (SOV) & Retainage Billing API</h3>
+                <p class="text-sm font-medium text-[#111827] leading-relaxed">Converts bid items into a balanced, front-load-compliant AIA Document G702 Application for Payment and G703 Continuation Sheet with retainage math.</p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2 text-xs font-mono">
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">BASIC</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$0 / mo</div><div class="text-xs font-semibold text-[#1E293B]">10 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">PRO</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$49 / mo</div><div class="text-xs font-semibold text-[#1E293B]">200 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#EFF6FF] border-2 border-[#1E3A8A]"><div class="text-[#1E3A8A] font-extrabold">ULTRA (REC)</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$149 / mo</div><div class="text-xs font-bold text-[#1E3A8A]">1,000 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">MEGA</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$399 / mo</div><div class="text-xs font-semibold text-[#1E293B]">4,000 calls/mo</div></div>
+                </div>
+                <div class="pt-2 flex flex-wrap gap-3">
+                  <button type="button" onclick="openApiSandbox('product-aia-g702-g703')" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
+                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Tier 2 ($499/mo)</a>
+                </div>
+              </div>
+              <div class="lg:col-span-5 space-y-3">
+                <div class="text-xs font-mono font-bold text-[#0A0D14]">// REQUEST &amp; RESPONSE SCHEMA PREVIEW</div>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#0F172A] leading-relaxed overflow-x-auto">{
+  "project_id": "TXDOT-CSJ-0015-13-412",
+  "contractor_name": "Webber Civil Constructors LLC",
+  "contract_sum_usd": 17850000.0,
+  "retainage_pct": 5.0
+}</pre>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#064E3B] leading-relaxed overflow-x-auto">{
+  "status": "success",
+  "g702_summary": {
+    "line_1_original_contract_sum_usd": 17850000.0,
+    "line_4_total_completed_and_stored_to_date_usd": 3748500.0,
+    "line_8_current_payment_due_usd": 3561075.0
+  }
+}</pre>
+              </div>
+            </article><article id="product-surety-miller-act" data-api-card="product-surety-miller-act" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <div class="lg:col-span-7 space-y-4">
+                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                  <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #08 // SURETY & MILLER ACT</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/audit/surety-miller-act-bond</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: audit_surety_miller_act_bond</span>
+                </div>
+                <h3 class="text-xl font-extrabold text-[#0A0D14]">Miller Act (40 U.S.C. 3131) & Surety Bond Capacity Underwriter API</h3>
+                <p class="text-sm font-medium text-[#111827] leading-relaxed">Evaluates contractor working capital, net worth, and uncompleted WIP backlog to underwrite Single/Aggregate Surety Bond limits and SF-24/SF-25 bond premiums.</p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2 text-xs font-mono">
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">BASIC</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$0 / mo</div><div class="text-xs font-semibold text-[#1E293B]">10 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">PRO</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$49 / mo</div><div class="text-xs font-semibold text-[#1E293B]">200 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#EFF6FF] border-2 border-[#1E3A8A]"><div class="text-[#1E3A8A] font-extrabold">ULTRA (REC)</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$149 / mo</div><div class="text-xs font-bold text-[#1E3A8A]">1,000 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">MEGA</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$399 / mo</div><div class="text-xs font-semibold text-[#1E293B]">4,000 calls/mo</div></div>
+                </div>
+                <div class="pt-2 flex flex-wrap gap-3">
+                  <button type="button" onclick="openApiSandbox('product-surety-miller-act')" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
+                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Tier 2 ($499/mo)</a>
+                </div>
+              </div>
+              <div class="lg:col-span-5 space-y-3">
+                <div class="text-xs font-mono font-bold text-[#0A0D14]">// REQUEST &amp; RESPONSE SCHEMA PREVIEW</div>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#0F172A] leading-relaxed overflow-x-auto">{
+  "contractor_name": "Apex Civil & Utility Constructors LLC",
+  "current_assets_usd": 4850000.0,
+  "current_liabilities_usd": 2150000.0,
+  "net_worth_equity_usd": 4200000.0,
+  "target_project_bid_usd": 12400000.0
+}</pre>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#064E3B] leading-relaxed overflow-x-auto">{
+  "status": "success",
+  "verified_working_capital_usd": 2700000.0,
+  "single_project_bond_limit_usd": 18900000.0,
+  "aggregate_work_program_limit_usd": 42000000.0,
+  "miller_act_approval_status": "APPROVED FOR BID BOND (SF-24) & 100% PERFORMANCE/PAYMENT BONDS"
+}</pre>
+              </div>
+            </article><article id="product-rfi-change-order" data-api-card="product-rfi-change-order" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <div class="lg:col-span-7 space-y-4">
+                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                  <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #09 // RFI & DSC CLAIMS</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/generate/rfi-change-order-claim</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: generate_rfi_change_order_claim</span>
+                </div>
+                <h3 class="text-xl font-extrabold text-[#0A0D14]">Construction RFI, Differing Site Conditions & AIA G701 Change Order API</h3>
+                <p class="text-sm font-medium text-[#111827] leading-relaxed">Analyzes plan discrepancies and Type I/II differing subsurface conditions (FAR 52.236-2), models Critical Path Time-Impact Analysis (TIA), and prices AIA G701 Change Orders.</p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2 text-xs font-mono">
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">BASIC</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$0 / mo</div><div class="text-xs font-semibold text-[#1E293B]">10 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">PRO</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$49 / mo</div><div class="text-xs font-semibold text-[#1E293B]">200 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#EFF6FF] border-2 border-[#1E3A8A]"><div class="text-[#1E3A8A] font-extrabold">ULTRA (REC)</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$149 / mo</div><div class="text-xs font-bold text-[#1E3A8A]">1,000 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">MEGA</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$399 / mo</div><div class="text-xs font-semibold text-[#1E293B]">4,000 calls/mo</div></div>
+                </div>
+                <div class="pt-2 flex flex-wrap gap-3">
+                  <button type="button" onclick="openApiSandbox('product-rfi-change-order')" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
+                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Tier 2 ($499/mo)</a>
+                </div>
+              </div>
+              <div class="lg:col-span-5 space-y-3">
+                <div class="text-xs font-mono font-bold text-[#0A0D14]">// REQUEST &amp; RESPONSE SCHEMA PREVIEW</div>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#0F172A] leading-relaxed overflow-x-auto">{
+  "project_id": "CALTRANS-04-2Q7404",
+  "issue_summary": "Encountered uncharted 48-inch cast-iron main at Bent 4 micropile elevation -38.0 ft.",
+  "direct_cost_impact_usd": 184500.0,
+  "critical_path_delay_days": 14
+}</pre>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#064E3B] leading-relaxed overflow-x-auto">{
+  "status": "success",
+  "entitlement_basis": "Type I Differing Site Condition (FAR 52.236-2 / DOT Spec 104.02)",
+  "pco_pricing_summary": {
+    "total_aia_g701_change_order_request_usd": 214296.75
+  }
+}</pre>
+              </div>
+            </article><article id="product-osha-emr-safety" data-api-card="product-osha-emr-safety" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <div class="lg:col-span-7 space-y-4">
+                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                  <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #10 // OSHA 1926 & EM 385-1-1</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/audit/osha-emr-site-safety</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: audit_osha_emr_site_safety</span>
+                </div>
+                <h3 class="text-xl font-extrabold text-[#0A0D14]">OSHA 29 CFR 1926, USACE EM 385-1-1 AHA & Insurance EMR Auditor API</h3>
+                <p class="text-sm font-medium text-[#111827] leading-relaxed">Generates trade-specific Activity Hazard Analyses (AHA), Site-Specific Safety Plans (SSSP), and Experience Modification Rate (EMR) bid-eligibility audits.</p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2 text-xs font-mono">
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">BASIC</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$0 / mo</div><div class="text-xs font-semibold text-[#1E293B]">10 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">PRO</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$49 / mo</div><div class="text-xs font-semibold text-[#1E293B]">200 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#EFF6FF] border-2 border-[#1E3A8A]"><div class="text-[#1E3A8A] font-extrabold">ULTRA (REC)</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$149 / mo</div><div class="text-xs font-bold text-[#1E3A8A]">1,000 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">MEGA</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$399 / mo</div><div class="text-xs font-semibold text-[#1E293B]">4,000 calls/mo</div></div>
+                </div>
+                <div class="pt-2 flex flex-wrap gap-3">
+                  <button type="button" onclick="openApiSandbox('product-osha-emr-safety')" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
+                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Tier 2 ($499/mo)</a>
+                </div>
+              </div>
+              <div class="lg:col-span-5 space-y-3">
+                <div class="text-xs font-mono font-bold text-[#0A0D14]">// REQUEST &amp; RESPONSE SCHEMA PREVIEW</div>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#0F172A] leading-relaxed overflow-x-auto">{
+  "project_id": "USACE-W912EP-27-B-0004",
+  "contractor_emr_current": 0.78
+}</pre>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#064E3B] leading-relaxed overflow-x-auto">{
+  "status": "success",
+  "contractor_emr_current": 0.78,
+  "prequalification_eligibility": "TIER-1 PREFERRED (< 0.85 EMR \u2014 Eligible for all USACE & DOT Lettings)"
+}</pre>
+              </div>
+            </article><article id="product-planholder-spread" data-api-card="product-planholder-spread" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <div class="lg:col-span-7 space-y-4">
+                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                  <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #11 // PLANHOLDER & MLOT</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/analyze/planholder-competitor-spread</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: analyze_planholder_competitor_spread</span>
+                </div>
+                <h3 class="text-xl font-extrabold text-[#0A0D14]">DOT Planholder List, Competitor Bid Behavior & MLOT Analyzer API</h3>
+                <p class="text-sm font-medium text-[#111827] leading-relaxed">Analyzes official DOT project planholder lists against historical head-to-head letting results to predict the winning low bid, Margin Left on Table (MLOT), and optimal markup.</p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2 text-xs font-mono">
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">BASIC</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$0 / mo</div><div class="text-xs font-semibold text-[#1E293B]">10 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">PRO</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$49 / mo</div><div class="text-xs font-semibold text-[#1E293B]">200 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#EFF6FF] border-2 border-[#1E3A8A]"><div class="text-[#1E3A8A] font-extrabold">ULTRA (REC)</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$149 / mo</div><div class="text-xs font-bold text-[#1E3A8A]">1,000 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">MEGA</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$399 / mo</div><div class="text-xs font-semibold text-[#1E293B]">4,000 calls/mo</div></div>
+                </div>
+                <div class="pt-2 flex flex-wrap gap-3">
+                  <button type="button" onclick="openApiSandbox('product-planholder-spread')" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
+                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Tier 2 ($499/mo)</a>
+                </div>
+              </div>
+              <div class="lg:col-span-5 space-y-3">
+                <div class="text-xs font-mono font-bold text-[#0A0D14]">// REQUEST &amp; RESPONSE SCHEMA PREVIEW</div>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#0F172A] leading-relaxed overflow-x-auto">{
+  "project_id": "TXDOT-CSJ-0015-13-412",
+  "engineers_estimate_usd": 18450000.0,
+  "planholders": [
+    "Webber LLC",
+    "Granite Construction Inc.",
+    "Jordan Foster Construction LLC",
+    "Lone Star Paving Co.",
+    "Capital Excavation Company"
+  ]
+}</pre>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#064E3B] leading-relaxed overflow-x-auto">{
+  "status": "success",
+  "predicted_winning_low_bid_usd": 16881750.0,
+  "predicted_margin_left_on_table_usd": 523334.25,
+  "recommended_markup_pct": 7.8
+}</pre>
+              </div>
+            </article><article id="product-subcontractor-itb" data-api-card="product-subcontractor-itb" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <div class="lg:col-span-7 space-y-4">
+                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                  <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #12 // SUBCONTRACTOR ITB</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/generate/subcontractor-scope-itb</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: generate_subcontractor_scope_itb</span>
+                </div>
+                <h3 class="text-xl font-extrabold text-[#0A0D14]">Trade Subcontractor Invitation to Bid (ITB), Scope Gap & AIA A401 API</h3>
+                <p class="text-sm font-medium text-[#111827] leading-relaxed">Generates trade-specific Subcontractor Scope Checklists, exclusions to reject, and AIA A401 subcontract flow-down clauses.</p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2 text-xs font-mono">
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">BASIC</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$0 / mo</div><div class="text-xs font-semibold text-[#1E293B]">10 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">PRO</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$49 / mo</div><div class="text-xs font-semibold text-[#1E293B]">200 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#EFF6FF] border-2 border-[#1E3A8A]"><div class="text-[#1E3A8A] font-extrabold">ULTRA (REC)</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$149 / mo</div><div class="text-xs font-bold text-[#1E3A8A]">1,000 calls/mo</div></div>
+                  <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">MEGA</div><div class="text-[#0A0D14] font-extrabold text-sm mt-0.5">$399 / mo</div><div class="text-xs font-semibold text-[#1E293B]">4,000 calls/mo</div></div>
+                </div>
+                <div class="pt-2 flex flex-wrap gap-3">
+                  <button type="button" onclick="openApiSandbox('product-subcontractor-itb')" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
+                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Tier 2 ($499/mo)</a>
+                </div>
+              </div>
+              <div class="lg:col-span-5 space-y-3">
+                <div class="text-xs font-mono font-bold text-[#0A0D14]">// REQUEST &amp; RESPONSE SCHEMA PREVIEW</div>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#0F172A] leading-relaxed overflow-x-auto">{
+  "project_id": "TXDOT-CSJ-0015-13-412",
+  "trade_package": "Division 26 \u2014 Roadway ITS Fiber Duct Bank & High-Mast Illumination",
+  "prime_contractor": "Webber Civil Constructors LLC"
+}</pre>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#064E3B] leading-relaxed overflow-x-auto">{
+  "status": "success",
+  "trade_package": "Division 26 \u2014 Roadway ITS Fiber Duct Bank & High-Mast Illumination",
+  "mandatory_scope_inclusions": [
+    "100% turnkey furnishing, trenching & OTDR testing",
+    "Davis-Bacon WH-347 & BABA compliance"
+  ]
+}</pre>
+              </div>
+            </article>
+      </div>
+
+      <!-- Cross-Catalog Pricing Matrix -->
+      <div class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm space-y-4">
+        <h3 class="text-lg font-extrabold text-[#0A0D14] font-mono">// CROSS-CATALOG RAPIDAPI &amp; MCP PRICING MATRIX (01–12)</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-[#EAE6DF] border-b-2 border-[#94A3B8] text-xs font-mono font-bold text-[#0A0D14]">
+                <th class="py-2.5 px-3">#</th>
+                <th class="py-2.5 px-3">MICROSERVICE</th>
+                <th class="py-2.5 px-3">ENDPOINT</th>
+                <th class="py-2.5 px-3">BASIC</th>
+                <th class="py-2.5 px-3">PRO</th>
+                <th class="py-2.5 px-3">ULTRA</th>
+                <th class="py-2.5 px-3">MEGA</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-[#CBD5E1] text-xs hover:bg-[#F1EFEA]">
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">01</td>
+              <td class="py-3 px-3 font-bold text-[#0A0D14]">CSI MasterFormat Divisions 00–48 Spec & Submittal Shredder API</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#1E3A8A]">POST /v1/shred/csi-masterformat</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#0A0D14]">$0 (10/mo)</td>
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">$49 (200/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#065F46] font-bold">$149 (1,000/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#1E3A8A] font-bold">$399 (4,000/mo)</td>
+            </tr><tr class="border-b border-[#CBD5E1] text-xs hover:bg-[#F1EFEA]">
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">02</td>
+              <td class="py-3 px-3 font-bold text-[#0A0D14]">50-State DOT Historical Item Bid Tabulation & Spread Modeler API</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#1E3A8A]">POST /v1/model/dot-unit-bid-tabs</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#0A0D14]">$0 (10/mo)</td>
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">$49 (200/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#065F46] font-bold">$149 (1,000/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#1E3A8A] font-bold">$399 (4,000/mo)</td>
+            </tr><tr class="border-b border-[#CBD5E1] text-xs hover:bg-[#F1EFEA]">
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">03</td>
+              <td class="py-3 px-3 font-bold text-[#0A0D14]">Davis-Bacon (29 CFR 5) & State Prevailing Wage Fringe Calculator API</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#1E3A8A]">POST /v1/calculate/davis-bacon-prevailing-wage</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#0A0D14]">$0 (10/mo)</td>
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">$49 (200/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#065F46] font-bold">$149 (1,000/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#1E3A8A] font-bold">$399 (4,000/mo)</td>
+            </tr><tr class="border-b border-[#CBD5E1] text-xs hover:bg-[#F1EFEA]">
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">04</td>
+              <td class="py-3 px-3 font-bold text-[#0A0D14]">52-Portal Live State DOT Lettings, USACE & Public Works Feed API</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#1E3A8A]">GET /v1/lettings/live</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#0A0D14]">$0 (10/mo)</td>
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">$49 (200/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#065F46] font-bold">$149 (1,000/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#1E3A8A] font-bold">$399 (4,000/mo)</td>
+            </tr><tr class="border-b border-[#CBD5E1] text-xs hover:bg-[#F1EFEA]">
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">05</td>
+              <td class="py-3 px-3 font-bold text-[#0A0D14]">Build America, Buy America (BABA / 23 CFR 635.410) Material Auditor API</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#1E3A8A]">POST /v1/audit/baba-buy-america</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#0A0D14]">$0 (10/mo)</td>
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">$49 (200/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#065F46] font-bold">$149 (1,000/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#1E3A8A] font-bold">$399 (4,000/mo)</td>
+            </tr><tr class="border-b border-[#CBD5E1] text-xs hover:bg-[#F1EFEA]">
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">06</td>
+              <td class="py-3 px-3 font-bold text-[#0A0D14]">DOT DBE (49 CFR Part 26) Subcontractor & Good Faith Effort Generator API</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#1E3A8A]">POST /v1/generate/dbe-good-faith-effort</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#0A0D14]">$0 (10/mo)</td>
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">$49 (200/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#065F46] font-bold">$149 (1,000/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#1E3A8A] font-bold">$399 (4,000/mo)</td>
+            </tr><tr class="border-b border-[#CBD5E1] text-xs hover:bg-[#F1EFEA]">
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">07</td>
+              <td class="py-3 px-3 font-bold text-[#0A0D14]">AIA G702 / G703 Schedule of Values (SOV) & Retainage Billing API</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#1E3A8A]">POST /v1/generate/aia-g702-g703-pay-app</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#0A0D14]">$0 (10/mo)</td>
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">$49 (200/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#065F46] font-bold">$149 (1,000/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#1E3A8A] font-bold">$399 (4,000/mo)</td>
+            </tr><tr class="border-b border-[#CBD5E1] text-xs hover:bg-[#F1EFEA]">
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">08</td>
+              <td class="py-3 px-3 font-bold text-[#0A0D14]">Miller Act (40 U.S.C. 3131) & Surety Bond Capacity Underwriter API</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#1E3A8A]">POST /v1/audit/surety-miller-act-bond</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#0A0D14]">$0 (10/mo)</td>
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">$49 (200/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#065F46] font-bold">$149 (1,000/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#1E3A8A] font-bold">$399 (4,000/mo)</td>
+            </tr><tr class="border-b border-[#CBD5E1] text-xs hover:bg-[#F1EFEA]">
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">09</td>
+              <td class="py-3 px-3 font-bold text-[#0A0D14]">Construction RFI, Differing Site Conditions & AIA G701 Change Order API</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#1E3A8A]">POST /v1/generate/rfi-change-order-claim</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#0A0D14]">$0 (10/mo)</td>
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">$49 (200/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#065F46] font-bold">$149 (1,000/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#1E3A8A] font-bold">$399 (4,000/mo)</td>
+            </tr><tr class="border-b border-[#CBD5E1] text-xs hover:bg-[#F1EFEA]">
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">10</td>
+              <td class="py-3 px-3 font-bold text-[#0A0D14]">OSHA 29 CFR 1926, USACE EM 385-1-1 AHA & Insurance EMR Auditor API</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#1E3A8A]">POST /v1/audit/osha-emr-site-safety</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#0A0D14]">$0 (10/mo)</td>
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">$49 (200/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#065F46] font-bold">$149 (1,000/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#1E3A8A] font-bold">$399 (4,000/mo)</td>
+            </tr><tr class="border-b border-[#CBD5E1] text-xs hover:bg-[#F1EFEA]">
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">11</td>
+              <td class="py-3 px-3 font-bold text-[#0A0D14]">DOT Planholder List, Competitor Bid Behavior & MLOT Analyzer API</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#1E3A8A]">POST /v1/analyze/planholder-competitor-spread</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#0A0D14]">$0 (10/mo)</td>
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">$49 (200/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#065F46] font-bold">$149 (1,000/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#1E3A8A] font-bold">$399 (4,000/mo)</td>
+            </tr><tr class="border-b border-[#CBD5E1] text-xs hover:bg-[#F1EFEA]">
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">12</td>
+              <td class="py-3 px-3 font-bold text-[#0A0D14]">Trade Subcontractor Invitation to Bid (ITB), Scope Gap & AIA A401 API</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#1E3A8A]">POST /v1/generate/subcontractor-scope-itb</td>
+              <td class="py-3 px-3 font-mono font-semibold text-[#0A0D14]">$0 (10/mo)</td>
+              <td class="py-3 px-3 font-mono font-bold text-[#0A0D14]">$49 (200/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#065F46] font-bold">$149 (1,000/mo)</td>
+              <td class="py-3 px-3 font-mono text-[#1E3A8A] font-bold">$399 (4,000/mo)</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script>
+      window.CATALOG = {"product-csi-masterformat": {"status": "success", "project_id": "TXDOT-CSJ-0015-13-412", "liquidated_damages_per_day_usd": 4200, "retainage_terms": "5.0% statutory public works retainage cap", "shredded_csi_divisions": [{"division": "Division 01 \u2014 General Requirements", "mandatory_submittals": ["Baseline Primavera P6 CPM Schedule (15 Days Post-NTP)"]}, {"division": "Division 03/05 \u2014 Concrete & Structural Steel", "mandatory_submittals": ["HPC Class S Mix Design", "AISC Shop Drawings & BABA Mill Certs"]}]}, "product-dot-unit-bid-tabs": {"status": "success", "state_code": "TX", "historical_36mo_lettings_sampled": 42, "unit_price_benchmarks": {"historical_winning_low_unit_usd": 117.59, "historical_median_bid_unit_usd": 127.02, "recommended_competitive_unit_bid_usd": 121.17}, "unbalanced_bid_guardrail": "Compliant under 23 CFR 635.102"}, "product-davis-bacon-wage": {"status": "success", "wage_determination_reference": "TX20260028 (Highway Construction \u2014 29 CFR Part 5)", "weighted_composite_hourly_usd": 54.21, "fully_burdened_crew_hourly_usd": 64.24, "total_estimated_prevailing_labor_usd": 931480.0}, "product-live-lettings": {"status": "success", "portals_monitored": 52, "count": 12, "lettings": [{"project_id": "TXDOT-CSJ-0015-13-412", "agency": "Texas Department of Transportation (TxDOT)", "engineers_estimate_usd": 18450000.0, "dbe_goal_pct": 11.5}]}, "product-baba-buy-america": {"status": "success", "project_id": "USACE-W912EP-27-B-0004", "overall_baba_posture": "COMPLIANT (99.3% Domestic US Melt/Manufacture; 0.7% OMB M-24-02 De Minimis)"}, "product-dbe-good-faith": {"status": "success", "contract_dbe_goal_pct": 11.5, "achieved_dbe_participation_pct": 12.18, "goal_compliance_status": "GOAL MET OR EXCEEDED \u2014 Full responsiveness under 49 CFR 26.53"}, "product-aia-g702-g703": {"status": "success", "g702_summary": {"line_1_original_contract_sum_usd": 17850000.0, "line_4_total_completed_and_stored_to_date_usd": 3748500.0, "line_8_current_payment_due_usd": 3561075.0}}, "product-surety-miller-act": {"status": "success", "verified_working_capital_usd": 2700000.0, "single_project_bond_limit_usd": 18900000.0, "aggregate_work_program_limit_usd": 42000000.0, "miller_act_approval_status": "APPROVED FOR BID BOND (SF-24) & 100% PERFORMANCE/PAYMENT BONDS"}, "product-rfi-change-order": {"status": "success", "entitlement_basis": "Type I Differing Site Condition (FAR 52.236-2 / DOT Spec 104.02)", "pco_pricing_summary": {"total_aia_g701_change_order_request_usd": 214296.75}}, "product-osha-emr-safety": {"status": "success", "contractor_emr_current": 0.78, "prequalification_eligibility": "TIER-1 PREFERRED (< 0.85 EMR \u2014 Eligible for all USACE & DOT Lettings)"}, "product-planholder-spread": {"status": "success", "predicted_winning_low_bid_usd": 16881750.0, "predicted_margin_left_on_table_usd": 523334.25, "recommended_markup_pct": 7.8}, "product-subcontractor-itb": {"status": "success", "trade_package": "Division 26 \u2014 Roadway ITS Fiber Duct Bank & High-Mast Illumination", "mandatory_scope_inclusions": ["100% turnkey furnishing, trenching & OTDR testing", "Davis-Bacon WH-347 & BABA compliance"]}};
+      window.API_META = {"product-csi-masterformat": {"num": "01", "title": "CSI MasterFormat Divisions 00\u201348 Spec & Submittal Shredder API", "method": "POST", "route": "/v1/shred/csi-masterformat", "mcp_tool": "shred_csi_masterformat", "defaultPayload": {"spec_text": "SECTION 01 10 00 SUMMARY: Replace 4 prestressed bridge spans and place 68,000 tons of Item 341 Superpave HMA. Liquidated damages are $4,200/day.", "project_id": "TXDOT-CSJ-0015-13-412", "target_trade": "Heavy Civil / Highway & Bridge"}}, "product-dot-unit-bid-tabs": {"num": "02", "title": "50-State DOT Historical Item Bid Tabulation & Spread Modeler API", "method": "POST", "route": "/v1/model/dot-unit-bid-tabs", "mcp_tool": "model_dot_unit_bid_tabs", "defaultPayload": {"state_code": "TX", "pay_item_description": "Dense-Graded Hot-Mix Asphalt (Superpave SP-C PG 76-22)", "unit": "TON", "quantity": 68000}}, "product-davis-bacon-wage": {"num": "03", "title": "Davis-Bacon (29 CFR 5) & State Prevailing Wage Fringe Calculator API", "method": "POST", "route": "/v1/calculate/davis-bacon-prevailing-wage", "mcp_tool": "calculate_davis_bacon_prevailing_wage", "defaultPayload": {"state_code": "TX", "county": "Travis County", "construction_type": "Highway", "estimated_crew_hours": 14500}}, "product-live-lettings": {"num": "04", "title": "52-Portal Live State DOT Lettings, USACE & Public Works Feed API", "method": "GET", "route": "/v1/lettings/live", "mcp_tool": "get_live_dot_lettings", "defaultPayload": {"state": "TX", "limit": 5}}, "product-baba-buy-america": {"num": "05", "title": "Build America, Buy America (BABA / 23 CFR 635.410) Material Auditor API", "method": "POST", "route": "/v1/audit/baba-buy-america", "mcp_tool": "audit_baba_buy_america", "defaultPayload": {"project_id": "USACE-W912EP-27-B-0004", "funding_agency": "FHWA / USACE Infrastructure"}}, "product-dbe-good-faith": {"num": "06", "title": "DOT DBE (49 CFR Part 26) Subcontractor & Good Faith Effort Generator API", "method": "POST", "route": "/v1/generate/dbe-good-faith-effort", "mcp_tool": "generate_dbe_good_faith_effort", "defaultPayload": {"project_id": "TXDOT-CSJ-0015-13-412", "total_bid_amount_usd": 17850000.0, "dbe_goal_pct": 11.5}}, "product-aia-g702-g703": {"num": "07", "title": "AIA G702 / G703 Schedule of Values (SOV) & Retainage Billing API", "method": "POST", "route": "/v1/generate/aia-g702-g703-pay-app", "mcp_tool": "generate_aia_g702_g703_pay_app", "defaultPayload": {"project_id": "TXDOT-CSJ-0015-13-412", "contractor_name": "Webber Civil Constructors LLC", "contract_sum_usd": 17850000.0, "retainage_pct": 5.0}}, "product-surety-miller-act": {"num": "08", "title": "Miller Act (40 U.S.C. 3131) & Surety Bond Capacity Underwriter API", "method": "POST", "route": "/v1/audit/surety-miller-act-bond", "mcp_tool": "audit_surety_miller_act_bond", "defaultPayload": {"contractor_name": "Apex Civil & Utility Constructors LLC", "current_assets_usd": 4850000.0, "current_liabilities_usd": 2150000.0, "net_worth_equity_usd": 4200000.0, "target_project_bid_usd": 12400000.0}}, "product-rfi-change-order": {"num": "09", "title": "Construction RFI, Differing Site Conditions & AIA G701 Change Order API", "method": "POST", "route": "/v1/generate/rfi-change-order-claim", "mcp_tool": "generate_rfi_change_order_claim", "defaultPayload": {"project_id": "CALTRANS-04-2Q7404", "issue_summary": "Encountered uncharted 48-inch cast-iron main at Bent 4 micropile elevation -38.0 ft.", "direct_cost_impact_usd": 184500.0, "critical_path_delay_days": 14}}, "product-osha-emr-safety": {"num": "10", "title": "OSHA 29 CFR 1926, USACE EM 385-1-1 AHA & Insurance EMR Auditor API", "method": "POST", "route": "/v1/audit/osha-emr-site-safety", "mcp_tool": "audit_osha_emr_site_safety", "defaultPayload": {"project_id": "USACE-W912EP-27-B-0004", "contractor_emr_current": 0.78}}, "product-planholder-spread": {"num": "11", "title": "DOT Planholder List, Competitor Bid Behavior & MLOT Analyzer API", "method": "POST", "route": "/v1/analyze/planholder-competitor-spread", "mcp_tool": "analyze_planholder_competitor_spread", "defaultPayload": {"project_id": "TXDOT-CSJ-0015-13-412", "engineers_estimate_usd": 18450000.0, "planholders": ["Webber LLC", "Granite Construction Inc.", "Jordan Foster Construction LLC", "Lone Star Paving Co.", "Capital Excavation Company"]}}, "product-subcontractor-itb": {"num": "12", "title": "Trade Subcontractor Invitation to Bid (ITB), Scope Gap & AIA A401 API", "method": "POST", "route": "/v1/generate/subcontractor-scope-itb", "mcp_tool": "generate_subcontractor_scope_itb", "defaultPayload": {"project_id": "TXDOT-CSJ-0015-13-412", "trade_package": "Division 26 \u2014 Roadway ITS Fiber Duct Bank & High-Mast Illumination", "prime_contractor": "Webber Civil Constructors LLC"}}};
+    </script>
+    
+  </main>
+  <script>
+    const LETTINGS_DATA = [{"project_id": "TXDOT-CSJ-0015-13-412", "title": "[TXDOT-CSJ-0015-13-412] IH-35 Corridor Bridge Deck Replacement, Superpave HMA Overlay & ITS Fiber Duct Bank", "agency": "Texas Department of Transportation (TxDOT) \u2014 Austin District", "jurisdiction": "texas", "state_code": "TX", "county": "Travis County, TX", "letting_date": "2026-11-18", "engineers_estimate_usd": 18450000.0, "dbe_goal_pct": 11.5, "liquidated_damages_per_day_usd": 4200, "wage_determination_id": "TX20260028 (Heavy & Highway)", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Concrete", "Div 05 Metals", "Div 26 Electrical / ITS", "Div 31 Earthwork", "Div 32 Exterior Improvements / Paving"], "url": "https://www.txdot.gov/business/letting-bids/letting-schedule.html#TXDOT-CSJ-0015-13-412", "scope_summary": "Full-depth replacement of 4 prestressed concrete girder bridge spans on IH-35, 68,000 tons of Item 341 Dense-Graded Hot-Mix Asphalt (Superpave), 14,200 LF of 36-inch Reinforced Concrete Pipe storm drainage, and 28,500 LF of 4-inch HDPE ITS fiber optic conduit with high-mast LED illumination.", "planholders": ["Webber LLC", "Granite Construction Inc.", "Jordan Foster Construction LLC", "Lone Star Paving Co.", "Capital Excavation Company"], "pay_items": [{"item_code": "341-6008", "description": "Dense-Graded Hot-Mix Asphalt (Superpave SP-C SAC-A PG 76-22)", "unit": "TON", "quantity": 68000, "hist_low_unit_usd": 129.5, "hist_median_unit_usd": 138.75, "recommended_unit_usd": 134.2}, {"item_code": "420-6013", "description": "HPC Structural Concrete Class S (Bridge Deck & Approach Slabs)", "unit": "CY", "quantity": 4850, "hist_low_unit_usd": 910.0, "hist_median_unit_usd": 985.0, "recommended_unit_usd": 948.0}, {"item_code": "464-6008", "description": "Reinforced Concrete Pipe (Class III 36-Inch Storm Sewer)", "unit": "LF", "quantity": 14200, "hist_low_unit_usd": 152.0, "hist_median_unit_usd": 168.5, "recommended_unit_usd": 159.0}, {"item_code": "618-6046", "description": "ITS Conduit (PVC Schedule 80 / Bore 4-Inch Directional)", "unit": "LF", "quantity": 28500, "hist_low_unit_usd": 38.0, "hist_median_unit_usd": 44.5, "recommended_unit_usd": 41.0}, {"item_code": "500-6001", "description": "Mobilization, Bonds & Traffic Control Phasing (Cap 10%)", "unit": "LS", "quantity": 1, "hist_low_unit_usd": 1450000.0, "hist_median_unit_usd": 1620000.0, "recommended_unit_usd": 1525000.0}]}, {"project_id": "CALTRANS-04-2Q7404", "title": "[CALTRANS-04-2Q7404] Route 101 Seismic Bridge Retrofit, Micropile Foundations & Stormwater Pump Station Modernization", "agency": "California Department of Transportation (Caltrans) \u2014 District 4 Bay Area", "jurisdiction": "california", "state_code": "CA", "county": "San Mateo County, CA", "letting_date": "2026-11-20", "engineers_estimate_usd": 24800000.0, "dbe_goal_pct": 18.0, "liquidated_damages_per_day_usd": 6500, "wage_determination_id": "CA20260007 + DIR Northern CA General Prevailing Wage", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Structural Concrete", "Div 05 Structural Steel", "Div 26 Medium-Voltage Electrical", "Div 31 Deep Foundations / Micropiles", "Div 33 Utilities / Pump Station"], "url": "https://ppmoe.dot.ca.gov/des/oe/weekly-ads/oe-project.php?id=04-2Q7404", "scope_summary": "Seismic column casing and structural steel girder retrofit on US-101, installation of 160 high-capacity Type II micropiles, complete replacement of two 480V stormwater pump stations with SCADA telemetry, and Rubberized Hot Mix Asphalt (RHMA-G) resurfacing.", "planholders": ["Flatiron West Inc.", "Myers & Sons Construction LP", "Ghilotti Construction Company", "O.C. Jones & Sons Inc.", "MCM Construction Inc."], "pay_items": [{"item_code": "390137", "description": "Rubberized Hot Mix Asphalt (Gap Graded RHMA-G)", "unit": "TON", "quantity": 42000, "hist_low_unit_usd": 158.0, "hist_median_unit_usd": 172.0, "recommended_unit_usd": 164.5}, {"item_code": "490405", "description": "Drilled & Grouted High-Capacity Micropiles (200-Ton Design Load)", "unit": "LF", "quantity": 19500, "hist_low_unit_usd": 245.0, "hist_median_unit_usd": 278.0, "recommended_unit_usd": 259.0}, {"item_code": "550102", "description": "Structural Steel Column Casing (ASTM A709 Grade 50 Seismic)", "unit": "LB", "quantity": 1450000, "hist_low_unit_usd": 4.1, "hist_median_unit_usd": 4.65, "recommended_unit_usd": 4.32}, {"item_code": "860990", "description": "Stormwater Pump Station 480V MCC, VFD & PLC Telemetry", "unit": "LS", "quantity": 1, "hist_low_unit_usd": 2850000.0, "hist_median_unit_usd": 3190000.0, "recommended_unit_usd": 2980000.0}]}, {"project_id": "FDOT-T4682-FIN-445219", "title": "[FDOT-T4682-FIN-445219] SR-826 Palmetto Expressway Milling, FC-12.5 Friction Course, Mast-Arm Signals & Box Culvert", "agency": "Florida Department of Transportation (FDOT) \u2014 District 6 Miami", "jurisdiction": "florida", "state_code": "FL", "county": "Miami-Dade County, FL", "letting_date": "2026-11-24", "engineers_estimate_usd": 15600000.0, "dbe_goal_pct": 10.65, "liquidated_damages_per_day_usd": 3800, "wage_determination_id": "FL20260119 (Highway Construction)", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Precast Box Culverts", "Div 26 Mast-Arm Traffic Signals", "Div 32 Asphalt Milling & Friction Course", "Div 33 Storm Drainage"], "url": "https://www.fdot.gov/contracts/lettings/dist6-t4682", "scope_summary": "Nighttime milling and resurfacing of 9.4 centerline miles on SR-826 using Polymer-Modified Asphalt PG 76-22 (FC-12.5), installation of 18 hurricane-rated steel mast-arm signal assemblies, and 3,400 LF of precast concrete box culvert.", "planholders": ["Halley Engineering Contractors Inc.", "Ranger Construction Industries", "General Asphalt Co. LLC", "OHL USA / Community Asphalt", "de Moya Group Inc."], "pay_items": [{"item_code": "0337-7-82", "description": "Asphalt Concrete Friction Course (Traffic C FC-12.5 PG 76-22)", "unit": "TON", "quantity": 54000, "hist_low_unit_usd": 144.0, "hist_median_unit_usd": 156.0, "recommended_unit_usd": 149.25}, {"item_code": "0410-70", "description": "Precast Reinforced Concrete Box Culvert (10 ft x 6 ft)", "unit": "LF", "quantity": 3400, "hist_low_unit_usd": 1120.0, "hist_median_unit_usd": 1245.0, "recommended_unit_usd": 1175.0}, {"item_code": "0649-21-15", "description": "Steel Mast Arm Assembly (170 MPH Wind Load Rating)", "unit": "EA", "quantity": 18, "hist_low_unit_usd": 78500.0, "hist_median_unit_usd": 86000.0, "recommended_unit_usd": 81500.0}]}, {"project_id": "VDOT-C00118942B01", "title": "[VDOT-C00118942B01] I-64 / Route 288 Interchange Diverging Diamond, Retaining Walls & Ductile Iron Water Main Relocation", "agency": "Virginia Department of Transportation (VDOT) \u2014 Richmond District", "jurisdiction": "virginia", "state_code": "VA", "county": "Henrico County, VA", "letting_date": "2026-11-25", "engineers_estimate_usd": 21200000.0, "dbe_goal_pct": 12.0, "liquidated_damages_per_day_usd": 4500, "wage_determination_id": "VA20260084 (Highway & Heavy)", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Concrete MSE Retaining Walls", "Div 26 Roadway Lighting", "Div 31 Earthwork & Rock Excavation", "Div 33 24-Inch Ductile Iron Water Main"], "url": "https://cab.vdot.virginia.gov/letting/C00118942B01", "scope_summary": "Construction of a Diverging Diamond Interchange (DDI) on I-64, 48,000 SF of Mechanically Stabilized Earth (MSE) retaining walls, 11,500 LF of 24-inch Class 52 Ductile Iron potable water main relocation, and full traffic signalization.", "planholders": ["Allan Myers VA Inc.", "Branch Civil Inc.", "Shirley Contracting Company", "W.C. English Construction", "Wagman Heavy Civil Inc."], "pay_items": [{"item_code": "315-0010", "description": "Asphalt Concrete Surface Course Type SM-12.5E", "unit": "TON", "quantity": 61000, "hist_low_unit_usd": 126.0, "hist_median_unit_usd": 135.5, "recommended_unit_usd": 130.25}, {"item_code": "510-0040", "description": "Mechanically Stabilized Earth (MSE) Precast Panel Retaining Wall", "unit": "SF", "quantity": 48000, "hist_low_unit_usd": 74.0, "hist_median_unit_usd": 83.0, "recommended_unit_usd": 78.0}, {"item_code": "420-2452", "description": "24-Inch Restrained Joint Ductile Iron Water Main (Class 52)", "unit": "LF", "quantity": 11500, "hist_low_unit_usd": 285.0, "hist_median_unit_usd": 318.0, "recommended_unit_usd": 298.0}]}, {"project_id": "PENNDOT-ECMS-119408", "title": "[PENNDOT-ECMS-119408] I-76 Schuylkill Expressway Viaduct Steel Girder Repair, Latex-Modified Concrete Overlay & Sign Structures", "agency": "Pennsylvania Department of Transportation (PennDOT) \u2014 Engineering District 6-0", "jurisdiction": "pennsylvania", "state_code": "PA", "county": "Montgomery County, PA", "letting_date": "2026-11-19", "engineers_estimate_usd": 19750000.0, "dbe_goal_pct": 13.0, "liquidated_damages_per_day_usd": 4800, "wage_determination_id": "PA20260004 (Heavy & Highway Building)", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Latex-Modified Concrete", "Div 05 Structural Steel Repair", "Div 09 Bridge Coating SSPC-SP10", "Div 26 Overhead Sign Structures"], "url": "https://www.ecms.penndot.gov/ECMS/Project119408", "scope_summary": "Structural steel diaphragm and flange repair on I-76 viaduct, hydrodemolition and placement of 38,000 SY of Latex-Modified Concrete (LMC) deck wearing surface, SSPC-SP10 near-white metal blast painting, and 9 overhead cantilever sign structures.", "planholders": ["J.D. Eckman Inc.", "Driscoll Construction Co.", "Walsh Construction Company II", "H&K Group Inc.", "Buckley & Company Inc."], "pay_items": [{"item_code": "1041-0020", "description": "Hydrodemolition & Latex-Modified Concrete (LMC) Wearing Surface", "unit": "SY", "quantity": 38000, "hist_low_unit_usd": 182.0, "hist_median_unit_usd": 198.0, "recommended_unit_usd": 189.0}, {"item_code": "1050-0115", "description": "Fabricated Structural Steel Girder & Diaphragm Retrofit (A709)", "unit": "LB", "quantity": 920000, "hist_low_unit_usd": 5.2, "hist_median_unit_usd": 5.85, "recommended_unit_usd": 5.45}, {"item_code": "0948-0200", "description": "Steel Overhead Cantilever Sign Structure (85 Ft Span)", "unit": "EA", "quantity": 9, "hist_low_unit_usd": 135000.0, "hist_median_unit_usd": 149000.0, "recommended_unit_usd": 141000.0}]}, {"project_id": "NYSDOT-D265314", "title": "[NYSDOT-D265314] I-278 Brooklyn-Queens Expressway Cantilever Deck Rehabilitation, Precast Slabs & Drainage Substitution", "agency": "New York State Department of Transportation (NYSDOT) \u2014 Region 11 NYC", "jurisdiction": "new_york", "state_code": "NY", "county": "Kings County, NY", "letting_date": "2026-11-26", "engineers_estimate_usd": 32400000.0, "dbe_goal_pct": 16.0, "liquidated_damages_per_day_usd": 8500, "wage_determination_id": "NY20260003 + NYSDOL Article 8 Prevailing Wage", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Precast UHPC Concrete", "Div 05 Epoxy Coated Reinforcing Bar", "Div 26 Roadway ITS & CCTV", "Div 32 Nighttime MPT"], "url": "https://www.dot.ny.gov/doing-business/opportunities/const-notices#D265314", "scope_summary": "Accelerated weekend replacement of structural deck bays using Precast Ultra-High Performance Concrete (UHPC) closure pours on I-278, corrosion-inhibited rebar replacement, scupper drainage rehabilitation, and fiber-connected CCTV traffic monitoring.", "planholders": ["Skanska USA Civil Northeast", "Tully Construction Co. Inc.", "Posillico Civil Inc.", "Defoe Corporation", "CAC Industries Inc."], "pay_items": [{"item_code": "557.2002", "description": "Precast High-Performance Concrete Bridge Deck Panels with UHPC Joints", "unit": "SF", "quantity": 74000, "hist_low_unit_usd": 215.0, "hist_median_unit_usd": 238.0, "recommended_unit_usd": 225.0}, {"item_code": "556.0202", "description": "Epoxy-Coated Bar Reinforcement for Structures (Grade 60)", "unit": "LB", "quantity": 1150000, "hist_low_unit_usd": 2.95, "hist_median_unit_usd": 3.3, "recommended_unit_usd": 3.1}, {"item_code": "619.01", "description": "Nighttime Work Zone Traffic Control & Attenuator Trucks", "unit": "LS", "quantity": 1, "hist_low_unit_usd": 4200000.0, "hist_median_unit_usd": 4750000.0, "recommended_unit_usd": 4420000.0}]}, {"project_id": "USACE-W912EP-27-B-0004", "title": "[USACE-W912EP-27-B-0004] Central & Southern Florida C-43 Reservoir Inflow Pump Station, Steel Sheet Piling & 13.8kV Substation", "agency": "U.S. Army Corps of Engineers (USACE) \u2014 Jacksonville District Civil Works", "jurisdiction": "federal", "state_code": "US", "county": "Hendry County, FL", "letting_date": "2026-12-02", "engineers_estimate_usd": 41500000.0, "dbe_goal_pct": 15.0, "liquidated_damages_per_day_usd": 7200, "wage_determination_id": "FL20260045 (USACE Heavy & Dredging / Davis-Bacon)", "naics_code": "237990", "csi_divisions": ["Div 01 USACE EM 385-1-1 Safety & QC", "Div 03 Mass Structural Concrete", "Div 05 Hydraulic Steel Gates", "Div 26 13.8kV Medium-Voltage Switchgear", "Div 31 PZ-35 Steel Sheet Piling", "Div 43 Axial-Flow Flood Pumps"], "url": "https://sam.gov/opp/usace-w912ep-27-b-0004/view", "scope_summary": "Construction of a 1,500 CFS reinforced concrete flood-control inflow pump station, driving 115,000 SF of ASTM A572 Grade 50 steel sheet piling cofferdam, four vertical axial-flow diesel/electric pumps, and a redundant 13.8kV outdoor substation with BABA domestic steel compliance.", "planholders": ["Phillips & Jordan Inc.", "Kiewit Infrastructure South Co.", "Harry Pepper & Associates", "PCL Civil Constructors", "Thalle Construction Co."], "pay_items": [{"item_code": "31-41-16", "description": "Steel Sheet Piling Cofferdam & Cutoff Wall (PZ-35 Grade 50 BABA Compliant)", "unit": "SF", "quantity": 115000, "hist_low_unit_usd": 64.0, "hist_median_unit_usd": 72.5, "recommended_unit_usd": 67.8}, {"item_code": "03-30-00", "description": "Mass Structural Concrete (Pump Station Substructure & Stilling Basin)", "unit": "CY", "quantity": 18500, "hist_low_unit_usd": 780.0, "hist_median_unit_usd": 845.0, "recommended_unit_usd": 810.0}, {"item_code": "43-21-13", "description": "375 CFS Vertical Axial-Flow Flood Control Pump & 13.8kV Drive Assembly", "unit": "EA", "quantity": 4, "hist_low_unit_usd": 3150000.0, "hist_median_unit_usd": 3480000.0, "recommended_unit_usd": 3290000.0}]}, {"project_id": "IDOT-62R45-CONTRACT", "title": "[IDOT-62R45-CONTRACT] I-90 Kennedy Expressway Reversible Lane Gate Systems, PCC Pavement Patching & Retaining Wall Anchors", "agency": "Illinois Department of Transportation (IDOT) \u2014 District 1 Schaumburg", "jurisdiction": "illinois", "state_code": "IL", "county": "Cook County, IL", "letting_date": "2026-11-21", "engineers_estimate_usd": 16800000.0, "dbe_goal_pct": 19.0, "liquidated_damages_per_day_usd": 4100, "wage_determination_id": "IL20260009 + IDOL Cook County Prevailing Wage", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Portland Cement Concrete", "Div 26 Reversible Lane PLC & Fiber", "Div 31 Soil Nail & Tieback Anchors", "Div 32 Jointed PCC Pavement"], "url": "https://webapps.illinois.gov/WCTB/ContractDetail/62R45", "scope_summary": "Replacement of automated reversible-lane swing gates and PLC fiber control cabinets on I-90, 29,000 SY of Class B Portland Cement Concrete (PCC) full-depth pavement patching, and 180 permanent grouted tieback rock anchors.", "planholders": ["F.H. Paschen, S.N. Nielsen", "K-Five Construction Corporation", "Plote Construction Inc.", "Lorig Construction Company", "Judlau Contracting Inc."], "pay_items": [{"item_code": "44200970", "description": "Class B Patches, Type IV, 11 Inch (Portland Cement Concrete)", "unit": "SY", "quantity": 29000, "hist_low_unit_usd": 168.0, "hist_median_unit_usd": 184.0, "recommended_unit_usd": 175.0}, {"item_code": "52200840", "description": "Permanent Grouted Tieback Soil/Rock Anchors (Corrosion Protected)", "unit": "EA", "quantity": 180, "hist_low_unit_usd": 6400.0, "hist_median_unit_usd": 7150.0, "recommended_unit_usd": 6720.0}]}, {"project_id": "GDOT-PI-0016842", "title": "[GDOT-PI-0016842] I-285 / I-20 West Interchange Collector-Distributor Flyover, Drilled Shafts & Stone Matrix Asphalt", "agency": "Georgia Department of Transportation (GDOT) \u2014 Metro Atlanta District 7", "jurisdiction": "georgia", "state_code": "GA", "county": "Fulton County, GA", "letting_date": "2026-11-27", "engineers_estimate_usd": 27900000.0, "dbe_goal_pct": 14.0, "liquidated_damages_per_day_usd": 5200, "wage_determination_id": "GA20260212 (Highway Construction)", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Prestressed Concrete Bulb-Tee Beams", "Div 31 72-Inch Drilled Caisson Shafts", "Div 32 Stone Matrix Asphalt (SMA)"], "url": "https://www.bidx.com/ga/proposal?contid=PI0016842", "scope_summary": "Construction of a two-lane collector-distributor flyover ramp on I-285 featuring 72-inch diameter drilled shaft foundations, 84-inch Prestressed Concrete Bulb-Tee girders, and 52,000 tons of 12.5mm Stone Matrix Asphalt (SMA).", "planholders": ["C.W. Matthews Contracting Co.", "Archer Western Construction", "E.R. Snell Contractor Inc.", "Pittman Construction Company"], "pay_items": [{"item_code": "400-3206", "description": "Recycled Asphalt Concrete 12.5 mm Stone Matrix Asphalt (SMA GP 2)", "unit": "TON", "quantity": 52000, "hist_low_unit_usd": 148.0, "hist_median_unit_usd": 161.0, "recommended_unit_usd": 153.5}, {"item_code": "520-2218", "description": "Drilled Caisson Foundations in Rock (72-Inch Diameter)", "unit": "LF", "quantity": 4200, "hist_low_unit_usd": 1420.0, "hist_median_unit_usd": 1580.0, "recommended_unit_usd": 1490.0}]}, {"project_id": "NCDOT-C204891", "title": "[NCDOT-C204891] US-70 Corridor Upgrade to Interstate 42 Standards, Dual Three-Span Bridges & 42-Inch Sanitary Force Main", "agency": "North Carolina Department of Transportation (NCDOT) \u2014 Division 4", "jurisdiction": "north_carolina", "state_code": "NC", "county": "Johnston County, NC", "letting_date": "2026-12-01", "engineers_estimate_usd": 22600000.0, "dbe_goal_pct": 10.0, "liquidated_damages_per_day_usd": 4000, "wage_determination_id": "NC20260065 (Highway & Utility)", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Bridge Substructure", "Div 31 Unclassified Excavation", "Div 33 42-Inch HDPE/DIP Force Main"], "url": "https://connect.ncdot.gov/letting/C204891", "scope_summary": "Grading, drainage, paving, dual 3-span prestressed concrete girder bridges, and 16,400 LF of 42-inch sanitary sewer force main relocation along the future I-42 corridor.", "planholders": ["Barnhill Contracting Company", "S.T. Wooten Corporation", "Fred Smith Company", "Blythe Construction Inc."], "pay_items": [{"item_code": "610-A", "description": "Asphalt Concrete Surface Course Type S9.5C", "unit": "TON", "quantity": 58000, "hist_low_unit_usd": 122.0, "hist_median_unit_usd": 131.5, "recommended_unit_usd": 126.0}, {"item_code": "1520-42", "description": "42-Inch Restrained Joint Force Main Sewer Pipe & Air Release Valves", "unit": "LF", "quantity": 16400, "hist_low_unit_usd": 365.0, "hist_median_unit_usd": 402.0, "recommended_unit_usd": 381.0}]}, {"project_id": "ODOT-PID-114892", "title": "[ODOT-PID-114892] I-71 / I-70 Downtown Ramp Reconstruction, Noise Barrier Walls & 60-Inch Microtunneled Storm Trunk", "agency": "Ohio Department of Transportation (ODOT) \u2014 District 6 Columbus", "jurisdiction": "ohio", "state_code": "OH", "county": "Franklin County, OH", "letting_date": "2026-12-03", "engineers_estimate_usd": 26100000.0, "dbe_goal_pct": 9.5, "liquidated_damages_per_day_usd": 4600, "wage_determination_id": "OH20260001 (Heavy & Highway)", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Noise Barrier Precast Panels", "Div 31 Microtunneling", "Div 33 60-Inch Storm Trunk"], "url": "https://www.dot.state.oh.us/Divisions/ContractAdmin/Contracts/PID114892", "scope_summary": "Reconstruction of I-71/I-70 collector ramps, installation of 62,000 SF of absorptive precast concrete noise barrier walls, and 4,800 LF of 60-inch microtunneled reinforced concrete storm trunk sewer.", "planholders": ["Kokosing Construction Company", "Shelly & Sands Inc.", "Complete General Construction", "Great Lakes Construction Co."], "pay_items": [{"item_code": "611-6000", "description": "60-Inch Microtunneled Reinforced Concrete Jacking Pipe", "unit": "LF", "quantity": 4800, "hist_low_unit_usd": 1890.0, "hist_median_unit_usd": 2120.0, "recommended_unit_usd": 1985.0}, {"item_code": "626-0100", "description": "Precast Concrete Absorptive Noise Barrier Wall & Drilled Post Foundations", "unit": "SF", "quantity": 62000, "hist_low_unit_usd": 58.0, "hist_median_unit_usd": 66.0, "recommended_unit_usd": 61.5}]}, {"project_id": "MUNICIPAL-DFW-WTP-2026-09", "title": "[MUNICIPAL-DFW-WTP-2026-09] Regional 60 MGD Water Treatment Plant Ozone Generator Building, 4160V Switchgear & 54-Inch Yard Piping", "agency": "North Texas Municipal Water District / Public Works Letting", "jurisdiction": "municipal", "state_code": "MU", "county": "Collin County, TX", "letting_date": "2026-12-04", "engineers_estimate_usd": 34500000.0, "dbe_goal_pct": 12.0, "liquidated_damages_per_day_usd": 5500, "wage_determination_id": "TX20260042 (Water/Wastewater Treatment Plant Heavy)", "naics_code": "237110", "csi_divisions": ["Div 01 General Requirements", "Div 03 Watertight Environmental Concrete", "Div 23 Industrial HVAC", "Div 26 4160V Redundant Switchgear", "Div 33 54-Inch Welded Steel Yard Piping", "Div 46 Ozone Disinfection Equipment"], "url": "https://www.demandstar.com/app/bids/MUNICIPAL-DFW-WTP-2026-09", "scope_summary": "Turnkey construction of a 60 MGD liquid oxygen / ozone contactor structure, dual 4160V medium-voltage switchgear lineup, 8,200 LF of 54-inch mortar-lined welded steel yard piping, and Plant PAX SCADA integration.", "planholders": ["Garney Construction", "PC Construction Company", "McCarthy Building Companies", "Archer Western Water", "PLW Waterworks LLC"], "pay_items": [{"item_code": "33-11-54", "description": "54-Inch Mortar-Lined & Tape-Coated Welded Steel Water Pipe (AWWA C200)", "unit": "LF", "quantity": 8200, "hist_low_unit_usd": 740.0, "hist_median_unit_usd": 825.0, "recommended_unit_usd": 778.0}, {"item_code": "26-13-00", "description": "4160V Arc-Resistant Metal-Clad Switchgear & VFD Lineup (BABA Compliant)", "unit": "LS", "quantity": 1, "hist_low_unit_usd": 4650000.0, "hist_median_unit_usd": 5120000.0, "recommended_unit_usd": 4840000.0}]}];
+
+    function switchSpaView(viewName) {
+      document.documentElement.style.scrollBehavior = 'auto';
+      window.scrollTo(0, 0);
+      const views = ['overview', 'apis', 'lettings', 'checkout'];
+      views.forEach(v => {
+        const el = document.getElementById('page-' + v);
+        if (el) el.classList.toggle('hidden', v !== viewName);
+      });
+      if (viewName === 'lettings') renderLettingsRoute('#lettings');
+    }
+
+    function filterMainLettingTable(portalFilter) {
+      const container = document.getElementById('contract-directory');
+      if (container) container.style.minHeight = container.offsetHeight + 'px';
+      const rows = document.querySelectorAll('[data-letting-row]');
+      let shown = 0;
+      rows.forEach(r => {
+        const p = r.getAttribute('data-letting-portal') || '';
+        const match = !portalFilter || portalFilter === 'all' || p === portalFilter;
+        r.style.display = match ? '' : 'none';
+        if (match) shown++;
+      });
+      const badge = document.getElementById('letting-shown-badge');
+      if (badge) badge.textContent = shown + ' PREVIEW LETTINGS SHOWN';
+    }
+
+    function filterApiCatalog(query) {
+      const q = String(query || '').toLowerCase().trim();
+      const cards = document.querySelectorAll('[data-api-card]');
+      const rows = document.querySelectorAll('[data-api-row]');
+      let shown = 0;
+      cards.forEach(c => {
+        const match = !q || c.textContent.toLowerCase().includes(q);
+        c.style.display = match ? '' : 'none';
+        if (match) shown++;
+      });
+      rows.forEach(r => {
+        const match = !q || r.textContent.toLowerCase().includes(q);
+        r.style.display = match ? '' : 'none';
+      });
+      const badge = document.getElementById('api-modules-count-badge');
+      if (badge) badge.textContent = shown + ' / 12 SHOWN';
+    }
+
+    function jumpToApiCard(cardId) {
+      filterApiCatalog('');
+      const el = document.getElementById(cardId);
+      if (el) el.scrollIntoView({ behavior: 'auto' });
+    }
+
+    function openApiSandbox(cardId) {
+      const meta = (window.API_META || {})[cardId];
+      const cat = (window.CATALOG || {})[cardId];
+      if (!meta) return;
+      const sel = document.getElementById('sandbox-api-select');
+      if (sel) sel.value = cardId;
+      const reqBox = document.getElementById('sandbox-req-box');
+      const resBox = document.getElementById('sandbox-res-box');
+      if (reqBox) reqBox.value = JSON.stringify(meta.defaultPayload, null, 2);
+      if (resBox) resBox.textContent = JSON.stringify(cat, null, 2);
+    }
+
+    function executeSandboxCall() {
+      const sel = document.getElementById('sandbox-api-select');
+      const cardId = sel ? sel.value : 'product-csi-masterformat';
+      const cat = (window.CATALOG || {})[cardId] || { status: 'success' };
+      const resBox = document.getElementById('sandbox-res-box');
+      if (resBox) resBox.textContent = JSON.stringify(cat, null, 2);
+    }
+
+    function setCheckoutBilling(mode) {
+      const isAnnual = mode === 'annual';
+      const t1 = document.getElementById('price-tier1');
+      const t2 = document.getElementById('price-tier2');
+      const t3 = document.getElementById('price-tier3');
+      const b1 = document.getElementById('btn-checkout-tier1');
+      const b2 = document.getElementById('btn-checkout-tier2');
+      const b3 = document.getElementById('btn-checkout-tier3');
+      if (t1) t1.textContent = isAnnual ? '$1,990 / yr' : '$199 / mo';
+      if (t2) t2.textContent = isAnnual ? '$4,490 / yr' : '$499 / mo';
+      if (t3) t3.textContent = isAnnual ? '$14,900 / yr' : '$1,499 / mo';
+      if (b1) b1.href = isAnnual ? 'https://buy.stripe.com/8x228q4aC2pdbt69UE7wA03?client_reference_id=camberdesk_tier1_annual' : 'https://buy.stripe.com/28E28qcH8d3R54I7Mw7wA01?client_reference_id=camberdesk_tier1_monthly';
+      if (b2) b2.href = isAnnual ? 'https://buy.stripe.com/fZu3cudLcaVJ9kYgj27wA05?client_reference_id=camberdesk_tier2_annual' : 'https://buy.stripe.com/5kQcN4cH8gg3cxa2sc7wA04?client_reference_id=camberdesk_tier2_monthly';
+      if (b3) b3.href = isAnnual ? 'https://buy.stripe.com/fZuaEW22uaVJ8gU4Ak7wA07?client_reference_id=camberdesk_tier3_annual' : 'https://buy.stripe.com/14A9ASaz02pdcxa2sc7wA06?client_reference_id=camberdesk_tier3_monthly';
+    }
+
+    function renderLettingsRoute(hashRoute) {
+      const root = document.getElementById('contracts-dynamic-root');
+      if (!root) return;
+      const cards = LETTINGS_DATA.map(item => `
+        <div class="p-5 rounded-xl bg-white border border-[#CBD5E1] shadow-sm space-y-2.5">
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span class="text-[#1E3A8A] font-bold">${item.project_id} &bull; ${item.state_code}</span>
+            <span class="text-[#065F46] font-bold">Est: $${Number(item.engineers_estimate_usd).toLocaleString()}</span>
+          </div>
+          <h4 class="text-base font-extrabold text-[#0A0D14]">${item.title}</h4>
+          <p class="text-xs font-semibold text-[#1E293B]">${item.agency} &bull; ${item.county} &bull; DBE Goal: ${item.dbe_goal_pct}%</p>
+          <p class="text-sm font-medium text-[#111827] leading-relaxed">${item.scope_summary}</p>
+        </div>
+      `).join('');
+      root.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">${cards}</div>`;
+    }
+
+    window.renderContractsRoute = renderLettingsRoute;
+    window.renderLettingsRoute = renderLettingsRoute;
+    window.filterContractsDirectory = filterMainLettingTable;
+    window.filterMainRfpTable = filterMainLettingTable;
+    window.filterApiCatalog = filterApiCatalog;
+    window.openApiSandbox = openApiSandbox;
+    window.setCheckoutBilling = setCheckoutBilling;
+    </script>
+</body>
+</html>

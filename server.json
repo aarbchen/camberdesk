@@ -1,0 +1,13 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json",
+  "name": "io.github.camberdesk/camberdesk-mcp",
+  "description": "Construction Preconstruction, 50-State DOT Historical Item Bid Tabulation, Davis-Bacon Prevailing Wage & CSI MasterFormat Spec Shredder MCP Server.",
+  "version": "1.0.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://camberdesk-api.onrender.com/mcp"
+    }
+  ]
+}
+
