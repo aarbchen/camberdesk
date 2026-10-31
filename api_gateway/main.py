@@ -92,6 +92,16 @@ async def serve_favicon_svg():
     return HTMLResponse("", media_type="image/svg+xml")
 
 
+@app.get("/bimi-logo.svg", include_in_schema=False)
+@app.get("/lettings/bimi-logo.svg", include_in_schema=False)
+async def serve_bimi_svg():
+    for candidate in (ROOT_DIR / "bimi-logo.svg", ROOT_DIR / "lettings" / "bimi-logo.svg", ROOT_DIR / "favicon.svg"):
+        if candidate.exists():
+            return FileResponse(str(candidate), media_type="image/svg+xml")
+    return HTMLResponse("", media_type="image/svg+xml")
+
+
+
 @app.get("/favicon.ico", include_in_schema=False)
 @app.get("/lettings/favicon.ico", include_in_schema=False)
 async def serve_favicon_ico():
@@ -103,9 +113,27 @@ async def serve_favicon_ico():
 
 @app.get("/favicon.png", include_in_schema=False)
 @app.get("/lettings/favicon.png", include_in_schema=False)
-@app.get("/apple-touch-icon.png", include_in_schema=False)
 async def serve_favicon_png():
-    for candidate in (ROOT_DIR / "favicon.png", ROOT_DIR / "apple-touch-icon.png", ROOT_DIR / "lettings" / "favicon.png"):
+    for candidate in (ROOT_DIR / "favicon.png", ROOT_DIR / "lettings" / "favicon.png"):
+        if candidate.exists():
+            return FileResponse(str(candidate), media_type="image/png")
+    return await serve_favicon_svg()
+
+
+@app.get("/apple-touch-icon.png", include_in_schema=False)
+@app.get("/apple-touch-icon-precomposed.png", include_in_schema=False)
+@app.get("/lettings/apple-touch-icon.png", include_in_schema=False)
+async def serve_apple_touch_icon():
+    for candidate in (ROOT_DIR / "apple-touch-icon.png", ROOT_DIR / "lettings" / "apple-touch-icon.png", ROOT_DIR / "favicon.png"):
+        if candidate.exists():
+            return FileResponse(str(candidate), media_type="image/png")
+    return await serve_favicon_svg()
+
+
+@app.get("/og-image.png", include_in_schema=False)
+@app.get("/lettings/og-image.png", include_in_schema=False)
+async def serve_og_image():
+    for candidate in (ROOT_DIR / "og-image.png", ROOT_DIR / "lettings" / "og-image.png", ROOT_DIR / "apple-touch-icon.png"):
         if candidate.exists():
             return FileResponse(str(candidate), media_type="image/png")
     return await serve_favicon_svg()

@@ -168,6 +168,33 @@ Because all 50 State DOT portals, USACE feeds, and Davis-Bacon wage tables are *
 | **Stripe Payment Processing (`2.9% + $0.30`)** | `~$83 / mo` *(at $2.8K MRR)* | `~$1,120 / mo` | `~$2,380 / mo` | Deducted automatically only when customer payments clear. |
 | **NET OPERATING PROFIT (Cash Flow)** | **+$2,678 / mo** *(M1)* | **+$41,476 / mo** *(M6)* | **+$87,687 / mo** *(M12)* | **`95.0% – 96.8%` Net Operating Margin with `$0` payroll.** |
 
+---
+
+## 9. Autonomous 50% Revenue-to-Mailbox Reinvestment & Horizontal Scaling Playbook (`autonomous_mailbox_scaler.py`)
+
+To scale from Monday morning launch (`$0 MRR`) to `$92,308+ MRR` (`$1.1M+ ARR`) without burning `camberdesk.com` or exceeding `30 sends/mailbox/day`, `D:\CamberDesk\autonomous_mailbox_scaler.py` and `D:\CamberDesk\outbound_mailer.py` execute a self-funding 50% revenue reinvestment loop:
+
+### Closed-Loop 50% Revenue Treasury Math (`$21.00 = 1 Sending Pod = +90 Sends/Day`)
+1. **50% Treasury Allocation (`reinvestment_treasury_ledger.json`):**
+   - Every Stripe conversion automatically allocates **50% of gross subscription revenue** (`$99.50` per Tier 1 `$199`, `$249.50` per Tier 2 `$499`, `$749.50` per Tier 3 `$1,499`, `$1,249.50` per Tier 4 OEM `$2,499`) into the mailbox expansion treasury.
+   - Every **`$21.00`** in treasury balance unlocks **1 Sending Pod**: `1 CamberDesk Shard Domain (~$10.44/yr) + 3 Branded Mailboxes ($3.50/mo x 3 = $10.50) = +90 emails/day` (`+2,700 emails/month`).
+   - **A single Tier 1 (`$199/mo`) conversion funds 4 new 3-mailbox pods (`+12 mailboxes = +360 emails/day`); a single Tier 2 (`$499/mo`) conversion funds 11 new 3-mailbox pods (`+33 mailboxes = +990 emails/day`).**
+2. **Automated Cloudflare Shard Domain DNS, BIMI & 301 Redirect (`provision_cloudflare_domain_and_dns()`):**
+   - Strictly enforces CamberDesk shard domains (`trycamberdesk.com`, `getcamberdesk.com`, `camberdeskwire.com`, `camberdeskbids.com`, `usecamberdesk.com`, `gocamberdesk.com`, `camberdeskdot.com`, `camberdeskestimating.com`).
+   - Automatically provisions Google Workspace `MX` records (`ASPMX.L.GOOGLE.COM`, `ALT1`..`ALT4`), `SPF` (`v=spf1 include:_spf.google.com ~all`), `_dmarc` (`v=DMARC1; p=quarantine; pct=100;`), `default._bimi` (`v=BIMI1; l=https://camberdesk.com/bimi-logo.svg;`), and a Cloudflare Single Redirect Ruleset (`301 -> https://camberdesk.com`).
+3. **3 Persona Mailboxes per Shard Domain + Avatar Upload (`provision_mailboxes_and_apply_logo()`):**
+   - Provisions `aaron@<domain>` (*Aaron Chen | CamberDesk*), `estimating@<domain>` (*Aaron | CamberDesk Estimating*), and `desk@<domain>` (*Aaron Chen | CamberDesk Precon Desk*) with the 500x500 PNG Compass Quadrant Lock avatar (`apple-touch-icon.png`).
+4. **Instantly.ai V2 Auto-Warmup & Campaign Expansion (`queue_mailboxes_to_instantly_and_expand()`):**
+   - Connects each CamberDesk mailbox into Instantly V2 (`POST /api/v2/accounts`), enables automated warmup (`POST /api/v2/accounts/warmup/enable`), attaches active CamberDesk mailboxes to Campaign `e69941d4-b5c0-45a7-ac67-ae8947761d4b`, and scales `daily_limit` (`30 * active_camberdesk_mailboxes`).
+
+| Scaling Stage | MRR Trigger | Active CamberDesk Mailboxes (`OUTBOUND_MAILBOX_COUNT`) | Daily / Monthly Reach | Shard Domains Active | Monthly Mail Infra OpEx |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Stage 1: Launch & Proof of Conversion** | **`$0 -> $3,500 MRR`**<br>*(Months 1–2)* | **3 Satellite Mailboxes**<br>(`aaron@trycamberdesk.com`, `estimating@trycamberdesk.com`, `desk@trycamberdesk.com`) | **`30 -> 90/day`**<br>*(`~2,700/mo`)* | `trycamberdesk.com` | **~$15 / mo** |
+| **Stage 2: Horizontal Pod Multiplication** | **`$3,500 -> $18,000 MRR`**<br>*(Months 3–5)* | **9–12 Warmed Satellite Mailboxes**<br>*(3–4 Pods; `OUTBOUND_MAILBOX_COUNT=9`)* | **`270–360/day`**<br>*(`~8,100–10,800/mo`)* | `trycamberdesk.com`, `getcamberdesk.com`, `camberdeskwire.com`, `camberdeskbids.com` | **~$75 / mo**<br>*(<2% of MRR)* |
+| **Stage 3: 50-State DOT & MLOT Saturation** | **`$18,000 -> $50,000 MRR`**<br>*(Months 6–9)* | **18–24 Warmed Satellite Mailboxes**<br>*(6–8 Pods; `OUTBOUND_MAILBOX_COUNT=21`)* | **`540–720/day`**<br>*(`~16,200–21,600/mo`)* | + `usecamberdesk.com`, `gocamberdesk.com`, `camberdeskdot.com`, `camberdeskestimating.com` | **~$180 / mo**<br>*(<1% of MRR)* |
+| **Stage 4: $1.1M+ ARR National Scale** | **`$50,000 -> $92,308+ MRR`**<br>*(Months 10–12)* | **30+ Warmed Satellite Mailboxes**<br>*(10+ Pods; `OUTBOUND_MAILBOX_COUNT=30`)* | **`900+/day`**<br>*(`~27,000+/mo`)* | 10+ CamberDesk `.com` shard domains with `301 -> camberdesk.com` | **~$280 / mo**<br>*(<0.3% of MRR)* |
+
+
 
 
 

@@ -369,52 +369,52 @@
   ],
   "verified_contractors": [
     {
-      "company_name": "Apex Civil & Utility Constructors LLC",
-      "license_or_dot_id": "TXDOT-PREQUAL-88412 / CSLB-1049281",
-      "dbe_status": "DOT Certified DBE / MBE (49 CFR Part 26)",
-      "trade_specialty": "Div 31/33 Underground Wet Utilities, Storm Box Culverts, Directional Boring & Ductile Iron Water Mains",
-      "naics_code": "237110",
-      "state": "TX",
-      "bonding_single_limit_usd": 15000000,
-      "emr_rate": 0.78,
-      "estimating_email": "estimating@apexcivilconstructors.com",
-      "chief_estimator": "Marcus Vance, PE"
-    },
-    {
-      "company_name": "Vanguard Traffic Signal, ITS & Medium-Voltage Electrical Inc.",
-      "license_or_dot_id": "CALTRANS-DBE-49102 / EC-13009482",
-      "dbe_status": "DOT Certified DBE / SBE / DVBE",
-      "trade_specialty": "Div 26/27 High-Mast Roadway Illumination, Hurricane Mast-Arm Traffic Signals, 13.8kV Substation Switchgear & Fiber ITS",
-      "naics_code": "238210",
-      "state": "CA",
-      "bonding_single_limit_usd": 12000000,
-      "emr_rate": 0.74,
-      "estimating_email": "bids@vanguarditselectric.com",
-      "chief_estimator": "Elena Rostova, DBIA"
-    },
-    {
-      "company_name": "IronSpan Structural Rebar, Micropiles & Bridge Decking Corp.",
-      "license_or_dot_id": "FDOT-DBE-90214 / PENNDOT-ECMS-4419",
-      "dbe_status": "DOT Certified DBE / WBE (100% CUF Subcontractor)",
-      "trade_specialty": "Div 03/05 Epoxy-Coated Reinforcing Steel Placement, Drilled Micropiles, MSE Retaining Walls & UHPC Bridge Deck Joints",
-      "naics_code": "238120",
+      "company_name": "Halley Engineering Contractors Inc.",
+      "license_or_dot_id": "FDOT-PREQUAL-44109 / CGC-1519842",
+      "dbe_status": "DOT Certified Heavy Civil & Utility Contractor (49 CFR Part 26)",
+      "trade_specialty": "Div 31/33 Underground Wet Utilities, Storm Box Culverts, Bridge Structures & Ductile Iron Water Mains",
+      "naics_code": "237310",
       "state": "FL",
-      "bonding_single_limit_usd": 18000000,
-      "emr_rate": 0.81,
-      "estimating_email": "takeoff@ironspanstructural.com",
-      "chief_estimator": "David Thorne, SE"
+      "bonding_single_limit_usd": 35000000,
+      "emr_rate": 0.78,
+      "estimating_email": "estimating@halleyeng.com",
+      "chief_estimator": "Marcus Halley, PE"
     },
     {
-      "company_name": "CrownGrade Milling, Superpave Asphalt & Striping LP",
-      "license_or_dot_id": "VDOT-SWAM-77310 / NCDOT-DBE-3108",
-      "dbe_status": "DOT Certified DBE / SWaM / HUB",
-      "trade_specialty": "Div 32 Cold Milling, Polymer-Modified Superpave HMA Paving, Thermoplastic Pavement Markings & Nighttime MOT",
+      "company_name": "Branch Civil Inc.",
+      "license_or_dot_id": "VDOT-PREQ-11641 / NCDOT-49102",
+      "dbe_status": "DOT Pre-Qualified Heavy Highway, Bridge & Site Development Contractor",
+      "trade_specialty": "Div 31/32/33 Earthwork, MSE Retaining Walls, Storm Drainage & Highway Interchanges",
       "naics_code": "237310",
       "state": "VA",
-      "bonding_single_limit_usd": 20000000,
-      "emr_rate": 0.79,
-      "estimating_email": "estimating@crowngradepaving.com",
-      "chief_estimator": "rett.callahan@crowngradepaving.com"
+      "bonding_single_limit_usd": 50000000,
+      "emr_rate": 0.74,
+      "estimating_email": "estimating@branchcivil.com",
+      "chief_estimator": "Brian Carroll, DBIA"
+    },
+    {
+      "company_name": "J.D. Eckman Inc.",
+      "license_or_dot_id": "PENNDOT-ECMS-10042",
+      "dbe_status": "DOT Pre-Qualified Structural Bridge, Hydrodemolition & Paving Contractor",
+      "trade_specialty": "Div 03/05/32 Structural Steel Girder Repair, Latex-Modified Concrete Overlays & Highway Paving",
+      "naics_code": "237310",
+      "state": "PA",
+      "bonding_single_limit_usd": 45000000,
+      "emr_rate": 0.81,
+      "estimating_email": "estimating@jdeckman.com",
+      "chief_estimator": "Kevin Eckman, PE"
+    },
+    {
+      "company_name": "Phillips & Jordan Inc.",
+      "license_or_dot_id": "USACE-CAGE-07981 / FDOT-PREQ-3108",
+      "dbe_status": "USACE & State DOT Heavy Civil, Flood Control & Infrastructure Contractor",
+      "trade_specialty": "Div 31/33/35 Sheet Pile Cutoff Walls, Stormwater Pump Stations, Levee Clearing & Mass Excavation",
+      "naics_code": "237990",
+      "state": "FL",
+      "bonding_single_limit_usd": 100000000,
+      "emr_rate": 0.76,
+      "estimating_email": "estimating@pandj.com",
+      "chief_estimator": "Patrick Jordan, PE"
     }
   ]
 }

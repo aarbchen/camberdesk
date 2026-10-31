@@ -128,6 +128,25 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
         "Authorization": f"Bearer {INSTANTLY_API_KEY}",
         "Content-Type": "application/json",
     }
+
+    # Purge any legacy synthetic domains from the campaign if present
+    valid_email_set = {l["email"].strip().lower() for l in leads}
+    try:
+        r_existing = requests.post(
+            "https://api.instantly.ai/api/v2/leads/list",
+            headers=headers,
+            json={"campaign": cid, "limit": 100},
+            timeout=15,
+        )
+        if r_existing.status_code == 200:
+            for item in (r_existing.json() or {}).get("items") or []:
+                em_existing = str(item.get("email") or "").strip().lower()
+                lid = item.get("id")
+                if lid and em_existing not in valid_email_set:
+                    requests.delete(f"https://api.instantly.ai/api/v2/leads/{lid}", headers=headers, timeout=10)
+    except Exception:
+        pass
+
     uploaded = 0
     for lead in leads:
         payload = {

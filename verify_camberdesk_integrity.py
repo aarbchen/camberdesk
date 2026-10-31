@@ -116,8 +116,19 @@ async def run_verification() -> None:
             h_txt = fh.read()
         for pat in FORBIDDEN_GREY_PATTERNS:
             assert pat.lower() not in h_txt.lower(), f"Found low-contrast grey pattern '{pat}' in {hp}"
+        assert 'rel="apple-touch-icon"' in h_txt, f"Missing apple-touch-icon in {hp}"
+        assert 'property="og:image"' in h_txt, f"Missing OpenGraph og:image for SMS/iMessage previews in {hp}"
+        assert 'name="twitter:image"' in h_txt, f"Missing Twitter Card image in {hp}"
+        assert "favicon.ico" in h_txt and "favicon.png" in h_txt, f"Missing raster mobile favicon links in {hp}"
 
-    print(f"[PASS] Step 5: 100% Catalog Parity (12/12 articles, 52/52 portals, zero emojis) & High-Contrast Typography ({len(html_files_to_check)} HTML pages) verified.")
+    # Verify binary favicon, apple-touch-icon, and OpenGraph image files on disk
+    for asset_name in ("favicon.ico", "favicon.png", "apple-touch-icon.png", "og-image.png", "favicon.svg"):
+        root_asset = os.path.join(BASE_DIR, asset_name)
+        let_asset = os.path.join(BASE_DIR, "lettings", asset_name)
+        assert os.path.isfile(root_asset) and os.path.getsize(root_asset) > 100, f"Missing or empty {root_asset}"
+        assert os.path.isfile(let_asset) and os.path.getsize(let_asset) > 100, f"Missing or empty {let_asset}"
+
+    print(f"[PASS] Step 5: 100% Catalog Parity (12/12 articles, 52/52 portals, zero emojis), Mobile/SMS Favicons + OpenGraph Cards & High-Contrast Typography ({len(html_files_to_check)} HTML pages) verified.")
     print("==================================================================")
     print("  ALL CAMBERDESK QUALITY GATES PASSED (100% READY)")
     print("==================================================================")

@@ -319,18 +319,144 @@ FAVICON_SVG_XML = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
 </svg>
 """
 
-FAVICON_DATA_URI = (
-    "data:image/svg+xml,"
-    "%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E"
-    "%3Crect x='2' y='2' width='60' height='60' rx='14' fill='%23FAF8F5' stroke='%230A0D14' stroke-width='3'/%3E"
-    "%3Cpath fill='%230A0D14' d='M32 9A23 23 0 1 0 55 32H32V9Z'/%3E"
-    "%3Crect x='36' y='11' width='16' height='16' rx='2.5' fill='%231E3A8A'/%3E"
-    "%3C/svg%3E"
-)
+
+def _sample_logo_pixel(nx: float, ny: float) -> tuple[int, int, int]:
+    """Samples the CamberDesk Symbol #07 (Compass Quadrant Lock) in normalized 64x64 coordinates."""
+    import math
+
+    vellum = (250, 248, 245)
+    obsidian = (10, 13, 20)
+    navy = (30, 58, 138)
+
+    if nx < 3.0 or nx > 61.0 or ny < 3.0 or ny > 61.0:
+        return obsidian
+    if 36.0 <= nx <= 52.0 and 11.0 <= ny <= 27.0:
+        return navy
+    dx = nx - 32.0
+    dy = ny - 32.0
+    if math.hypot(dx, dy) <= 23.0 and not (dx > 0 and dy < 0):
+        return obsidian
+    return vellum
+
+
+def _encode_rgb_png(width: int, height: int, raw_rows: list[bytes]) -> bytes:
+    import struct
+    import zlib
+
+    raw_data = b"".join(raw_rows)
+
+    def _chunk(chunk_type: bytes, data: bytes) -> bytes:
+        crc = zlib.crc32(chunk_type + data) & 0xFFFFFFFF
+        return struct.pack(">I", len(data)) + chunk_type + data + struct.pack(">I", crc)
+
+    ihdr = struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0)
+    idat = zlib.compress(raw_data, level=9)
+    return b"\x89PNG\r\n\x1a\n" + _chunk(b"IHDR", ihdr) + _chunk(b"IDAT", idat) + _chunk(b"IEND", b"")
+
+
+def _render_logo_png_bytes(dim: int = 64) -> bytes:
+    """Renders a square CamberDesk Symbol #07 PNG icon (e.g. 64x64 favicon.png or 180x180 apple-touch-icon.png)."""
+    rows = []
+    for y in range(dim):
+        row = bytearray(1 + dim * 3)
+        row[0] = 0
+        ny = (y + 0.5) / dim * 64.0
+        for x in range(dim):
+            nx = (x + 0.5) / dim * 64.0
+            r, g, b = _sample_logo_pixel(nx, ny)
+            idx = 1 + x * 3
+            row[idx] = r
+            row[idx + 1] = g
+            row[idx + 2] = b
+        rows.append(bytes(row))
+    return _encode_rgb_png(dim, dim, rows)
+
+
+def _render_logo_ico_bytes(dim: int = 32) -> bytes:
+    """Renders a true uncompressed 32-bit BGRA BITMAPINFOHEADER DIB .ICO for 100% iOS Safari / Android / Windows support."""
+    import struct
+
+    # Bottom-up BGRA pixel buffer (dim x dim x 4 bytes)
+    xor_mask = bytearray(dim * dim * 4)
+    for y in range(dim):
+        # DIB stores rows bottom-up: row 0 in buffer is bottom row (y = dim - 1)
+        src_y = dim - 1 - y
+        ny = (src_y + 0.5) / dim * 64.0
+        for x in range(dim):
+            nx = (x + 0.5) / dim * 64.0
+            r, g, b = _sample_logo_pixel(nx, ny)
+            idx = (y * dim + x) * 4
+            xor_mask[idx] = b
+            xor_mask[idx + 1] = g
+            xor_mask[idx + 2] = r
+            xor_mask[idx + 3] = 255
+
+    # 1-bit AND mask padded to 32-bit (4-byte) row boundaries (all 0 = opaque)
+    and_row_bytes = ((dim + 31) // 32) * 4
+    and_mask = bytes(and_row_bytes * dim)
+
+    # 40-byte BITMAPINFOHEADER (height is 2 * dim for XOR + AND masks)
+    bih = struct.pack(
+        "<IIIHHIIIIII",
+        40,
+        dim,
+        dim * 2,
+        1,
+        32,
+        0,
+        len(xor_mask) + len(and_mask),
+        0,
+        0,
+        0,
+        0,
+    )
+    dib_data = bih + bytes(xor_mask) + and_mask
+    ico_header = struct.pack("<HHH", 0, 1, 1)
+    ico_entry = struct.pack("<BBBBHHII", dim, dim, 0, 0, 1, 32, len(dib_data), 22)
+    return ico_header + ico_entry + dib_data
+
+
+def _render_og_image_png_bytes(width: int = 1200, height: int = 630) -> bytes:
+    """Renders a 1200x630 OpenGraph social/SMS link preview card with the centered CamberDesk Symbol #07 logo."""
+    vellum = (250, 248, 245)
+    obsidian = (10, 13, 20)
+    navy = (30, 58, 138)
+    border = (203, 213, 225)
+
+    cx, cy = width / 2.0, height / 2.0
+    logo_box = 380.0
+    x0 = cx - logo_box / 2.0
+    y0 = cy - logo_box / 2.0
+
+    rows = []
+    for y in range(height):
+        row = bytearray(1 + width * 3)
+        row[0] = 0
+        for x in range(width):
+            if y < 16:
+                r, g, b = navy
+            elif x < 8 or x >= width - 8 or y >= height - 8:
+                r, g, b = obsidian
+            elif x in (28, width - 29) and 32 <= y <= height - 29:
+                r, g, b = border
+            elif y in (32, height - 29) and 28 <= x <= width - 29:
+                r, g, b = border
+            elif x0 <= x < x0 + logo_box and y0 <= y < y0 + logo_box:
+                nx = (x - x0) / logo_box * 64.0
+                ny = (y - y0) / logo_box * 64.0
+                r, g, b = _sample_logo_pixel(nx, ny)
+            else:
+                r, g, b = vellum
+            idx = 1 + x * 3
+            row[idx] = r
+            row[idx + 1] = g
+            row[idx + 2] = b
+        rows.append(bytes(row))
+    return _encode_rgb_png(width, height, rows)
 
 
 def _generate_favicon_assets() -> None:
-    """Generates SVG, PNG (64x64 & 180x180), and multi-size .ICO favicons with the CamberDesk Symbol #07 logo."""
+    """Generates SVG, 32-bit DIB .ICO, PNG (64x64 & 180x180), and 1200x630 OpenGraph PNG for mobile & SMS previews."""
     lettings_dir = os.path.join(BASE_DIR, "lettings")
     os.makedirs(lettings_dir, exist_ok=True)
 
@@ -338,48 +464,59 @@ def _generate_favicon_assets() -> None:
         with open(svg_p, "w", encoding="utf-8") as fh:
             fh.write(FAVICON_SVG_XML)
 
-    try:
-        from PIL import Image, ImageDraw
+    png_64 = _render_logo_png_bytes(64)
+    png_180 = _render_logo_png_bytes(180)
+    ico_32 = _render_logo_ico_bytes(32)
+    og_png = _render_og_image_png_bytes(1200, 630)
 
-        scale = 8
-        size = 64 * scale
-        img = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-        draw = ImageDraw.Draw(img)
+    for png_p in (os.path.join(BASE_DIR, "favicon.png"), os.path.join(lettings_dir, "favicon.png")):
+        with open(png_p, "wb") as fh:
+            fh.write(png_64)
+    for touch_p in (os.path.join(BASE_DIR, "apple-touch-icon.png"), os.path.join(lettings_dir, "apple-touch-icon.png")):
+        with open(touch_p, "wb") as fh:
+            fh.write(png_180)
+    for ico_p in (os.path.join(BASE_DIR, "favicon.ico"), os.path.join(lettings_dir, "favicon.ico")):
+        with open(ico_p, "wb") as fh:
+            fh.write(ico_32)
+    for og_p in (os.path.join(BASE_DIR, "og-image.png"), os.path.join(lettings_dir, "og-image.png")):
+        with open(og_p, "wb") as fh:
+            fh.write(og_png)
 
-        # 1. Warm Vellum rounded tile (#FAF8F5) with Obsidian Ink border (#0A0D14)
-        draw.rounded_rectangle(
-            [2 * scale, 2 * scale, 62 * scale, 62 * scale],
-            radius=14 * scale,
-            fill=(250, 248, 245, 255),
-            outline=(10, 13, 20, 255),
-            width=3 * scale,
-        )
-        # 2. Obsidian Ink 3/4 circle (0 deg to 270 deg clockwise in PIL leaves top-right quadrant 270..360 open)
-        draw.pieslice(
-            [9 * scale, 9 * scale, 55 * scale, 55 * scale],
-            start=0,
-            end=270,
-            fill=(10, 13, 20, 255),
-        )
-        # 3. Blueprint Navy quadrant lock square (#1E3A8A) in top-right quadrant
-        draw.rounded_rectangle(
-            [36 * scale, 11 * scale, 52 * scale, 27 * scale],
-            radius=int(2.5 * scale),
-            fill=(30, 58, 138, 255),
-        )
 
-        resample = getattr(Image, "Resampling", Image).LANCZOS
-        png_64 = img.resize((64, 64), resample=resample)
-        png_180 = img.resize((180, 180), resample=resample)
-
-        for png_p in (os.path.join(BASE_DIR, "favicon.png"), os.path.join(lettings_dir, "favicon.png")):
-            png_64.save(png_p, format="PNG")
-        png_180.save(os.path.join(BASE_DIR, "apple-touch-icon.png"), format="PNG")
-
-        for ico_p in (os.path.join(BASE_DIR, "favicon.ico"), os.path.join(lettings_dir, "favicon.ico")):
-            img.save(ico_p, format="ICO", sizes=[(16, 16), (32, 32), (48, 48), (64, 64)])
-    except Exception as exc:
-        print(f"[!] Warning generating binary favicon assets: {exc}")
+def build_social_and_favicon_head(
+    page_title: str,
+    page_desc: str,
+    canonical_url: str = "https://camberdesk.com/",
+    rel_prefix: str = "",
+) -> str:
+    """Renders mobile-browser-safe favicon links (PNG/ICO/Apple-Touch-Icon before SVG) + iMessage/SMS OpenGraph tags."""
+    return f"""  <meta name="theme-color" content="#FAF8F5" />
+  <link rel="canonical" href="{canonical_url}" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://camberdesk.com/apple-touch-icon.png?v=3" />
+  <link rel="apple-touch-icon-precomposed" sizes="180x180" href="https://camberdesk.com/apple-touch-icon.png?v=3" />
+  <link rel="icon" type="image/png" sizes="180x180" href="https://camberdesk.com/apple-touch-icon.png?v=3" />
+  <link rel="icon" type="image/png" sizes="64x64" href="https://camberdesk.com/favicon.png?v=3" />
+  <link rel="icon" type="image/png" sizes="32x32" href="{rel_prefix}favicon.png?v=3" />
+  <link rel="icon" type="image/x-icon" href="https://camberdesk.com/favicon.ico?v=3" />
+  <link rel="shortcut icon" href="https://camberdesk.com/favicon.ico?v=3" />
+  <link rel="icon" type="image/svg+xml" href="{rel_prefix}favicon.svg?v=3" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="CamberDesk" />
+  <meta property="og:title" content="{page_title}" />
+  <meta property="og:description" content="{page_desc}" />
+  <meta property="og:url" content="{canonical_url}" />
+  <meta property="og:logo" content="https://camberdesk.com/apple-touch-icon.png?v=3" />
+  <meta property="og:image" content="https://camberdesk.com/og-image.png?v=3" />
+  <meta property="og:image:secure_url" content="https://camberdesk.com/og-image.png?v=3" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="CamberDesk — 50-State DOT Bid-Tab, Prevailing-Wage &amp; Construction Takeoff Intelligence" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{page_title}" />
+  <meta name="twitter:description" content="{page_desc}" />
+  <meta name="twitter:image" content="https://camberdesk.com/og-image.png?v=3" />
+  <meta name="twitter:image:alt" content="CamberDesk — 50-State DOT Bid-Tab, Prevailing-Wage &amp; Construction Takeoff Intelligence" />"""
 
 
 def _render_logo_lockup(subtitle: str, href: str = "#overview") -> str:
@@ -721,20 +858,23 @@ def build_site_files() -> None:
     pre, code, textarea { font-variant-ligatures: none; }
   </style>"""
 
-    favicon_head_links = f"""  <link rel="icon" type="image/svg+xml" href="{FAVICON_DATA_URI}" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
-  <link rel="shortcut icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />"""
+    index_title = "CamberDesk | 50-State DOT Bid-Tab, Prevailing-Wage &amp; Construction Takeoff Intelligence"
+    index_desc = "Win more heavy-civil, highway, bridge, and commercial construction bids. Real-time 50-State DOT lettings, 36-month historical unit-price bid tabulations, Davis-Bacon WH-347 prevailing wages, and 1-Click 6-File OpenXML (.DOCX + .XLSX) Takeoff Packages."
+    index_social_head = build_social_and_favicon_head(
+        page_title=index_title,
+        page_desc=index_desc,
+        canonical_url="https://camberdesk.com/",
+        rel_prefix="",
+    )
 
     index_html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CamberDesk | 50-State DOT Bid-Tab, Prevailing-Wage &amp; Construction Takeoff Intelligence</title>
-  <meta name="description" content="Win more heavy-civil, highway, bridge, and commercial construction bids. Real-time 50-State DOT lettings, 36-month historical unit-price bid tabulations, Davis-Bacon WH-347 prevailing wages, and 1-Click 6-File OpenXML (.DOCX + .XLSX) Takeoff Packages." />
-{favicon_head_links}
+  <title>{index_title}</title>
+  <meta name="description" content="{index_desc}" />
+{index_social_head}
   <script src="https://cdn.tailwindcss.com"></script>
 {high_contrast_style}
 </head>
@@ -942,14 +1082,23 @@ def build_site_files() -> None:
 </body>
 </html>"""
 
+    apis_title = "CamberDesk API Catalog | 12 Construction, DOT Bid-Tab &amp; Prevailing-Wage Microservices"
+    apis_desc = "Stateless REST and MCP APIs for CSI MasterFormat specification shredding, 50-State DOT unit-price bid tabulations, Davis-Bacon WH-347 prevailing wages, and AIA G702/G703 schedules of values."
+    apis_social_head = build_social_and_favicon_head(
+        page_title=apis_title,
+        page_desc=apis_desc,
+        canonical_url="https://camberdesk.com/apis.html",
+        rel_prefix="",
+    )
+
     apis_html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CamberDesk API Catalog | 12 Construction, DOT Bid-Tab &amp; Prevailing-Wage Microservices</title>
-  <meta name="description" content="Stateless REST and MCP APIs for CSI MasterFormat specification shredding, 50-State DOT unit-price bid tabulations, Davis-Bacon WH-347 prevailing wages, and AIA G702/G703 schedules of values." />
-{favicon_head_links}
+  <title>{apis_title}</title>
+  <meta name="description" content="{apis_desc}" />
+{apis_social_head}
   <script src="https://cdn.tailwindcss.com"></script>
 {high_contrast_style}
 </head>

@@ -15,7 +15,7 @@ import os
 from datetime import datetime, timezone
 from typing import Any, Dict
 
-from build_camberdesk_site import FAVICON_DATA_URI
+from build_camberdesk_site import build_social_and_favicon_head
 from camberdesk_autopilot import build_dossiers
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -65,18 +65,23 @@ def generate_pseo_pages() -> Dict[str, Any]:
                 f"</tr>"
             )
 
+        proj_title = f"{title_esc} | CamberDesk DOT Bid-Tab &amp; Takeoff Dossier"
+        proj_desc = f"Preconstruction unit-price bid tabulations, Davis-Bacon prevailing wage rates, CSI divisions, and planholder intelligence for {title_esc}."
+        proj_social_head = build_social_and_favicon_head(
+            page_title=proj_title,
+            page_desc=proj_desc,
+            canonical_url=f"{SITE_BASE_URL}/lettings/project/{slug}.html",
+            rel_prefix="../",
+        )
+
         page_html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{title_esc} | CamberDesk DOT Bid-Tab &amp; Takeoff Dossier</title>
-  <meta name="description" content="Preconstruction unit-price bid tabulations, Davis-Bacon prevailing wage rates, CSI divisions, and planholder intelligence for {title_esc}." />
-  <link rel="icon" type="image/svg+xml" href="{FAVICON_DATA_URI}" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
-  <link rel="shortcut icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <title>{proj_title}</title>
+  <meta name="description" content="{proj_desc}" />
+{proj_social_head}
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {{ color: #0A0D14; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }}
@@ -174,17 +179,23 @@ def generate_pseo_pages() -> Dict[str, Any]:
             f"<a href='project/{slug}.html' class='text-[#1E3A8A] font-bold hover:underline'>Open Dossier &rarr;</a></div></div>"
         )
 
+    hub_title = "50-State DOT, USACE &amp; Public Works Letting Directory | CamberDesk"
+    hub_desc = "Pre-shredded CSI Divisions 00-48, historical unit bid tabulations, and Davis-Bacon prevailing wage dossiers across all 50 State DOTs."
+    hub_social_head = build_social_and_favicon_head(
+        page_title=hub_title,
+        page_desc=hub_desc,
+        canonical_url=f"{SITE_BASE_URL}/lettings/index.html",
+        rel_prefix="",
+    )
+
     hub_html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>50-State DOT, USACE &amp; Public Works Letting Directory | CamberDesk</title>
-  <link rel="icon" type="image/svg+xml" href="{FAVICON_DATA_URI}" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
-  <link rel="shortcut icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <title>{hub_title}</title>
+  <meta name="description" content="{hub_desc}" />
+{hub_social_head}
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {{ color: #0A0D14; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }}

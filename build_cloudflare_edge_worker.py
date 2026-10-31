@@ -52,8 +52,11 @@ def build_worker_bundle() -> Path:
             static_pages[f"/lettings/project/{slug}"] = content
 
     favicon_svg = (ROOT_DIR / "lettings" / "favicon.svg").read_text(encoding="utf-8")
+    bimi_svg = (ROOT_DIR / "bimi-logo.svg").read_text(encoding="utf-8") if (ROOT_DIR / "bimi-logo.svg").exists() else favicon_svg
     favicon_ico_b64 = base64.b64encode((ROOT_DIR / "favicon.ico").read_bytes()).decode("ascii") if (ROOT_DIR / "favicon.ico").exists() else ""
     favicon_png_b64 = base64.b64encode((ROOT_DIR / "favicon.png").read_bytes()).decode("ascii") if (ROOT_DIR / "favicon.png").exists() else ""
+    apple_touch_b64 = base64.b64encode((ROOT_DIR / "apple-touch-icon.png").read_bytes()).decode("ascii") if (ROOT_DIR / "apple-touch-icon.png").exists() else favicon_png_b64
+    og_image_b64 = base64.b64encode((ROOT_DIR / "og-image.png").read_bytes()).decode("ascii") if (ROOT_DIR / "og-image.png").exists() else apple_touch_b64
     sitemap_xml = (ROOT_DIR / "sitemap.xml").read_text(encoding="utf-8")
     lettings_seed = json.loads((ROOT_DIR / "dot_lettings_seed.json").read_text(encoding="utf-8"))
 
@@ -62,15 +65,18 @@ def build_worker_bundle() -> Path:
 
     worker_js = f"""// CamberDesk Full-Stack Edge Worker (https://camberdesk.com & https://api.camberdesk.com)
 // Serves:
-//  - Static HTML/SVG/XML pages (/, /apis, /lettings, /lettings/project/*, /sitemap.xml, /favicon.svg, /favicon.ico, /favicon.png)
+//  - Static HTML/SVG/XML/PNG/ICO pages (/, /apis, /lettings, /lettings/project/*, /sitemap.xml, /favicon.svg, /bimi-logo.svg, /favicon.ico, /favicon.png, /apple-touch-icon.png, /og-image.png)
 //  - All 12 Stateless Construction, 50-State DOT Bid-Tab & Davis-Bacon Preconstruction APIs (/v1/*)
 //  - 6-File OpenXML (.DOCX + .XLSX) .ZIP Bid Package Compiler (/v1/camber-autopilot/*)
 //  - Remote Streamable-HTTP MCP Server (/mcp) with 5/5 Glama TDQS compliance
 
 const STATIC_HTML = {json.dumps(static_pages)};
 const FAVICON_SVG = {json.dumps(favicon_svg)};
+const BIMI_SVG = {json.dumps(bimi_svg)};
 const FAVICON_ICO_B64 = {json.dumps(favicon_ico_b64)};
 const FAVICON_PNG_B64 = {json.dumps(favicon_png_b64)};
+const APPLE_TOUCH_PNG_B64 = {json.dumps(apple_touch_b64)};
+const OG_IMAGE_PNG_B64 = {json.dumps(og_image_b64)};
 const SITEMAP_XML = {json.dumps(sitemap_xml)};
 const LETTINGS_SEED = {json.dumps(lettings_seed)};
 const DEFAULT_ZIP_B64 = {json.dumps(zip_b64)};
@@ -538,10 +544,16 @@ export default {{
       return new Response(null, {{ status: 204, headers: CORS_HEADERS }});
     }}
 
-    // 1. Static Pages & Assets
-    if (request.method === "GET") {{
+    // 1. Static Pages & Assets (support both GET and HEAD for iMessage / SMS / Mobile Safari crawlers)
+    if (request.method === "GET" || request.method === "HEAD") {{
       if (path === "/lettings/favicon.svg" || path === "/favicon.svg") {{
         return new Response(FAVICON_SVG, {{
+          status: 200,
+          headers: {{ "Content-Type": "image/svg+xml", "Cache-Control": "public, max-age=3600", ...CORS_HEADERS }},
+        }});
+      }}
+      if (path === "/lettings/bimi-logo.svg" || path === "/bimi-logo.svg") {{
+        return new Response(BIMI_SVG, {{
           status: 200,
           headers: {{ "Content-Type": "image/svg+xml", "Cache-Control": "public, max-age=3600", ...CORS_HEADERS }},
         }});
@@ -555,7 +567,25 @@ export default {{
           headers: {{ "Content-Type": "image/x-icon", "Cache-Control": "public, max-age=3600", ...CORS_HEADERS }},
         }});
       }}
-      if ((path === "/favicon.png" || path === "/lettings/favicon.png" || path === "/apple-touch-icon.png") && FAVICON_PNG_B64) {{
+      if ((path === "/apple-touch-icon.png" || path === "/apple-touch-icon-precomposed.png" || path === "/lettings/apple-touch-icon.png") && APPLE_TOUCH_PNG_B64) {{
+        const binStr = atob(APPLE_TOUCH_PNG_B64);
+        const bytes = new Uint8Array(binStr.length);
+        for (let i = 0; i < binStr.length; i++) bytes[i] = binStr.charCodeAt(i);
+        return new Response(bytes.buffer, {{
+          status: 200,
+          headers: {{ "Content-Type": "image/png", "Cache-Control": "public, max-age=3600", ...CORS_HEADERS }},
+        }});
+      }}
+      if ((path === "/og-image.png" || path === "/lettings/og-image.png") && OG_IMAGE_PNG_B64) {{
+        const binStr = atob(OG_IMAGE_PNG_B64);
+        const bytes = new Uint8Array(binStr.length);
+        for (let i = 0; i < binStr.length; i++) bytes[i] = binStr.charCodeAt(i);
+        return new Response(bytes.buffer, {{
+          status: 200,
+          headers: {{ "Content-Type": "image/png", "Cache-Control": "public, max-age=3600", ...CORS_HEADERS }},
+        }});
+      }}
+      if ((path === "/favicon.png" || path === "/lettings/favicon.png") && FAVICON_PNG_B64) {{
         const binStr = atob(FAVICON_PNG_B64);
         const bytes = new Uint8Array(binStr.length);
         for (let i = 0; i < binStr.length; i++) bytes[i] = binStr.charCodeAt(i);
