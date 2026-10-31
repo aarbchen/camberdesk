@@ -21,7 +21,7 @@ load_dotenv()
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SEED_PATH = os.path.join(BASE_DIR, "dot_lettings_seed.json")
 ANTHROPIC_MODEL = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-5-5")
-DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
+DISCORD_WEBHOOK_URL = os.getenv("CAMBERDESK_DISCORD_WEBHOOK_URL", "")
 
 CIVIL_CONSTRUCTION_KEYWORDS = [
     r"\bhighway\b", r"\bbridge\b", r"\bpaving\b", r"\basphalt\b", r"\bsuperpave\b",
@@ -33,6 +33,8 @@ CIVIL_CONSTRUCTION_KEYWORDS = [
 LOW_VALUE_MAINTENANCE_EXCLUSIONS = [
     r"\blawn\s+mowing\b", r"\bjanitorial\b", r"\btrash\s+pickup\b",
     r"\bpothole\s+bag\s+supply\b", r"\boffice\s+furniture\b", r"\bsole\s*source\b",
+    r"\bcybersecurity\b", r"\bsaas\s+license\b", r"\bcloud\s+hosting\b",
+    r"\bsoftware\s+renewal\b", r"\b541511\b", r"\b541512\b", r"\b541519\b",
 ]
 
 

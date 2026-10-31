@@ -26,6 +26,7 @@ import requests
 from dotenv import load_dotenv
 
 from autonomous_mailbox_scaler import fetch_live_camberdesk_instantly_accounts
+from harvest_verified_dot_contacts import load_signaltender_exclusion_sets
 from outreach_generator import generate_outreach_queue
 
 ROOT_DIR = Path(__file__).resolve().parent
@@ -35,6 +36,10 @@ load_dotenv(dotenv_path=str(ENV_PATH))
 
 INSTANTLY_API_KEY = (os.getenv("INSTANTLY_API_KEY") or "").strip()
 CAMPAIGN_NAME = "CamberDesk — 50-State DOT Planholder & Unit Bid-Tab Outreach"
+SIGNALTENDER_BLOCKED_CAMPAIGN_IDS = {
+    "c7727dff-92cc-4621-9e96-c960938d5a47",
+    "748eecf5-6b63-4dff-b9f2-1d2ff1a4a96f",
+}
 
 
 def ensure_camberdesk_campaign() -> str:
@@ -130,12 +135,15 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
         return {"status": "skipped_no_key", "leads_local": len(leads)}
 
     cid = ensure_camberdesk_campaign()
-    if not cid:
+    if not cid or cid in SIGNALTENDER_BLOCKED_CAMPAIGN_IDS:
         return {"status": "local_only", "leads_local": len(leads)}
 
     headers = {
         "Authorization": f"Bearer {INSTANTLY_API_KEY}",
         "Content-Type": "application/json",
+    }
+    auth_only_headers = {
+        "Authorization": f"Bearer {INSTANTLY_API_KEY}",
     }
 
     # 1. Enforce open_tracking: False, link_tracking: False, text_only: True, stop_on_reply: True,
@@ -165,8 +173,14 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
     except Exception:
         pass
 
-    # 2. Purge any old guessed role leads or leads with '$' / 'http' in Step 1 or Step 2
-    valid_email_map = {l["email"].strip().lower(): l for l in leads}
+    # 2. Purge any old guessed role leads, leads overlapping with SignalTender, or leads with '$' / 'http' in Step 1 or Step 2
+    st_excluded_emails, st_excluded_domains = load_signaltender_exclusion_sets()
+    valid_email_map = {
+        l["email"].strip().lower(): l
+        for l in leads
+        if l["email"].strip().lower() not in st_excluded_emails
+        and l["email"].strip().lower().split("@", 1)[-1] not in st_excluded_domains
+    }
     purged_count = 0
     existing_clean_emails = set()
     try:
@@ -179,14 +193,16 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
         if r_existing.status_code == 200:
             for item in (r_existing.json() or {}).get("items") or []:
                 em_existing = str(item.get("email") or "").strip().lower()
+                dom_existing = em_existing.split("@", 1)[-1] if "@" in em_existing else ""
                 lid = item.get("id")
                 payload_vars = item.get("payload") or {}
                 s1 = str(payload_vars.get("step1_body_zero_link") or "")
                 s2 = str(payload_vars.get("step2_body_dossier_link") or "")
                 subj1 = str(payload_vars.get("step1_subject") or "")
                 has_dollar_or_link = ("$" in s1) or ("$" in s2) or ("$" in subj1) or ("http://" in s1) or ("https://" in s1) or ("http://" in s2) or ("https://" in s2)
-                if lid and (em_existing not in valid_email_map or has_dollar_or_link or not payload_vars.get("source_url")):
-                    requests.delete(f"https://api.instantly.ai/api/v2/leads/{lid}", headers=headers, timeout=10)
+                is_st_overlap = (em_existing in st_excluded_emails) or (dom_existing in st_excluded_domains)
+                if lid and (em_existing not in valid_email_map or is_st_overlap or has_dollar_or_link or not payload_vars.get("source_url")):
+                    requests.delete(f"https://api.instantly.ai/api/v2/leads/{lid}", headers=auth_only_headers, timeout=10)
                     purged_count += 1
                 elif em_existing in valid_email_map:
                     existing_clean_emails.add(em_existing)
@@ -219,7 +235,7 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
                 "step1_body_zero_link": lead["step1_body_zero_link"],
                 "step2_body_dossier_link": lead["step2_body_dossier_link"],
             },
-            "skip_if_in_workspace": False,
+            "skip_if_in_workspace": True,
         }
         try:
             r = requests.post("https://api.instantly.ai/api/v2/leads", headers=headers, json=payload, timeout=15)

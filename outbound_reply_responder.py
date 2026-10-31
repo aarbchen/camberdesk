@@ -24,7 +24,7 @@ INSTANTLY_API_KEY = (os.getenv("INSTANTLY_API_KEY") or "").strip()
 CAMBERDESK_CAMPAIGN_ID = (os.getenv("CAMBERDESK_INSTANTLY_CAMPAIGN_ID") or "").strip()
 ANTHROPIC_API_KEY = (os.getenv("ANTHROPIC_API_KEY") or "").strip()
 ANTHROPIC_MODEL = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-5-5")
-DISCORD_WEBHOOK_URL = (os.getenv("DISCORD_WEBHOOK_URL") or "").strip()
+CAMBERDESK_DISCORD_WEBHOOK_URL = (os.getenv("CAMBERDESK_DISCORD_WEBHOOK_URL") or "").strip()
 SITE_BASE_URL = os.getenv("CAMBERDESK_SITE_URL", "https://camberdesk.com").rstrip("/")
 CSV_PATH = ROOT_DIR / "campaign_leads.csv"
 PROCESSED_PATH = ROOT_DIR / "processed_outbound_replies.json"
@@ -156,7 +156,7 @@ def run_reply_responder() -> Dict[str, Any]:
                     continue
                 eaccount = str(item.get("eaccount") or "").strip().lower()
                 from_em = str(item.get("from_address_email") or "").strip()
-                if (eaccount and "camberdesk" not in eaccount) or "signaltender" in from_em.lower() or "camberdesk" in from_em.lower():
+                if "camberdesk" not in eaccount or "signaltender" in eaccount or "signaltender" in from_em.lower() or "camberdesk" in from_em.lower():
                     continue
                 summary["checked"] += 1
                 body_txt = str((item.get("body") or {}).get("text") or "")

@@ -1,15 +1,13 @@
 r"""
-CamberDesk — Live Website HTML (`mailto:` / text) & Public DOT/Civil Directory Email Harvester
+CamberDesk — Live Website HTML (`mailto:` / text) & Public DOT/Civil Contractor Email Harvester
 (`D:\CamberDesk\harvest_verified_dot_contacts.py`).
 ====================================================================================================
 Guarantees ZERO guessed `estimating@` or `bids@` role prefixes in `campaign_leads.csv`:
   1. Crawls live Heavy-Civil, Highway, Bridge, Paving, Utility & Site Contractor websites (`/`, `/contact`,
      `/contact-us`, `/about`) with strict `socket.getaddrinfo` pre-checks and extracts ONLY email addresses
      explicitly published in the live HTML (`mailto:` or page text), recording the exact `source_url`.
-  2. Harvests named Civil, Structural, Geotechnical, Pavement & Bridge Engineering Principal Investigators
-     and Executives (`piEmail`, `piFirstName`, `piLastName`) from the public Federal Civil/DOT Engineering
-     Awards API (`https://api.nsf.gov/services/v1/awards.json`) filtered strictly to construction, highway,
-     bridge, concrete, asphalt, geotechnical, and infrastructure firms with corporate domains.
+  2. Enforces 100% Zero-Overlap with SignalTender (`D:\Daas`) by excluding every email and domain present
+     in SignalTender's prospect caches, CSVs, and archives.
   3. Verifies every email via live DNS `MX` lookup (`verify_email_domain_mx()`) and saves the verified
      roster to `D:\CamberDesk\verified_public_dot_contacts.json`.
 """
@@ -47,7 +45,93 @@ BAD_LOCALS = {
 NON_CORP_DOMAINS = (
     ".edu", ".gov", ".mil", ".org", "gmail.com", "yahoo.com", "hotmail.com", "outlook.com",
     "aol.com", "icloud.com", "comcast.net", "verizon.net", "att.net", "msn.com", "live.com",
+    "signaltender.net", "getsignaltender.com", "trysignaltender.com",
 )
+
+_SIGNALTENDER_EXCLUSION_CACHE: Optional[Tuple[set[str], set[str]]] = None
+
+
+def _load_signaltender_excluded_emails_and_domains() -> Tuple[set[str], set[str]]:
+    """
+    Loads all prospect emails and corporate domains from SignalTender (`D:\\Daas`)
+    so CamberDesk and SignalTender maintain 100% zero-overlap across all harvested leads,
+    CSV queues, and Instantly.ai campaigns.
+    """
+    global _SIGNALTENDER_EXCLUSION_CACHE
+    if _SIGNALTENDER_EXCLUSION_CACHE is not None:
+        return _SIGNALTENDER_EXCLUSION_CACHE
+
+    import csv as _csv
+    ex_emails: set[str] = set()
+    ex_domains: set[str] = {
+        "signaltender.net", "getsignaltender.com", "trysignaltender.com", "signaltender.com", "signaltender.io"
+    }
+    daas_json_files = (
+        r"D:\Daas\verified_public_govcon_contacts.json",
+        r"D:\Daas\govcon_contacts_cache.json",
+        r"D:\Daas\outbox_ready_queue.json",
+        r"D:\Daas\sent_outreach_log.json",
+    )
+    daas_arch = r"D:\Daas\completed_outreach_archive.json"
+    daas_csv1 = r"D:\Daas\govcon_contacts.csv"
+    daas_csv2 = r"D:\Daas\campaign_leads.csv"
+    for daas_json in daas_json_files:
+        if os.path.exists(daas_json):
+            try:
+                with open(daas_json, "r", encoding="utf-8") as f:
+                    rows = json.load(f)
+                    if isinstance(rows, dict) and isinstance(rows.get("contacts"), list):
+                        rows = rows["contacts"]
+                    if isinstance(rows, list):
+                        for r in rows:
+                            if isinstance(r, dict):
+                                em = str(r.get("Email") or r.get("email") or "").strip().lower()
+                                if "@" in em:
+                                    ex_emails.add(em)
+                                    ex_domains.add(em.split("@", 1)[1])
+            except Exception:
+                pass
+    if os.path.exists(daas_arch):
+        try:
+            with open(daas_arch, "r", encoding="utf-8") as f:
+                rows = json.load(f)
+                if isinstance(rows, list):
+                    for em in rows:
+                        if isinstance(em, str) and "@" in em:
+                            clean_e = em.strip().lower()
+                            ex_emails.add(clean_e)
+                            ex_domains.add(clean_e.split("@", 1)[1])
+        except Exception:
+            pass
+    for csv_p in (daas_csv1, daas_csv2):
+        if os.path.exists(csv_p):
+            try:
+                with open(csv_p, "r", encoding="utf-8-sig", newline="") as cf:
+                    for r in _csv.DictReader(cf):
+                        em = str(r.get("Email") or r.get("email") or "").strip().lower()
+                        if "@" in em:
+                            ex_emails.add(em)
+                            ex_domains.add(em.split("@", 1)[1])
+            except Exception:
+                pass
+    _SIGNALTENDER_EXCLUSION_CACHE = (ex_emails, ex_domains)
+    return _SIGNALTENDER_EXCLUSION_CACHE
+
+
+load_signaltender_exclusion_sets = _load_signaltender_excluded_emails_and_domains
+
+
+def is_excluded_by_signaltender(email_or_domain: str) -> bool:
+    clean = str(email_or_domain or "").strip().lower()
+    if not clean:
+        return True
+    if "signaltender" in clean:
+        return True
+    ex_emails, ex_domains = _load_signaltender_excluded_emails_and_domains()
+    if "@" in clean:
+        dom = clean.split("@", 1)[1]
+        return clean in ex_emails or dom in ex_domains
+    return clean in ex_domains
 
 # Real Heavy-Civil, Highway, Bridge, Paving, Excavation & Utility Contractors to crawl for published HTML emails
 HEAVY_CIVIL_SEED_DOMAINS: List[Tuple[str, str, str, str]] = [
@@ -238,6 +322,8 @@ def _score_scraped_email(em: str, dom: str) -> int:
 
 def _crawl_single_contractor_html(item: Tuple[str, str, str, str]) -> Optional[Dict[str, str]]:
     comp, dom, state, dot_id = item
+    if is_excluded_by_signaltender(dom):
+        return None
     try:
         socket.getaddrinfo(dom, None)
     except Exception:
@@ -284,7 +370,7 @@ def _crawl_single_contractor_html(item: Tuple[str, str, str, str]) -> Optional[D
         return None
 
     best_em = sorted(found.keys(), key=lambda x: _score_scraped_email(x, dom), reverse=True)[0]
-    if not verify_email_domain_mx(best_em):
+    if is_excluded_by_signaltender(best_em) or not verify_email_domain_mx(best_em):
         return None
 
     local_part = best_em.split("@")[0]
@@ -304,87 +390,6 @@ def _crawl_single_contractor_html(item: Tuple[str, str, str, str]) -> Optional[D
     }
 
 
-def _harvest_federal_civil_and_dot_directory_contacts() -> List[Dict[str, str]]:
-    """
-    Queries the public Federal Civil & Highway Engineering Awards API (`api.nsf.gov/services/v1/awards.json`)
-    for named Principal Investigators & Civil/Structural/Pavement Engineering Executives with published
-    corporate emails (`piEmail`) and verified DNS MX records.
-    """
-    keywords = (
-        "asphalt pavement",
-        "bridge deck",
-        "concrete bridge",
-        "precast concrete",
-        "geotechnical engineering",
-        "highway infrastructure",
-        "structural health monitoring bridge",
-        "stormwater infrastructure",
-        "soil stabilization",
-        "seismic bridge",
-        "civil construction",
-        "pavement rehabilitation",
-    )
-
-    def _fetch_kw(kw: str) -> List[Dict[str, Any]]:
-        try:
-            r = requests.get(
-                "https://api.nsf.gov/services/v1/awards.json",
-                params={
-                    "keyword": kw,
-                    "dateStart": "01/01/2020",
-                    "printFields": "id,title,awardeeName,awardeeCity,awardeeStateCode,piFirstName,piLastName,piEmail,startDate",
-                    "rpp": 25,
-                },
-                timeout=6,
-            )
-            if r.status_code == 200:
-                return (r.json().get("response") or {}).get("award") or []
-        except Exception:
-            pass
-        return []
-
-    raw_items: List[Dict[str, Any]] = []
-    with ThreadPoolExecutor(max_workers=8) as pool:
-        for batch in pool.map(_fetch_kw, keywords):
-            raw_items.extend(batch)
-
-    seen_emails = set()
-    seen_domains = set()
-    out: List[Dict[str, str]] = []
-    for a in raw_items:
-        em = str(a.get("piEmail") or "").strip().lower()
-        fn = str(a.get("piFirstName") or "").strip().title()
-        ln = str(a.get("piLastName") or "").strip().title()
-        comp = str(a.get("awardeeName") or "").strip()
-        st = str(a.get("awardeeStateCode") or "TX").strip().upper()
-        aid = str(a.get("id") or "").strip()
-        if not em or "@" not in em or not fn or not comp:
-            continue
-        loc, dom = em.split("@", 1)
-        if em in seen_emails or dom in seen_domains:
-            continue
-        if any(dom.endswith(bad) or dom == bad.lstrip(".") for bad in NON_CORP_DOMAINS):
-            continue
-        if any(w in comp.upper() for w in ("UNIVERSITY", "COLLEGE", "SCHOOL", "REGENTS", "INSTITUTE", "TRUSTEES", "FOUNDATION", "HOSPITAL", "MEDICAL", "BIO", "PHARMA")):
-            continue
-        if loc in BAD_LOCALS:
-            continue
-        if not verify_email_domain_mx(em):
-            continue
-        seen_emails.add(em)
-        seen_domains.add(dom)
-        out.append({
-            "company_name": comp.title(),
-            "email": em,
-            "first_name": fn,
-            "license_or_dot_id": f"{st}-DOT-ENG-{aid}",
-            "state": st if len(st) == 2 else "TX",
-            "source_type": "federal_dot_civil_award_directory",
-            "source_url": f"https://www.nsf.gov/awardsearch/showAward?AWD_ID={aid}",
-        })
-    return out
-
-
 def harvest_and_save_verified_dot_contacts() -> List[Dict[str, str]]:
     scraped_html: List[Dict[str, str]] = []
     with ThreadPoolExecutor(max_workers=24) as pool:
@@ -400,7 +405,7 @@ def harvest_and_save_verified_dot_contacts() -> List[Dict[str, str]]:
     by_email: Dict[str, Dict[str, str]] = {}
     for row in scraped_html:
         em = row["email"].strip().lower()
-        if em not in by_email:
+        if em not in by_email and not is_excluded_by_signaltender(em):
             by_email[em] = row
 
     final_list = sorted(by_email.values(), key=lambda x: (x["state"], x["company_name"]))
@@ -409,7 +414,7 @@ def harvest_and_save_verified_dot_contacts() -> List[Dict[str, str]]:
 
     print(
         f"[CAMBERDESK HARVESTER] Saved {len(final_list)} 100% live website HTML-scraped DOT contractor contacts "
-        f"-> {VERIFIED_DOT_CONTACTS_PATH}"
+        f"(0 SignalTender overlap) -> {VERIFIED_DOT_CONTACTS_PATH}"
     )
     return final_list
 

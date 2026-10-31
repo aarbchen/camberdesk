@@ -282,8 +282,15 @@ def send_discord_resolution(
             )
             rules_codified.append(rule)
 
-    webhook_url = os.getenv("DISCORD_WEBHOOK_URL", "").strip()
-    if not webhook_url:
+    webhook_url = os.getenv("CAMBERDESK_DISCORD_WEBHOOK_URL", "").strip()
+    signaltender_webhook_ids = (
+        "1555743443802918993",
+        "1560070981563715644",
+        "1561230679860056117",
+        "1563916225862574080",
+        "1563916236126036068",
+    )
+    if not webhook_url or any(wid in webhook_url for wid in signaltender_webhook_ids):
         return False
 
     ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")

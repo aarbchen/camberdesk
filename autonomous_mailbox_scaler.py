@@ -48,7 +48,7 @@ TREASURY_LEDGER_PATH = os.path.join(BASE_DIR, "reinvestment_treasury_ledger.json
 AVATAR_PNG_PATH = os.path.join(BASE_DIR, "camberdesk_mailbox_avatar_500.png")
 BIMI_SVG_URL = "https://camberdesk.com/bimi-logo.svg"
 
-DISCORD_WEBHOOK_URL = (os.getenv("DISCORD_WEBHOOK_URL") or "").strip()
+DISCORD_WEBHOOK_URL = (os.getenv("CAMBERDESK_DISCORD_WEBHOOK_URL") or "").strip()
 INSTANTLY_API_KEY = (os.getenv("INSTANTLY_API_KEY") or "").strip()
 CAMBERDESK_INSTANTLY_CAMPAIGN_ID = (
     os.getenv("CAMBERDESK_INSTANTLY_CAMPAIGN_ID") or "e69941d4-b5c0-45a7-ac67-ae8947761d4b"

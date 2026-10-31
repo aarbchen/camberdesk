@@ -124,15 +124,21 @@ def _sanitize_zero_dollar_zero_link(text: str) -> str:
 
 
 def load_verified_dot_contacts() -> List[Dict[str, str]]:
+    from harvest_verified_dot_contacts import harvest_and_save_verified_dot_contacts, is_excluded_by_signaltender
     if os.path.exists(VERIFIED_DOT_CONTACTS_PATH):
         try:
             with open(VERIFIED_DOT_CONTACTS_PATH, "r", encoding="utf-8") as fh:
                 data = json.load(fh)
                 if isinstance(data, list) and data:
-                    return [r for r in data if isinstance(r, dict) and r.get("email") and r.get("source_url")]
+                    return [
+                        r for r in data
+                        if isinstance(r, dict)
+                        and r.get("email")
+                        and r.get("source_url")
+                        and not is_excluded_by_signaltender(str(r.get("email") or ""))
+                    ]
         except Exception:
             pass
-    from harvest_verified_dot_contacts import harvest_and_save_verified_dot_contacts
     return harvest_and_save_verified_dot_contacts()
 
 
