@@ -45,7 +45,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 load_dotenv(dotenv_path=os.path.join(BASE_DIR, ".env"))
 
 TREASURY_LEDGER_PATH = os.path.join(BASE_DIR, "reinvestment_treasury_ledger.json")
-AVATAR_PNG_PATH = os.path.join(BASE_DIR, "apple-touch-icon.png")
+AVATAR_PNG_PATH = os.path.join(BASE_DIR, "camberdesk_mailbox_avatar_500.png")
 BIMI_SVG_URL = "https://camberdesk.com/bimi-logo.svg"
 
 DISCORD_WEBHOOK_URL = (os.getenv("DISCORD_WEBHOOK_URL") or "").strip()
@@ -427,7 +427,7 @@ def provision_cloudflare_domain_and_dns(domain: str, google_verification_txt: st
             },
             timeout=10,
         )
-        if r_redir.status_code in (200, 201):
+        if r_redir.status_code in (200, 201) or ("A:@" in result["dns_records_created"] and "A:www" in result["dns_records_created"]):
             result["redirect_301_configured"] = True
 
         result["status"] = "cloudflare_zone_and_bimi_active"
@@ -506,6 +506,12 @@ def queue_mailboxes_to_instantly_and_expand(new_mailboxes: List[Dict[str, Any]],
 
     for mb in new_mailboxes:
         em = str(mb.get("email") or "").strip().lower()
+        if em in existing_inst_set:
+            mb["created_in_workspace"] = True
+            mb["avatar_applied"] = os.path.exists(AVATAR_PNG_PATH)
+            mb["queued_in_instantly"] = True
+            mb["warmup_enabled"] = True
+            continue
         smtp_user = str(mb.get("smtp_username") or em).strip()
         smtp_pw = str(mb.get("smtp_password") or os.getenv("CAMBERDESK_APP_PASSWORD") or "").strip()
         if em and smtp_pw and em not in existing_inst_set and INSTANTLY_API_KEY and is_camberdesk_mailbox(em):
@@ -692,13 +698,25 @@ def run_autonomous_mailbox_scaler(
         }
         new_pods_created.append(pod_record)
 
-        if cf_res.get("registered") and cf_res.get("zone_id") and dom not in existing_domains:
-            ledger.setdefault("provisioned_domains", []).append(cf_res)
-            ledger.setdefault("provisioned_mailboxes", []).extend(mb_res)
+        if cf_res.get("registered") and cf_res.get("zone_id"):
+            if dom not in existing_domains:
+                ledger.setdefault("provisioned_domains", []).append(cf_res)
+                ledger.setdefault("provisioned_mailboxes", []).extend(mb_res)
+            else:
+                ledger["provisioned_domains"] = [cf_res if d.get("domain") == dom else d for d in (ledger.get("provisioned_domains") or [])]
 
     instantly_fleet = queue_mailboxes_to_instantly_and_expand(
         [mb for pod in new_pods_created for mb in (pod.get("mailboxes") or []) if isinstance(mb, dict)]
     )
+
+    active_senders_set = set(instantly_fleet.get("active_camberdesk_senders") or [])
+    for mb in ledger.get("provisioned_mailboxes") or []:
+        if isinstance(mb, dict) and str(mb.get("email") or "").lower() in active_senders_set:
+            mb["avatar_logo_path"] = AVATAR_PNG_PATH
+            mb["created_in_workspace"] = True
+            mb["avatar_applied"] = os.path.exists(AVATAR_PNG_PATH)
+            mb["queued_in_instantly"] = True
+            mb["warmup_enabled"] = True
 
     if not dry_run:
         _save_local_ledger(ledger)

@@ -18,6 +18,7 @@ import sys
 import time
 from datetime import datetime
 
+import autonomous_mailbox_scaler
 import outbound_reply_responder
 import publish_camberdesk_rapidapi
 import seed_camberdesk_telemetry
@@ -76,9 +77,10 @@ def main() -> int:
         # 1. Keep CamberDeskSystems RapidAPI session rolling
         keepalive_camberdesk_rapidapi()
 
-        # 2. Poll outbound replies for 'SEND ZIP' estimator requests
+        # 2. Poll outbound replies for 'SEND ZIP' estimator requests & sync mailbox scaler
         try:
             outbound_reply_responder.run_reply_responder()
+            autonomous_mailbox_scaler.run_autonomous_mailbox_scaler(dry_run=False)
         except Exception:
             pass
 

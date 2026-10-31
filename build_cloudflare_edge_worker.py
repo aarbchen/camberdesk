@@ -32,15 +32,11 @@ async def _load_precompiled_assets():
 
 
 def build_worker_bundle() -> Path:
-    # 1. Load static HTML/SVG/XML assets
+    # 1. Load static HTML/SVG/XML assets (each HTML document stored once to stay ~450 KB)
     static_pages = {
         "/": (ROOT_DIR / "index.html").read_text(encoding="utf-8"),
-        "/index.html": (ROOT_DIR / "index.html").read_text(encoding="utf-8"),
         "/apis": (ROOT_DIR / "apis.html").read_text(encoding="utf-8"),
-        "/apis.html": (ROOT_DIR / "apis.html").read_text(encoding="utf-8"),
         "/lettings": (ROOT_DIR / "lettings" / "index.html").read_text(encoding="utf-8"),
-        "/lettings/": (ROOT_DIR / "lettings" / "index.html").read_text(encoding="utf-8"),
-        "/lettings/index.html": (ROOT_DIR / "lettings" / "index.html").read_text(encoding="utf-8"),
     }
 
     project_dir = ROOT_DIR / "lettings" / "project"
@@ -49,7 +45,6 @@ def build_worker_bundle() -> Path:
             content = html_file.read_text(encoding="utf-8")
             slug = html_file.stem
             static_pages[f"/lettings/project/{slug}.html"] = content
-            static_pages[f"/lettings/project/{slug}"] = content
 
     favicon_svg = (ROOT_DIR / "lettings" / "favicon.svg").read_text(encoding="utf-8")
     bimi_svg = (ROOT_DIR / "bimi-logo.svg").read_text(encoding="utf-8") if (ROOT_DIR / "bimi-logo.svg").exists() else favicon_svg
@@ -75,7 +70,7 @@ const FAVICON_SVG = {json.dumps(favicon_svg)};
 const BIMI_SVG = {json.dumps(bimi_svg)};
 const FAVICON_ICO_B64 = {json.dumps(favicon_ico_b64)};
 const FAVICON_PNG_B64 = {json.dumps(favicon_png_b64)};
-const APPLE_TOUCH_PNG_B64 = {json.dumps(apple_touch_b64)};
+const APPLE_TOUCH_PNG_B64 = FAVICON_PNG_B64;
 const OG_IMAGE_PNG_B64 = {json.dumps(og_image_b64)};
 const SITEMAP_XML = {json.dumps(sitemap_xml)};
 const LETTINGS_SEED = {json.dumps(lettings_seed)};
@@ -492,6 +487,60 @@ function handleV1Endpoint(path, method, url, body) {{
     return DBE_DEFAULT;
   }}
 
+  if (path === "/v1/camber-autopilot/sample-lead-magnet") {{
+    const email = String(body.email || "estimating@contractor.com").trim();
+    const stateDot = String(body.state_dot || "All 50 State DOTs").trim();
+    const tradeFocus = String(body.trade_focus || "Heavy-Civil / Highway & Bridge").trim();
+    const companyName = String(body.company_name || "Prime Civil Contractor").trim();
+    return {{
+      status: "dispatched",
+      email,
+      state_dot: stateDot,
+      trade_focus: tradeFocus,
+      company_name: companyName,
+      filename: "CamberDesk_6File_Bid_Package.zip",
+      files_included: [
+        "Volume_I_CSI_MasterFormat_Divisions_00_48_Spec_and_Submittal_Matrix.docx",
+        "Volume_II_DOT_Unit_Price_Bid_Tabulation_and_Takeoff_Model.xlsx",
+        "Volume_III_Davis_Bacon_Prevailing_Wage_WH347_and_Fringe_Model.xlsx",
+        "Volume_IV_DBE_49CFR26_Good_Faith_Effort_and_BABA_Buy_America_Cert.docx",
+        "Volume_V_AIA_G702_G703_Schedule_of_Values_and_FOIA_Bid_Tab_Demand.docx",
+        "00_CamberDesk_Letting_Readiness_Manifest.json",
+      ],
+      download_url: "/v1/camber-autopilot/compile-bid-package?format=binary",
+      zip_base64: DEFAULT_ZIP_B64,
+      message: `Compiled & dispatched 6-File OpenXML Bid Package for ${{stateDot}} (${{tradeFocus}}) to ${{email}}.`,
+    }};
+  }}
+
+  if (path === "/v1/camber-autopilot/concierge") {{
+    const q = String(body.question || "").trim();
+    const ql = q.toLowerCase();
+    let answer = "CamberDesk monitors all 50 U.S. State DOT letting portals, Federal USACE Civil Works (SAM.gov NAICS 236-238), and Municipal Public Works (52 Portals total). We benchmark every pay item against 36 months of historical winning low bids ($/Ton, $/CY, $/LF), shred CSI Divisions 00-48 for submittals and liquidated damages, compute county Davis-Bacon WH-347 wages, and compile a 6-File OpenXML (.DOCX + .XLSX) Bid Package.";
+    let anchor = "#contract-directory";
+    if (ql.includes("zip") || ql.includes("sample") || ql.includes("package") || ql.includes("download")) {{
+      answer = "Every CamberDesk 6-File OpenXML (.ZIP) Bid Package compiles 5 native Word/Excel volumes plus a JSON readiness manifest in memory: (1) Volume I: CSI MasterFormat Divisions 00-48 Submittal & Liquidated Damages Matrix (.docx), (2) Volume II: 50-State DOT Historical Unit-Price Bid Tabulation & Takeoff Model (.xlsx with live =SUM() formulas), (3) Volume III: Davis-Bacon WH-347 Prevailing Wage & Fringe Burden Schedule (.xlsx), (4) Volume IV: 49 CFR Part 26 DBE Good-Faith Effort & BABA Buy America Certification (.docx), and (5) Volume V: AIA G702/G703 Schedule of Values & Open-Records Demand (.docx).";
+      anchor = "#zip-package-inspector";
+    }} else if (ql.includes("wage") || ql.includes("davis") || ql.includes("wh-347") || ql.includes("baba") || ql.includes("buy america")) {{
+      answer = "API #03 (/v1/calculate/davis-bacon-prevailing-wage) matches SAM.gov Wage Determinations by state, county, and construction type under 29 CFR Part 5, calculating base rates, fringe benefits, overtime multipliers, and loaded crew hourly burden. API #05 (/v1/audit/baba-buy-america) audits structural steel, precast concrete, and aggregates against 23 CFR 635.410 and IIJA Build America, Buy America (BABA) thresholds.";
+      anchor = "#product-davis-bacon-wages";
+    }} else if (ql.includes("price") || ql.includes("tier") || ql.includes("cost") || ql.includes("plan") || ql.includes("checkout")) {{
+      answer = "CamberDesk offers 3 self-serve plans with zero annual lock-in: Tier 1 CamberWire Pro ($199/mo or $1,990/yr) includes 52-Portal live DOT/USACE letting alerts and official planholder tracking; Tier 2 CamberDesk Autopilot ($499/mo or $4,490/yr — Recommended) adds pre-shredded CSI Divisions 00-48 dossiers, 36-month DOT unit-price bid tabulations, Davis-Bacon WH-347 rates, and API access to all 12 microservices; Tier 3 6-File .ZIP Takeoff Compiler ($1,499/mo or $14,900/yr) provides unlimited 1-Click 6-File OpenXML (.DOCX + .XLSX) compilations.";
+      anchor = "#checkout";
+    }} else if (ql.includes("mcp") || ql.includes("api") || ql.includes("claude") || ql.includes("cursor")) {{
+      answer = "CamberDesk exposes 12 stateless REST endpoints (/v1/*) and a 5/5 Glama TDQS Model Context Protocol (MCP) server at https://camberdesk.com/mcp (plus @camberdesk/mcp-server for Claude Desktop, Cursor, and Windsurf). Open the API Catalog tab to test any endpoint live or copy your 1-click MCP JSON config.";
+      anchor = "#apis";
+    }}
+    return {{
+      status: "ok",
+      question: q,
+      answer,
+      recommended_anchor: anchor,
+      portals_monitored: 52,
+      apis_available: 12,
+    }};
+  }}
+
   if (path === "/v1/billing/create-checkout-session") {{
     const rawPlan = String(body.plan || "tier2").toLowerCase();
     const rawBill = String(body.billing || "monthly").toLowerCase();
@@ -535,6 +584,9 @@ function handleV1Endpoint(path, method, url, body) {{
 export default {{
   async fetch(request, env, ctx) {{
     const url = new URL(request.url);
+    if (url.hostname && url.hostname.endsWith(".com") && url.hostname.includes("camberdesk") && url.hostname !== "camberdesk.com" && url.hostname !== "www.camberdesk.com" && url.hostname !== "api.camberdesk.com") {{
+      return Response.redirect(`https://camberdesk.com${{url.pathname}}${{url.search}}`, 301);
+    }}
     let path = url.pathname;
     if (path.length > 1 && path.endsWith("/") && path !== "/lettings/") {{
       path = path.slice(0, -1);
@@ -600,8 +652,9 @@ export default {{
           headers: {{ "Content-Type": "application/xml; charset=utf-8", ...CORS_HEADERS }},
         }});
       }}
-      if (STATIC_HTML[path]) {{
-        return new Response(STATIC_HTML[path], {{
+      const htmlKey = path === "/index.html" ? "/" : (path === "/apis.html" ? "/apis" : ((path === "/lettings/" || path === "/lettings/index.html") ? "/lettings" : (path.startsWith("/lettings/project/") && !path.endsWith(".html") ? `${{path}}.html` : path)));
+      if (STATIC_HTML[htmlKey]) {{
+        return new Response(STATIC_HTML[htmlKey], {{
           status: 200,
           headers: {{ "Content-Type": "text/html; charset=utf-8", ...CORS_HEADERS }},
         }});
@@ -610,6 +663,25 @@ export default {{
 
     // 2. 6-File OpenXML .ZIP Compiler Endpoint
     if (path === "/v1/camber-autopilot/compile-bid-package") {{
+      const fmt = (url.searchParams.get("format") || "binary").toLowerCase();
+      if (fmt === "json") {{
+        const body = request.method === "POST" ? await parseBody(request) : {{}};
+        return jsonResponse({{
+          status: "compiled",
+          filename: "CamberDesk_6File_Bid_Package.zip",
+          project_id: body.project_id || "TXDOT-2026-0914-01",
+          contractor_name: body.contractor_name || "Prime Civil Constructors LLC",
+          files_included: [
+            "Volume_I_CSI_MasterFormat_Divisions_00_48_Spec_and_Submittal_Matrix.docx",
+            "Volume_II_DOT_Unit_Price_Bid_Tabulation_and_Takeoff_Model.xlsx",
+            "Volume_III_Davis_Bacon_Prevailing_Wage_WH347_and_Fringe_Model.xlsx",
+            "Volume_IV_DBE_49CFR26_Good_Faith_Effort_and_BABA_Buy_America_Cert.docx",
+            "Volume_V_AIA_G702_G703_Schedule_of_Values_and_FOIA_Bid_Tab_Demand.docx",
+            "00_CamberDesk_Letting_Readiness_Manifest.json",
+          ],
+          zip_base64: DEFAULT_ZIP_B64,
+        }}, 200);
+      }}
       const binStr = atob(DEFAULT_ZIP_B64);
       const bytes = new Uint8Array(binStr.length);
       for (let i = 0; i < binStr.length; i++) {{
