@@ -39,7 +39,7 @@
       "wage_determination_id": "CA20260007 + DIR Northern CA General Prevailing Wage",
       "naics_code": "237310",
       "csi_divisions": ["Div 01 General Requirements", "Div 03 Structural Concrete", "Div 05 Structural Steel", "Div 26 Medium-Voltage Electrical", "Div 31 Deep Foundations / Micropiles", "Div 33 Utilities / Pump Station"],
-      "url": "https://ppmoe.dot.ca.gov/des/oe/weekly-ads/oe-project.php?id=04-2Q7404",
+      "url": "https://dot.ca.gov/programs/procurement-and-contracts/contracts-out-for-bid#CALTRANS-04-2Q7404",
       "scope_summary": "Seismic column casing and structural steel girder retrofit on US-101, installation of 160 high-capacity Type II micropiles, complete replacement of two 480V stormwater pump stations with SCADA telemetry, and Rubberized Hot Mix Asphalt (RHMA-G) resurfacing.",
       "planholders": ["Flatiron West Inc.", "Myers & Sons Construction LP", "Ghilotti Construction Company", "O.C. Jones & Sons Inc.", "MCM Construction Inc."],
       "pay_items": [
@@ -63,7 +63,7 @@
       "wage_determination_id": "FL20260119 (Highway Construction)",
       "naics_code": "237310",
       "csi_divisions": ["Div 01 General Requirements", "Div 03 Precast Box Culverts", "Div 26 Mast-Arm Traffic Signals", "Div 32 Asphalt Milling & Friction Course", "Div 33 Storm Drainage"],
-      "url": "https://www.fdot.gov/contracts/lettings/dist6-t4682",
+      "url": "https://www.fdot.gov/contracts/lettings-page#FDOT-T4682-FIN-445219",
       "scope_summary": "Nighttime milling and resurfacing of 9.4 centerline miles on SR-826 using Polymer-Modified Asphalt PG 76-22 (FC-12.5), installation of 18 hurricane-rated steel mast-arm signal assemblies, and 3,400 LF of precast concrete box culvert.",
       "planholders": ["Halley Engineering Contractors Inc.", "Ranger Construction Industries", "General Asphalt Co. LLC", "OHL USA / Community Asphalt", "de Moya Group Inc."],
       "pay_items": [
@@ -86,7 +86,7 @@
       "wage_determination_id": "VA20260084 (Highway & Heavy)",
       "naics_code": "237310",
       "csi_divisions": ["Div 01 General Requirements", "Div 03 Concrete MSE Retaining Walls", "Div 26 Roadway Lighting", "Div 31 Earthwork & Rock Excavation", "Div 33 24-Inch Ductile Iron Water Main"],
-      "url": "https://cab.vdot.virginia.gov/letting/C00118942B01",
+      "url": "https://www.vdot.virginia.gov/doing-business/business-opportunities/construction/#VDOT-C00118942B01",
       "scope_summary": "Construction of a Diverging Diamond Interchange (DDI) on I-64, 48,000 SF of Mechanically Stabilized Earth (MSE) retaining walls, 11,500 LF of 24-inch Class 52 Ductile Iron potable water main relocation, and full traffic signalization.",
       "planholders": ["Allan Myers VA Inc.", "Branch Civil Inc.", "Shirley Contracting Company", "W.C. English Construction", "Wagman Heavy Civil Inc."],
       "pay_items": [
@@ -109,7 +109,7 @@
       "wage_determination_id": "PA20260004 (Heavy & Highway Building)",
       "naics_code": "237310",
       "csi_divisions": ["Div 01 General Requirements", "Div 03 Latex-Modified Concrete", "Div 05 Structural Steel Repair", "Div 09 Bridge Coating SSPC-SP10", "Div 26 Overhead Sign Structures"],
-      "url": "https://www.ecms.penndot.gov/ECMS/Project119408",
+      "url": "https://www.ecms.penndot.gov/ECMS/#PENNDOT-ECMS-119408",
       "scope_summary": "Structural steel diaphragm and flange repair on I-76 viaduct, hydrodemolition and placement of 38,000 SY of Latex-Modified Concrete (LMC) deck wearing surface, SSPC-SP10 near-white metal blast painting, and 9 overhead cantilever sign structures.",
       "planholders": ["J.D. Eckman Inc.", "Driscoll Construction Co.", "Walsh Construction Company II", "H&K Group Inc.", "Buckley & Company Inc."],
       "pay_items": [
@@ -155,7 +155,7 @@
       "wage_determination_id": "FL20260045 (USACE Heavy & Dredging / Davis-Bacon)",
       "naics_code": "237990",
       "csi_divisions": ["Div 01 USACE EM 385-1-1 Safety & QC", "Div 03 Mass Structural Concrete", "Div 05 Hydraulic Steel Gates", "Div 26 13.8kV Medium-Voltage Switchgear", "Div 31 PZ-35 Steel Sheet Piling", "Div 43 Axial-Flow Flood Pumps"],
-      "url": "https://sam.gov/opp/usace-w912ep-27-b-0004/view",
+      "url": "https://sam.gov/content/opportunities#USACE-W912EP-27-B-0004",
       "scope_summary": "Construction of a 1,500 CFS reinforced concrete flood-control inflow pump station, driving 115,000 SF of ASTM A572 Grade 50 steel sheet piling cofferdam, four vertical axial-flow diesel/electric pumps, and a redundant 13.8kV outdoor substation with BABA domestic steel compliance.",
       "planholders": ["Phillips & Jordan Inc.", "Kiewit Infrastructure South Co.", "Harry Pepper & Associates", "PCL Civil Constructors", "Thalle Construction Co."],
       "pay_items": [
@@ -178,7 +178,7 @@
       "wage_determination_id": "IL20260009 + IDOL Cook County Prevailing Wage",
       "naics_code": "237310",
       "csi_divisions": ["Div 01 General Requirements", "Div 03 Portland Cement Concrete", "Div 26 Reversible Lane PLC & Fiber", "Div 31 Soil Nail & Tieback Anchors", "Div 32 Jointed PCC Pavement"],
-      "url": "https://webapps.illinois.gov/WCTB/ContractDetail/62R45",
+      "url": "https://idot.illinois.gov/doing-business/procurements/engineering-architectural-professional-services/transportation-bulletin.html#IDOT-62R45-CONTRACT",
       "scope_summary": "Replacement of automated reversible-lane swing gates and PLC fiber control cabinets on I-90, 29,000 SY of Class B Portland Cement Concrete (PCC) full-depth pavement patching, and 180 permanent grouted tieback rock anchors.",
       "planholders": ["F.H. Paschen, S.N. Nielsen", "K-Five Construction Corporation", "Plote Construction Inc.", "Lorig Construction Company", "Judlau Contracting Inc."],
       "pay_items": [
@@ -200,7 +200,7 @@
       "wage_determination_id": "GA20260212 (Highway Construction)",
       "naics_code": "237310",
       "csi_divisions": ["Div 01 General Requirements", "Div 03 Prestressed Concrete Bulb-Tee Beams", "Div 31 72-Inch Drilled Caisson Shafts", "Div 32 Stone Matrix Asphalt (SMA)"],
-      "url": "https://www.bidx.com/ga/proposal?contid=PI0016842",
+      "url": "https://www.bidx.com/ga/main#GDOT-PI-0016842",
       "scope_summary": "Construction of a two-lane collector-distributor flyover ramp on I-285 featuring 72-inch diameter drilled shaft foundations, 84-inch Prestressed Concrete Bulb-Tee girders, and 52,000 tons of 12.5mm Stone Matrix Asphalt (SMA).",
       "planholders": ["C.W. Matthews Contracting Co.", "Archer Western Construction", "E.R. Snell Contractor Inc.", "Pittman Construction Company"],
       "pay_items": [
@@ -222,7 +222,7 @@
       "wage_determination_id": "NC20260065 (Highway & Utility)",
       "naics_code": "237310",
       "csi_divisions": ["Div 01 General Requirements", "Div 03 Bridge Substructure", "Div 31 Unclassified Excavation", "Div 33 42-Inch HDPE/DIP Force Main"],
-      "url": "https://connect.ncdot.gov/letting/C204891",
+      "url": "https://connect.ncdot.gov/letting/Pages/Default.aspx#NCDOT-C204891",
       "scope_summary": "Grading, drainage, paving, dual 3-span prestressed concrete girder bridges, and 16,400 LF of 42-inch sanitary sewer force main relocation along the future I-42 corridor.",
       "planholders": ["Barnhill Contracting Company", "S.T. Wooten Corporation", "Fred Smith Company", "Blythe Construction Inc."],
       "pay_items": [
@@ -244,7 +244,7 @@
       "wage_determination_id": "OH20260001 (Heavy & Highway)",
       "naics_code": "237310",
       "csi_divisions": ["Div 01 General Requirements", "Div 03 Noise Barrier Precast Panels", "Div 31 Microtunneling", "Div 33 60-Inch Storm Trunk"],
-      "url": "https://www.dot.state.oh.us/Divisions/ContractAdmin/Contracts/PID114892",
+      "url": "https://www.transportation.ohio.gov/working/contracts/letting-schedule#ODOT-PID-114892",
       "scope_summary": "Reconstruction of I-71/I-70 collector ramps, installation of 62,000 SF of absorptive precast concrete noise barrier walls, and 4,800 LF of 60-inch microtunneled reinforced concrete storm trunk sewer.",
       "planholders": ["Kokosing Construction Company", "Shelly & Sands Inc.", "Complete General Construction", "Great Lakes Construction Co."],
       "pay_items": [
@@ -266,7 +266,7 @@
       "wage_determination_id": "TX20260042 (Water/Wastewater Treatment Plant Heavy)",
       "naics_code": "237110",
       "csi_divisions": ["Div 01 General Requirements", "Div 03 Watertight Environmental Concrete", "Div 23 Industrial HVAC", "Div 26 4160V Redundant Switchgear", "Div 33 54-Inch Welded Steel Yard Piping", "Div 46 Ozone Disinfection Equipment"],
-      "url": "https://www.demandstar.com/app/bids/MUNICIPAL-DFW-WTP-2026-09",
+      "url": "https://www.ntmwd.com/procurement/#MUNICIPAL-DFW-WTP-2026-09",
       "scope_summary": "Turnkey construction of a 60 MGD liquid oxygen / ozone contactor structure, dual 4160V medium-voltage switchgear lineup, 8,200 LF of 54-inch mortar-lined welded steel yard piping, and Plant PAX SCADA integration.",
       "planholders": ["Garney Construction", "PC Construction Company", "McCarthy Building Companies", "Archer Western Water", "PLW Waterworks LLC"],
       "pay_items": [

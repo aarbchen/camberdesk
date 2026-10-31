@@ -562,14 +562,16 @@ function handleV1Endpoint(path, method, url, body) {{
     const rawBill = String(body.billing || "monthly").toLowerCase();
     const isAnn = rawBill.includes("ann") || rawBill.includes("yr") || rawBill.includes("year");
     const links = {{
-      tier1_monthly: {{ url: "https://buy.stripe.com/28E28qcH8d3R54I7Mw7wA01", usd: 199, name: "Tier 1 // CamberWire Pro ($199/mo)" }},
-      tier1_annual: {{ url: "https://buy.stripe.com/8x228q4aC2pdbt69UE7wA03", usd: 1990, name: "Tier 1 // CamberWire Pro ($1,990/yr)" }},
-      tier2_monthly: {{ url: "https://buy.stripe.com/5kQcN4cH8gg3cxa2sc7wA04", usd: 499, name: "Tier 2 // CamberDesk Autopilot ($499/mo)" }},
-      tier2_annual: {{ url: "https://buy.stripe.com/fZu3cudLcaVJ9kYgj27wA05", usd: 4490, name: "Tier 2 // CamberDesk Autopilot ($4,490/yr)" }},
-      tier3_monthly: {{ url: "https://buy.stripe.com/14A9ASaz02pdcxa2sc7wA06", usd: 1499, name: "Tier 3 // 1-Click 6-File .ZIP Takeoff Compiler ($1,499/mo)" }},
-      tier3_annual: {{ url: "https://buy.stripe.com/fZuaEW22uaVJ8gU4Ak7wA07", usd: 14900, name: "Tier 3 // 1-Click 6-File .ZIP Takeoff Compiler ($14,900/yr)" }},
+      tier1_monthly: {{ url: "https://camberdesk.com/?plan=tier1&billing=monthly#checkout", usd: 199, name: "Tier 1 // CamberWire Pro ($199/mo)" }},
+      tier1_annual: {{ url: "https://camberdesk.com/?plan=tier1&billing=annual#checkout", usd: 1990, name: "Tier 1 // CamberWire Pro ($1,990/yr)" }},
+      tier2_monthly: {{ url: "https://camberdesk.com/?plan=tier2&billing=monthly#checkout", usd: 499, name: "Tier 2 // CamberDesk Autopilot ($499/mo)" }},
+      tier2_annual: {{ url: "https://camberdesk.com/?plan=tier2&billing=annual#checkout", usd: 4490, name: "Tier 2 // CamberDesk Autopilot ($4,490/yr)" }},
+      tier3_monthly: {{ url: "https://camberdesk.com/?plan=tier3&billing=monthly#checkout", usd: 1499, name: "Tier 3 // 1-Click 6-File .ZIP Takeoff Compiler ($1,499/mo)" }},
+      tier3_annual: {{ url: "https://camberdesk.com/?plan=tier3&billing=annual#checkout", usd: 14900, name: "Tier 3 // 1-Click 6-File .ZIP Takeoff Compiler ($14,900/yr)" }},
+      tier4_monthly: {{ url: "https://camberdesk.com/?plan=tier4&billing=monthly#checkout", usd: 2499, name: "Tier 4 // Surety & ConTech ERP OEM Suite ($2,499/mo)" }},
+      tier4_annual: {{ url: "https://camberdesk.com/?plan=tier4&billing=annual#checkout", usd: 24900, name: "Tier 4 // Surety & ConTech ERP OEM Suite ($24,900/yr)" }},
     }};
-    const tierKey = rawPlan.includes("1") ? "tier1" : (rawPlan.includes("3") ? "tier3" : "tier2");
+    const tierKey = rawPlan.includes("1") ? "tier1" : (rawPlan.includes("3") ? "tier3" : (rawPlan.includes("4") ? "tier4" : "tier2"));
     const billKey = isAnn ? "annual" : "monthly";
     const chosen = links[`${{tierKey}}_${{billKey}}`];
     const em = body.email ? `&prefilled_email=${{encodeURIComponent(body.email)}}` : "";

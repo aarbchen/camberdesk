@@ -94,7 +94,7 @@ def generate_pseo_pages() -> Dict[str, Any]:
   {breadcrumb_ld}
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {{ color: #0A0D14; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }}
+    html, body {{ max-width: 100vw; overflow-x: hidden; color: #0A0D14; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }}
     p, li, td, th, label, span {{ letter-spacing: -0.005em; }}
   </style>
 </head>
@@ -109,6 +109,7 @@ def generate_pseo_pages() -> Dict[str, Any]:
       <div class="flex flex-wrap items-center gap-3 sm:gap-5 text-sm font-bold">
         <a href="../index.html" class="text-[#0A0D14] hover:text-[#1E3A8A]">All Lettings</a>
         <a href="../../apis.html" class="text-[#0A0D14] hover:text-[#1E3A8A]">API Catalog</a>
+        <a href="../../index.html#account" class="text-[#0A0D14] hover:text-[#1E3A8A]">Client Portal</a>
         <a href="../../index.html#checkout" class="px-3.5 py-1.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold transition">Unlock 6-File .ZIP Takeoff</a>
       </div>
     </div>
@@ -166,11 +167,25 @@ def generate_pseo_pages() -> Dict[str, Any]:
       <h2 class="text-lg font-extrabold text-[#0A0D14] font-mono">// ACTIVE DOT PLANHOLDERS &amp; HEAD-TO-HEAD COMPETITORS</h2>
       <p class="text-sm font-semibold text-[#111827]">{planholders_esc}</p>
       <div class="pt-3 flex flex-wrap gap-3">
-        <a href="../../index.html#checkout" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-sm transition">Compile 6-File OpenXML Bid-Tab .ZIP</a>
+        <a href="https://api.camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-sm transition">Download 6-File OpenXML Bid-Tab .ZIP</a>
+        <a href="../../index.html#checkout" class="px-4 py-2.5 rounded-lg bg-[#1E3A8A] hover:bg-[#0A0D14] text-white font-bold text-sm transition">Activate CamberDesk Autopilot ($499/mo)</a>
         <a href="{html.escape(d.get('source_url', '#'))}" target="_blank" rel="noopener" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-sm font-bold transition">Official DOT Letting Notice</a>
       </div>
     </div>
   </main>
+  <footer class="border-t border-[#CBD5E1] bg-[#EAE6DF] py-8 mt-12">
+    <div class="max-w-6xl mx-auto px-6 flex flex-wrap items-center justify-between gap-4 text-xs font-mono font-bold text-[#0A0D14]">
+      <div>ALL 52 FEDERAL USACE &amp; 50-STATE DOT PORTAL MONITORS ACTIVE</div>
+      <div class="flex flex-wrap gap-4">
+        <a href="../../index.html#account" class="hover:text-[#1E3A8A] underline">Client Portal</a>
+        <a href="../../index.html#status" class="text-[#065F46] hover:text-[#1E3A8A] underline">System Status</a>
+        <a href="../../index.html#security" class="hover:text-[#1E3A8A] underline">Security</a>
+        <a href="../../index.html#contact" class="hover:text-[#1E3A8A] underline">AI Concierge</a>
+        <a href="../../index.html#terms" class="hover:text-[#1E3A8A] underline">Terms</a>
+        <a href="../../index.html#privacy" class="hover:text-[#1E3A8A] underline">Privacy</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>"""
 
@@ -180,13 +195,13 @@ def generate_pseo_pages() -> Dict[str, Any]:
         urls.append(f"{SITE_BASE_URL}/lettings/project/{slug}.html")
 
         cards_html.append(
-            f"<div class='p-5 rounded-xl bg-white border border-[#CBD5E1] shadow-sm flex flex-col justify-between gap-3'>"
+            f"<div data-hub-card='1' data-hub-state='{html.escape(d['state_code'])}' class='p-5 rounded-xl bg-white border border-[#CBD5E1] shadow-sm flex flex-col justify-between gap-3'>"
             f"<div><span class='text-xs font-mono font-bold text-[#1E3A8A]'>{html.escape(pid)} &bull; {html.escape(d['state_code'])}</span>"
             f"<h3 class='text-base font-extrabold text-[#0A0D14] mt-1'><a href='project/{slug}.html' class='hover:text-[#1E3A8A]'>{title_esc}</a></h3>"
             f"<p class='text-xs font-semibold text-[#111827] mt-1.5'>{agency_esc} &bull; Est: {est_fmt}</p></div>"
             f"<div class='flex items-center justify-between pt-2.5 border-t border-[#CBD5E1] text-xs font-mono'>"
             f"<span class='text-[#065F46] font-extrabold'>Rec Bid: {rec_fmt}</span>"
-            f"<a href='project/{slug}.html' class='text-[#1E3A8A] font-bold hover:underline'>Open Dossier &rarr;</a></div></div>"
+            f"<div class='flex items-center gap-3'><a href='https://api.camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary' class='text-[#0A0D14] font-bold hover:underline'>6-File .ZIP</a><a href='project/{slug}.html' class='text-[#1E3A8A] font-bold hover:underline'>Open Dossier &rarr;</a></div></div></div>"
         )
 
     hub_title = "50-State DOT, USACE &amp; Public Works Letting Directory | CamberDesk"
@@ -208,27 +223,66 @@ def generate_pseo_pages() -> Dict[str, Any]:
 {hub_social_head}
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {{ color: #0A0D14; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }}
+    html, body {{ max-width: 100vw; overflow-x: hidden; color: #0A0D14; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }}
     p, li, td, th, label, span {{ letter-spacing: -0.005em; }}
   </style>
 </head>
 <body class="bg-[#FAF8F5] text-[#0A0D14] font-sans antialiased">
+  <header class="border-b border-[#CBD5E1] bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-3">
+      <a href="../index.html" class="inline-flex items-center gap-2 text-xl font-bold text-[#0A0D14]">
+        {LOGO_SVG}
+        <span>CamberDesk</span>
+        <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">52 PORTALS ACTIVE</span>
+      </a>
+      <nav class="flex flex-wrap items-center gap-4 text-sm font-bold">
+        <a href="../index.html" class="text-[#0A0D14] hover:text-[#1E3A8A]">Overview</a>
+        <a href="index.html" class="text-[#1E3A8A] font-extrabold">Live DOT Lettings</a>
+        <a href="../apis.html" class="text-[#0A0D14] hover:text-[#1E3A8A]">API Catalog</a>
+        <a href="../index.html#account" class="text-[#0A0D14] hover:text-[#1E3A8A]">Client Portal</a>
+        <a href="../index.html#checkout" class="px-3.5 py-1.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold transition">Self-Serve Pricing</a>
+      </nav>
+    </div>
+  </header>
   <main class="max-w-6xl mx-auto px-4 sm:px-6 py-10 space-y-6">
     <div class="flex flex-wrap items-center justify-between gap-4 border-b border-[#CBD5E1] pb-4">
-      <div class="flex items-center gap-3">
-        {LOGO_SVG}
-        <div>
-          <div class="text-xs font-mono font-bold text-[#1E3A8A]">52 PORTALS ACTIVE &bull; 50-STATE DOT &amp; USACE DIRECTORY</div>
-          <h1 class="text-2xl font-extrabold text-[#0A0D14]">52-Portal State DOT, USACE &amp; Municipal Letting Directory</h1>
-          <p class="text-sm font-medium text-[#111827] mt-0.5">Pre-shredded CSI Divisions 00–48, historical unit bid tabulations, and Davis-Bacon prevailing wage dossiers.</p>
-        </div>
+      <div>
+        <div class="text-xs font-mono font-bold text-[#1E3A8A]">52 PORTALS ACTIVE &bull; 50-STATE DOT &amp; USACE DIRECTORY</div>
+        <h1 class="text-2xl font-extrabold text-[#0A0D14]">52-Portal State DOT, USACE &amp; Municipal Letting Directory</h1>
+        <p class="text-sm font-medium text-[#111827] mt-0.5">Pre-shredded CSI Divisions 00–48, historical unit bid tabulations, and Davis-Bacon prevailing wage dossiers.</p>
       </div>
-      <a href="../index.html" class="px-4 py-2 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-sm transition">&larr; Main CamberDesk Console</a>
+      <div class="flex flex-wrap items-center gap-2">
+        <input id="hub-search-input" type="text" oninput="filterStaticLettingsHub()" placeholder="Search highway, agency, or project ID..." class="px-3.5 py-2 rounded-lg bg-white border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#1E293B]" />
+        <a href="../index.html" class="px-4 py-2 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">&larr; Main CamberDesk Console</a>
+      </div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       {''.join(cards_html)}
     </div>
   </main>
+  <footer class="border-t border-[#CBD5E1] bg-[#EAE6DF] py-8 mt-12">
+    <div class="max-w-6xl mx-auto px-6 flex flex-wrap items-center justify-between gap-4 text-xs font-mono font-bold text-[#0A0D14]">
+      <div>ALL 52 FEDERAL USACE &amp; 50-STATE DOT PORTAL MONITORS ACTIVE</div>
+      <div class="flex flex-wrap gap-4">
+        <a href="../index.html#account" class="hover:text-[#1E3A8A] underline">Client Portal</a>
+        <a href="../index.html#status" class="text-[#065F46] hover:text-[#1E3A8A] underline">System Status</a>
+        <a href="../index.html#security" class="hover:text-[#1E3A8A] underline">Security</a>
+        <a href="../index.html#contact" class="hover:text-[#1E3A8A] underline">AI Concierge</a>
+        <a href="../index.html#terms" class="hover:text-[#1E3A8A] underline">Terms</a>
+        <a href="../index.html#privacy" class="hover:text-[#1E3A8A] underline">Privacy</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    function filterStaticLettingsHub() {{
+      const inp = document.getElementById('hub-search-input');
+      const q = inp ? String(inp.value || '').toLowerCase().trim() : '';
+      document.querySelectorAll('[data-hub-card]').forEach(c => {{
+        const match = !q || c.textContent.toLowerCase().includes(q);
+        c.style.display = match ? '' : 'none';
+      }});
+    }}
+  </script>
 </body>
 </html>"""
 

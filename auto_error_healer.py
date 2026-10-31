@@ -36,10 +36,15 @@ load_dotenv()
 CAMBERDESK_DIR = Path(__file__).resolve().parent
 LOCAL_ERROR_LOG = CAMBERDESK_DIR / "error_log.txt"
 ARCHIVED_ERROR_LOG = CAMBERDESK_DIR / "error_log_resolved.txt"
-TELEMETRY_API_BASE = os.getenv(
+_raw_api_base = os.getenv(
     "CAMBERDESK_API_BASE_URL",
-    "https://camberdesk.com",
+    "https://api.camberdesk.com",
 ).rstrip("/")
+TELEMETRY_API_BASE = (
+    "https://api.camberdesk.com"
+    if _raw_api_base == "https://camberdesk.com"
+    else _raw_api_base
+)
 
 SCRAPER_MODULES = [
     "mainscraper",

@@ -29,9 +29,9 @@ SITE_BASE_URL = os.getenv("CAMBERDESK_SITE_URL", "https://camberdesk.com").rstri
 CSV_PATH = ROOT_DIR / "campaign_leads.csv"
 PROCESSED_PATH = ROOT_DIR / "processed_outbound_replies.json"
 
-TIER1_STRIPE_URL = "https://buy.stripe.com/28E28qcH8d3R54I7Mw7wA01?client_reference_id=camberdesk_tier1_monthly"
-TIER2_STRIPE_URL = "https://buy.stripe.com/5kQcN4cH8gg3cxa2sc7wA04?client_reference_id=camberdesk_tier2_monthly"
-TIER3_STRIPE_URL = "https://buy.stripe.com/14A9ASaz02pdcxa2sc7wA06?client_reference_id=camberdesk_tier3_monthly"
+TIER1_STRIPE_URL = "https://camberdesk.com/?plan=tier1&billing=monthly#checkout"
+TIER2_STRIPE_URL = "https://camberdesk.com/?plan=tier2&billing=monthly#checkout"
+TIER3_STRIPE_URL = "https://camberdesk.com/?plan=tier3&billing=monthly#checkout"
 
 
 def lookup_prospect_context(from_email: str) -> Dict[str, str]:
@@ -55,7 +55,7 @@ def lookup_prospect_context(from_email: str) -> Dict[str, str]:
         "project_id": matched.get("project_id") or "TXDOT-CSJ-0015-13-412",
         "project_title": matched.get("project_title") or "IH-35 Bridge Deck Replacement & Superpave Overlay",
         "dossier_url": matched.get("dossier_url") or f"{SITE_BASE_URL}/lettings/index.html",
-        "compiler_url": matched.get("compiler_url") or f"{SITE_BASE_URL}/v1/camber-autopilot/compile-bid-package",
+        "compiler_url": matched.get("compiler_url") or "https://api.camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary",
     }
 
 

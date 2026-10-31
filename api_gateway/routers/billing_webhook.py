@@ -53,7 +53,7 @@ CAMBERDESK_STRIPE_CATALOG: Dict[Tuple[str, str], Dict[str, Any]] = {
         "annual_savings_usd": 0,
         "api_calls_per_month": 250,
         "zip_compiler_included": False,
-        "checkout_url": "https://buy.stripe.com/28E28qcH8d3R54I7Mw7wA01",
+        "checkout_url": "https://camberdesk.com/?plan=tier1&billing=monthly#checkout",
     },
     ("tier1", "annual"): {
         "plan": "tier1",
@@ -65,7 +65,7 @@ CAMBERDESK_STRIPE_CATALOG: Dict[Tuple[str, str], Dict[str, Any]] = {
         "annual_savings_usd": 398,
         "api_calls_per_month": 250,
         "zip_compiler_included": False,
-        "checkout_url": "https://buy.stripe.com/8x228q4aC2pdbt69UE7wA03",
+        "checkout_url": "https://camberdesk.com/?plan=tier1&billing=annual#checkout",
     },
     ("tier2", "monthly"): {
         "plan": "tier2",
@@ -77,7 +77,7 @@ CAMBERDESK_STRIPE_CATALOG: Dict[Tuple[str, str], Dict[str, Any]] = {
         "annual_savings_usd": 0,
         "api_calls_per_month": 2500,
         "zip_compiler_included": True,
-        "checkout_url": "https://buy.stripe.com/5kQcN4cH8gg3cxa2sc7wA04",
+        "checkout_url": "https://camberdesk.com/?plan=tier2&billing=monthly#checkout",
     },
     ("tier2", "annual"): {
         "plan": "tier2",
@@ -89,7 +89,7 @@ CAMBERDESK_STRIPE_CATALOG: Dict[Tuple[str, str], Dict[str, Any]] = {
         "annual_savings_usd": 1498,
         "api_calls_per_month": 2500,
         "zip_compiler_included": True,
-        "checkout_url": "https://buy.stripe.com/fZu3cudLcaVJ9kYgj27wA05",
+        "checkout_url": "https://camberdesk.com/?plan=tier2&billing=annual#checkout",
     },
     ("tier3", "monthly"): {
         "plan": "tier3",
@@ -101,7 +101,7 @@ CAMBERDESK_STRIPE_CATALOG: Dict[Tuple[str, str], Dict[str, Any]] = {
         "annual_savings_usd": 0,
         "api_calls_per_month": 10000,
         "zip_compiler_included": True,
-        "checkout_url": "https://buy.stripe.com/14A9ASaz02pdcxa2sc7wA06",
+        "checkout_url": "https://camberdesk.com/?plan=tier3&billing=monthly#checkout",
     },
     ("tier3", "annual"): {
         "plan": "tier3",
@@ -113,7 +113,7 @@ CAMBERDESK_STRIPE_CATALOG: Dict[Tuple[str, str], Dict[str, Any]] = {
         "annual_savings_usd": 3088,
         "api_calls_per_month": 10000,
         "zip_compiler_included": True,
-        "checkout_url": "https://buy.stripe.com/fZuaEW22uaVJ8gU4Ak7wA07",
+        "checkout_url": "https://camberdesk.com/?plan=tier3&billing=annual#checkout",
     },
     ("tier4", "monthly"): {
         "plan": "tier4",
@@ -125,7 +125,7 @@ CAMBERDESK_STRIPE_CATALOG: Dict[Tuple[str, str], Dict[str, Any]] = {
         "annual_savings_usd": 0,
         "api_calls_per_month": 50000,
         "zip_compiler_included": True,
-        "checkout_url": "https://buy.stripe.com/dRmaEW4aCe7VeFieaU7wA08",
+        "checkout_url": "https://camberdesk.com/?plan=tier4&billing=monthly#checkout",
     },
     ("tier4", "annual"): {
         "plan": "tier4",
@@ -137,7 +137,7 @@ CAMBERDESK_STRIPE_CATALOG: Dict[Tuple[str, str], Dict[str, Any]] = {
         "annual_savings_usd": 5088,
         "api_calls_per_month": 50000,
         "zip_compiler_included": True,
-        "checkout_url": "https://buy.stripe.com/5kQbJ05eG1l9ap2feY7wA09",
+        "checkout_url": "https://camberdesk.com/?plan=tier4&billing=annual#checkout",
     },
 }
 

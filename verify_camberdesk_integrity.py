@@ -168,7 +168,17 @@ console.log(JSON.stringify({ ok: errs.length === 0, errors: errs }));
         if dups:
             errors.append(f"[{rel}] Duplicate HTML IDs found: {sorted(dups)}")
 
-        spa_routes = {"overview", "apis", "lettings", "checkout", "contracts"}
+        spa_routes = {
+            "overview",
+            "apis",
+            "lettings",
+            "checkout",
+            "contracts",
+            "interactive-state-shredder",
+            "zip-package-inspector",
+            "roi-calculator",
+            "contract-directory",
+        }
         hashes = re.findall(r'href="#([^"]+)"', content)
         for h in hashes:
             if h in spa_routes or h.startswith("contracts/") or h.startswith("lettings/"):
@@ -578,13 +588,17 @@ function makeEl(id) {
       remove(cls) { this._set.delete(cls); }
     },
     getAttribute(attr) { return this[attr] || ''; },
+    setAttribute(attr, val) { this[attr] = val; },
     scrollIntoView() {}
   };
 }
 ['page-overview','page-apis','page-lettings','page-checkout','contract-directory',
  'letting-shown-badge','api-modules-count-badge','sandbox-api-select','sandbox-req-box',
- 'sandbox-res-box','price-tier1','price-tier2','price-tier3','btn-checkout-tier1',
- 'btn-checkout-tier2','btn-checkout-tier3','contracts-dynamic-root','product-davis-bacon-wage'].forEach(id => {
+ 'sandbox-res-box','price-tier1','price-tier2','price-tier3','price-tier4','btn-checkout-tier1',
+ 'btn-checkout-tier2','btn-checkout-tier3','btn-checkout-tier4','contracts-dynamic-root','product-davis-bacon-wage',
+ 'shredder-active-badge','shredder-raw-pdf','shredder-ai-output','persona-active-title','stage-step-title',
+ 'wb-vault-output','wb-cfo-output','profile-vault-status','blueprint-download-status',
+ 'checkout-modal-plan-name','checkout-modal-plan-price','camberdesk-checkout-modal'].forEach(id => {
   elements[id] = makeEl(id);
 });
 
@@ -654,6 +668,26 @@ try {
   if (elements['price-tier2'].textContent !== '$499 / mo') {
     throw new Error('setCheckoutBilling(monthly) failed: ' + elements['price-tier2'].textContent);
   }
+  sandbox.selectInteractiveDossier('CA');
+  if (!elements['shredder-active-badge'].textContent.includes('CALTRANS')) {
+    throw new Error('selectInteractiveDossier(CA) failed');
+  }
+  sandbox.selectPersonaQuickstart('takeoff');
+  sandbox.switchOverviewProductTab(2);
+  sandbox.switchCheckoutWorkbenchTab('vault');
+  sandbox.runCheckoutFoiaVaultPreview();
+  sandbox.generateCfoProcurementQuote();
+  if (!elements['wb-cfo-output'].textContent.includes('CAMBERDESK INC.')) {
+    throw new Error('generateCfoProcurementQuote() failed');
+  }
+  sandbox.saveCompanyCaptureProfile();
+  sandbox.downloadContechBlueprint('hcss_heavybid');
+  sandbox.openCamberCheckoutModal('tier2_monthly');
+  if (!elements['checkout-modal-plan-name'].textContent.includes('Tier 2')) {
+    throw new Error('openCamberCheckoutModal(tier2_monthly) failed');
+  }
+  sandbox.openTrustModal('account');
+  sandbox.closeTrustModals();
   console.log(JSON.stringify({ ok: true }));
 } catch (err) {
   console.log(JSON.stringify({ ok: false, error: err.message || String(err) }));
@@ -819,6 +853,16 @@ def check_zero_signaltender_overlap() -> List[str]:
             if "api.nsf.gov" in hf.read():
                 errors.append("`harvest_verified_dot_contacts.py` still queries `api.nsf.gov` (shared with SignalTender)")
 
+    signaltender_stripe_ids = (
+        "28E28qcH8d3R54I7Mw7wA01",
+        "8x228q4aC2pdbt69UE7wA03",
+        "5kQcN4cH8gg3cxa2sc7wA04",
+        "fZu3cudLcaVJ9kYgj27wA05",
+        "14A9ASaz02pdcxa2sc7wA06",
+        "fZuaEW22uaVJ8gU4Ak7wA07",
+        "dRmaEW4aCe7VeFieaU7wA08",
+        "5kQbJ05eG1l9ap2feY7wA09",
+    )
     for pub_name in ("index.html", "apis.html", "cloudflare_worker.js"):
         pub_p = os.path.join(BASE_DIR, pub_name)
         if os.path.exists(pub_p):
@@ -826,6 +870,9 @@ def check_zero_signaltender_overlap() -> List[str]:
                 pub_txt = pf.read()
                 if "signaltender" in pub_txt.lower():
                     errors.append(f"Public surface `{pub_name}` contains forbidden `signaltender` reference")
+                for st_stripe_id in signaltender_stripe_ids:
+                    if st_stripe_id in pub_txt:
+                        errors.append(f"Public surface `{pub_name}` contains SignalTender Stripe link ID `{st_stripe_id}`")
                 if pub_name == "cloudflare_worker.js":
                     for seo_route in ('path === "/robots.txt"', 'path === "/sitemap.xml"', "a4f8e2c91b7d3056e8a12f4c9d0b3e71.txt"):
                         if seo_route not in pub_txt:

@@ -25,10 +25,15 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ERROR_LOG_PATH = os.path.join(BASE_DIR, "error_log.txt")
 LEARNED_RULES_PATH = os.path.join(BASE_DIR, "learned_anti_regression_rules.json")
 AGENTS_MD_PATH = os.path.join(BASE_DIR, "AGENTS.md")
-TELEMETRY_API_BASE = os.getenv(
+_raw_api_base = os.getenv(
     "CAMBERDESK_API_BASE_URL",
-    "https://camberdesk.com",
+    "https://api.camberdesk.com",
 ).rstrip("/")
+TELEMETRY_API_BASE = (
+    "https://api.camberdesk.com"
+    if _raw_api_base == "https://camberdesk.com"
+    else _raw_api_base
+)
 
 
 def configure_utf8_stdio() -> None:
