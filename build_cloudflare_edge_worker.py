@@ -624,6 +624,10 @@ function handleV1Endpoint(path, method, url, body) {{
 export default {{
   async fetch(request, env, ctx) {{
     const url = new URL(request.url);
+    const host = (url.hostname || "").toLowerCase();
+    if (host.includes("trycamberdesk.com") || host.includes("getcamberdesk.com") || host.includes("usecamberdesk.com") || host.includes("camberdeskai.com") || host.includes("camberdeskdata.com")) {{
+      return Response.redirect("https://camberdesk.com" + url.pathname + url.search, 301);
+    }}
     let path = url.pathname;
     if (path.length > 1 && path.endsWith("/") && path !== "/lettings/") {{
       path = path.slice(0, -1);
