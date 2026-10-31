@@ -15,5 +15,7 @@ echo [5/6] Deploying Full-Stack Edge Bundle to https://camberdesk.com, Seeding 1
 "D:\Daas\daas_env\Scripts\python.exe" build_cloudflare_edge_worker.py --deploy
 "D:\Daas\daas_env\Scripts\python.exe" indexnow_submitter.py
 "D:\Daas\daas_env\Scripts\python.exe" seed_camberdesk_telemetry.py
-echo [6/6] Running End-to-End CamberDesk Integrity Verification...
+echo [6/6] Running End-to-End CamberDesk Integrity Verification, Error Healer & 3-Pillar Omniscient Auditor...
 "D:\Daas\daas_env\Scripts\python.exe" verify_camberdesk_integrity.py
+"D:\Daas\daas_env\Scripts\python.exe" auto_error_healer.py --smoke --clear-resolved
+"D:\Daas\daas_env\Scripts\python.exe" omniscient_auditor.py --mode full --force-now

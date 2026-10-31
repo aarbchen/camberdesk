@@ -1,0 +1,106 @@
+{
+  "updated_at": "2026-10-31T15:25:58.011929+00:00",
+  "total_rules": 9,
+  "policy": "Silent detection -> Autonomous diagnosis & repair -> Rule codification -> Resolved-only Discord notification",
+  "rules": [
+    {
+      "rule_id": "RULE-001-SILENT-DETECTION-RESOLVED-ONLY",
+      "pillar": "System Telemetry",
+      "root_cause": "Raw error alerts in Discord create alert fatigue before autonomous healers can fix transient or repairable issues.",
+      "fix_applied": "Enforced silent `report_error()` logging to `error_log.txt` and `/v1/telemetry/report-error`; only `send_discord_resolution()` posts `[RESOLVED]` notices.",
+      "rule_statement": "Never post raw/open error alerts to Discord; log silently via `report_error()` and notify Discord only via `send_discord_resolution()` after repair and verification.",
+      "invariant_check": "check_silent_discord_alert_policy",
+      "created_at": "2026-10-31T15:18:00.242824+00:00",
+      "last_enforced_at": "2026-10-31T15:18:00.242824+00:00",
+      "times_triggered": 1
+    },
+    {
+      "rule_id": "RULE-002-FRONTIER-CLAUDE-SONNET-5-5",
+      "pillar": "Pillar 1: Products & LLM Engine",
+      "root_cause": "Legacy or lower-tier LLM model strings degrade CSI MasterFormat shredding and DOT bid-tab extraction accuracy.",
+      "fix_applied": "Standardized all scrapers, `camberdesk_autopilot.py`, `outbound_reply_responder.py`, and `llm_extractor.py` on `claude-sonnet-5-5`.",
+      "rule_statement": "Always use `claude-sonnet-5-5` across all CamberDesk scrapers, autopilot engines, and LLM extractors; never use retired `claude-3-*` or `haiku` models.",
+      "invariant_check": "check_frontier_model_strings",
+      "created_at": "2026-10-31T15:18:01.127694+00:00",
+      "last_enforced_at": "2026-10-31T15:18:01.127694+00:00",
+      "times_triggered": 1
+    },
+    {
+      "rule_id": "RULE-003-GLAMA-5-OF-5-TDQS-MCP",
+      "pillar": "Pillar 1: MCP Servers",
+      "root_cause": "MCP registries penalize tools with catalog number prefixes, missing annotations, or undocumented inputSchema properties.",
+      "fix_applied": "Enforced 5/5 Glama TDQS across all 12 tools in `api_gateway/routers/mcp.py`, `mcp-server/index.js`, and `build_cloudflare_edge_worker.py`.",
+      "rule_statement": "Every MCP tool must have zero `API #XX:` prefixes, explicit `title`, `annotations`, `outputSchema`, 100% documented `inputSchema.properties`, and 3-part sibling disambiguation.",
+      "invariant_check": "check_mcp_glama_tdqs",
+      "created_at": "2026-10-31T15:18:01.594242+00:00",
+      "last_enforced_at": "2026-10-31T15:18:01.594242+00:00",
+      "times_triggered": 1
+    },
+    {
+      "rule_id": "RULE-004-TIER3-OPENXML-LIVE-FORMULAS",
+      "pillar": "Pillar 1: 6-File .ZIP Compiler",
+      "root_cause": "Static text tables in spreadsheets force estimators to manually re-enter sum and extension formulas.",
+      "fix_applied": "Embedded live OpenXML `<f>D6*G6</f>` and `<f>SUM(...)</f>` formulas inside Volume II and Volume III `.XLSX` workbooks.",
+      "rule_statement": "The Tier 3 6-File `.ZIP` Bid Package Compiler must always output valid OpenXML `.docx`/`.xlsx` archives containing live Excel `<f>` formulas.",
+      "invariant_check": "check_tier3_openxml_zip_integrity",
+      "created_at": "2026-10-31T15:18:01.884535+00:00",
+      "last_enforced_at": "2026-10-31T15:18:01.884535+00:00",
+      "times_triggered": 1
+    },
+    {
+      "rule_id": "RULE-005-52-PORTAL-12-API-PARITY",
+      "pillar": "Pillar 3: Website & Catalog",
+      "root_cause": "Mismatched portal or endpoint counts between `index.html`, `apis.html`, and `pseo_generator.py` erode buyer trust.",
+      "fix_applied": "Synchronized all 52 Active Portals (50 State DOTs + USACE + Municipal) and all 12 Preconstruction APIs across every surface.",
+      "rule_statement": "Maintain 100% count, card, and schema parity across `index.html`, `apis.html`, `pseo_generator.py`, and `cloudflare_worker.js` (52 Portals, 50 State DOTs, 12 APIs).",
+      "invariant_check": "check_portal_and_catalog_parity",
+      "created_at": "2026-10-31T15:18:02.682882+00:00",
+      "last_enforced_at": "2026-10-31T15:18:02.682882+00:00",
+      "times_triggered": 1
+    },
+    {
+      "rule_id": "RULE-006-HIGH-CONTRAST-WARM-VELLUM-THEME",
+      "pillar": "Pillar 3: Visual & Brand Standards",
+      "root_cause": "Washed-out grey text classes (`text-slate-400`, `text-slate-500`, `#64748B`) reduce readability on Warm Vellum (`#FAF8F5`) backgrounds.",
+      "fix_applied": "Banned all low-contrast grey tokens (`FORBIDDEN_GREY_PATTERNS`) and emojis across all HTML surfaces.",
+      "rule_statement": "Enforce Editorial Theme 1 (`#FAF8F5` Warm Vellum & `#0A0D14` Obsidian Ink + `#1E3A8A` Blueprint Navy) with zero emojis and zero washed-out grey classes.",
+      "invariant_check": "check_high_contrast_and_zero_emoji",
+      "created_at": "2026-10-31T15:18:02.954939+00:00",
+      "last_enforced_at": "2026-10-31T15:18:02.954939+00:00",
+      "times_triggered": 1
+    },
+    {
+      "rule_id": "RULE-007-OUTREACH-LIVE-DOSSIER-URLS",
+      "pillar": "Pillar 2: Customer Acquisition",
+      "root_cause": "Cold outreach emails linking to non-existent `/lettings/project/<slug>.html` pages cause 404 bounces.",
+      "fix_applied": "Verified every `dossier_url` in `campaign_leads.csv` and `outbox_ready_queue.json` maps 1:1 to a generated file on disk.",
+      "rule_statement": "Every `dossier_url` in `campaign_leads.csv`, `outbox_ready_queue.json`, and Discord feeds must resolve to an existing `/lettings/project/<slug>.html` file.",
+      "invariant_check": "check_outreach_dossier_urls",
+      "created_at": "2026-10-31T15:18:03.628173+00:00",
+      "last_enforced_at": "2026-10-31T15:18:03.628173+00:00",
+      "times_triggered": 1
+    },
+    {
+      "rule_id": "RULE-TIER3-OPENXML-INTEGRITY",
+      "pillar": "System Integrity",
+      "root_cause": "[auto_error_healer] Local telemetry resolved: [2026-10-31 15:21:12 UTC] [ERROR] [omniscient_auditor.py] [Pillar 1B] Tier 3 6-File .ZIP Compiler failed audit: cannot import name 'build_six_file_bid_package_zip' from 'api_gatewa",
+      "fix_applied": "Verified AST contracts, Python compilation, and 12-API + 52-Portal gateway integrity.",
+      "rule_statement": "Tier 3 Bid Package `.ZIP` archives must always contain 6 valid OpenXML (`.docx`/`.xlsx`) and `.json` files with well-formed XML and live Excel `=SUM()` and `=D6*G6` formulas.",
+      "invariant_check": "check_tier3_openxml_zip_integrity",
+      "created_at": "2026-10-31T15:25:57.694968+00:00",
+      "last_enforced_at": "2026-10-31T15:25:57.694968+00:00",
+      "times_triggered": 1
+    },
+    {
+      "rule_id": "RULE-PORTAL-CATALOG-PARITY",
+      "pillar": "System Integrity",
+      "root_cause": "[auto_error_healer] Local telemetry resolved: [2026-10-31 15:21:12 UTC] [ERROR] [omniscient_auditor.py] [Pillar 1C/1D] API Catalog / MCP audit failed: cannot import name 'TOOL_ROUTE_MAP' from 'api_gateway.routers.mcp' (D:\\Camb",
+      "fix_applied": "Verified AST contracts, Python compilation, and 12-API + 52-Portal gateway integrity.",
+      "rule_statement": "Maintain 100% count and card parity across `index.html`, `apis.html`, `pseo_generator.py`, MCP servers, and Cloudflare Edge Worker (`52 Portals / 50 State DOTs` and `12 APIs`).",
+      "invariant_check": "check_portal_and_catalog_parity",
+      "created_at": "2026-10-31T15:25:57.791099+00:00",
+      "last_enforced_at": "2026-10-31T15:25:58.011929+00:00",
+      "times_triggered": 2
+    }
+  ]
+}

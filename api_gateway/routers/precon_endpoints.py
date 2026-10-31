@@ -412,3 +412,55 @@ async def generate_subcontractor_itb(req: SubcontractorItbRequest) -> Dict[str, 
         ],
     }
 
+
+# ---------------------------------------------------------------------------
+# Closed-Loop Autonomous Error Telemetry Endpoints (/v1/telemetry/*)
+# ---------------------------------------------------------------------------
+_TELEMETRY_ERROR_BUFFER: List[Dict[str, Any]] = []
+
+
+@router.post(
+    "/telemetry/report-error",
+    status_code=status.HTTP_200_OK,
+    tags=["Autonomous Error Telemetry"],
+)
+async def report_telemetry_error(payload: Dict[str, Any]) -> Dict[str, Any]:
+    entry = {
+        "component": str(payload.get("component") or "unknown"),
+        "error": str(payload.get("error") or ""),
+        "traceback": str(payload.get("traceback") or ""),
+        "severity": str(payload.get("severity") or "ERROR"),
+        "timestamp": str(payload.get("timestamp") or ""),
+        "host": str(payload.get("host") or "edge"),
+        "status": "open",
+    }
+    _TELEMETRY_ERROR_BUFFER.append(entry)
+    if len(_TELEMETRY_ERROR_BUFFER) > 200:
+        del _TELEMETRY_ERROR_BUFFER[:-200]
+    return {"status": "recorded", "open_count": len(_TELEMETRY_ERROR_BUFFER)}
+
+
+@router.get(
+    "/telemetry/errors",
+    status_code=status.HTTP_200_OK,
+    tags=["Autonomous Error Telemetry"],
+)
+async def get_telemetry_errors(status_filter: str = "open") -> Dict[str, Any]:
+    return {
+        "status": "ok",
+        "open_count": len(_TELEMETRY_ERROR_BUFFER),
+        "errors": list(_TELEMETRY_ERROR_BUFFER),
+    }
+
+
+@router.post(
+    "/telemetry/clear-errors",
+    status_code=status.HTTP_200_OK,
+    tags=["Autonomous Error Telemetry"],
+)
+async def clear_telemetry_errors() -> Dict[str, Any]:
+    cleared = len(_TELEMETRY_ERROR_BUFFER)
+    _TELEMETRY_ERROR_BUFFER.clear()
+    return {"status": "cleared", "cleared_count": cleared, "open_count": 0}
+
+

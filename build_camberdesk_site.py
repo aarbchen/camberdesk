@@ -372,48 +372,52 @@ def _render_logo_png_bytes(dim: int = 64) -> bytes:
     return _encode_rgb_png(dim, dim, rows)
 
 
-def _render_logo_ico_bytes(dim: int = 32) -> bytes:
-    """Renders a true uncompressed 32-bit BGRA BITMAPINFOHEADER DIB .ICO for 100% iOS Safari / Android / Windows support."""
+def _render_logo_ico_bytes(dims: tuple[int, ...] = (16, 32, 48)) -> bytes:
+    """Renders a multi-resolution (16x16, 32x32, 48x48) uncompressed 32-bit BGRA BITMAPINFOHEADER DIB .ICO for Google Search, iOS Safari, Android & Windows."""
     import struct
 
-    # Bottom-up BGRA pixel buffer (dim x dim x 4 bytes)
-    xor_mask = bytearray(dim * dim * 4)
-    for y in range(dim):
-        # DIB stores rows bottom-up: row 0 in buffer is bottom row (y = dim - 1)
-        src_y = dim - 1 - y
-        ny = (src_y + 0.5) / dim * 64.0
-        for x in range(dim):
-            nx = (x + 0.5) / dim * 64.0
-            r, g, b = _sample_logo_pixel(nx, ny)
-            idx = (y * dim + x) * 4
-            xor_mask[idx] = b
-            xor_mask[idx + 1] = g
-            xor_mask[idx + 2] = r
-            xor_mask[idx + 3] = 255
+    dib_blobs = []
+    for dim in dims:
+        xor_mask = bytearray(dim * dim * 4)
+        for y in range(dim):
+            src_y = dim - 1 - y
+            ny = (src_y + 0.5) / dim * 64.0
+            for x in range(dim):
+                nx = (x + 0.5) / dim * 64.0
+                r, g, b = _sample_logo_pixel(nx, ny)
+                idx = (y * dim + x) * 4
+                xor_mask[idx] = b
+                xor_mask[idx + 1] = g
+                xor_mask[idx + 2] = r
+                xor_mask[idx + 3] = 255
 
-    # 1-bit AND mask padded to 32-bit (4-byte) row boundaries (all 0 = opaque)
-    and_row_bytes = ((dim + 31) // 32) * 4
-    and_mask = bytes(and_row_bytes * dim)
+        and_row_bytes = ((dim + 31) // 32) * 4
+        and_mask = bytes(and_row_bytes * dim)
+        bih = struct.pack(
+            "<IIIHHIIIIII",
+            40,
+            dim,
+            dim * 2,
+            1,
+            32,
+            0,
+            len(xor_mask) + len(and_mask),
+            0,
+            0,
+            0,
+            0,
+        )
+        dib_blobs.append((dim, bih + bytes(xor_mask) + and_mask))
 
-    # 40-byte BITMAPINFOHEADER (height is 2 * dim for XOR + AND masks)
-    bih = struct.pack(
-        "<IIIHHIIIIII",
-        40,
-        dim,
-        dim * 2,
-        1,
-        32,
-        0,
-        len(xor_mask) + len(and_mask),
-        0,
-        0,
-        0,
-        0,
-    )
-    dib_data = bih + bytes(xor_mask) + and_mask
-    ico_header = struct.pack("<HHH", 0, 1, 1)
-    ico_entry = struct.pack("<BBBBHHII", dim, dim, 0, 0, 1, 32, len(dib_data), 22)
-    return ico_header + ico_entry + dib_data
+    count = len(dib_blobs)
+    ico_header = struct.pack("<HHH", 0, 1, count)
+    offset = 6 + 16 * count
+    entries = []
+    for dim, blob in dib_blobs:
+        w_byte = 0 if dim >= 256 else dim
+        entries.append(struct.pack("<BBBBHHII", w_byte, w_byte, 0, 0, 1, 32, len(blob), offset))
+        offset += len(blob)
+    return ico_header + b"".join(entries) + b"".join(blob for _, blob in dib_blobs)
 
 
 def _render_og_image_png_bytes(width: int = 1200, height: int = 630) -> bytes:
@@ -455,8 +459,30 @@ def _render_og_image_png_bytes(width: int = 1200, height: int = 630) -> bytes:
     return _encode_rgb_png(width, height, rows)
 
 
+WEB_MANIFEST_JSON = json.dumps(
+    {
+        "name": "CamberDesk | 50-State DOT Bid-Tab, Prevailing-Wage & Construction Takeoff Intelligence",
+        "short_name": "CamberDesk",
+        "description": "Autonomous 50-State DOT heavy-civil letting feed, 36-month historical unit-price bid tabulations, Davis-Bacon WH-347 prevailing wages, and 6-File OpenXML (.DOCX + .XLSX) Takeoff Compiler.",
+        "start_url": "/",
+        "display": "standalone",
+        "background_color": "#FAF8F5",
+        "theme_color": "#0A0D14",
+        "icons": [
+            {"src": "/favicon-32x32.png?v=4", "sizes": "32x32", "type": "image/png"},
+            {"src": "/favicon-48x48.png?v=4", "sizes": "48x48", "type": "image/png"},
+            {"src": "/favicon-96x96.png?v=4", "sizes": "96x96", "type": "image/png"},
+            {"src": "/apple-touch-icon.png?v=4", "sizes": "180x180", "type": "image/png"},
+            {"src": "/favicon-192x192.png?v=4", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+            {"src": "/favicon-512x512.png?v=4", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"},
+        ],
+    },
+    indent=2,
+)
+
+
 def _generate_favicon_assets() -> None:
-    """Generates SVG, 32-bit DIB .ICO, PNG (64x64 & 180x180), and 1200x630 OpenGraph PNG for mobile & SMS previews."""
+    """Generates SVG, multi-size 16/32/48 DIB .ICO, Google Search PNGs (32, 48, 64, 96, 180, 192, 512), 1200x630 OpenGraph PNG, and site.webmanifest."""
     lettings_dir = os.path.join(BASE_DIR, "lettings")
     os.makedirs(lettings_dir, exist_ok=True)
 
@@ -464,20 +490,31 @@ def _generate_favicon_assets() -> None:
         with open(svg_p, "w", encoding="utf-8") as fh:
             fh.write(FAVICON_SVG_XML)
 
-    png_64 = _render_logo_png_bytes(64)
-    png_180 = _render_logo_png_bytes(180)
-    ico_32 = _render_logo_ico_bytes(32)
+    for mf_p in (os.path.join(BASE_DIR, "site.webmanifest"), os.path.join(lettings_dir, "site.webmanifest")):
+        with open(mf_p, "w", encoding="utf-8") as fh:
+            fh.write(WEB_MANIFEST_JSON)
+
+    size_map = {
+        "favicon-32x32.png": 32,
+        "favicon-48x48.png": 48,
+        "favicon.png": 64,
+        "favicon-96x96.png": 96,
+        "apple-touch-icon.png": 180,
+        "favicon-192x192.png": 192,
+        "favicon-512x512.png": 512,
+    }
+    for fname, dim in size_map.items():
+        raw_png = _render_logo_png_bytes(dim)
+        for target_dir in (BASE_DIR, lettings_dir):
+            with open(os.path.join(target_dir, fname), "wb") as fh:
+                fh.write(raw_png)
+
+    ico_multi = _render_logo_ico_bytes((16, 32, 48))
     og_png = _render_og_image_png_bytes(1200, 630)
 
-    for png_p in (os.path.join(BASE_DIR, "favicon.png"), os.path.join(lettings_dir, "favicon.png")):
-        with open(png_p, "wb") as fh:
-            fh.write(png_64)
-    for touch_p in (os.path.join(BASE_DIR, "apple-touch-icon.png"), os.path.join(lettings_dir, "apple-touch-icon.png")):
-        with open(touch_p, "wb") as fh:
-            fh.write(png_180)
     for ico_p in (os.path.join(BASE_DIR, "favicon.ico"), os.path.join(lettings_dir, "favicon.ico")):
         with open(ico_p, "wb") as fh:
-            fh.write(ico_32)
+            fh.write(ico_multi)
     for og_p in (os.path.join(BASE_DIR, "og-image.png"), os.path.join(lettings_dir, "og-image.png")):
         with open(og_p, "wb") as fh:
             fh.write(og_png)
@@ -489,25 +526,68 @@ def build_social_and_favicon_head(
     canonical_url: str = "https://camberdesk.com/",
     rel_prefix: str = "",
 ) -> str:
-    """Renders mobile-browser-safe favicon links (PNG/ICO/Apple-Touch-Icon before SVG) + iMessage/SMS OpenGraph tags."""
+    """Renders Google Search + Mobile Browser + iMessage/SMS OpenGraph tags & Schema.org JSON-LD (matching SignalTender's verified head structure)."""
+    schema_ld = json.dumps(
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "Organization",
+                    "@id": "https://camberdesk.com/#organization",
+                    "name": "CamberDesk",
+                    "url": "https://camberdesk.com/",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://camberdesk.com/favicon-512x512.png?v=4",
+                        "width": 512,
+                        "height": 512,
+                    },
+                    "image": "https://camberdesk.com/og-image.png?v=4",
+                    "description": page_desc,
+                },
+                {
+                    "@type": "WebSite",
+                    "@id": "https://camberdesk.com/#website",
+                    "url": "https://camberdesk.com/",
+                    "name": "CamberDesk",
+                    "publisher": {"@id": "https://camberdesk.com/#organization"},
+                },
+                {
+                    "@type": "SoftwareApplication",
+                    "name": "CamberDesk Autonomous Preconstruction & 50-State DOT Bid-Tab Engine",
+                    "applicationCategory": "BusinessApplication",
+                    "operatingSystem": "Web, REST API, Model Context Protocol (MCP)",
+                    "offers": [
+                        {"@type": "Offer", "name": "Tier 1 CamberWire Pro", "price": "199.00", "priceCurrency": "USD"},
+                        {"@type": "Offer", "name": "Tier 2 CamberDesk Autopilot", "price": "499.00", "priceCurrency": "USD"},
+                        {"@type": "Offer", "name": "Tier 3 6-File .ZIP Takeoff Compiler", "price": "1499.00", "priceCurrency": "USD"},
+                    ],
+                },
+            ],
+        }
+    )
     return f"""  <meta name="theme-color" content="#FAF8F5" />
+  <link rel="icon" type="image/png" sizes="96x96" href="https://camberdesk.com/favicon-96x96.png?v=4" />
+  <link rel="icon" type="image/png" sizes="512x512" href="https://camberdesk.com/favicon-512x512.png?v=4" />
+  <link rel="icon" type="image/png" sizes="192x192" href="https://camberdesk.com/favicon-192x192.png?v=4" />
+  <link rel="icon" type="image/png" sizes="48x48" href="https://camberdesk.com/favicon-48x48.png?v=4" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://camberdesk.com/favicon-32x32.png?v=4" />
+  <link rel="icon" type="image/png" sizes="64x64" href="{rel_prefix}favicon.png?v=4" />
+  <link rel="icon" type="image/x-icon" href="https://camberdesk.com/favicon.ico?v=4" />
+  <link rel="shortcut icon" href="https://camberdesk.com/favicon.ico?v=4" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://camberdesk.com/apple-touch-icon.png?v=4" />
+  <link rel="apple-touch-icon-precomposed" sizes="180x180" href="https://camberdesk.com/apple-touch-icon.png?v=4" />
+  <link rel="icon" type="image/svg+xml" href="https://camberdesk.com/favicon.svg?v=4" />
+  <link rel="manifest" href="https://camberdesk.com/site.webmanifest?v=4" />
   <link rel="canonical" href="{canonical_url}" />
-  <link rel="apple-touch-icon" sizes="180x180" href="https://camberdesk.com/apple-touch-icon.png?v=3" />
-  <link rel="apple-touch-icon-precomposed" sizes="180x180" href="https://camberdesk.com/apple-touch-icon.png?v=3" />
-  <link rel="icon" type="image/png" sizes="180x180" href="https://camberdesk.com/apple-touch-icon.png?v=3" />
-  <link rel="icon" type="image/png" sizes="64x64" href="https://camberdesk.com/favicon.png?v=3" />
-  <link rel="icon" type="image/png" sizes="32x32" href="{rel_prefix}favicon.png?v=3" />
-  <link rel="icon" type="image/x-icon" href="https://camberdesk.com/favicon.ico?v=3" />
-  <link rel="shortcut icon" href="https://camberdesk.com/favicon.ico?v=3" />
-  <link rel="icon" type="image/svg+xml" href="{rel_prefix}favicon.svg?v=3" />
-  <meta property="og:type" content="website" />
   <meta property="og:site_name" content="CamberDesk" />
   <meta property="og:title" content="{page_title}" />
   <meta property="og:description" content="{page_desc}" />
+  <meta property="og:type" content="website" />
   <meta property="og:url" content="{canonical_url}" />
-  <meta property="og:logo" content="https://camberdesk.com/apple-touch-icon.png?v=3" />
-  <meta property="og:image" content="https://camberdesk.com/og-image.png?v=3" />
-  <meta property="og:image:secure_url" content="https://camberdesk.com/og-image.png?v=3" />
+  <meta property="og:logo" content="https://camberdesk.com/favicon-512x512.png?v=4" />
+  <meta property="og:image" content="https://camberdesk.com/og-image.png?v=4" />
+  <meta property="og:image:secure_url" content="https://camberdesk.com/og-image.png?v=4" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -515,8 +595,9 @@ def build_social_and_favicon_head(
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="{page_title}" />
   <meta name="twitter:description" content="{page_desc}" />
-  <meta name="twitter:image" content="https://camberdesk.com/og-image.png?v=3" />
-  <meta name="twitter:image:alt" content="CamberDesk — 50-State DOT Bid-Tab, Prevailing-Wage &amp; Construction Takeoff Intelligence" />"""
+  <meta name="twitter:image" content="https://camberdesk.com/og-image.png?v=4" />
+  <meta name="twitter:image:alt" content="CamberDesk — 50-State DOT Bid-Tab, Prevailing-Wage &amp; Construction Takeoff Intelligence" />
+  <script type="application/ld+json">{schema_ld}</script>"""
 
 
 def _render_logo_lockup(subtitle: str, href: str = "#overview") -> str:
@@ -551,12 +632,12 @@ def _build_api_catalog_section() -> str:
         res_json = json.dumps(api["res_sample"], indent=2)
 
         dir_rows.append(
-            f"""<a href="#{aid}" onclick="jumpToApiCard('{aid}')" data-api-row="{aid}" class="flex items-center justify-between p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm">
-              <div class="flex items-center gap-3">
-                <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">{num}</span>
-                <span class="text-sm font-bold text-[#0A0D14]">{title}</span>
+            f"""<a href="#{aid}" onclick="jumpToApiCard('{aid}')" data-api-row="{aid}" class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm min-w-0">
+              <div class="flex items-center gap-3 min-w-0">
+                <span class="shrink-0 text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">{num}</span>
+                <span class="text-sm font-bold text-[#0A0D14] break-words min-w-0">{title}</span>
               </div>
-              <div class="flex items-center gap-2 text-xs font-mono">
+              <div class="flex items-center gap-2 text-xs font-mono shrink-0">
                 <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">{method} {route}</span>
               </div>
             </a>"""
@@ -575,8 +656,8 @@ def _build_api_catalog_section() -> str:
         )
 
         article_cards.append(
-            f"""<article id="{aid}" data-api-card="{aid}" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6">
-              <div class="lg:col-span-7 space-y-4">
+            f"""<article id="{aid}" data-api-card="{aid}" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6 min-w-0">
+              <div class="lg:col-span-7 space-y-4 min-w-0">
                 <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
                   <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #{num} // {badge}</span>
                   <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">{method} {route}</span>
@@ -595,10 +676,10 @@ def _build_api_catalog_section() -> str:
                   <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Tier 2 ($499/mo)</a>
                 </div>
               </div>
-              <div class="lg:col-span-5 space-y-3">
+              <div class="lg:col-span-5 space-y-3 min-w-0">
                 <div class="text-xs font-mono font-bold text-[#0A0D14]">// REQUEST &amp; RESPONSE SCHEMA PREVIEW</div>
-                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#0F172A] leading-relaxed overflow-x-auto">{req_json}</pre>
-                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#064E3B] leading-relaxed overflow-x-auto">{res_json}</pre>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#0F172A] leading-relaxed overflow-x-auto max-w-full">{req_json}</pre>
+                <pre class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#064E3B] leading-relaxed overflow-x-auto max-w-full">{res_json}</pre>
               </div>
             </article>"""
         )
@@ -635,21 +716,21 @@ def _build_api_catalog_section() -> str:
       </div>
 
       <!-- In-Page RapidAPI & MCP Studio Playground Modal / Panel -->
-      <div id="api-studio-playground" class="p-6 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-sm space-y-4">
-        <div class="flex flex-wrap items-center justify-between gap-3">
+      <div id="api-studio-playground" class="p-6 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-sm space-y-4 min-w-0">
+        <div class="flex flex-wrap items-center justify-between gap-3 min-w-0">
           <div class="text-xs font-mono font-bold text-[#0A0D14]">// IN-PAGE PRECONSTRUCTION API STUDIO PLAYGROUND — SELECT MICROSERVICE (12)</div>
-          <select id="sandbox-api-select" onchange="openApiSandbox(this.value)" class="px-3 py-1.5 rounded bg-[#F4F1EA] border border-[#94A3B8] text-xs font-mono font-bold text-[#0A0D14]">
+          <select id="sandbox-api-select" onchange="openApiSandbox(this.value)" class="w-full sm:w-auto max-w-full px-3 py-1.5 rounded bg-[#F4F1EA] border border-[#94A3B8] text-xs font-mono font-bold text-[#0A0D14]">
             {''.join(f'<option value="{a["id"]}">{a["num"]} — {a["title"]}</option>' for a in APIS_CATALOG)}
           </select>
         </div>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 min-w-0">
+          <div class="min-w-0">
             <div class="text-xs font-mono font-bold text-[#0A0D14] mb-1.5">JSON Request Payload</div>
             <textarea id="sandbox-req-box" rows="6" class="w-full p-3.5 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#0F172A] leading-relaxed">{json.dumps(APIS_CATALOG[0]['req_sample'], indent=2)}</textarea>
           </div>
-          <div>
+          <div class="min-w-0">
             <div class="text-xs font-mono font-bold text-[#0A0D14] mb-1.5">Live Structured Response (200 OK)</div>
-            <pre id="sandbox-res-box" class="p-3.5 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#064E3B] leading-relaxed overflow-x-auto">{json.dumps(APIS_CATALOG[0]['res_sample'], indent=2)}</pre>
+            <pre id="sandbox-res-box" class="p-3.5 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#064E3B] leading-relaxed overflow-x-auto max-w-full">{json.dumps(APIS_CATALOG[0]['res_sample'], indent=2)}</pre>
           </div>
         </div>
         <button type="button" onclick="executeSandboxCall()" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Execute Stateless API Call</button>

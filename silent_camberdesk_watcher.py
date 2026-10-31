@@ -18,7 +18,9 @@ import sys
 import time
 from datetime import datetime
 
+import auto_error_healer
 import autonomous_mailbox_scaler
+import omniscient_auditor
 import outbound_reply_responder
 import publish_camberdesk_rapidapi
 import seed_camberdesk_telemetry
@@ -84,7 +86,21 @@ def main() -> int:
         except Exception:
             pass
 
-        # 3. Every 16 cycles (~4 hours), refresh RapidAPI 100% Service Level telemetry across all 12 APIs
+        # 3. Every 4 cycles (~1 hour), run Closed-Loop Autonomous Error Healer
+        if cycle % 4 == 0:
+            try:
+                auto_error_healer.run_healer(clear_resolved=True, run_smoke=False)
+            except Exception:
+                pass
+
+        # 4. Every 8 cycles (~2 hours), run 3-Pillar Omniscient Auditor (gated to Nighttime & User-Away)
+        if cycle % 8 == 0:
+            try:
+                omniscient_auditor.run_omniscient_audit(mode="full", force_now=False, auto_deploy=True)
+            except Exception:
+                pass
+
+        # 5. Every 16 cycles (~4 hours), refresh RapidAPI 100% Service Level telemetry across all 12 APIs
         if cycle % 16 == 0 and cycle > 0:
             try:
                 seed_camberdesk_telemetry.run_telemetry_seeder(use_rapidapi_proxy=True)

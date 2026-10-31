@@ -27,3 +27,20 @@
    - Zero emojis anywhere on the site; use crisp SVG engineering icons and typographic symbols.
    - Always verify the entire repository via `python verify_camberdesk_integrity.py`.
 
+---
+
+<!-- AUTONOMOUS_LEARNED_RULES_START -->
+## Autonomous Self-Improved Anti-Regression Rules (Auto-Codified by `omniscient_auditor.py` & `auto_error_healer.py`)
+
+The following rules were automatically learned from past detections and fixes. Every future audit and code change **MUST** enforce them:
+
+- **`RULE-001-SILENT-DETECTION-RESOLVED-ONLY` [System Telemetry] (2026-10-31):** Never post raw/open error alerts to Discord; log silently via `report_error()` and notify Discord only via `send_discord_resolution()` after repair and verification. *(Enforced by `check_silent_discord_alert_policy`)*
+- **`RULE-002-FRONTIER-CLAUDE-SONNET-5-5` [Pillar 1: Products & LLM Engine] (2026-10-31):** Always use `claude-sonnet-5-5` across all CamberDesk scrapers, autopilot engines, and LLM extractors; never use retired `claude-3-*` or `haiku` models. *(Enforced by `check_frontier_model_strings`)*
+- **`RULE-003-GLAMA-5-OF-5-TDQS-MCP` [Pillar 1: MCP Servers] (2026-10-31):** Every MCP tool must have zero `API #XX:` prefixes, explicit `title`, `annotations`, `outputSchema`, 100% documented `inputSchema.properties`, and 3-part sibling disambiguation. *(Enforced by `check_mcp_glama_tdqs`)*
+- **`RULE-004-TIER3-OPENXML-LIVE-FORMULAS` [Pillar 1: 6-File .ZIP Compiler] (2026-10-31):** The Tier 3 6-File `.ZIP` Bid Package Compiler must always output valid OpenXML `.docx`/`.xlsx` archives containing live Excel `<f>` formulas. *(Enforced by `check_tier3_openxml_zip_integrity`)*
+- **`RULE-005-52-PORTAL-12-API-PARITY` [Pillar 3: Website & Catalog] (2026-10-31):** Maintain 100% count, card, and schema parity across `index.html`, `apis.html`, `pseo_generator.py`, and `cloudflare_worker.js` (52 Portals, 50 State DOTs, 12 APIs). *(Enforced by `check_portal_and_catalog_parity`)*
+- **`RULE-006-HIGH-CONTRAST-WARM-VELLUM-THEME` [Pillar 3: Visual & Brand Standards] (2026-10-31):** Enforce Editorial Theme 1 (`#FAF8F5` Warm Vellum & `#0A0D14` Obsidian Ink + `#1E3A8A` Blueprint Navy) with zero emojis and zero washed-out grey classes. *(Enforced by `check_high_contrast_and_zero_emoji`)*
+- **`RULE-007-OUTREACH-LIVE-DOSSIER-URLS` [Pillar 2: Customer Acquisition] (2026-10-31):** Every `dossier_url` in `campaign_leads.csv`, `outbox_ready_queue.json`, and Discord feeds must resolve to an existing `/lettings/project/<slug>.html` file. *(Enforced by `check_outreach_dossier_urls`)*
+- **`RULE-TIER3-OPENXML-INTEGRITY` [System Integrity] (2026-10-31):** Tier 3 Bid Package `.ZIP` archives must always contain 6 valid OpenXML (`.docx`/`.xlsx`) and `.json` files with well-formed XML and live Excel `=SUM()` and `=D6*G6` formulas. *(Enforced by `check_tier3_openxml_zip_integrity`)*
+- **`RULE-PORTAL-CATALOG-PARITY` [System Integrity] (2026-10-31):** Maintain 100% count and card parity across `index.html`, `apis.html`, `pseo_generator.py`, MCP servers, and Cloudflare Edge Worker (`52 Portals / 50 State DOTs` and `12 APIs`). *(Enforced by `check_portal_and_catalog_parity`)*
+<!-- AUTONOMOUS_LEARNED_RULES_END -->

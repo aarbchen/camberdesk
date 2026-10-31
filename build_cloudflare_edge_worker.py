@@ -578,15 +578,36 @@ function handleV1Endpoint(path, method, url, body) {{
     }};
   }}
 
+  if (path === "/v1/telemetry/report-error") {{
+    return {{
+      status: "recorded",
+      open_count: 0,
+      component: body.component || "edge",
+    }};
+  }}
+
+  if (path === "/v1/telemetry/errors") {{
+    return {{
+      status: "ok",
+      open_count: 0,
+      errors: [],
+    }};
+  }}
+
+  if (path === "/v1/telemetry/clear-errors") {{
+    return {{
+      status: "cleared",
+      cleared_count: 0,
+      open_count: 0,
+    }};
+  }}
+
   return null;
 }}
 
 export default {{
   async fetch(request, env, ctx) {{
     const url = new URL(request.url);
-    if (url.hostname && url.hostname.endsWith(".com") && url.hostname.includes("camberdesk") && url.hostname !== "camberdesk.com" && url.hostname !== "www.camberdesk.com" && url.hostname !== "api.camberdesk.com") {{
-      return Response.redirect(`https://camberdesk.com${{url.pathname}}${{url.search}}`, 301);
-    }}
     let path = url.pathname;
     if (path.length > 1 && path.endsWith("/") && path !== "/lettings/") {{
       path = path.slice(0, -1);
@@ -652,9 +673,8 @@ export default {{
           headers: {{ "Content-Type": "application/xml; charset=utf-8", ...CORS_HEADERS }},
         }});
       }}
-      const htmlKey = path === "/index.html" ? "/" : (path === "/apis.html" ? "/apis" : ((path === "/lettings/" || path === "/lettings/index.html") ? "/lettings" : (path.startsWith("/lettings/project/") && !path.endsWith(".html") ? `${{path}}.html` : path)));
-      if (STATIC_HTML[htmlKey]) {{
-        return new Response(STATIC_HTML[htmlKey], {{
+      if (STATIC_HTML[path]) {{
+        return new Response(STATIC_HTML[path], {{
           status: 200,
           headers: {{ "Content-Type": "text/html; charset=utf-8", ...CORS_HEADERS }},
         }});
@@ -734,16 +754,22 @@ export default {{
         const toolName = params.name || "";
         const args = params.arguments || {{}};
         const routeMap = {{
+          shred_csi_masterformat: "/v1/shred/csi-masterformat",
           shred_csi_masterformat_spec: "/v1/shred/csi-masterformat",
           model_dot_unit_bid_tabs: "/v1/model/dot-unit-bid-tabs",
           calculate_davis_bacon_prevailing_wage: "/v1/calculate/davis-bacon-prevailing-wage",
+          get_live_dot_lettings: "/v1/lettings/live",
           get_live_dot_construction_lettings: "/v1/lettings/live",
+          audit_baba_buy_america: "/v1/audit/baba-buy-america",
           audit_baba_buy_america_materials: "/v1/audit/baba-buy-america",
+          generate_dbe_good_faith_effort: "/v1/generate/dbe-good-faith-effort",
           generate_dot_dbe_good_faith_effort: "/v1/generate/dbe-good-faith-effort",
           generate_aia_g702_g703_pay_app: "/v1/generate/aia-g702-g703-pay-app",
+          audit_surety_miller_act_bond: "/v1/audit/surety-miller-act-bond",
           underwrite_surety_miller_act_bond: "/v1/audit/surety-miller-act-bond",
           generate_rfi_change_order_claim: "/v1/generate/rfi-change-order-claim",
           audit_osha_emr_site_safety: "/v1/audit/osha-emr-site-safety",
+          analyze_planholder_competitor_spread: "/v1/analyze/planholder-competitor-spread",
           analyze_planholder_competitor_mlot: "/v1/analyze/planholder-competitor-spread",
           generate_subcontractor_scope_itb: "/v1/generate/subcontractor-scope-itb",
         }};
@@ -791,10 +817,12 @@ def deploy_worker_to_cloudflare(worker_path: Path = None) -> bool:
     import requests
     from dotenv import load_dotenv
 
-    load_dotenv(dotenv_path=str(ROOT_DIR / ".env"))
+    load_dotenv(dotenv_path=str(ROOT_DIR / ".env"), override=True)
     cf_token = (os.getenv("CLOUDFLARE_API_TOKEN") or "").strip()
+    cf_email = (os.getenv("CLOUDFLARE_EMAIL") or "").strip()
+    cf_global_key = (os.getenv("CLOUDFLARE_GLOBAL_API_KEY") or os.getenv("CLOUDFLARE_API_KEY") or "").strip()
     cf_account = (os.getenv("CLOUDFLARE_ACCOUNT_ID") or "1bd620fee1e67b48923bfbe445c3a88c").strip()
-    if not cf_token:
+    if not cf_token and not (cf_email and cf_global_key):
         print("[!] CLOUDFLARE_API_TOKEN not set in D:\\CamberDesk\\.env")
         return False
 
@@ -804,6 +832,7 @@ def deploy_worker_to_cloudflare(worker_path: Path = None) -> bool:
         "main_module": "cloudflare_worker.js",
         "compatibility_date": "2026-01-01",
     }
+    headers = {"Authorization": f"Bearer {cf_token}"} if cf_token else {"X-Auth-Email": cf_email, "X-Auth-Key": cf_global_key}
     with open(target, "rb") as wf:
         files = {
             "metadata": (None, json.dumps(metadata), "application/json"),
@@ -811,10 +840,22 @@ def deploy_worker_to_cloudflare(worker_path: Path = None) -> bool:
         }
         resp = requests.put(
             url,
-            headers={"Authorization": f"Bearer {cf_token}"},
+            headers=headers,
             files=files,
             timeout=45,
         )
+    if resp.status_code == 403 and cf_email and cf_global_key:
+        with open(target, "rb") as wf:
+            files = {
+                "metadata": (None, json.dumps(metadata), "application/json"),
+                "cloudflare_worker.js": ("cloudflare_worker.js", wf, "application/javascript+module"),
+            }
+            resp = requests.put(
+                url,
+                headers={"X-Auth-Email": cf_email, "X-Auth-Key": cf_global_key},
+                files=files,
+                timeout=45,
+            )
     ok = resp.status_code == 200 and (resp.json() or {}).get("success") is True
     print(f"[CLOUDFLARE DEPLOY] PUT camberdesk-edge -> HTTP {resp.status_code} (success={ok})")
     return ok

@@ -44,16 +44,8 @@ def is_low_value_maintenance_noise(title: str) -> bool:
 
 
 def send_discord_alert(message: str) -> None:
-    if not DISCORD_WEBHOOK_URL:
-        return
-    try:
-        requests.post(
-            DISCORD_WEBHOOK_URL,
-            json={"content": message[:1950], "flags": 4},
-            timeout=8,
-        )
-    except Exception as exc:
-        report_error("mainscraper.send_discord_alert", str(exc))
+    """Silent detection policy: log anomaly via report_error() instead of posting raw alerts to Discord."""
+    report_error("mainscraper.py", str(message))
 
 
 async def run_scraper(push_to_db: bool = True) -> List[Dict[str, Any]]:

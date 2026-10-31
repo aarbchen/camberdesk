@@ -90,13 +90,13 @@ def generate_pseo_pages() -> Dict[str, Any]:
 </head>
 <body class="bg-[#FAF8F5] text-[#0A0D14] font-sans antialiased">
   <header class="border-b border-[#CBD5E1] bg-white">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-3">
       <a href="../../index.html" class="inline-flex items-center gap-2 text-xl font-bold text-[#0A0D14]">
         {LOGO_SVG}
         <span>CamberDesk</span>
         <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">50-STATE DOT &amp; CIVIL</span>
       </a>
-      <div class="flex items-center gap-5 text-sm font-bold">
+      <div class="flex flex-wrap items-center gap-3 sm:gap-5 text-sm font-bold">
         <a href="../index.html" class="text-[#0A0D14] hover:text-[#1E3A8A]">All Lettings</a>
         <a href="../../apis.html" class="text-[#0A0D14] hover:text-[#1E3A8A]">API Catalog</a>
         <a href="../../index.html#checkout" class="px-3.5 py-1.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold transition">Unlock 6-File .ZIP Takeoff</a>
@@ -203,11 +203,12 @@ def generate_pseo_pages() -> Dict[str, Any]:
   </style>
 </head>
 <body class="bg-[#FAF8F5] text-[#0A0D14] font-sans antialiased">
-  <main class="max-w-6xl mx-auto px-6 py-10 space-y-6">
-    <div class="flex items-center justify-between border-b border-[#CBD5E1] pb-4">
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-10 space-y-6">
+    <div class="flex flex-wrap items-center justify-between gap-4 border-b border-[#CBD5E1] pb-4">
       <div class="flex items-center gap-3">
         {LOGO_SVG}
         <div>
+          <div class="text-xs font-mono font-bold text-[#1E3A8A]">52 PORTALS ACTIVE &bull; 50-STATE DOT &amp; USACE DIRECTORY</div>
           <h1 class="text-2xl font-extrabold text-[#0A0D14]">52-Portal State DOT, USACE &amp; Municipal Letting Directory</h1>
           <p class="text-sm font-medium text-[#111827] mt-0.5">Pre-shredded CSI Divisions 00–48, historical unit bid tabulations, and Davis-Bacon prevailing wage dossiers.</p>
         </div>

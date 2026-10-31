@@ -1,0 +1,299 @@
+[
+  {
+    "company_name": "Fann Contracting Inc.",
+    "email": "inquiry@fanncontracting.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "ADOT-PREQ-2204",
+    "state": "AZ",
+    "source_type": "website_html_mailto",
+    "source_url": "https://fanncontracting.com/"
+  },
+  {
+    "company_name": "Hunter Contracting Co.",
+    "email": "hunter@huntercontracting.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "ADOT-PREQ-4102",
+    "state": "AZ",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.huntercontracting.com/"
+  },
+  {
+    "company_name": "Rummel Construction Inc.",
+    "email": "general@rummelconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "ADOT-PREQ-3381",
+    "state": "AZ",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.rummelconstruction.com/"
+  },
+  {
+    "company_name": "DeSilva Gates Construction",
+    "email": "info@desilvagates.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "CALTRANS-A-704192",
+    "state": "CA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://desilvagates.com/"
+  },
+  {
+    "company_name": "Security Paving Company",
+    "email": "northern@securitypaving.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "CALTRANS-A-512098",
+    "state": "CA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://securitypaving.com/contact"
+  },
+  {
+    "company_name": "Teichert Construction",
+    "email": "jfeusi@teichert.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "CALTRANS-A-000008",
+    "state": "CA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://teichert.com/contact/"
+  },
+  {
+    "company_name": "Hubbard Construction Company",
+    "email": "estimates@hubbard.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "FDOT-PREQ-11402",
+    "state": "FL",
+    "source_type": "website_html_mailto",
+    "source_url": "https://hubbard.com/contact-us/"
+  },
+  {
+    "company_name": "Ranger Construction Industries",
+    "email": "estimating@rangerconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "FDOT-PREQ-44109",
+    "state": "FL",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.rangerconstruction.com/contact-us/"
+  },
+  {
+    "company_name": "Superior Construction Co.",
+    "email": "mwestimating@superiorconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "FDOT-PREQ-55201",
+    "state": "FL",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.superiorconstruction.com/contact-us/"
+  },
+  {
+    "company_name": "Curran Contracting Company",
+    "email": "scarlson@currancontracting.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "IDOT-PREQ-5190",
+    "state": "IL",
+    "source_type": "website_html_mailto",
+    "source_url": "https://currancontracting.com/"
+  },
+  {
+    "company_name": "Clarkson Construction Company",
+    "email": "ksweeten@clarksonconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MODOT-PREQ-1088",
+    "state": "MO",
+    "source_type": "website_html_mailto",
+    "source_url": "https://clarksonconstruction.com/home/contact-us/"
+  },
+  {
+    "company_name": "Fred Weber Inc.",
+    "email": "info@fredweberinc.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MODOT-PREQ-1920",
+    "state": "MO",
+    "source_type": "website_html_mailto",
+    "source_url": "https://fredweberinc.com/contact/"
+  },
+  {
+    "company_name": "Millstone Weber LLC",
+    "email": "bids@millstoneweber.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MODOT-PREQ-3112",
+    "state": "MO",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.millstoneweber.com/contact/"
+  },
+  {
+    "company_name": "Blythe Construction Inc.",
+    "email": "shane.bailey@blytheconstruction.com",
+    "first_name": "Shane",
+    "license_or_dot_id": "NCDOT-PREQ-5510",
+    "state": "NC",
+    "source_type": "website_html_mailto",
+    "source_url": "https://blytheconstruction.com/contact-us/"
+  },
+  {
+    "company_name": "Vecellio & Grogan Inc.",
+    "email": "cory.butz@vecelliogrogan.com",
+    "first_name": "Cory",
+    "license_or_dot_id": "NCDOT-PREQ-3192",
+    "state": "NC",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.vecelliogrogan.com/contact-us/"
+  },
+  {
+    "company_name": "Harrison & Burrowes Bridge Constructors",
+    "email": "info@harrisonburrowes.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "NYSDOT-D265-218",
+    "state": "NY",
+    "source_type": "website_html_mailto",
+    "source_url": "https://harrisonburrowes.com/"
+  },
+  {
+    "company_name": "Posillico Civil Inc.",
+    "email": "dsposito@posillicoinc.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "NYSDOT-D265-044",
+    "state": "NY",
+    "source_type": "website_html_mailto",
+    "source_url": "https://posillicoinc.com/contact-us/"
+  },
+  {
+    "company_name": "John R. Jurgensen Company",
+    "email": "info@jrjnet.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "ODOT-PREQ-6129",
+    "state": "OH",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.jrjnet.com/"
+  },
+  {
+    "company_name": "The Ruhlin Company",
+    "email": "ruhlin@ruhlin.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "ODOT-PREQ-4192",
+    "state": "OH",
+    "source_type": "website_html_mailto",
+    "source_url": "https://ruhlin.com/"
+  },
+  {
+    "company_name": "Kerr Contractors Oregon",
+    "email": "frontdesk@kerrcontractors.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "ODOT-OR-2140",
+    "state": "OR",
+    "source_type": "website_html_mailto",
+    "source_url": "https://kerrcontractors.com/"
+  },
+  {
+    "company_name": "Brayman Construction Corporation",
+    "email": "info@brayman.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "PENNDOT-PREQ-5201",
+    "state": "PA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.brayman.com/contact"
+  },
+  {
+    "company_name": "Driscoll Construction Co.",
+    "email": "justin@driscollconstruction.com",
+    "first_name": "Justin",
+    "license_or_dot_id": "PENNDOT-ECMS-11720",
+    "state": "PA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.driscollconstruction.com/contact"
+  },
+  {
+    "company_name": "Golden Triangle Construction",
+    "email": "info@gtconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "PENNDOT-PREQ-6184",
+    "state": "PA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.gtconstruction.com/contact"
+  },
+  {
+    "company_name": "Trumbull Corporation",
+    "email": "info@trumbullcorp.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "PENNDOT-PREQ-2291",
+    "state": "PA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.trumbullcorp.com/"
+  },
+  {
+    "company_name": "Wagman Heavy Civil Inc.",
+    "email": "info@wagman.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "PENNDOT-PREQ-6612",
+    "state": "PA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.wagman.com/contact/"
+  },
+  {
+    "company_name": "Sanders Brothers Construction",
+    "email": "info@sandersbrothers.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "SCDOT-PREQ-1092",
+    "state": "SC",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.sandersbrothers.com/"
+  },
+  {
+    "company_name": "Jones Bros. Contractors LLC",
+    "email": "jbcbids@jonesbroscont.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "TDOT-PREQ-3081",
+    "state": "TN",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.jonesbroscont.com/contact"
+  },
+  {
+    "company_name": "Jordan Foster Construction LLC",
+    "email": "prequal@jordanfosterconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "TXDOT-PREQ-77104",
+    "state": "TX",
+    "source_type": "website_html_mailto",
+    "source_url": "https://jordanfosterconstruction.com/prequalification/"
+  },
+  {
+    "company_name": "SER Construction Partners LLC",
+    "email": "contact@serconstruction.net",
+    "first_name": "Estimating",
+    "license_or_dot_id": "TXDOT-PREQ-71920",
+    "state": "TX",
+    "source_type": "website_html_mailto",
+    "source_url": "https://serconstruction.net/"
+  },
+  {
+    "company_name": "Allan Myers Inc.",
+    "email": "brian.hart@allanmyers.com",
+    "first_name": "Brian",
+    "license_or_dot_id": "VDOT-PREQ-4091",
+    "state": "VA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.allanmyers.com/contact/"
+  },
+  {
+    "company_name": "Orders Construction Company",
+    "email": "mail@ordersconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "VDOT-PREQ-4182",
+    "state": "VA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.ordersconstruction.com/"
+  },
+  {
+    "company_name": "Scarsella Bros. Inc.",
+    "email": "estimating@scarsellabros.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "WSDOT-PREQ-1044",
+    "state": "WA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.scarsellabros.com/"
+  },
+  {
+    "company_name": "Lunda Construction Company",
+    "email": "sgaier@lundaconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "WISDOT-PREQ-1180",
+    "state": "WI",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.lundaconstruction.com/subcontractors"
+  }
+]

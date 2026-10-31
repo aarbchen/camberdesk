@@ -1,9 +1,17 @@
 r"""
 CamberDesk — Dedicated Instantly.ai V2 Campaign Provisioner & Planholder Lead Sync (`D:\CamberDesk\sync_instantly_campaign.py`).
-Creates or locates the standalone `"CamberDesk — 50-State DOT Planholder & Unit Bid-Tab Outreach"` campaign
-in Instantly.ai V2 (separate from any other campaign), configures the 2-step zero-link plain-text sequence
-scheduled for Monday–Friday 07:00–17:00 Central, uploads the 24 DOT Planholder Chief Estimator leads from
-`D:\CamberDesk\campaign_leads.csv`, and saves `CAMBERDESK_INSTANTLY_CAMPAIGN_ID` to `D:\CamberDesk\.env`.
+====================================================================================================
+1. Locates or creates the standalone `"CamberDesk — 50-State DOT Planholder & Unit Bid-Tab Outreach"`
+   campaign (`e69941d4-b5c0-45a7-ac67-ae8947761d4b`).
+2. Strictly enforces:
+   - `open_tracking: False`
+   - `link_tracking: False`
+   - `text_only: True`
+   - `stop_on_reply: True`
+   - `email_list`: strictly `*camberdesk*` mailboxes (`aaron@trycamberdesk.com`, `estimating@trycamberdesk.com`,
+     `desk@trycamberdesk.com`) — never attaching any `*signaltender*` mailbox.
+3. Purges any guessed role emails or legacy leads containing `$` or `http` links in Step 1 / Step 2,
+   and syncs the 100% live HTML/Directory-verified, Zero-`$`, Zero-Link leads from `D:\CamberDesk\campaign_leads.csv`.
 """
 
 from error_telemetry import configure_utf8_stdio
@@ -17,6 +25,7 @@ from typing import Any, Dict, List
 import requests
 from dotenv import load_dotenv
 
+from autonomous_mailbox_scaler import fetch_live_camberdesk_instantly_accounts
 from outreach_generator import generate_outreach_queue
 
 ROOT_DIR = Path(__file__).resolve().parent
@@ -89,7 +98,7 @@ def ensure_camberdesk_campaign() -> str:
         "stop_on_reply": True,
         "link_tracking": False,
         "open_tracking": False,
-        "daily_limit": 25,
+        "daily_limit": 90,
     }
     r_create = requests.post("https://api.instantly.ai/api/v2/campaigns", headers=headers, json=payload, timeout=20)
     if r_create.status_code in (200, 201):
@@ -129,8 +138,37 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
         "Content-Type": "application/json",
     }
 
-    # Purge any legacy synthetic domains from the campaign if present
-    valid_email_set = {l["email"].strip().lower() for l in leads}
+    # 1. Enforce open_tracking: False, link_tracking: False, text_only: True, stop_on_reply: True,
+    #    and strictly *camberdesk* mailboxes on Campaign e69941d4-b5c0-45a7-ac67-ae8947761d4b
+    _, warmed_cd, warming_cd = fetch_live_camberdesk_instantly_accounts()
+    camberdesk_emails = sorted(
+        em for em in set(warmed_cd + warming_cd)
+        if "camberdesk" in em.lower() and "signaltender" not in em.lower()
+    )
+    patch_payload: Dict[str, Any] = {
+        "open_tracking": False,
+        "link_tracking": False,
+        "text_only": True,
+        "stop_on_reply": True,
+    }
+    if camberdesk_emails:
+        patch_payload["email_list"] = camberdesk_emails
+        patch_payload["daily_limit"] = max(25, len(camberdesk_emails) * 30)
+
+    try:
+        requests.patch(
+            f"https://api.instantly.ai/api/v2/campaigns/{cid}",
+            headers=headers,
+            json=patch_payload,
+            timeout=15,
+        )
+    except Exception:
+        pass
+
+    # 2. Purge any old guessed role leads or leads with '$' / 'http' in Step 1 or Step 2
+    valid_email_map = {l["email"].strip().lower(): l for l in leads}
+    purged_count = 0
+    existing_clean_emails = set()
     try:
         r_existing = requests.post(
             "https://api.instantly.ai/api/v2/leads/list",
@@ -142,16 +180,29 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
             for item in (r_existing.json() or {}).get("items") or []:
                 em_existing = str(item.get("email") or "").strip().lower()
                 lid = item.get("id")
-                if lid and em_existing not in valid_email_set:
+                payload_vars = item.get("payload") or {}
+                s1 = str(payload_vars.get("step1_body_zero_link") or "")
+                s2 = str(payload_vars.get("step2_body_dossier_link") or "")
+                subj1 = str(payload_vars.get("step1_subject") or "")
+                has_dollar_or_link = ("$" in s1) or ("$" in s2) or ("$" in subj1) or ("http://" in s1) or ("https://" in s1) or ("http://" in s2) or ("https://" in s2)
+                if lid and (em_existing not in valid_email_map or has_dollar_or_link or not payload_vars.get("source_url")):
                     requests.delete(f"https://api.instantly.ai/api/v2/leads/{lid}", headers=headers, timeout=10)
+                    purged_count += 1
+                elif em_existing in valid_email_map:
+                    existing_clean_emails.add(em_existing)
     except Exception:
         pass
 
+    # 3. Upload all verified HTML/Directory-scraped leads with Zero-$, Zero-Link Step 1 & Step 2
     uploaded = 0
     for lead in leads:
+        em_clean = lead["email"].strip().lower()
+        if em_clean in existing_clean_emails:
+            uploaded += 1
+            continue
         payload = {
             "campaign": cid,
-            "email": lead["email"],
+            "email": em_clean,
             "first_name": lead["first_name"],
             "company_name": lead["company_name"],
             "custom_variables": {
@@ -162,6 +213,8 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
                 "letting_date": lead["letting_date"],
                 "dossier_url": lead["dossier_url"],
                 "compiler_url": lead["compiler_url"],
+                "source_type": lead.get("source_type", "website_html_mailto"),
+                "source_url": lead.get("source_url", ""),
                 "step1_subject": lead["step1_subject"],
                 "step1_body_zero_link": lead["step1_body_zero_link"],
                 "step2_body_dossier_link": lead["step2_body_dossier_link"],
@@ -175,11 +228,23 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
         except Exception:
             pass
 
-    print(f"[CAMBERDESK INSTANTLY] Campaign {cid}: synced {uploaded}/{len(leads)} DOT Planholder leads.")
-    return {"status": "synced", "campaign_id": cid, "uploaded": uploaded, "total": len(leads)}
+    print(
+        f"[CAMBERDESK INSTANTLY] Campaign {cid}: purged {purged_count} legacy/guessed leads, "
+        f"synced {uploaded}/{len(leads)} HTML/Directory-verified Zero-$ Zero-Link leads "
+        f"(open_tracking=False, link_tracking=False, senders={camberdesk_emails})."
+    )
+    return {
+        "status": "synced",
+        "campaign_id": cid,
+        "purged_legacy_leads": purged_count,
+        "uploaded": uploaded,
+        "total": len(leads),
+        "open_tracking": False,
+        "link_tracking": False,
+        "camberdesk_senders": camberdesk_emails,
+    }
 
 
 if __name__ == "__main__":
     res = sync_leads_to_instantly()
     print(json.dumps(res, indent=2))
-

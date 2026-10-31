@@ -154,8 +154,11 @@ def run_reply_responder() -> Dict[str, Any]:
                 msg_id = str(item.get("id") or "")
                 if not msg_id or msg_id in processed or item.get("ue_type") != 2:
                     continue
+                eaccount = str(item.get("eaccount") or "").strip().lower()
+                from_em = str(item.get("from_address_email") or "").strip()
+                if (eaccount and "camberdesk" not in eaccount) or "signaltender" in from_em.lower() or "camberdesk" in from_em.lower():
+                    continue
                 summary["checked"] += 1
-                from_em = str(item.get("from_address_email") or "")
                 body_txt = str((item.get("body") or {}).get("text") or "")
                 label = classify_estimator_reply(body_txt)
                 if label in ("POSITIVE_INTEREST", "QUESTION"):
