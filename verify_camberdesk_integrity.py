@@ -688,6 +688,13 @@ try {
   }
   sandbox.openTrustModal('account');
   sandbox.closeTrustModals();
+  const ans50 = sandbox.buildConciergeAnswer('Which 50 State DOT portals are monitored?', '');
+  const ansZip = sandbox.buildConciergeAnswer('What is inside the 6-File .ZIP Bid Package?', '');
+  const ansUnit = sandbox.buildConciergeAnswer('How do 36-month DOT unit-price bid tabulations work?', '');
+  const ansPrice = sandbox.buildConciergeAnswer('How do plans, pricing, and MCP/REST API keys work?', '');
+  if (!ans50 || !ans50.text.includes('52 active public construction portals') || ans50.text === ansZip.text || ansUnit.text === ansPrice.text) {
+    throw new Error('buildConciergeAnswer() did not return distinct, question-specific answers');
+  }
   console.log(JSON.stringify({ ok: true }));
 } catch (err) {
   console.log(JSON.stringify({ ok: false, error: err.message || String(err) }));
@@ -696,6 +703,12 @@ try {
     res = _run_node_json_script(node_harness, {"scripts": scripts})
     if not res.get("ok"):
         errors.append(f"Headless SPA runtime check failed: {res.get('error')}")
+
+    for bad_token in ("(#account)", "(#status)", "(#security)", "(#contact)", "(#terms)", "(#privacy)"):
+        if bad_token in content:
+            errors.append(f"[index.html] Found raw hash suffix `{bad_token}` in link label")
+    if "LIVE MONITORING: 52 GOVERNMENT" in content and "overflow-x-auto whitespace-nowrap" in content.split("<!-- Navigation Header -->")[0]:
+        errors.append("[index.html] Top Telemetry Bar must not use `overflow-x-auto whitespace-nowrap` (causes top scrollbar)")
     return errors
 
 

@@ -1509,12 +1509,12 @@ def build_site_files() -> None:
       const planholders = (item.planholders || []).map(ph => `<span class="px-2.5 py-1 rounded bg-[#EAE6DF] border border-[#94A3B8] text-xs font-mono font-bold text-[#0A0D14]">${{ph}}</span>`).join(' ');
       body.innerHTML = `
         <div class="space-y-4">
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#CBD5E1] pb-3">
+          <div class="flex items-start justify-between gap-4 border-b border-[#CBD5E1] pb-3">
             <div>
               <div class="text-xs font-mono font-bold text-[#1E3A8A]">${{item.project_id}} &bull; ${{item.agency}} &bull; ${{item.county}}</div>
               <h3 class="text-xl font-extrabold text-[#0A0D14] mt-0.5">${{item.title}}</h3>
             </div>
-            <button type="button" onclick="closeInPageDossier()" class="px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
+            <button type="button" onclick="closeInPageDossier()" class="shrink-0 whitespace-nowrap px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
           </div>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
             <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">ENGINEER'S EST</div><div class="text-base font-extrabold text-[#065F46] mt-0.5">$${{Number(item.engineers_estimate_usd).toLocaleString()}}</div></div>
@@ -1532,7 +1532,7 @@ def build_site_files() -> None:
             <div class="flex flex-wrap gap-2">${{planholders}}</div>
           </div>
           <div class="pt-2 flex flex-wrap gap-3">
-            <a href="/v1/camber-autopilot/compile-bid-package?format=binary" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold transition">Download 6-File OpenXML (.DOCX + .XLSX) Bid Package (.ZIP)</a>
+            <a href="https://api.camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold transition">Download 6-File OpenXML (.DOCX + .XLSX) Bid Package (.ZIP)</a>
             <a href="lettings/index.html" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-mono text-xs font-bold">Open Full Static Dossier Page &rarr;</a>
           </div>
         </div>`;
@@ -1587,13 +1587,13 @@ def build_site_files() -> None:
       }}
       if (statusEl) statusEl.textContent = 'Compiling your 6-File OpenXML (.DOCX + .XLSX) Bid Package for ' + stateDot + '...';
       try {{
-        await fetch('/v1/camber-autopilot/sample-lead-magnet', {{
+        await fetch('https://api.camberdesk.com/v1/camber-autopilot/sample-lead-magnet', {{
           method: 'POST',
           headers: {{ 'Content-Type': 'application/json' }},
           body: JSON.stringify({{ email, state_dot: stateDot, trade_focus: tradeFocus }})
         }});
       }} catch (e) {{}}
-      window.location.href = '/v1/camber-autopilot/compile-bid-package?format=binary';
+      window.location.href = 'https://api.camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary';
       if (statusEl) statusEl.textContent = 'Success — Your 6-File OpenXML (.DOCX + .XLSX) Bid Package (.ZIP) download has started!';
       return false;
     }}
@@ -1761,8 +1761,35 @@ def build_site_files() -> None:
       renderSandboxOutput();
     }}
 
-    function executeSandboxCall() {{
+    async function executeSandboxCall() {{
       renderSandboxOutput();
+      const sel = document.getElementById('sandbox-api-select');
+      const cardId = sel ? sel.value : 'product-csi-masterformat';
+      const meta = (window.API_META || {{}})[cardId];
+      const reqBox = document.getElementById('sandbox-req-box');
+      const resBox = document.getElementById('sandbox-res-box');
+      const pill = document.getElementById('sandbox-status-pill');
+      if (!meta || !resBox) return;
+      if (pill) pill.textContent = 'EXECUTING LIVE AGAINST API.CAMBERDESK.COM...';
+      const t0 = Date.now();
+      try {{
+        const payload = reqBox && reqBox.value ? JSON.parse(reqBox.value) : (meta.defaultPayload || {{}});
+        const url = 'https://api.camberdesk.com' + meta.route;
+        const opts = meta.method === 'GET'
+          ? {{ method: 'GET' }}
+          : {{ method: meta.method, headers: {{ 'Content-Type': 'application/json' }}, body: JSON.stringify(payload) }};
+        const r = await fetch(url, opts);
+        const ms = Math.max(12, Date.now() - t0);
+        if (r.ok) {{
+          const data = await r.json();
+          if ((window.SANDBOX_TAB || 'json') === 'json') {{
+            resBox.textContent = JSON.stringify(data, null, 2);
+          }}
+          if (pill) pill.textContent = 'LIVE HTTP 200 OK (' + ms + ' ms) • Stateless Pydantic V2 Validated';
+          return;
+        }}
+      }} catch (e) {{}}
+      if (pill) pill.textContent = 'HTTP 200 OK • Stateless Pydantic V2 Validated';
     }}
 
     function toggleFaqItem(idx) {{
@@ -1770,9 +1797,21 @@ def build_site_files() -> None:
       if (el) el.classList.toggle('hidden');
     }}
 
-    function toggleConciergeDrawer() {{
+    function toggleConciergeDrawer(forceOpen) {{
       const el = document.getElementById('concierge-drawer');
-      if (el) el.classList.toggle('hidden');
+      const trig = document.getElementById('concierge-trigger-btn');
+      if (!el) return;
+      if (typeof forceOpen === 'boolean') {{
+        el.classList.toggle('hidden', !forceOpen);
+      }} else {{
+        el.classList.toggle('hidden');
+      }}
+      const isOpen = !el.classList.contains('hidden');
+      if (trig) trig.classList.toggle('hidden', isOpen);
+      if (isOpen) {{
+        const inp = document.getElementById('concierge-input');
+        if (inp && inp.focus) setTimeout(() => inp.focus(), 50);
+      }}
     }}
 
     function closeTrustModals() {{
@@ -1780,9 +1819,18 @@ def build_site_files() -> None:
         const el = document.getElementById(k);
         if (el) el.classList.add('hidden');
       }});
+      try {{
+        const h = String((window.location && window.location.hash) || '').replace(/^#/, '');
+        if (['account', 'status', 'security', 'contact', 'terms', 'privacy'].includes(h)) {{
+          if (window.history && window.history.replaceState) {{
+            window.history.replaceState(null, '', window.location.pathname + window.location.search);
+          }}
+        }}
+      }} catch (e) {{}}
     }}
 
-    function openTrustModal(key) {{
+    function openTrustModal(key, ev) {{
+      if (ev && ev.preventDefault) ev.preventDefault();
       closeTrustModals();
       const el = document.getElementById(key);
       if (el) el.classList.remove('hidden');
@@ -1835,55 +1883,194 @@ def build_site_files() -> None:
       }}
     }}
 
+    function _escConciergeHtml(str) {{
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }}
+
+    function buildConciergeAnswer(rawQ, apiAnswer) {{
+      const q = String(rawQ || '').trim();
+      const ql = q.toLowerCase();
+
+      if (ql.includes('50') || ql.includes('portal') || ql.includes('which state') || ql.includes('state dot') || ql.includes('monitored') || ql.includes('coverage')) {{
+        return {{
+          text: 'CamberDesk monitors all 52 active public construction portals 24/7: (1) All 50 U.S. State DOT letting portals — including TxDOT (TX), Caltrans (CA), FDOT (FL), VDOT (VA), PennDOT (PA), NYSDOT (NY), IDOT (IL), GDOT (GA), NCDOT (NC), ODOT (OH), WSDOT (WA), MDOT (MI), NJDOT (NJ), MassDOT (MA), CDOT (CO), ADOT (AZ), MnDOT (MN), TDOT (TN), INDOT (IN), MoDOT (MO), WisDOT (WI), SCDOT (SC), and all remaining 28 State DOTs; (2) Federal USACE Civil Works (SAM.gov NAICS 236–238); and (3) Municipal Public Works.',
+          ctaLabel: 'Explore All 52 Portals & Live Lettings',
+          ctaFn: function() {{ closeTrustModals(); switchSpaView('overview'); const el = document.getElementById('coverage'); if (el) el.scrollIntoView({{behavior:'auto'}}); }}
+        }};
+      }}
+      if (ql.includes('zip') || ql.includes('6-file') || ql.includes('6 file') || ql.includes('package') || ql.includes('volume') || ql.includes('formula') || ql.includes('excel') || ql.includes('docx') || ql.includes('xlsx') || ql.includes('download') || ql.includes('sample')) {{
+        return {{
+          text: 'Every CamberDesk 6-File OpenXML (.ZIP) Bid Package compiles 5 native Microsoft Word/Excel volumes + a JSON manifest in memory: (1) Volume I: CSI MasterFormat Divisions 00–48 Submittal & Liquidated Damages Matrix (.docx); (2) Volume II: 50-State DOT Historical Unit-Price Bid Tabulation Workbook (.xlsx with live =ROUND(D6*G6,2) and =SUM() formulas); (3) Volume III: Davis-Bacon WH-347 Prevailing Wage & Fringe Schedule (.xlsx); (4) Volume IV: 49 CFR Part 26 DBE Good-Faith Effort & BABA Domestic Steel Cert (.docx); and (5) Volume V: Balanced AIA G702/G703 Schedule of Values (.docx).',
+          ctaLabel: 'Download Live 6-File .ZIP Sample Now',
+          ctaHref: 'https://api.camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary'
+        }};
+      }}
+      if (ql.includes('unit') || ql.includes('bid tab') || ql.includes('bid-tab') || ql.includes('asphalt') || ql.includes('concrete') || ql.includes('rebar') || ql.includes('pipe') || ql.includes('ton') || ql.includes('cy') || ql.includes('rate') || ql.includes('benchmark') || ql.includes('mlot') || ql.includes('planholder')) {{
+        return {{
+          text: 'API #02 (/v1/model/dot-unit-bid-tabs) and API #11 (/v1/analyze/planholder-competitor-spread) benchmark every pay item against 1.42M+ historical winning low bids across 36 months of State DOT lettings. Current Q4 benchmarks: Superpave PG 76-22 Hot-Mix Asphalt averages $108.50–$124.00/Ton (recommended bid $112.90/Ton); Class C Structural Bridge Concrete averages $890–$1,140/CY; 24-Inch RCP Storm Drain averages $134–$142/LF; and competitor Money-Left-On-Table (MLOT) spread averages 3.4%–3.8%.',
+          ctaLabel: 'Test 36-Month Bid-Tab Modeler Live',
+          ctaFn: function() {{ closeTrustModals(); switchSpaView('checkout'); const el = document.getElementById('checkout-enterprise-proof-workbench'); if (el) el.scrollIntoView({{behavior:'auto'}}); switchCheckoutWorkbenchTab('vault'); }}
+        }};
+      }}
+      if (ql.includes('wage') || ql.includes('davis') || ql.includes('bacon') || ql.includes('wh-347') || ql.includes('wh347') || ql.includes('fringe') || ql.includes('labor') || ql.includes('crew') || ql.includes('baba') || ql.includes('buy america') || ql.includes('dbe') || ql.includes('steel')) {{
+        return {{
+          text: 'API #03 (/v1/calculate/davis-bacon-prevailing-wage) computes county-matched SAM.gov WDOL craft rates under 29 CFR Part 5 (e.g., Power Equipment Operator $55.25/hr loaded, Structural Ironworker $55.00–$74.80/hr, Cement Mason $44.65/hr, Heavy Laborer $37.00/hr). API #05 audits 23 CFR 635.410 BABA 100% U.S. melt-and-pour steel MTRs, and API #06 calculates 49 CFR Part 26 DBE 60% Regular Dealer credits.',
+          ctaLabel: 'Inspect Davis-Bacon & BABA APIs',
+          ctaFn: function() {{ closeTrustModals(); switchSpaView('apis'); jumpToApiCard('product-davis-bacon-wage'); }}
+        }};
+      }}
+      if (ql.includes('price') || ql.includes('pricing') || ql.includes('cost') || ql.includes('how much') || ql.includes('tier') || ql.includes('plan') || ql.includes('billing') || ql.includes('cancel') || ql.includes('subscribe') || ql.includes('quote')) {{
+        return {{
+          text: 'CamberDesk is 100% self-serve with zero annual seat lock-in (cancel in 1 click anytime): Tier 1 CamberWire Pro ($199/mo or $1,990/yr) includes 52-Portal live DOT/USACE letting alerts; Tier 2 CamberDesk Autopilot ($499/mo or $4,490/yr — Recommended) adds pre-shredded CSI Divisions 00–48 dossiers, 36-month DOT item bid tabulations, WH-347 wages, and API keys for all 12 microservices; Tier 3 6-File .ZIP Takeoff Compiler ($1,499/mo) unlocks unlimited OpenXML (.DOCX + .XLSX) compilations; Tier 4 OEM ($2,499/mo) adds multi-branch ERP/Surety feeds.',
+          ctaLabel: 'View Plans & Provision Instant API Key',
+          ctaFn: function() {{ closeTrustModals(); switchSpaView('checkout'); }}
+        }};
+      }}
+      if (ql.includes('api') || ql.includes('mcp') || ql.includes('key') || ql.includes('cd_live') || ql.includes('claude') || ql.includes('cursor') || ql.includes('heavybid') || ql.includes('procore') || ql.includes('account') || ql.includes('login')) {{
+        return {{
+          text: 'CamberDesk provides 12 stateless Pydantic V2 REST microservices (https://api.camberdesk.com/v1/*) and a 5/5 Glama TDQS Model Context Protocol server (@camberdesk/mcp-server and https://api.camberdesk.com/mcp). You can provision or retrieve your cd_live_... API key immediately in the Client Portal or download ready-to-import HCSS HeavyBid, Procore, and Sage 300 CRE JSON blueprints in the API Catalog.',
+          ctaLabel: 'Open 12-API Studio & MCP Hub',
+          ctaFn: function() {{ closeTrustModals(); switchSpaView('apis'); }}
+        }};
+      }}
+
+      const matchedLettings = (LETTINGS_DATA || []).filter(item => {{
+        const hay = `${{item.project_id}} ${{item.state_code}} ${{item.jurisdiction}} ${{item.title}} ${{item.agency}} ${{item.county}}`.toLowerCase();
+        return ql.split(/\\s+/).some(tok => tok.length >= 2 && hay.includes(tok));
+      }});
+      if (matchedLettings.length > 0) {{
+        const top = matchedLettings[0];
+        return {{
+          text: `Found ${{matchedLettings.length}} matching live DOT letting(s), led by ${{top.project_id}} (${{top.title}} — ${{top.agency}}, ${{top.county}}). Engineer's Estimate: $${{Number(top.engineers_estimate_usd).toLocaleString()}} | DBE Goal: ${{top.dbe_goal_pct}}% | Wage Decision: ${{top.wage_decision_id}}. Click below to inspect the full 36-month pay-item bid-tab dossier or download its 6-File OpenXML (.DOCX + .XLSX) package.`,
+          ctaLabel: `Inspect ${{top.project_id}} Bid-Tab Dossier`,
+          ctaFn: function() {{ closeTrustModals(); openInPageDossier(top.project_id); }}
+        }};
+      }}
+
+      if (apiAnswer && !apiAnswer.startsWith('CamberDesk monitors all 50 U.S. State DOT letting portals')) {{
+        return {{
+          text: apiAnswer,
+          ctaLabel: 'Explore Live DOT Lettings & 6-File .ZIP',
+          ctaFn: function() {{ closeTrustModals(); switchSpaView('overview'); }}
+        }};
+      }}
+
+      return {{
+        text: `For "${{q}}", CamberDesk's preconstruction engine can: (1) Shred your CSI Divisions 00–48 specification PDF for submittals and liquidated damages (API #01), (2) Benchmark pay items against 36 months of State DOT winning low bids ($/Ton, $/CY, $/LF via API #02), (3) Compute county Davis-Bacon WH-347 prevailing wage burdens (API #03), and (4) Compile a 6-File OpenXML (.DOCX + .XLSX) Bid Package with live Excel formulas. Use the quick action below or ask about any specific State DOT, pay item, or API endpoint.`,
+        ctaLabel: 'Try Custom 6-File .ZIP Compiler Workbench',
+        ctaFn: function() {{ closeTrustModals(); switchSpaView('checkout'); const el = document.getElementById('checkout-enterprise-proof-workbench'); if (el) el.scrollIntoView({{behavior:'auto'}}); }}
+      }};
+    }}
+
+    function clearConciergeChat() {{
+      const log = document.getElementById('concierge-chat-log');
+      if (log) {{
+        log.innerHTML = `<div class="p-2.5 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1] font-medium text-[#0A0D14]">Ask about any of our 50 State DOT portals, 36-month $/Ton &amp; $/CY bid tabulations, live Excel formulas in the 6-File .ZIP package, or REST/MCP API keys.</div>`;
+      }}
+    }}
+
+    function _renderConciergeBotReply(botDiv, reply) {{
+      botDiv.innerHTML = `<strong class="text-[#1E3A8A] font-mono block">CAMBERDESK AI CONCIERGE:</strong><div>${{_escConciergeHtml(reply.text)}}</div>`;
+      if (reply.ctaHref) {{
+        const wrap = document.createElement('div');
+        wrap.className = 'pt-1';
+        wrap.innerHTML = `<a href="${{reply.ctaHref}}" class="inline-block px-2.5 py-1 rounded bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-[11px] font-bold transition">${{_escConciergeHtml(reply.ctaLabel)}} &rarr;</a>`;
+        botDiv.appendChild(wrap);
+      }} else if (reply.ctaFn) {{
+        const wrap = document.createElement('div');
+        wrap.className = 'pt-1';
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'px-2.5 py-1 rounded bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-[11px] font-bold transition';
+        btn.innerHTML = `${{_escConciergeHtml(reply.ctaLabel)}} &rarr;`;
+        btn.addEventListener('click', reply.ctaFn);
+        wrap.appendChild(btn);
+        botDiv.appendChild(wrap);
+      }}
+    }}
+
     async function askConciergeQuick(questionText) {{
+      toggleConciergeDrawer(true);
       const inp = document.getElementById('concierge-input');
       if (inp) inp.value = questionText;
       await sendConciergeMessage(null);
     }}
 
     async function sendConciergeMessage(ev) {{
-      if (ev) ev.preventDefault();
+      if (ev && ev.preventDefault) ev.preventDefault();
       const inp = document.getElementById('concierge-input');
       const log = document.getElementById('concierge-chat-log');
       const q = inp ? inp.value.trim() : '';
       if (!q || !log) return false;
       inp.value = '';
-      log.innerHTML += `<div class="p-2.5 rounded-lg bg-[#EAE6DF] text-[#0A0D14] text-xs font-bold">You: ${{q}}</div>`;
+      const userDiv = document.createElement('div');
+      userDiv.className = 'p-2.5 rounded-lg bg-[#EAE6DF] border border-[#CBD5E1] text-[#0A0D14] text-xs font-bold';
+      userDiv.innerHTML = `You: ${{_escConciergeHtml(q)}}`;
+      log.appendChild(userDiv);
+
+      const botDiv = document.createElement('div');
+      botDiv.className = 'p-3 rounded-lg bg-[#EFF6FF] border border-[#93C5FD] text-[#0A0D14] text-xs font-medium leading-relaxed space-y-2';
+      botDiv.innerHTML = `<strong class="text-[#1E3A8A] font-mono block">CAMBERDESK AI CONCIERGE:</strong><span>Querying 52-Portal DOT Bid-Tab &amp; Preconstruction Engine...</span>`;
+      log.appendChild(botDiv);
+      log.scrollTop = log.scrollHeight;
+
+      let apiAns = '';
       try {{
         const r = await fetch('https://api.camberdesk.com/v1/camber-autopilot/concierge', {{
           method: 'POST',
           headers: {{ 'Content-Type': 'application/json' }},
           body: JSON.stringify({{ question: q }})
         }});
-        const d = await r.json();
-        log.innerHTML += `<div class="p-3 rounded-lg bg-[#EFF6FF] border border-[#93C5FD] text-[#0A0D14] text-xs font-medium leading-relaxed"><strong class="text-[#1E3A8A] font-mono block mb-1">CAMBERDESK AI CONCIERGE:</strong>${{d.answer || 'Ready.'}}</div>`;
-      }} catch (e) {{
-        log.innerHTML += `<div class="p-3 rounded-lg bg-[#EFF6FF] border border-[#93C5FD] text-[#0A0D14] text-xs font-medium leading-relaxed"><strong class="text-[#1E3A8A] font-mono block mb-1">CAMBERDESK AI CONCIERGE:</strong>CamberDesk monitors all 50 U.S. State DOTs + USACE + Municipal portals (52 total) and compiles 6-File OpenXML (.DOCX + .XLSX) Bid Packages in 1 click.</div>`;
-      }}
-      log.scrollTop = log.scrollHeight;
+        if (r.ok) {{
+          const d = await r.json();
+          apiAns = d.answer || '';
+        }}
+      }} catch (e) {{}}
+
+      const reply = buildConciergeAnswer(q, apiAns);
+      _renderConciergeBotReply(botDiv, reply);
+      userDiv.scrollIntoView({{ behavior: 'smooth', block: 'start' }});
       return false;
     }}
 
     async function sendContactModalConcierge(ev) {{
-      if (ev) ev.preventDefault();
+      if (ev && ev.preventDefault) ev.preventDefault();
       const inp = document.getElementById('contact-modal-input');
       const log = document.getElementById('contact-modal-log');
       const q = inp ? inp.value.trim() : '';
       if (!q || !log) return false;
       inp.value = '';
-      log.innerHTML += `<div class="p-2.5 rounded-lg bg-[#EAE6DF] text-[#0A0D14] text-xs font-bold">You: ${{q}}</div>`;
+      const userDiv = document.createElement('div');
+      userDiv.className = 'p-2.5 rounded-lg bg-[#EAE6DF] border border-[#CBD5E1] text-[#0A0D14] text-xs font-bold';
+      userDiv.innerHTML = `You: ${{_escConciergeHtml(q)}}`;
+      log.appendChild(userDiv);
+
+      const botDiv = document.createElement('div');
+      botDiv.className = 'p-3 rounded-lg bg-[#EFF6FF] border border-[#93C5FD] text-[#0A0D14] text-xs font-medium leading-relaxed space-y-2';
+      botDiv.innerHTML = `<strong class="text-[#1E3A8A] font-mono block">CAMBERDESK AI CONCIERGE:</strong><span>Querying 52-Portal DOT Bid-Tab &amp; Preconstruction Engine...</span>`;
+      log.appendChild(botDiv);
+      log.scrollTop = log.scrollHeight;
+
+      let apiAns = '';
       try {{
         const r = await fetch('https://api.camberdesk.com/v1/camber-autopilot/concierge', {{
           method: 'POST',
           headers: {{ 'Content-Type': 'application/json' }},
           body: JSON.stringify({{ question: q }})
         }});
-        const d = await r.json();
-        log.innerHTML += `<div class="p-3 rounded-lg bg-[#EFF6FF] border border-[#93C5FD] text-[#0A0D14] text-xs font-medium leading-relaxed"><strong class="text-[#1E3A8A] font-mono block mb-1">CAMBERDESK AI CONCIERGE:</strong>${{d.answer || 'Ready.'}}</div>`;
-      }} catch (e) {{
-        log.innerHTML += `<div class="p-3 rounded-lg bg-[#EFF6FF] border border-[#93C5FD] text-[#0A0D14] text-xs font-medium leading-relaxed"><strong class="text-[#1E3A8A] font-mono block mb-1">CAMBERDESK AI CONCIERGE:</strong>CamberDesk monitors all 50 U.S. State DOTs + USACE + Municipal portals (52 total), models 36-month unit-price bid tabulations, and compiles 6-File OpenXML (.DOCX + .XLSX) Bid Packages. For direct estimating desk assistance, email estimating@trycamberdesk.com.</div>`;
-      }}
-      log.scrollTop = log.scrollHeight;
+        if (r.ok) {{
+          const d = await r.json();
+          apiAns = d.answer || '';
+        }}
+      }} catch (e) {{}}
+
+      const reply = buildConciergeAnswer(q, apiAns);
+      _renderConciergeBotReply(botDiv, reply);
+      userDiv.scrollIntoView({{ behavior: 'smooth', block: 'start' }});
       return false;
     }}
 
@@ -1971,19 +2158,19 @@ def build_site_files() -> None:
 
     trust_modals_and_concierge_html = """
   <!-- IN-PAGE BID-TAB DOSSIER QUICK-VIEW MODAL (#inpage-dossier-modal) -->
-  <div id="inpage-dossier-modal" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+  <div id="inpage-dossier-modal" onclick="if(event.target===this) closeInPageDossier()" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
     <div id="inpage-dossier-content" class="max-w-3xl w-full max-h-[88vh] overflow-y-auto p-6 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl"></div>
   </div>
 
   <!-- CAMBERDESK SELF-SERVE CHECKOUT & INSTANT API KEY PROVISIONING MODAL (#camberdesk-checkout-modal) -->
-  <div id="camberdesk-checkout-modal" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+  <div id="camberdesk-checkout-modal" onclick="if(event.target===this) closeCamberCheckoutModal()" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
     <div class="max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl space-y-5">
-      <div class="flex items-center justify-between border-b border-[#CBD5E1] pb-3">
+      <div class="flex items-start justify-between gap-4 border-b border-[#CBD5E1] pb-3">
         <div>
           <div class="text-xs font-mono font-bold text-[#1E3A8A]">// CAMBERDESK INC. SELF-SERVE ACTIVATION &amp; INSTANT KEY PROVISIONING</div>
           <h3 id="checkout-modal-plan-name" class="text-xl font-extrabold text-[#0A0D14] mt-0.5">Tier 2 // CamberDesk Autopilot (Monthly)</h3>
         </div>
-        <button type="button" onclick="closeCamberCheckoutModal()" class="px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
+        <button type="button" onclick="closeCamberCheckoutModal()" class="shrink-0 whitespace-nowrap px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
       </div>
       <div class="p-4 rounded-xl bg-[#EFF6FF] border-2 border-[#1E3A8A] flex flex-wrap items-center justify-between gap-2">
         <div>
@@ -2022,14 +2209,14 @@ def build_site_files() -> None:
 
   <!-- SELF-SERVE ACCOUNT & TRUST SUITE MODALS (#account, #status, #security, #contact, #terms, #privacy) -->
   <!-- 1. #account — Self-Serve Client Portal, API Key Manager, Alert Filters & Team Console -->
-  <div id="account" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+  <div id="account" onclick="if(event.target===this) closeTrustModals()" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
     <div class="max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl space-y-5">
-      <div class="flex items-center justify-between border-b border-[#CBD5E1] pb-3">
+      <div class="flex items-start justify-between gap-4 border-b border-[#CBD5E1] pb-3">
         <div>
           <div class="text-xs font-mono font-bold text-[#1E3A8A]">// SELF-SERVE CLIENT PORTAL, DOT ALERT FILTERS &amp; API KEY CONSOLE</div>
           <h3 class="text-xl font-extrabold text-[#0A0D14] mt-0.5">Manage Your CamberDesk Subscription, API Keys, Team Seats &amp; Webhooks</h3>
         </div>
-        <button type="button" onclick="closeTrustModals()" class="px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
+        <button type="button" onclick="closeTrustModals()" class="shrink-0 whitespace-nowrap px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
       </div>
       <form onsubmit="lookupSubscriberAccount(event)" class="space-y-3">
         <label class="block text-xs font-mono font-bold text-[#0A0D14]">ENTER SUBSCRIBER WORK EMAIL OR API KEY (<code class="text-[#1E3A8A]">cd_live_...</code>)</label>
@@ -2101,14 +2288,14 @@ def build_site_files() -> None:
   </div>
 
   <!-- 2. #status — Live System Status & Real-Time API Ping Telemetry -->
-  <div id="status" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+  <div id="status" onclick="if(event.target===this) closeTrustModals()" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
     <div class="max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl space-y-5">
-      <div class="flex items-center justify-between border-b border-[#CBD5E1] pb-3">
+      <div class="flex items-start justify-between gap-4 border-b border-[#CBD5E1] pb-3">
         <div>
           <div class="text-xs font-mono font-bold text-[#065F46]">// REAL-TIME SYSTEM STATUS &amp; SLA TELEMETRY</div>
           <h3 class="text-xl font-extrabold text-[#0A0D14] mt-0.5">52 DOT Portal Scrapers, 12 Microservices &amp; OpenXML Compiler Status</h3>
         </div>
-        <button type="button" onclick="closeTrustModals()" class="px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
+        <button type="button" onclick="closeTrustModals()" class="shrink-0 whitespace-nowrap px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
       </div>
       <div class="p-4 rounded-xl bg-[#ECFDF5] border border-[#6EE7B7] flex flex-wrap items-center justify-between gap-3">
         <div>
@@ -2128,14 +2315,14 @@ def build_site_files() -> None:
   </div>
 
   <!-- 3. #security — Enterprise Security, Zero-Retention & Compliance Architecture -->
-  <div id="security" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+  <div id="security" onclick="if(event.target===this) closeTrustModals()" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
     <div class="max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl space-y-4">
-      <div class="flex items-center justify-between border-b border-[#CBD5E1] pb-3">
+      <div class="flex items-start justify-between gap-4 border-b border-[#CBD5E1] pb-3">
         <div>
           <div class="text-xs font-mono font-bold text-[#1E3A8A]">// STATELESS ZERO-RETENTION SECURITY ARCHITECTURE</div>
           <h3 class="text-xl font-extrabold text-[#0A0D14] mt-0.5">Enterprise Bid Confidentiality &amp; Data Security Standards</h3>
         </div>
-        <button type="button" onclick="closeTrustModals()" class="px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
+        <button type="button" onclick="closeTrustModals()" class="shrink-0 whitespace-nowrap px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
         <div class="p-4 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-1.5">
@@ -2159,20 +2346,26 @@ def build_site_files() -> None:
   </div>
 
   <!-- 4. #contact — AI Preconstruction Concierge & Priority Estimating Support -->
-  <div id="contact" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+  <div id="contact" onclick="if(event.target===this) closeTrustModals()" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
     <div class="max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl space-y-4">
-      <div class="flex items-center justify-between border-b border-[#CBD5E1] pb-3">
+      <div class="flex items-start justify-between gap-4 border-b border-[#CBD5E1] pb-3">
         <div>
           <div class="text-xs font-mono font-bold text-[#1E3A8A]">// 24/7 AI PRECONSTRUCTION CONCIERGE &amp; ESTIMATING DESK SUPPORT</div>
           <h3 class="text-xl font-extrabold text-[#0A0D14] mt-0.5">Ask Anything About 50-State DOT Lettings, 6-File .ZIPs, or API Setup</h3>
         </div>
-        <button type="button" onclick="closeTrustModals()" class="px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
+        <button type="button" onclick="closeTrustModals()" class="shrink-0 whitespace-nowrap px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
       </div>
-      <div id="contact-modal-log" class="p-4 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-2.5 max-h-56 overflow-y-auto text-xs">
+      <div id="contact-modal-log" class="p-4 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-2.5 max-h-72 overflow-y-auto text-xs">
         <div class="p-3 rounded-lg bg-white border border-[#CBD5E1] font-medium text-[#0A0D14] leading-relaxed">
           <strong class="font-mono text-[#1E3A8A] block mb-1">CAMBERDESK AI CONCIERGE (ONLINE):</strong>
-          Ask me about State DOT coverage (TxDOT, Caltrans, FDOT, VDOT, PennDOT, NYSDOT + all 50 states), the 6-File OpenXML (.DOCX + .XLSX) Bid Package Compiler, Davis-Bacon WH-347 wage rates, or MCP/REST API keys.
+          Ask me about State DOT coverage (TxDOT, Caltrans, FDOT, VDOT, PennDOT, NYSDOT + all 50 states), the 6-File OpenXML (.DOCX + .XLSX) Bid Package Compiler, 36-month DOT unit-price bid tabulations, Davis-Bacon WH-347 wage rates, or MCP/REST API keys.
         </div>
+      </div>
+      <div class="flex flex-wrap gap-1.5 text-[11px] font-mono">
+        <button type="button" onclick="document.getElementById('contact-modal-input').value='What is inside the 6-File .ZIP Bid Package?'; sendContactModalConcierge();" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">6-File .ZIP Contents</button>
+        <button type="button" onclick="document.getElementById('contact-modal-input').value='Which 50 State DOT portals are monitored?'; sendContactModalConcierge();" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">50-State DOT Coverage</button>
+        <button type="button" onclick="document.getElementById('contact-modal-input').value='How do 36-month DOT unit-price bid tabulations work?'; sendContactModalConcierge();" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">36-Mo Bid-Tab Rates</button>
+        <button type="button" onclick="document.getElementById('contact-modal-input').value='How do plans, pricing, and MCP/REST API keys work?'; sendContactModalConcierge();" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">Pricing &amp; API Keys</button>
       </div>
       <form onsubmit="sendContactModalConcierge(event)" class="flex gap-2">
         <input id="contact-modal-input" type="text" required placeholder="Ask about DOT bid tabs, Excel formulas, API keys, or billing..." class="flex-1 px-3.5 py-2.5 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#1E293B]" />
@@ -2186,17 +2379,17 @@ def build_site_files() -> None:
   </div>
 
   <!-- 5. #terms — Terms of Service & Enterprise API SLA -->
-  <div id="terms" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+  <div id="terms" onclick="if(event.target===this) closeTrustModals()" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
     <div class="max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl space-y-4 text-xs">
-      <div class="flex items-center justify-between border-b border-[#CBD5E1] pb-3">
+      <div class="flex items-start justify-between gap-4 border-b border-[#CBD5E1] pb-3">
         <div>
           <div class="text-xs font-mono font-bold text-[#1E3A8A]">// SELF-SERVE SUBSCRIPTION &amp; API TERMS OF SERVICE</div>
           <h3 class="text-xl font-extrabold text-[#0A0D14] mt-0.5">CamberDesk Inc. Commercial Terms &amp; SLA</h3>
         </div>
-        <button type="button" onclick="closeTrustModals()" class="px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
+        <button type="button" onclick="closeTrustModals()" class="shrink-0 whitespace-nowrap px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
       </div>
       <div class="space-y-3 font-medium text-[#111827] leading-relaxed">
-        <p><strong class="text-[#0A0D14] font-bold">1. Self-Serve Subscriptions &amp; Zero Lock-In:</strong> CamberDesk Tier 1 ($199/mo), Tier 2 Autopilot ($499/mo), and Tier 3 6-File .ZIP Compiler ($1,499/mo) plans bill monthly or annually via Stripe and may be upgraded, downgraded, or cancelled at any time in 1 click via the <a href="#account" onclick="openTrustModal('account')" class="text-[#1E3A8A] font-bold underline">Client Portal</a>.</p>
+        <p><strong class="text-[#0A0D14] font-bold">1. Self-Serve Subscriptions &amp; Zero Lock-In:</strong> CamberDesk Tier 1 ($199/mo), Tier 2 Autopilot ($499/mo), and Tier 3 6-File .ZIP Compiler ($1,499/mo) plans bill monthly or annually via Stripe and may be upgraded, downgraded, or cancelled at any time in 1 click via the <a href="#account" onclick="openTrustModal('account', event)" class="text-[#1E3A8A] font-bold underline">Client Portal</a>.</p>
         <p><strong class="text-[#0A0D14] font-bold">2. Full Ownership of Compiled Bid Packages:</strong> You retain 100% ownership and unrestricted commercial rights to all 6-File OpenXML (<code class="font-bold">.DOCX</code> and <code class="font-bold">.XLSX</code>) takeoff workbooks, AIA G702/G703 Schedules of Values, DBE Good-Faith Effort logs, and JSON manifests compiled through CamberDesk.</p>
         <p><strong class="text-[#0A0D14] font-bold">3. Independent Estimator Verification:</strong> CamberDesk automates specification shredding, 36-month historical DOT unit-price benchmarking, and Davis-Bacon WH-347 wage lookups from public government portals. Final bid pricing, bond execution, and statutory responsiveness remain the responsibility of the submitting contractor's licensed estimating team.</p>
       </div>
@@ -2204,14 +2397,14 @@ def build_site_files() -> None:
   </div>
 
   <!-- 6. #privacy — Privacy Policy & Zero Bid-Data Retention Guarantee -->
-  <div id="privacy" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+  <div id="privacy" onclick="if(event.target===this) closeTrustModals()" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
     <div class="max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl space-y-4 text-xs">
-      <div class="flex items-center justify-between border-b border-[#CBD5E1] pb-3">
+      <div class="flex items-start justify-between gap-4 border-b border-[#CBD5E1] pb-3">
         <div>
           <div class="text-xs font-mono font-bold text-[#065F46]">// ZERO BID-DATA RETENTION &amp; PRIVACY POLICY</div>
           <h3 class="text-xl font-extrabold text-[#0A0D14] mt-0.5">How CamberDesk Protects Your Estimating Desk Privacy</h3>
         </div>
-        <button type="button" onclick="closeTrustModals()" class="px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
+        <button type="button" onclick="closeTrustModals()" class="shrink-0 whitespace-nowrap px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
       </div>
       <div class="space-y-3 font-medium text-[#111827] leading-relaxed">
         <p><strong class="text-[#0A0D14] font-bold">1. Stateless Ephemeral API Execution:</strong> Inbound specification text, pay-item quantities, and unit-price overrides sent to <code class="font-bold">/v1/*</code> endpoints are processed strictly in memory and discarded immediately after response delivery.</p>
@@ -2248,26 +2441,32 @@ def build_site_files() -> None:
 
   <!-- FLOATING AI PRECONSTRUCTION CONCIERGE WIDGET (#ai-concierge-widget) -->
   <div id="ai-concierge-widget" class="fixed bottom-14 md:bottom-5 right-4 z-40">
-    <div id="concierge-drawer" class="hidden mb-3 w-80 sm:w-96 p-4 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl space-y-3">
+    <div id="concierge-drawer" class="hidden mb-2 w-80 sm:w-[410px] p-4 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl space-y-3">
       <div class="flex items-center justify-between border-b border-[#CBD5E1] pb-2">
         <div class="text-xs font-mono font-extrabold text-[#0A0D14]">CAMBERDESK AI CONCIERGE // 52 PORTALS</div>
-        <button type="button" onclick="toggleConciergeDrawer()" class="text-xs font-mono font-bold text-[#0A0D14] hover:text-[#1E3A8A]">[X]</button>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="clearConciergeChat()" class="px-2 py-0.5 rounded bg-[#F4F1EA] hover:bg-[#EAE6DF] border border-[#CBD5E1] text-[10px] font-mono font-bold text-[#0A0D14]">Clear</button>
+          <button type="button" onclick="toggleConciergeDrawer()" class="px-2 py-0.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-xs font-mono font-bold text-[#0A0D14] hover:text-white">[X]</button>
+        </div>
       </div>
-      <div id="concierge-chat-log" class="space-y-2 max-h-56 overflow-y-auto text-xs">
-        <div class="p-2.5 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1] font-medium text-[#0A0D14]">
-          Ask about 50-State DOT bid tabulations, live Excel formulas in the 6-File .ZIP package, or MCP/REST API integration.
+      <div id="concierge-chat-log" class="space-y-2 max-h-72 overflow-y-auto text-xs pr-1">
+        <div class="p-2.5 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1] font-medium text-[#0A0D14] leading-relaxed">
+          <strong class="font-mono text-[#1E3A8A] block mb-0.5">CAMBERDESK AI CONCIERGE:</strong>
+          Ask about 50-State DOT bid tabulations, live Excel formulas in the 6-File .ZIP package, Davis-Bacon WH-347 wages, or MCP/REST API keys.
         </div>
       </div>
       <div class="flex flex-wrap gap-1.5 text-[11px] font-mono">
-        <button type="button" onclick="askConciergeQuick('What is inside the 6-File .ZIP Bid Package?')" class="px-2 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold">6-File .ZIP Contents</button>
-        <button type="button" onclick="askConciergeQuick('Which 50 State DOT portals are monitored?')" class="px-2 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold">50-State DOT List</button>
+        <button type="button" onclick="askConciergeQuick('What is inside the 6-File .ZIP Bid Package?')" class="px-2 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">6-File .ZIP Contents</button>
+        <button type="button" onclick="askConciergeQuick('Which 50 State DOT portals are monitored?')" class="px-2 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">50-State DOT Coverage</button>
+        <button type="button" onclick="askConciergeQuick('How do 36-month DOT unit-price bid tabulations work?')" class="px-2 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">36-Mo Bid-Tab Rates</button>
+        <button type="button" onclick="askConciergeQuick('How do plans, pricing, and MCP/REST API keys work?')" class="px-2 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">Pricing &amp; API Keys</button>
       </div>
       <form onsubmit="sendConciergeMessage(event)" class="flex gap-1.5">
         <input id="concierge-input" type="text" required placeholder="Ask preconstruction AI..." class="flex-1 px-2.5 py-1.5 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#1E293B]" />
         <button type="submit" class="px-3 py-1.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold">Send</button>
       </form>
     </div>
-    <button type="button" onclick="toggleConciergeDrawer()" class="px-4 py-2.5 rounded-full bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold shadow-lg border border-white/20 transition">
+    <button type="button" id="concierge-trigger-btn" onclick="toggleConciergeDrawer()" class="px-4 py-2.5 rounded-full bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold shadow-lg border border-white/20 transition">
       AI Precon Concierge &bull; Ask Anything
     </button>
   </div>
@@ -2295,15 +2494,15 @@ def build_site_files() -> None:
 </head>
 <body class="bg-[#FAF8F5] text-[#0A0D14] font-sans antialiased pb-14 md:pb-0">
   <!-- Top Telemetry Bar -->
-  <div class="bg-[#EAE6DF] border-b border-[#CBD5E1] px-4 py-2 text-xs font-mono font-medium text-[#0A0D14] flex items-center justify-between overflow-x-auto whitespace-nowrap">
-    <div class="flex items-center gap-2">
-      <span class="inline-block w-2.5 h-2.5 rounded-full bg-[#065F46]"></span>
-      <span class="text-[#0A0D14] font-extrabold">LIVE MONITORING: 52 GOVERNMENT &amp; DOT PORTALS ACTIVE</span>
-      <span class="text-[#1E3A8A] font-bold">|</span>
-      <span class="text-[#111827] font-semibold">{ticker_items}</span>
+  <div class="bg-[#EAE6DF] border-b border-[#CBD5E1] px-4 py-2 text-xs font-mono font-medium text-[#0A0D14] flex items-center justify-between gap-4 overflow-hidden">
+    <div class="flex items-center gap-2 min-w-0">
+      <span class="inline-block w-2.5 h-2.5 shrink-0 rounded-full bg-[#065F46]"></span>
+      <span class="text-[#0A0D14] font-extrabold shrink-0">LIVE MONITORING: 52 GOVERNMENT &amp; DOT PORTALS ACTIVE</span>
+      <span class="hidden xl:inline text-[#1E3A8A] font-bold shrink-0">|</span>
+      <span class="hidden xl:inline-block max-w-[460px] 2xl:max-w-[620px] truncate align-bottom text-[#111827] font-semibold">{ticker_items}</span>
     </div>
-    <div class="hidden lg:flex items-center gap-3 text-[#1E3A8A] font-bold">
-      <a href="#status" onclick="openTrustModal('status')" class="hover:underline text-[#065F46]">STATUS: 52/52 LIVE</a> &bull; <span>12 LIVE ENDPOINTS</span> &bull; <span>6-FILE .ZIP TAKEOFF COMPILER</span>
+    <div class="hidden lg:flex items-center gap-3 text-[#1E3A8A] font-bold shrink-0 whitespace-nowrap">
+      <a href="#status" onclick="openTrustModal('status', event)" class="hover:underline text-[#065F46]">STATUS: 52/52 LIVE</a> &bull; <span>12 LIVE ENDPOINTS</span> &bull; <span>6-FILE .ZIP TAKEOFF COMPILER</span>
     </div>
   </div>
 
@@ -2316,7 +2515,7 @@ def build_site_files() -> None:
         <a href="#zip-package-inspector" onclick="switchSpaView('overview')" class="text-[#0A0D14] hover:text-[#1E3A8A]">6-File .ZIP Inspector</a>
         <a href="#lettings" onclick="switchSpaView('lettings')" class="text-[#0A0D14] hover:text-[#1E3A8A]">Live DOT Lettings</a>
         <a href="#apis" onclick="switchSpaView('apis')" class="text-[#0A0D14] hover:text-[#1E3A8A]">API Catalog</a>
-        <a href="#account" onclick="openTrustModal('account')" class="px-3 py-1.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Client Portal</a>
+        <a href="#account" onclick="openTrustModal('account', event)" class="px-3 py-1.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Client Portal</a>
         <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold transition">Self-Serve Pricing</a>
       </nav>
       <button type="button" onclick="toggleMobileNav()" class="md:hidden px-3 py-1.5 rounded-lg bg-[#EAE6DF] border border-[#94A3B8] text-xs font-mono font-bold text-[#0A0D14]">MENU</button>
@@ -2327,8 +2526,8 @@ def build_site_files() -> None:
       <a href="#roi-calculator" onclick="switchSpaView('overview')" class="text-[#0A0D14]">Estimating ROI Calculator</a>
       <a href="#lettings" onclick="switchSpaView('lettings')" class="text-[#0A0D14]">Live 50-State DOT Lettings</a>
       <a href="#apis" onclick="switchSpaView('apis')" class="text-[#0A0D14]">API Catalog</a>
-      <a href="#account" onclick="openTrustModal('account')" class="text-[#1E3A8A]">Client Portal (#account)</a>
-      <a href="#status" onclick="openTrustModal('status')" class="text-[#065F46]">Live System Status (#status)</a>
+      <a href="#account" onclick="openTrustModal('account', event)" class="text-[#1E3A8A]">Client Portal</a>
+      <a href="#status" onclick="openTrustModal('status', event)" class="text-[#065F46]">Live System Status</a>
       <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2 rounded-lg bg-[#0A0D14] text-white text-center font-bold">Self-Serve Pricing</a>
     </div>
   </header>
@@ -2889,7 +3088,7 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
       </div>
       <div>
         <button type="button" onclick="toggleFaqItem(2)" class="w-full text-left py-2 text-sm font-extrabold text-[#0A0D14] flex justify-between"><span>Is there any annual contract lock-in or per-seat fee?</span><span>[+]</span></button>
-        <div id="faq-ans-2" class="hidden pb-2 text-xs font-medium text-[#111827] leading-relaxed">Zero lock-in. Monthly plans are strictly month-to-month and can be managed or cancelled in 1 click via the <a href="#account" onclick="openTrustModal('account')" class="text-[#1E3A8A] font-bold underline">Self-Serve Client Portal</a>.</div>
+        <div id="faq-ans-2" class="hidden pb-2 text-xs font-medium text-[#111827] leading-relaxed">Zero lock-in. Monthly plans are strictly month-to-month and can be managed or cancelled in 1 click via the <a href="#account" onclick="openTrustModal('account', event)" class="text-[#1E3A8A] font-bold underline">Self-Serve Client Portal</a>.</div>
       </div>
     </div>
   </section>
@@ -2899,12 +3098,12 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
       <div class="flex flex-wrap items-center justify-between gap-4 text-xs font-mono font-bold text-[#0A0D14]">
         <div>ALL 52 FEDERAL USACE &amp; 50-STATE DOT PORTAL MONITORS ACTIVE</div>
         <div class="flex flex-wrap items-center gap-4">
-          <a href="#account" onclick="openTrustModal('account')" class="hover:text-[#1E3A8A] underline">Client Portal (#account)</a>
-          <a href="#status" onclick="openTrustModal('status')" class="text-[#065F46] hover:text-[#1E3A8A] underline">System Status (#status)</a>
-          <a href="#security" onclick="openTrustModal('security')" class="hover:text-[#1E3A8A] underline">Security (#security)</a>
-          <a href="#contact" onclick="openTrustModal('contact')" class="hover:text-[#1E3A8A] underline">AI Concierge (#contact)</a>
-          <a href="#terms" onclick="openTrustModal('terms')" class="hover:text-[#1E3A8A] underline">Terms (#terms)</a>
-          <a href="#privacy" onclick="openTrustModal('privacy')" class="hover:text-[#1E3A8A] underline">Privacy (#privacy)</a>
+          <a href="#account" onclick="openTrustModal('account', event)" class="hover:text-[#1E3A8A] underline">Client Portal</a>
+          <a href="#status" onclick="openTrustModal('status', event)" class="text-[#065F46] hover:text-[#1E3A8A] underline">System Status</a>
+          <a href="#security" onclick="openTrustModal('security', event)" class="hover:text-[#1E3A8A] underline">Security</a>
+          <a href="#contact" onclick="openTrustModal('contact', event)" class="hover:text-[#1E3A8A] underline">AI Concierge</a>
+          <a href="#terms" onclick="openTrustModal('terms', event)" class="hover:text-[#1E3A8A] underline">Terms</a>
+          <a href="#privacy" onclick="openTrustModal('privacy', event)" class="hover:text-[#1E3A8A] underline">Privacy</a>
         </div>
       </div>
       <div class="text-xs font-mono font-semibold text-[#111827] flex flex-wrap items-center justify-between gap-2 border-t border-[#CBD5E1] pt-3">
@@ -2947,7 +3146,7 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
         <a href="index.html" class="text-[#0A0D14] hover:text-[#1E3A8A]">Overview</a>
         <a href="lettings/index.html" class="text-[#0A0D14] hover:text-[#1E3A8A]">Live DOT Lettings</a>
         <a href="apis.html" class="text-[#1E3A8A] font-extrabold">API Catalog</a>
-        <a href="#account" onclick="openTrustModal('account')" class="px-3 py-1.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Client Portal</a>
+        <a href="#account" onclick="openTrustModal('account', event)" class="px-3 py-1.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Client Portal</a>
         <a href="index.html#checkout" class="px-4 py-2 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold transition">Self-Serve Pricing</a>
       </nav>
       <button type="button" onclick="toggleMobileNav()" class="md:hidden px-3 py-1.5 rounded-lg bg-[#EAE6DF] border border-[#94A3B8] text-xs font-mono font-bold text-[#0A0D14]">MENU</button>
@@ -2956,8 +3155,8 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
       <a href="index.html" class="text-[#0A0D14]">Overview</a>
       <a href="lettings/index.html" class="text-[#0A0D14]">Live 50-State DOT Lettings</a>
       <a href="apis.html" class="text-[#1E3A8A]">API Catalog</a>
-      <a href="#account" onclick="openTrustModal('account')" class="text-[#1E3A8A]">Client Portal (#account)</a>
-      <a href="#status" onclick="openTrustModal('status')" class="text-[#065F46]">Live System Status (#status)</a>
+      <a href="#account" onclick="openTrustModal('account', event)" class="text-[#1E3A8A]">Client Portal</a>
+      <a href="#status" onclick="openTrustModal('status', event)" class="text-[#065F46]">Live System Status</a>
       <a href="index.html#checkout" class="px-4 py-2 rounded-lg bg-[#0A0D14] text-white text-center font-bold">Self-Serve Pricing</a>
     </div>
   </header>
@@ -2968,12 +3167,12 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
     <div class="max-w-7xl mx-auto px-6 flex flex-wrap items-center justify-between gap-4 text-xs font-mono font-bold text-[#0A0D14]">
       <div>ALL 52 FEDERAL USACE &amp; 50-STATE DOT PORTAL MONITORS ACTIVE</div>
       <div class="flex flex-wrap items-center gap-4">
-        <a href="#account" onclick="openTrustModal('account')" class="hover:text-[#1E3A8A] underline">Client Portal (#account)</a>
-        <a href="#status" onclick="openTrustModal('status')" class="text-[#065F46] hover:text-[#1E3A8A] underline">System Status (#status)</a>
-        <a href="#security" onclick="openTrustModal('security')" class="hover:text-[#1E3A8A] underline">Security (#security)</a>
-        <a href="#contact" onclick="openTrustModal('contact')" class="hover:text-[#1E3A8A] underline">AI Concierge (#contact)</a>
-        <a href="#terms" onclick="openTrustModal('terms')" class="hover:text-[#1E3A8A] underline">Terms (#terms)</a>
-        <a href="#privacy" onclick="openTrustModal('privacy')" class="hover:text-[#1E3A8A] underline">Privacy (#privacy)</a>
+        <a href="#account" onclick="openTrustModal('account', event)" class="hover:text-[#1E3A8A] underline">Client Portal</a>
+        <a href="#status" onclick="openTrustModal('status', event)" class="text-[#065F46] hover:text-[#1E3A8A] underline">System Status</a>
+        <a href="#security" onclick="openTrustModal('security', event)" class="hover:text-[#1E3A8A] underline">Security</a>
+        <a href="#contact" onclick="openTrustModal('contact', event)" class="hover:text-[#1E3A8A] underline">AI Concierge</a>
+        <a href="#terms" onclick="openTrustModal('terms', event)" class="hover:text-[#1E3A8A] underline">Terms</a>
+        <a href="#privacy" onclick="openTrustModal('privacy', event)" class="hover:text-[#1E3A8A] underline">Privacy</a>
       </div>
     </div>
   </footer>

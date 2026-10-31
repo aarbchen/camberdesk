@@ -579,25 +579,39 @@ async def capture_sample_lead_magnet(payload: Dict[str, Any]) -> Dict[str, Any]:
 async def ask_camberdesk_concierge(payload: Dict[str, Any]) -> Dict[str, Any]:
     question = str(payload.get("question") or "").strip()
     q_low = question.lower()
-    if "zip" in q_low or "sample" in q_low or "package" in q_low or "download" in q_low:
+    if any(k in q_low for k in ("zip", "sample", "package", "download", "6-file", "6 file", "volume", "excel", "formula")):
         answer = (
             "Every CamberDesk 6-File OpenXML (.ZIP) Bid Package compiles 5 native Word/Excel volumes plus a JSON readiness manifest in memory: "
             "(1) Volume I: CSI MasterFormat Divisions 00-48 Submittal & Liquidated Damages Matrix (.docx), "
-            "(2) Volume II: 50-State DOT Historical Unit-Price Bid Tabulation & Takeoff Model (.xlsx with live =SUM() and =ROUND() formulas), "
+            "(2) Volume II: 50-State DOT Historical Unit-Price Bid Tabulation & Takeoff Model (.xlsx with live =ROUND(D6*G6,2) & =SUM() formulas), "
             "(3) Volume III: Davis-Bacon WH-347 Prevailing Wage & Fringe Burden Schedule (.xlsx), "
             "(4) Volume IV: 49 CFR Part 26 DBE Good-Faith Effort & BABA Buy America Certification (.docx), and "
             "(5) Volume V: AIA G702/G703 Schedule of Values & Statutory Open-Records Demand (.docx). "
             "Use the Free Sample Lead-Magnet Banner or the 6-File .ZIP Inspector on this page to download a live package right now."
         )
         action_hash = "#zip-package-inspector"
-    elif "wage" in q_low or "davis" in q_low or "wh-347" in q_low or "baba" in q_low or "buy america" in q_low:
+    elif any(k in q_low for k in ("50", "portal", "state", "monitored", "which", "coverage", "txdot", "caltrans", "fdot")):
+        answer = (
+            "All 52 active procurement portals are monitored 24/7: (1) All 50 U.S. State DOTs (TxDOT, Caltrans, FDOT, VDOT, PennDOT, NYSDOT, IDOT, GDOT, NCDOT, ODOT, WSDOT, MDOT, "
+            "AzDOT, CDOT, MnDOT, INDOT, TDOT, MoDOT, WisDOT, KYTC, ALDOT, SCDOT, LADOTD, OHDOT, NJDOT, MassDOT, ConnDOT, UDOT, NVDOT, NMDOT, ITD, MDT, WYDOT, NDDOT, SDDOT, NDOT, "
+            "KDOT, IaDOT, ARDOT, MSDOT, DelDOT, MDSHA, WVDOT, VTrans, NHDOT, MaineDOT, RIDOT, HDOT, AKDOT&PF, and DC DDOT), "
+            "(2) Federal USACE Civil Works / SAM.gov NAICS 236-238, and (3) Municipal Public Works."
+        )
+        action_hash = "#coverage"
+    elif any(k in q_low for k in ("unit", "bid tab", "tabulation", "asphalt", "concrete", "ton", "36", "mlot", "planholder")):
+        answer = (
+            "API #02 (/v1/model/dot-unit-bid-tabs) and API #11 (/v1/analyze/planholder-competitor-spread) benchmark every pay item against 36 months of historical State DOT "
+            "winning low bids ($/Ton Superpave HMA, $/CY Structural Concrete, $/LF RCP Storm Drain, Lump Sum Mobilization) and calculate Money Left on the Table (MLOT) against active planholders."
+        )
+        action_hash = "#product-dot-bid-tab-unit-prices"
+    elif any(k in q_low for k in ("wage", "davis", "wh-347", "baba", "buy america", "dbe")):
         answer = (
             "API #03 (/v1/calculate/davis-bacon-prevailing-wage) matches SAM.gov Wage Determinations by state, county, and construction type "
             "(Highway, Heavy, Building, Residential) under 29 CFR Part 5, calculating base rates, fringe benefits, overtime multipliers, and loaded crew hourly burden. "
-            "API #05 (/v1/audit/baba-buy-america) audits structural steel, precast concrete, fiber-optic cable, and aggregates against 23 CFR 635.410 and IIJA Build America, Buy America (BABA) domestic manufacturing thresholds."
+            "API #05 (/v1/audit/baba-buy-america) and API #06 (/v1/generate/dot-dbe-good-faith-effort) audit 23 CFR 635.410 BABA domestic thresholds and 49 CFR Part 26 DBE 60% regular-dealer rules."
         )
         action_hash = "#product-davis-bacon-wages"
-    elif "price" in q_low or "tier" in q_low or "cost" in q_low or "plan" in q_low or "checkout" in q_low:
+    elif any(k in q_low for k in ("price", "pricing", "tier", "cost", "plan", "checkout", "billing", "key")):
         answer = (
             "CamberDesk offers 3 self-serve plans with zero annual lock-in: "
             "Tier 1 CamberWire Pro ($199/mo or $1,990/yr) includes 52-Portal live DOT/USACE letting alerts and official planholder tracking; "
@@ -605,17 +619,17 @@ async def ask_camberdesk_concierge(payload: Dict[str, Any]) -> Dict[str, Any]:
             "Tier 3 6-File .ZIP Takeoff Compiler ($1,499/mo or $14,900/yr) provides unlimited 1-Click 6-File OpenXML (.DOCX + .XLSX) bid package compilations."
         )
         action_hash = "#checkout"
-    elif "mcp" in q_low or "api" in q_low or "claude" in q_low or "cursor" in q_low:
+    elif any(k in q_low for k in ("mcp", "api", "claude", "cursor", "endpoint")):
         answer = (
-            "CamberDesk exposes 12 stateless REST endpoints (/v1/*) and a 5/5 Glama TDQS Model Context Protocol (MCP) server at https://camberdesk.com/mcp "
+            "CamberDesk exposes 12 stateless REST endpoints (/v1/*) and a 5/5 Glama TDQS Model Context Protocol (MCP) server at https://api.camberdesk.com/mcp "
             "(plus @camberdesk/mcp-server for local STDIO in Claude Desktop, Cursor, and Windsurf). Open the API Catalog tab to test any endpoint live or copy your 1-click MCP JSON config."
         )
         action_hash = "#apis"
     else:
         answer = (
             "CamberDesk monitors all 50 U.S. State DOT letting portals, Federal USACE Civil Works (SAM.gov NAICS 236-238), and Municipal Public Works (52 Portals total). "
-            "For every letting, we benchmark pay items against 36 months of historical winning low bids ($/Ton, $/CY, $/LF), shred CSI Divisions 00-48 for liquidated damages and submittals, "
-            "compute county Davis-Bacon WH-347 wages, and compile a 6-File OpenXML (.DOCX + .XLSX) Bid Package."
+            "Ask me about: (1) the 6-File OpenXML (.DOCX + .XLSX) Bid Package contents, (2) specific State DOT portal coverage, (3) 36-month historical unit-price bid tabulations ($/Ton, $/CY, $/LF), "
+            "(4) Davis-Bacon WH-347 prevailing wages, or (5) self-serve pricing & MCP/REST API keys."
         )
         action_hash = "#contract-directory"
 
