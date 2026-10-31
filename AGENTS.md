@@ -26,6 +26,10 @@
    - Feature copy must use simplified **50-State DOT & Public Works** phrasing inline while keeping full 52-portal cards in dedicated coverage surfaces.
    - Zero emojis anywhere on the site; use crisp SVG engineering icons and typographic symbols.
    - Always verify the entire repository via `python verify_camberdesk_integrity.py`.
+5. **Mandatory Cross-Brand Zero-Overlap & Isolation Rule (`CamberDesk` <-> `SignalTender` — Enforced by `check_zero_signaltender_overlap()` in `verify_camberdesk_integrity.py`):**
+   - **Zero Prospect Email or Domain Overlap:** `harvest_verified_dot_contacts.py` (`is_excluded_by_signaltender()`) and `mlot_sniper_generator.py` must always load `D:\Daas\verified_public_govcon_contacts.json`, `completed_outreach_archive.json`, `govcon_contacts.csv`, and `campaign_leads.csv` and exclude every SignalTender email and corporate domain. `sync_instantly_campaign.py` must always pass `"skip_if_in_workspace": True` on `POST /api/v2/leads`.
+   - **Zero Instantly.ai Mailbox, Campaign, or Unibox Overlap:** All CamberDesk scripts (`autonomous_mailbox_scaler.py`, `sync_instantly_campaign.py`, `outbound_mailer.py`, `outbound_reply_responder.py`, `omniscient_auditor.py`) must filter strictly to `*camberdesk*` mailboxes (`aaron@trycamberdesk.com`, `desk@trycamberdesk.com`, `estimating@trycamberdesk.com`) and never touch `*signaltender*` mailboxes or campaigns.
+   - **Zero Discord Webhook Cross-Posting:** CamberDesk must use `CAMBERDESK_DISCORD_WEBHOOK_URL` and must never use SignalTender's `DISCORD_WEBHOOK_URL` (`1555743443802918993`).
 
 ---
 
@@ -43,4 +47,5 @@ The following rules were automatically learned from past detections and fixes. E
 - **`RULE-007-OUTREACH-LIVE-DOSSIER-URLS` [Pillar 2: Customer Acquisition] (2026-10-31):** Every `dossier_url` in `campaign_leads.csv`, `outbox_ready_queue.json`, and Discord feeds must resolve to an existing `/lettings/project/<slug>.html` file. *(Enforced by `check_outreach_dossier_urls`)*
 - **`RULE-TIER3-OPENXML-INTEGRITY` [System Integrity] (2026-10-31):** Tier 3 Bid Package `.ZIP` archives must always contain 6 valid OpenXML (`.docx`/`.xlsx`) and `.json` files with well-formed XML and live Excel `=SUM()` and `=D6*G6` formulas. *(Enforced by `check_tier3_openxml_zip_integrity`)*
 - **`RULE-PORTAL-CATALOG-PARITY` [System Integrity] (2026-10-31):** Maintain 100% count and card parity across `index.html`, `apis.html`, `pseo_generator.py`, MCP servers, and Cloudflare Edge Worker (`52 Portals / 50 State DOTs` and `12 APIs`). *(Enforced by `check_portal_and_catalog_parity`)*
+- **`RULE-008-ZERO-SIGNALTENDER-OVERLAP` [Cross-Brand Isolation] (2026-10-31):** Maintain 100% zero overlap with SignalTender across prospect emails, corporate domains, Instantly.ai campaigns/mailboxes, Discord webhooks, and Supabase credentials. *(Enforced by `check_zero_signaltender_overlap`)*
 <!-- AUTONOMOUS_LEARNED_RULES_END -->
