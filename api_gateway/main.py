@@ -83,6 +83,19 @@ async def serve_sitemap():
     return HTMLResponse("<urlset/>", media_type="application/xml")
 
 
+@app.get("/robots.txt", include_in_schema=False)
+async def serve_robots():
+    robots_path = ROOT_DIR / "robots.txt"
+    if robots_path.exists():
+        return FileResponse(str(robots_path), media_type="text/plain")
+    return HTMLResponse("User-agent: *\nAllow: /\nSitemap: https://camberdesk.com/sitemap.xml\n", media_type="text/plain")
+
+
+@app.get("/a4f8e2c91b7d3056e8a12f4c9d0b3e71.txt", include_in_schema=False)
+async def serve_indexnow_key():
+    return HTMLResponse("a4f8e2c91b7d3056e8a12f4c9d0b3e71", media_type="text/plain")
+
+
 @app.get("/favicon.svg", include_in_schema=False)
 @app.get("/lettings/favicon.svg", include_in_schema=False)
 async def serve_favicon_svg():
@@ -134,6 +147,25 @@ async def serve_apple_touch_icon():
 @app.get("/lettings/og-image.png", include_in_schema=False)
 async def serve_og_image():
     for candidate in (ROOT_DIR / "og-image.png", ROOT_DIR / "lettings" / "og-image.png", ROOT_DIR / "apple-touch-icon.png"):
+        if candidate.exists():
+            return FileResponse(str(candidate), media_type="image/png")
+    return await serve_favicon_svg()
+
+
+@app.get("/site.webmanifest", include_in_schema=False)
+@app.get("/lettings/site.webmanifest", include_in_schema=False)
+async def serve_site_webmanifest():
+    for candidate in (ROOT_DIR / "site.webmanifest", ROOT_DIR / "lettings" / "site.webmanifest"):
+        if candidate.exists():
+            return FileResponse(str(candidate), media_type="application/manifest+json")
+    return HTMLResponse("{}", media_type="application/manifest+json")
+
+
+@app.get("/favicon-{dims}.png", include_in_schema=False)
+@app.get("/lettings/favicon-{dims}.png", include_in_schema=False)
+async def serve_sized_favicon_png(dims: str):
+    fname = f"favicon-{dims}.png"
+    for candidate in (ROOT_DIR / fname, ROOT_DIR / "lettings" / fname, ROOT_DIR / "favicon.png"):
         if candidate.exists():
             return FileResponse(str(candidate), media_type="image/png")
     return await serve_favicon_svg()

@@ -27,6 +27,7 @@ from dotenv import load_dotenv
 
 from autonomous_mailbox_scaler import fetch_live_camberdesk_instantly_accounts
 from harvest_verified_dot_contacts import load_signaltender_exclusion_sets
+from outbound_mailer import compute_dynamic_daily_limit
 from outreach_generator import generate_outreach_queue
 
 ROOT_DIR = Path(__file__).resolve().parent
@@ -153,15 +154,57 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
         em for em in set(warmed_cd + warming_cd)
         if "camberdesk" in em.lower() and "signaltender" not in em.lower()
     )
+    dynamic_daily_cap, _, ramp_phase_label = compute_dynamic_daily_limit()
+    three_step_sequences = [
+        {
+            "steps": [
+                {
+                    "type": "email",
+                    "delay": 0,
+                    "variants": [
+                        {
+                            "subject": "{{step1_subject}}",
+                            "body": "{{step1_body_zero_link}}",
+                        }
+                    ],
+                },
+                {
+                    "type": "email",
+                    "delay": 3,
+                    "variants": [
+                        {
+                            "subject": "Re: {{step1_subject}}",
+                            "body": "{{step2_body_dossier_link}}",
+                        }
+                    ],
+                },
+                {
+                    "type": "email",
+                    "delay": 4,
+                    "variants": [
+                        {
+                            "subject": "Re: {{step1_subject}}",
+                            "body": (
+                                "Closing the loop on {{project_id}} before the letting deadline — should I route our "
+                                "6-file OpenXML unit bid-tab and Davis-Bacon WH-347 workbook to another estimator on "
+                                "your heavy-civil desk, or hold off for this cycle?\n\n— Aaron\nCamberDesk Preconstruction Desk"
+                            ),
+                        }
+                    ],
+                },
+            ]
+        }
+    ]
     patch_payload: Dict[str, Any] = {
         "open_tracking": False,
         "link_tracking": False,
         "text_only": True,
         "stop_on_reply": True,
+        "daily_limit": dynamic_daily_cap,
+        "sequences": three_step_sequences,
     }
     if camberdesk_emails:
         patch_payload["email_list"] = camberdesk_emails
-        patch_payload["daily_limit"] = max(25, len(camberdesk_emails) * 30)
 
     try:
         requests.patch(

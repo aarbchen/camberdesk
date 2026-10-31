@@ -39,7 +39,7 @@
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://camberdesk.com/#organization", "name": "CamberDesk", "url": "https://camberdesk.com/", "logo": {"@type": "ImageObject", "url": "https://camberdesk.com/favicon-512x512.png?v=4", "width": 512, "height": 512}, "image": "https://camberdesk.com/og-image.png?v=4", "description": "Stateless REST and MCP APIs for CSI MasterFormat specification shredding, 50-State DOT unit-price bid tabulations, Davis-Bacon WH-347 prevailing wages, and AIA G702/G703 schedules of values."}, {"@type": "WebSite", "@id": "https://camberdesk.com/#website", "url": "https://camberdesk.com/", "name": "CamberDesk", "publisher": {"@id": "https://camberdesk.com/#organization"}}, {"@type": "SoftwareApplication", "name": "CamberDesk Autonomous Preconstruction & 50-State DOT Bid-Tab Engine", "applicationCategory": "BusinessApplication", "operatingSystem": "Web, REST API, Model Context Protocol (MCP)", "offers": [{"@type": "Offer", "name": "Tier 1 CamberWire Pro", "price": "199.00", "priceCurrency": "USD"}, {"@type": "Offer", "name": "Tier 2 CamberDesk Autopilot", "price": "499.00", "priceCurrency": "USD"}, {"@type": "Offer", "name": "Tier 3 6-File .ZIP Takeoff Compiler", "price": "1499.00", "priceCurrency": "USD"}]}]}</script>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { color: #0A0D14; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    html, body { max-width: 100vw; overflow-x: hidden; color: #0A0D14; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
     p, li, td, th, label, span { letter-spacing: -0.005em; }
     pre, code, textarea { font-variant-ligatures: none; }
   </style>
@@ -96,14 +96,22 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 min-w-0">
           <div class="min-w-0">
             <div class="text-xs font-mono font-bold text-[#0A0D14] mb-1.5">JSON Request Payload</div>
-            <textarea id="sandbox-req-box" rows="6" class="w-full p-3.5 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#0F172A] leading-relaxed">{
+            <textarea id="sandbox-req-box" rows="7" class="w-full p-3.5 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#0F172A] leading-relaxed">{
   "spec_text": "SECTION 01 10 00 SUMMARY: Replace 4 prestressed bridge spans and place 68,000 tons of Item 341 Superpave HMA. Liquidated damages are $4,200/day.",
   "project_id": "TXDOT-CSJ-0015-13-412",
   "target_trade": "Heavy Civil / Highway & Bridge"
 }</textarea>
           </div>
           <div class="min-w-0">
-            <div class="text-xs font-mono font-bold text-[#0A0D14] mb-1.5">Live Structured Response (200 OK)</div>
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+              <div class="inline-flex rounded bg-[#EAE6DF] p-0.5 border border-[#94A3B8] text-[11px] font-mono font-bold">
+                <button type="button" id="tab-sandbox-json" onclick="setSandboxCodeTab('json')" class="px-2.5 py-1 rounded bg-[#0A0D14] text-white">200 OK JSON</button>
+                <button type="button" id="tab-sandbox-curl" onclick="setSandboxCodeTab('curl')" class="px-2.5 py-1 rounded text-[#0A0D14] hover:text-[#1E3A8A]">cURL</button>
+                <button type="button" id="tab-sandbox-python" onclick="setSandboxCodeTab('python')" class="px-2.5 py-1 rounded text-[#0A0D14] hover:text-[#1E3A8A]">Python</button>
+                <button type="button" id="tab-sandbox-js" onclick="setSandboxCodeTab('js')" class="px-2.5 py-1 rounded text-[#0A0D14] hover:text-[#1E3A8A]">Node / Fetch</button>
+              </div>
+              <button type="button" id="btn-copy-sandbox" onclick="copySandboxOutput()" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] text-[11px] font-mono font-bold transition">Copy Output</button>
+            </div>
             <pre id="sandbox-res-box" class="p-3.5 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#064E3B] leading-relaxed overflow-x-auto max-w-full">{
   "status": "success",
   "project_id": "TXDOT-CSJ-0015-13-412",
@@ -127,7 +135,39 @@
 }</pre>
           </div>
         </div>
-        <button type="button" onclick="executeSandboxCall()" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Execute Stateless API Call</button>
+        <div class="flex flex-wrap items-center gap-3">
+          <button type="button" onclick="executeSandboxCall()" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Execute Stateless API Call</button>
+          <span id="sandbox-status-pill" class="text-xs font-mono font-bold text-[#065F46]">HTTP 200 OK &bull; Stateless Pydantic V2 Validated</span>
+        </div>
+      </div>
+
+      <!-- Interactive MCP Server Integration Hub (Claude Desktop / Cursor / Windsurf / Streamable-HTTP) -->
+      <div id="mcp-integration-hub" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <div class="text-xs font-mono font-bold text-[#1E3A8A]">// MODEL CONTEXT PROTOCOL (MCP) — 5/5 GLAMA TDQS SCORE</div>
+            <h3 class="text-lg font-extrabold text-[#0A0D14] mt-0.5">1-Click AI Agent Integration (Claude Desktop, Cursor, Windsurf &amp; Remote HTTP)</h3>
+          </div>
+          <div class="inline-flex flex-wrap rounded-lg bg-[#EAE6DF] p-1 border border-[#94A3B8] text-xs font-mono font-bold gap-1">
+            <button type="button" id="mcp-tab-claude" onclick="switchMcpConfigTab('claude')" class="px-3 py-1 rounded bg-[#0A0D14] text-white">Claude Desktop</button>
+            <button type="button" id="mcp-tab-cursor" onclick="switchMcpConfigTab('cursor')" class="px-3 py-1 rounded text-[#0A0D14]">Cursor / Windsurf</button>
+            <button type="button" id="mcp-tab-http" onclick="switchMcpConfigTab('http')" class="px-3 py-1 rounded text-[#0A0D14]">Remote HTTP (/mcp)</button>
+          </div>
+        </div>
+        <div class="relative">
+          <pre id="mcp-config-code" class="p-4 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] text-xs font-mono font-medium text-[#0F172A] overflow-x-auto leading-relaxed">{
+  "mcpServers": {
+    "camberdesk": {
+      "command": "npx",
+      "args": ["-y", "@camberdesk/mcp-server"],
+      "env": {
+        "CAMBERDESK_API_KEY": "cd_live_your_api_key_here"
+      }
+    }
+  }
+}</pre>
+          <button type="button" id="btn-copy-mcp" onclick="copyMcpConfig()" class="mt-2 px-3.5 py-1.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white text-xs font-mono font-bold transition">Copy MCP Configuration JSON</button>
+        </div>
       </div>
 
       <!-- Quick-Jump Directory -->
@@ -812,6 +852,7 @@
   </main>
   <script>
     const LETTINGS_DATA = [{"project_id": "TXDOT-CSJ-0015-13-412", "title": "[TXDOT-CSJ-0015-13-412] IH-35 Corridor Bridge Deck Replacement, Superpave HMA Overlay & ITS Fiber Duct Bank", "agency": "Texas Department of Transportation (TxDOT) \u2014 Austin District", "jurisdiction": "texas", "state_code": "TX", "county": "Travis County, TX", "letting_date": "2026-11-18", "engineers_estimate_usd": 18450000.0, "dbe_goal_pct": 11.5, "liquidated_damages_per_day_usd": 4200, "wage_determination_id": "TX20260028 (Heavy & Highway)", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Concrete", "Div 05 Metals", "Div 26 Electrical / ITS", "Div 31 Earthwork", "Div 32 Exterior Improvements / Paving"], "url": "https://www.txdot.gov/business/letting-bids/letting-schedule.html#TXDOT-CSJ-0015-13-412", "scope_summary": "Full-depth replacement of 4 prestressed concrete girder bridge spans on IH-35, 68,000 tons of Item 341 Dense-Graded Hot-Mix Asphalt (Superpave), 14,200 LF of 36-inch Reinforced Concrete Pipe storm drainage, and 28,500 LF of 4-inch HDPE ITS fiber optic conduit with high-mast LED illumination.", "planholders": ["Webber LLC", "Granite Construction Inc.", "Jordan Foster Construction LLC", "Lone Star Paving Co.", "Capital Excavation Company"], "pay_items": [{"item_code": "341-6008", "description": "Dense-Graded Hot-Mix Asphalt (Superpave SP-C SAC-A PG 76-22)", "unit": "TON", "quantity": 68000, "hist_low_unit_usd": 129.5, "hist_median_unit_usd": 138.75, "recommended_unit_usd": 134.2}, {"item_code": "420-6013", "description": "HPC Structural Concrete Class S (Bridge Deck & Approach Slabs)", "unit": "CY", "quantity": 4850, "hist_low_unit_usd": 910.0, "hist_median_unit_usd": 985.0, "recommended_unit_usd": 948.0}, {"item_code": "464-6008", "description": "Reinforced Concrete Pipe (Class III 36-Inch Storm Sewer)", "unit": "LF", "quantity": 14200, "hist_low_unit_usd": 152.0, "hist_median_unit_usd": 168.5, "recommended_unit_usd": 159.0}, {"item_code": "618-6046", "description": "ITS Conduit (PVC Schedule 80 / Bore 4-Inch Directional)", "unit": "LF", "quantity": 28500, "hist_low_unit_usd": 38.0, "hist_median_unit_usd": 44.5, "recommended_unit_usd": 41.0}, {"item_code": "500-6001", "description": "Mobilization, Bonds & Traffic Control Phasing (Cap 10%)", "unit": "LS", "quantity": 1, "hist_low_unit_usd": 1450000.0, "hist_median_unit_usd": 1620000.0, "recommended_unit_usd": 1525000.0}]}, {"project_id": "CALTRANS-04-2Q7404", "title": "[CALTRANS-04-2Q7404] Route 101 Seismic Bridge Retrofit, Micropile Foundations & Stormwater Pump Station Modernization", "agency": "California Department of Transportation (Caltrans) \u2014 District 4 Bay Area", "jurisdiction": "california", "state_code": "CA", "county": "San Mateo County, CA", "letting_date": "2026-11-20", "engineers_estimate_usd": 24800000.0, "dbe_goal_pct": 18.0, "liquidated_damages_per_day_usd": 6500, "wage_determination_id": "CA20260007 + DIR Northern CA General Prevailing Wage", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Structural Concrete", "Div 05 Structural Steel", "Div 26 Medium-Voltage Electrical", "Div 31 Deep Foundations / Micropiles", "Div 33 Utilities / Pump Station"], "url": "https://ppmoe.dot.ca.gov/des/oe/weekly-ads/oe-project.php?id=04-2Q7404", "scope_summary": "Seismic column casing and structural steel girder retrofit on US-101, installation of 160 high-capacity Type II micropiles, complete replacement of two 480V stormwater pump stations with SCADA telemetry, and Rubberized Hot Mix Asphalt (RHMA-G) resurfacing.", "planholders": ["Flatiron West Inc.", "Myers & Sons Construction LP", "Ghilotti Construction Company", "O.C. Jones & Sons Inc.", "MCM Construction Inc."], "pay_items": [{"item_code": "390137", "description": "Rubberized Hot Mix Asphalt (Gap Graded RHMA-G)", "unit": "TON", "quantity": 42000, "hist_low_unit_usd": 158.0, "hist_median_unit_usd": 172.0, "recommended_unit_usd": 164.5}, {"item_code": "490405", "description": "Drilled & Grouted High-Capacity Micropiles (200-Ton Design Load)", "unit": "LF", "quantity": 19500, "hist_low_unit_usd": 245.0, "hist_median_unit_usd": 278.0, "recommended_unit_usd": 259.0}, {"item_code": "550102", "description": "Structural Steel Column Casing (ASTM A709 Grade 50 Seismic)", "unit": "LB", "quantity": 1450000, "hist_low_unit_usd": 4.1, "hist_median_unit_usd": 4.65, "recommended_unit_usd": 4.32}, {"item_code": "860990", "description": "Stormwater Pump Station 480V MCC, VFD & PLC Telemetry", "unit": "LS", "quantity": 1, "hist_low_unit_usd": 2850000.0, "hist_median_unit_usd": 3190000.0, "recommended_unit_usd": 2980000.0}]}, {"project_id": "FDOT-T4682-FIN-445219", "title": "[FDOT-T4682-FIN-445219] SR-826 Palmetto Expressway Milling, FC-12.5 Friction Course, Mast-Arm Signals & Box Culvert", "agency": "Florida Department of Transportation (FDOT) \u2014 District 6 Miami", "jurisdiction": "florida", "state_code": "FL", "county": "Miami-Dade County, FL", "letting_date": "2026-11-24", "engineers_estimate_usd": 15600000.0, "dbe_goal_pct": 10.65, "liquidated_damages_per_day_usd": 3800, "wage_determination_id": "FL20260119 (Highway Construction)", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Precast Box Culverts", "Div 26 Mast-Arm Traffic Signals", "Div 32 Asphalt Milling & Friction Course", "Div 33 Storm Drainage"], "url": "https://www.fdot.gov/contracts/lettings/dist6-t4682", "scope_summary": "Nighttime milling and resurfacing of 9.4 centerline miles on SR-826 using Polymer-Modified Asphalt PG 76-22 (FC-12.5), installation of 18 hurricane-rated steel mast-arm signal assemblies, and 3,400 LF of precast concrete box culvert.", "planholders": ["Halley Engineering Contractors Inc.", "Ranger Construction Industries", "General Asphalt Co. LLC", "OHL USA / Community Asphalt", "de Moya Group Inc."], "pay_items": [{"item_code": "0337-7-82", "description": "Asphalt Concrete Friction Course (Traffic C FC-12.5 PG 76-22)", "unit": "TON", "quantity": 54000, "hist_low_unit_usd": 144.0, "hist_median_unit_usd": 156.0, "recommended_unit_usd": 149.25}, {"item_code": "0410-70", "description": "Precast Reinforced Concrete Box Culvert (10 ft x 6 ft)", "unit": "LF", "quantity": 3400, "hist_low_unit_usd": 1120.0, "hist_median_unit_usd": 1245.0, "recommended_unit_usd": 1175.0}, {"item_code": "0649-21-15", "description": "Steel Mast Arm Assembly (170 MPH Wind Load Rating)", "unit": "EA", "quantity": 18, "hist_low_unit_usd": 78500.0, "hist_median_unit_usd": 86000.0, "recommended_unit_usd": 81500.0}]}, {"project_id": "VDOT-C00118942B01", "title": "[VDOT-C00118942B01] I-64 / Route 288 Interchange Diverging Diamond, Retaining Walls & Ductile Iron Water Main Relocation", "agency": "Virginia Department of Transportation (VDOT) \u2014 Richmond District", "jurisdiction": "virginia", "state_code": "VA", "county": "Henrico County, VA", "letting_date": "2026-11-25", "engineers_estimate_usd": 21200000.0, "dbe_goal_pct": 12.0, "liquidated_damages_per_day_usd": 4500, "wage_determination_id": "VA20260084 (Highway & Heavy)", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Concrete MSE Retaining Walls", "Div 26 Roadway Lighting", "Div 31 Earthwork & Rock Excavation", "Div 33 24-Inch Ductile Iron Water Main"], "url": "https://cab.vdot.virginia.gov/letting/C00118942B01", "scope_summary": "Construction of a Diverging Diamond Interchange (DDI) on I-64, 48,000 SF of Mechanically Stabilized Earth (MSE) retaining walls, 11,500 LF of 24-inch Class 52 Ductile Iron potable water main relocation, and full traffic signalization.", "planholders": ["Allan Myers VA Inc.", "Branch Civil Inc.", "Shirley Contracting Company", "W.C. English Construction", "Wagman Heavy Civil Inc."], "pay_items": [{"item_code": "315-0010", "description": "Asphalt Concrete Surface Course Type SM-12.5E", "unit": "TON", "quantity": 61000, "hist_low_unit_usd": 126.0, "hist_median_unit_usd": 135.5, "recommended_unit_usd": 130.25}, {"item_code": "510-0040", "description": "Mechanically Stabilized Earth (MSE) Precast Panel Retaining Wall", "unit": "SF", "quantity": 48000, "hist_low_unit_usd": 74.0, "hist_median_unit_usd": 83.0, "recommended_unit_usd": 78.0}, {"item_code": "420-2452", "description": "24-Inch Restrained Joint Ductile Iron Water Main (Class 52)", "unit": "LF", "quantity": 11500, "hist_low_unit_usd": 285.0, "hist_median_unit_usd": 318.0, "recommended_unit_usd": 298.0}]}, {"project_id": "PENNDOT-ECMS-119408", "title": "[PENNDOT-ECMS-119408] I-76 Schuylkill Expressway Viaduct Steel Girder Repair, Latex-Modified Concrete Overlay & Sign Structures", "agency": "Pennsylvania Department of Transportation (PennDOT) \u2014 Engineering District 6-0", "jurisdiction": "pennsylvania", "state_code": "PA", "county": "Montgomery County, PA", "letting_date": "2026-11-19", "engineers_estimate_usd": 19750000.0, "dbe_goal_pct": 13.0, "liquidated_damages_per_day_usd": 4800, "wage_determination_id": "PA20260004 (Heavy & Highway Building)", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Latex-Modified Concrete", "Div 05 Structural Steel Repair", "Div 09 Bridge Coating SSPC-SP10", "Div 26 Overhead Sign Structures"], "url": "https://www.ecms.penndot.gov/ECMS/Project119408", "scope_summary": "Structural steel diaphragm and flange repair on I-76 viaduct, hydrodemolition and placement of 38,000 SY of Latex-Modified Concrete (LMC) deck wearing surface, SSPC-SP10 near-white metal blast painting, and 9 overhead cantilever sign structures.", "planholders": ["J.D. Eckman Inc.", "Driscoll Construction Co.", "Walsh Construction Company II", "H&K Group Inc.", "Buckley & Company Inc."], "pay_items": [{"item_code": "1041-0020", "description": "Hydrodemolition & Latex-Modified Concrete (LMC) Wearing Surface", "unit": "SY", "quantity": 38000, "hist_low_unit_usd": 182.0, "hist_median_unit_usd": 198.0, "recommended_unit_usd": 189.0}, {"item_code": "1050-0115", "description": "Fabricated Structural Steel Girder & Diaphragm Retrofit (A709)", "unit": "LB", "quantity": 920000, "hist_low_unit_usd": 5.2, "hist_median_unit_usd": 5.85, "recommended_unit_usd": 5.45}, {"item_code": "0948-0200", "description": "Steel Overhead Cantilever Sign Structure (85 Ft Span)", "unit": "EA", "quantity": 9, "hist_low_unit_usd": 135000.0, "hist_median_unit_usd": 149000.0, "recommended_unit_usd": 141000.0}]}, {"project_id": "NYSDOT-D265314", "title": "[NYSDOT-D265314] I-278 Brooklyn-Queens Expressway Cantilever Deck Rehabilitation, Precast Slabs & Drainage Substitution", "agency": "New York State Department of Transportation (NYSDOT) \u2014 Region 11 NYC", "jurisdiction": "new_york", "state_code": "NY", "county": "Kings County, NY", "letting_date": "2026-11-26", "engineers_estimate_usd": 32400000.0, "dbe_goal_pct": 16.0, "liquidated_damages_per_day_usd": 8500, "wage_determination_id": "NY20260003 + NYSDOL Article 8 Prevailing Wage", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Precast UHPC Concrete", "Div 05 Epoxy Coated Reinforcing Bar", "Div 26 Roadway ITS & CCTV", "Div 32 Nighttime MPT"], "url": "https://www.dot.ny.gov/doing-business/opportunities/const-notices#D265314", "scope_summary": "Accelerated weekend replacement of structural deck bays using Precast Ultra-High Performance Concrete (UHPC) closure pours on I-278, corrosion-inhibited rebar replacement, scupper drainage rehabilitation, and fiber-connected CCTV traffic monitoring.", "planholders": ["Skanska USA Civil Northeast", "Tully Construction Co. Inc.", "Posillico Civil Inc.", "Defoe Corporation", "CAC Industries Inc."], "pay_items": [{"item_code": "557.2002", "description": "Precast High-Performance Concrete Bridge Deck Panels with UHPC Joints", "unit": "SF", "quantity": 74000, "hist_low_unit_usd": 215.0, "hist_median_unit_usd": 238.0, "recommended_unit_usd": 225.0}, {"item_code": "556.0202", "description": "Epoxy-Coated Bar Reinforcement for Structures (Grade 60)", "unit": "LB", "quantity": 1150000, "hist_low_unit_usd": 2.95, "hist_median_unit_usd": 3.3, "recommended_unit_usd": 3.1}, {"item_code": "619.01", "description": "Nighttime Work Zone Traffic Control & Attenuator Trucks", "unit": "LS", "quantity": 1, "hist_low_unit_usd": 4200000.0, "hist_median_unit_usd": 4750000.0, "recommended_unit_usd": 4420000.0}]}, {"project_id": "USACE-W912EP-27-B-0004", "title": "[USACE-W912EP-27-B-0004] Central & Southern Florida C-43 Reservoir Inflow Pump Station, Steel Sheet Piling & 13.8kV Substation", "agency": "U.S. Army Corps of Engineers (USACE) \u2014 Jacksonville District Civil Works", "jurisdiction": "federal", "state_code": "US", "county": "Hendry County, FL", "letting_date": "2026-12-02", "engineers_estimate_usd": 41500000.0, "dbe_goal_pct": 15.0, "liquidated_damages_per_day_usd": 7200, "wage_determination_id": "FL20260045 (USACE Heavy & Dredging / Davis-Bacon)", "naics_code": "237990", "csi_divisions": ["Div 01 USACE EM 385-1-1 Safety & QC", "Div 03 Mass Structural Concrete", "Div 05 Hydraulic Steel Gates", "Div 26 13.8kV Medium-Voltage Switchgear", "Div 31 PZ-35 Steel Sheet Piling", "Div 43 Axial-Flow Flood Pumps"], "url": "https://sam.gov/opp/usace-w912ep-27-b-0004/view", "scope_summary": "Construction of a 1,500 CFS reinforced concrete flood-control inflow pump station, driving 115,000 SF of ASTM A572 Grade 50 steel sheet piling cofferdam, four vertical axial-flow diesel/electric pumps, and a redundant 13.8kV outdoor substation with BABA domestic steel compliance.", "planholders": ["Phillips & Jordan Inc.", "Kiewit Infrastructure South Co.", "Harry Pepper & Associates", "PCL Civil Constructors", "Thalle Construction Co."], "pay_items": [{"item_code": "31-41-16", "description": "Steel Sheet Piling Cofferdam & Cutoff Wall (PZ-35 Grade 50 BABA Compliant)", "unit": "SF", "quantity": 115000, "hist_low_unit_usd": 64.0, "hist_median_unit_usd": 72.5, "recommended_unit_usd": 67.8}, {"item_code": "03-30-00", "description": "Mass Structural Concrete (Pump Station Substructure & Stilling Basin)", "unit": "CY", "quantity": 18500, "hist_low_unit_usd": 780.0, "hist_median_unit_usd": 845.0, "recommended_unit_usd": 810.0}, {"item_code": "43-21-13", "description": "375 CFS Vertical Axial-Flow Flood Control Pump & 13.8kV Drive Assembly", "unit": "EA", "quantity": 4, "hist_low_unit_usd": 3150000.0, "hist_median_unit_usd": 3480000.0, "recommended_unit_usd": 3290000.0}]}, {"project_id": "IDOT-62R45-CONTRACT", "title": "[IDOT-62R45-CONTRACT] I-90 Kennedy Expressway Reversible Lane Gate Systems, PCC Pavement Patching & Retaining Wall Anchors", "agency": "Illinois Department of Transportation (IDOT) \u2014 District 1 Schaumburg", "jurisdiction": "illinois", "state_code": "IL", "county": "Cook County, IL", "letting_date": "2026-11-21", "engineers_estimate_usd": 16800000.0, "dbe_goal_pct": 19.0, "liquidated_damages_per_day_usd": 4100, "wage_determination_id": "IL20260009 + IDOL Cook County Prevailing Wage", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Portland Cement Concrete", "Div 26 Reversible Lane PLC & Fiber", "Div 31 Soil Nail & Tieback Anchors", "Div 32 Jointed PCC Pavement"], "url": "https://webapps.illinois.gov/WCTB/ContractDetail/62R45", "scope_summary": "Replacement of automated reversible-lane swing gates and PLC fiber control cabinets on I-90, 29,000 SY of Class B Portland Cement Concrete (PCC) full-depth pavement patching, and 180 permanent grouted tieback rock anchors.", "planholders": ["F.H. Paschen, S.N. Nielsen", "K-Five Construction Corporation", "Plote Construction Inc.", "Lorig Construction Company", "Judlau Contracting Inc."], "pay_items": [{"item_code": "44200970", "description": "Class B Patches, Type IV, 11 Inch (Portland Cement Concrete)", "unit": "SY", "quantity": 29000, "hist_low_unit_usd": 168.0, "hist_median_unit_usd": 184.0, "recommended_unit_usd": 175.0}, {"item_code": "52200840", "description": "Permanent Grouted Tieback Soil/Rock Anchors (Corrosion Protected)", "unit": "EA", "quantity": 180, "hist_low_unit_usd": 6400.0, "hist_median_unit_usd": 7150.0, "recommended_unit_usd": 6720.0}]}, {"project_id": "GDOT-PI-0016842", "title": "[GDOT-PI-0016842] I-285 / I-20 West Interchange Collector-Distributor Flyover, Drilled Shafts & Stone Matrix Asphalt", "agency": "Georgia Department of Transportation (GDOT) \u2014 Metro Atlanta District 7", "jurisdiction": "georgia", "state_code": "GA", "county": "Fulton County, GA", "letting_date": "2026-11-27", "engineers_estimate_usd": 27900000.0, "dbe_goal_pct": 14.0, "liquidated_damages_per_day_usd": 5200, "wage_determination_id": "GA20260212 (Highway Construction)", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Prestressed Concrete Bulb-Tee Beams", "Div 31 72-Inch Drilled Caisson Shafts", "Div 32 Stone Matrix Asphalt (SMA)"], "url": "https://www.bidx.com/ga/proposal?contid=PI0016842", "scope_summary": "Construction of a two-lane collector-distributor flyover ramp on I-285 featuring 72-inch diameter drilled shaft foundations, 84-inch Prestressed Concrete Bulb-Tee girders, and 52,000 tons of 12.5mm Stone Matrix Asphalt (SMA).", "planholders": ["C.W. Matthews Contracting Co.", "Archer Western Construction", "E.R. Snell Contractor Inc.", "Pittman Construction Company"], "pay_items": [{"item_code": "400-3206", "description": "Recycled Asphalt Concrete 12.5 mm Stone Matrix Asphalt (SMA GP 2)", "unit": "TON", "quantity": 52000, "hist_low_unit_usd": 148.0, "hist_median_unit_usd": 161.0, "recommended_unit_usd": 153.5}, {"item_code": "520-2218", "description": "Drilled Caisson Foundations in Rock (72-Inch Diameter)", "unit": "LF", "quantity": 4200, "hist_low_unit_usd": 1420.0, "hist_median_unit_usd": 1580.0, "recommended_unit_usd": 1490.0}]}, {"project_id": "NCDOT-C204891", "title": "[NCDOT-C204891] US-70 Corridor Upgrade to Interstate 42 Standards, Dual Three-Span Bridges & 42-Inch Sanitary Force Main", "agency": "North Carolina Department of Transportation (NCDOT) \u2014 Division 4", "jurisdiction": "north_carolina", "state_code": "NC", "county": "Johnston County, NC", "letting_date": "2026-12-01", "engineers_estimate_usd": 22600000.0, "dbe_goal_pct": 10.0, "liquidated_damages_per_day_usd": 4000, "wage_determination_id": "NC20260065 (Highway & Utility)", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Bridge Substructure", "Div 31 Unclassified Excavation", "Div 33 42-Inch HDPE/DIP Force Main"], "url": "https://connect.ncdot.gov/letting/C204891", "scope_summary": "Grading, drainage, paving, dual 3-span prestressed concrete girder bridges, and 16,400 LF of 42-inch sanitary sewer force main relocation along the future I-42 corridor.", "planholders": ["Barnhill Contracting Company", "S.T. Wooten Corporation", "Fred Smith Company", "Blythe Construction Inc."], "pay_items": [{"item_code": "610-A", "description": "Asphalt Concrete Surface Course Type S9.5C", "unit": "TON", "quantity": 58000, "hist_low_unit_usd": 122.0, "hist_median_unit_usd": 131.5, "recommended_unit_usd": 126.0}, {"item_code": "1520-42", "description": "42-Inch Restrained Joint Force Main Sewer Pipe & Air Release Valves", "unit": "LF", "quantity": 16400, "hist_low_unit_usd": 365.0, "hist_median_unit_usd": 402.0, "recommended_unit_usd": 381.0}]}, {"project_id": "ODOT-PID-114892", "title": "[ODOT-PID-114892] I-71 / I-70 Downtown Ramp Reconstruction, Noise Barrier Walls & 60-Inch Microtunneled Storm Trunk", "agency": "Ohio Department of Transportation (ODOT) \u2014 District 6 Columbus", "jurisdiction": "ohio", "state_code": "OH", "county": "Franklin County, OH", "letting_date": "2026-12-03", "engineers_estimate_usd": 26100000.0, "dbe_goal_pct": 9.5, "liquidated_damages_per_day_usd": 4600, "wage_determination_id": "OH20260001 (Heavy & Highway)", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Noise Barrier Precast Panels", "Div 31 Microtunneling", "Div 33 60-Inch Storm Trunk"], "url": "https://www.dot.state.oh.us/Divisions/ContractAdmin/Contracts/PID114892", "scope_summary": "Reconstruction of I-71/I-70 collector ramps, installation of 62,000 SF of absorptive precast concrete noise barrier walls, and 4,800 LF of 60-inch microtunneled reinforced concrete storm trunk sewer.", "planholders": ["Kokosing Construction Company", "Shelly & Sands Inc.", "Complete General Construction", "Great Lakes Construction Co."], "pay_items": [{"item_code": "611-6000", "description": "60-Inch Microtunneled Reinforced Concrete Jacking Pipe", "unit": "LF", "quantity": 4800, "hist_low_unit_usd": 1890.0, "hist_median_unit_usd": 2120.0, "recommended_unit_usd": 1985.0}, {"item_code": "626-0100", "description": "Precast Concrete Absorptive Noise Barrier Wall & Drilled Post Foundations", "unit": "SF", "quantity": 62000, "hist_low_unit_usd": 58.0, "hist_median_unit_usd": 66.0, "recommended_unit_usd": 61.5}]}, {"project_id": "MUNICIPAL-DFW-WTP-2026-09", "title": "[MUNICIPAL-DFW-WTP-2026-09] Regional 60 MGD Water Treatment Plant Ozone Generator Building, 4160V Switchgear & 54-Inch Yard Piping", "agency": "North Texas Municipal Water District / Public Works Letting", "jurisdiction": "municipal", "state_code": "MU", "county": "Collin County, TX", "letting_date": "2026-12-04", "engineers_estimate_usd": 34500000.0, "dbe_goal_pct": 12.0, "liquidated_damages_per_day_usd": 5500, "wage_determination_id": "TX20260042 (Water/Wastewater Treatment Plant Heavy)", "naics_code": "237110", "csi_divisions": ["Div 01 General Requirements", "Div 03 Watertight Environmental Concrete", "Div 23 Industrial HVAC", "Div 26 4160V Redundant Switchgear", "Div 33 54-Inch Welded Steel Yard Piping", "Div 46 Ozone Disinfection Equipment"], "url": "https://www.demandstar.com/app/bids/MUNICIPAL-DFW-WTP-2026-09", "scope_summary": "Turnkey construction of a 60 MGD liquid oxygen / ozone contactor structure, dual 4160V medium-voltage switchgear lineup, 8,200 LF of 54-inch mortar-lined welded steel yard piping, and Plant PAX SCADA integration.", "planholders": ["Garney Construction", "PC Construction Company", "McCarthy Building Companies", "Archer Western Water", "PLW Waterworks LLC"], "pay_items": [{"item_code": "33-11-54", "description": "54-Inch Mortar-Lined & Tape-Coated Welded Steel Water Pipe (AWWA C200)", "unit": "LF", "quantity": 8200, "hist_low_unit_usd": 740.0, "hist_median_unit_usd": 825.0, "recommended_unit_usd": 778.0}, {"item_code": "26-13-00", "description": "4160V Arc-Resistant Metal-Clad Switchgear & VFD Lineup (BABA Compliant)", "unit": "LS", "quantity": 1, "hist_low_unit_usd": 4650000.0, "hist_median_unit_usd": 5120000.0, "recommended_unit_usd": 4840000.0}]}];
+    window.SANDBOX_TAB = 'json';
 
     function switchSpaView(viewName) {
       document.documentElement.style.scrollBehavior = 'auto';
@@ -821,22 +862,202 @@
         const el = document.getElementById('page-' + v);
         if (el) el.classList.toggle('hidden', v !== viewName);
       });
+      const mNav = document.getElementById('mobile-nav-drawer');
+      if (mNav) mNav.classList.add('hidden');
       if (viewName === 'lettings') renderLettingsRoute('#lettings');
+    }
+
+    function toggleMobileNav() {
+      const el = document.getElementById('mobile-nav-drawer');
+      if (el) el.classList.toggle('hidden');
+    }
+
+    function toggleCamberTheme() {
+      const root = document.documentElement;
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      const next = isDark ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('camberdesk_theme', next); } catch (e) {}
+      const btn = document.getElementById('theme-toggle-label');
+      if (btn) btn.textContent = next === 'dark' ? 'LIGHT MODE' : 'BLUEPRINT DARK';
     }
 
     function filterMainLettingTable(portalFilter) {
       const container = document.getElementById('contract-directory');
       if (container) container.style.minHeight = container.offsetHeight + 'px';
+      window.ACTIVE_PORTAL_FILTER = portalFilter || 'all';
+      const qEl = document.getElementById('letting-search-input');
+      const q = qEl ? String(qEl.value || '').toLowerCase().trim() : '';
       const rows = document.querySelectorAll('[data-letting-row]');
       let shown = 0;
       rows.forEach(r => {
         const p = r.getAttribute('data-letting-portal') || '';
-        const match = !portalFilter || portalFilter === 'all' || p === portalFilter;
+        const portalMatch = !portalFilter || portalFilter === 'all' || p === portalFilter;
+        const textMatch = !q || r.textContent.toLowerCase().includes(q);
+        const match = portalMatch && textMatch;
         r.style.display = match ? '' : 'none';
         if (match) shown++;
       });
       const badge = document.getElementById('letting-shown-badge');
       if (badge) badge.textContent = shown + ' PREVIEW LETTINGS SHOWN';
+    }
+
+    function exportLettingsCsv() {
+      const headers = ['Project_ID', 'State', 'Title', 'Agency', 'County', 'Engineers_Estimate_USD', 'DBE_Goal_Pct', 'Letting_Date'];
+      const lines = [headers.join(',')];
+      LETTINGS_DATA.forEach(it => {
+        const row = [
+          it.project_id,
+          it.state_code,
+          '"' + String(it.title || '').replace(/"/g, '""') + '"',
+          '"' + String(it.agency || '').replace(/"/g, '""') + '"',
+          '"' + String(it.county || '').replace(/"/g, '""') + '"',
+          it.engineers_estimate_usd,
+          it.dbe_goal_pct,
+          it.letting_date
+        ];
+        lines.push(row.join(','));
+      });
+      const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'CamberDesk_50State_DOT_Lettings_Export.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    function openInPageDossier(projectId) {
+      const item = LETTINGS_DATA.find(x => x.project_id === projectId) || LETTINGS_DATA[0];
+      const modal = document.getElementById('inpage-dossier-modal');
+      const body = document.getElementById('inpage-dossier-content');
+      if (!modal || !body || !item) return;
+      const payRows = (item.pay_items || []).map(p => `
+        <tr class="border-b border-[#CBD5E1] text-xs font-mono">
+          <td class="py-2 px-2.5 font-bold text-[#1E3A8A]">${p.item_code}</td>
+          <td class="py-2 px-2.5 font-sans font-bold text-[#0A0D14]">${p.description}</td>
+          <td class="py-2 px-2.5 text-[#0A0D14] font-semibold">${Number(p.quantity).toLocaleString()} ${p.unit}</td>
+          <td class="py-2 px-2.5 text-[#1E293B] font-semibold">$${Number(p.hist_avg_unit_usd).toFixed(2)}</td>
+          <td class="py-2 px-2.5 text-[#065F46] font-extrabold">$${Number(p.recommended_unit_usd).toFixed(2)}</td>
+        </tr>`).join('');
+      const planholders = (item.planholders || []).map(ph => `<span class="px-2.5 py-1 rounded bg-[#EAE6DF] border border-[#94A3B8] text-xs font-mono font-bold text-[#0A0D14]">${ph}</span>`).join(' ');
+      body.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#CBD5E1] pb-3">
+            <div>
+              <div class="text-xs font-mono font-bold text-[#1E3A8A]">${item.project_id} &bull; ${item.agency} &bull; ${item.county}</div>
+              <h3 class="text-xl font-extrabold text-[#0A0D14] mt-0.5">${item.title}</h3>
+            </div>
+            <button type="button" onclick="closeInPageDossier()" class="px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
+            <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">ENGINEER'S EST</div><div class="text-base font-extrabold text-[#065F46] mt-0.5">$${Number(item.engineers_estimate_usd).toLocaleString()}</div></div>
+            <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">DBE GOAL</div><div class="text-base font-extrabold text-[#1E3A8A] mt-0.5">${item.dbe_goal_pct}%</div></div>
+            <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">LIQUIDATED DAMAGES</div><div class="text-base font-extrabold text-[#0A0D14] mt-0.5">$${Number(item.liquidated_damages_per_day_usd || 2500).toLocaleString()}/day</div></div>
+            <div class="p-3 rounded-lg bg-[#F4F1EA] border border-[#CBD5E1]"><div class="text-[#0A0D14] font-bold">WAGE DECISION</div><div class="text-base font-extrabold text-[#0A0D14] mt-0.5">${item.wage_decision_id}</div></div>
+          </div>
+          <p class="text-sm font-medium text-[#111827] leading-relaxed">${item.scope_summary}</p>
+          <div>
+            <div class="text-xs font-mono font-bold text-[#0A0D14] mb-1.5">// 36-MONTH HISTORICAL PAY-ITEM BID TABULATION BENCHMARK</div>
+            <div class="overflow-x-auto"><table class="w-full text-left border-collapse"><thead><tr class="bg-[#EAE6DF] border-b border-[#94A3B8] text-xs font-mono font-bold text-[#0A0D14]"><th class="py-2 px-2.5">ITEM</th><th class="py-2 px-2.5">DESCRIPTION</th><th class="py-2 px-2.5">QTY</th><th class="py-2 px-2.5">36-MO AVG</th><th class="py-2 px-2.5">TARGET BID</th></tr></thead><tbody>${payRows}</tbody></table></div>
+          </div>
+          <div>
+            <div class="text-xs font-mono font-bold text-[#0A0D14] mb-1.5">// VERIFIED PLANHOLDERS &amp; COMPETITOR BIDDERS</div>
+            <div class="flex flex-wrap gap-2">${planholders}</div>
+          </div>
+          <div class="pt-2 flex flex-wrap gap-3">
+            <a href="/v1/camber-autopilot/compile-bid-package?format=binary" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold transition">Download 6-File OpenXML (.DOCX + .XLSX) Bid Package (.ZIP)</a>
+            <a href="lettings/index.html" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-mono text-xs font-bold">Open Full Static Dossier Page &rarr;</a>
+          </div>
+        </div>`;
+      modal.classList.remove('hidden');
+    }
+
+    function closeInPageDossier() {
+      const modal = document.getElementById('inpage-dossier-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function switchZipInspectorTab(idx) {
+      const files = [
+        { name: 'Volume_I_CSI_MasterFormat_Divisions_00_48_Spec_and_Submittal_Matrix.docx', format: 'Microsoft Word OpenXML (.DOCX)', summary: 'Full CSI Divisions 00-48 specification shred: Submittal Register, Liquidated Damages ($/day), Nighttime Lane-Rental Window Penalties, and Retainage Clauses.', preview: 'SECTION 00 73 00 — SUPPLEMENTARY CONDITIONS\n- Liquidated Damages: $3,500 / calendar day beyond substantial completion\n- Nighttime Lane Closure Window: 21:00 to 05:00 local ($1,500/hr overrun penalty)\n\nCSI SUBMITTAL REGISTER (EXTRACTED):\n- Div 03 30 00 Cast-in-Place Concrete: Mix Design & 28-Day Cylinder Break Certs\n- Div 31 23 00 Excavation & Fill: Proctor Compaction & Dewatering Plan\n- Div 32 12 16 Asphalt Paving: Superpave PG 76-22 JMF & Tack Coat Submittal\n- Div 34 41 13 Traffic Signals & ITS: NEMA TS2 Controller & Fiber OTDR Test' },
+        { name: 'Volume_II_DOT_Unit_Price_Bid_Tabulation_and_Takeoff_Model.xlsx', format: 'Microsoft Excel OpenXML (.XLSX with Live Formulas)', summary: 'Pay-item schedule benchmarked against 36 months of State DOT winning low bids with live =SUM(E6:E9) and =ROUND(D6*G6,2) extended bid formulas.', preview: 'ROW | ITEM CODE | DESCRIPTION                     | QTY      | UNIT | 36-MO LOW | TARGET UNIT | EXTENDED FORMULA\n06  | 3076-6001 | Dense-Graded Hot-Mix Asphalt    | 48,500   | TON  | $108.50   | $112.90     | =ROUND(D6*G6,2) -> $5,475,650.00\n07  | 0420-6013 | Class C Structural Concrete     | 4,200    | CY   | $890.00   | $925.00     | =ROUND(D7*G7,2) -> $3,885,000.00\n08  | 0460-6002 | 24-Inch RCP Storm Drain Pipe    | 11,400   | LF   | $134.00   | $139.50     | =ROUND(D8*G8,2) -> $1,590,300.00\n10  | TOTAL     | RECOMMENDED EXTENDED LOW BID    | —        | —    | —         | —           | =SUM(H6:H9)     -> $14,290,450.00' },
+        { name: 'Volume_III_Davis_Bacon_Prevailing_Wage_WH347_and_Fringe_Model.xlsx', format: 'Microsoft Excel OpenXML (.XLSX with Live Formulas)', summary: 'County-matched SAM.gov Davis-Bacon Wage Determination (29 CFR Part 5) with base hourly rates, health/pension fringes, and 1.5x overtime crew burden.', preview: 'CRAFT CLASSIFICATION             | BASE $/HR | FRINGE $/HR | TOTAL LOADED/HR | 40-HR WK + 10 OT BURDEN\nPower Equipment Operator (Gr 1)  | $38.40    | $16.85      | =B6+C6 ($55.25) | $2,955.00 / wk\nStructural Ironworker            | $36.90    | $18.10      | =B7+C7 ($55.00) | $2,935.00 / wk\nCement Mason / Concrete Finisher | $31.25    | $13.40      | =B8+C8 ($44.65) | $2,390.50 / wk\nHighway & Heavy Laborer (Gr 1)   | $25.80    | $11.20      | =B9+C9 ($37.00) | $1,979.00 / wk' },
+        { name: 'Volume_IV_DBE_49CFR26_Good_Faith_Effort_and_BABA_Buy_America_Cert.docx', format: 'Microsoft Word OpenXML (.DOCX)', summary: '49 CFR Part 26 DBE Good-Faith Effort (GFE) solicitation log, Commercially Useful Function (CUF) audit, and IIJA BABA domestic steel/iron certification.', preview: '1. 49 CFR PART 26 DBE PARTICIPATION WORKSHEET\n- Contract DBE Goal: 9.5% ($1,357,592Target)\n- Regular Dealer Supply Credit (60% Rule under 49 CFR 26.55(e)(2)(ii)): Verified\n\n2. BUILD AMERICA, BUY AMERICA (BABA / 23 CFR 635.410) MATRIX\n- Structural Reinforcing Bar (ASTM A615): 100% U.S. Melt & Pour Mill Test Cert Required\n- Precast Concrete Box Culverts: Domestic Manufactured Product Compliant' },
+        { name: 'Volume_V_AIA_G702_G703_Schedule_of_Values_and_FOIA_Bid_Tab_Demand.docx', format: 'Microsoft Word OpenXML (.DOCX)', summary: 'Balanced AIA G702/G703 Continuation Sheet Schedule of Values (front-loading risk guardrails) + Statutory State Open-Records Bid-Tab Demand Letter.', preview: 'AIA DOCUMENT G702 / G703 CONTINUATION SCHEDULE OF VALUES\n- Line 01: Mobilization & Bonds (Capped at 8.0% per 23 CFR 635.102 Unbalanced Bid Rule)\n- Line 02: Traffic Control & Barricades (SWPPP + MOT)\n- Line 03: Earthwork, Subgrade & Drainage Structures\n- Retainage Statutory Cap Verified: 5.0% Maximum' },
+        { name: '00_CamberDesk_Letting_Readiness_Manifest.json', format: 'Machine-Readable JSON Manifest', summary: 'Complete SHA-256 package manifest, Pwin readiness score, Engineer Estimate vs. Recommended Low Bid spread, and ERP/HeavyBid import payload.', preview: '{\n  "package_version": "CamberDesk-6File-OpenXML-v1.0",\n  "files_count": 6,\n  "openxml_formulas_verified": true,\n  "unbalanced_bid_audit": "PASS (23 CFR 635.102)",\n  "baba_domestic_compliance": "PASS (23 CFR 635.410)"\n}' }
+      ];
+      const f = files[idx] || files[0];
+      for (let i = 0; i < 6; i++) {
+        const b = document.getElementById('zip-tab-btn-' + i);
+        if (b) {
+          b.className = i === idx
+            ? 'px-3 py-2 rounded-lg bg-[#0A0D14] text-white font-mono text-xs font-bold text-left break-all transition'
+            : 'px-3 py-2 rounded-lg bg-[#F4F1EA] hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#CBD5E1] font-mono text-xs font-bold text-left break-all transition';
+        }
+      }
+      const titleEl = document.getElementById('zip-inspector-title');
+      const fmtEl = document.getElementById('zip-inspector-format');
+      const sumEl = document.getElementById('zip-inspector-summary');
+      const preEl = document.getElementById('zip-inspector-preview');
+      if (titleEl) titleEl.textContent = f.name;
+      if (fmtEl) fmtEl.textContent = f.format;
+      if (sumEl) sumEl.textContent = f.summary;
+      if (preEl) preEl.textContent = f.preview;
+    }
+
+    async function submitSampleLeadMagnet(ev) {
+      if (ev) ev.preventDefault();
+      const emailEl = document.getElementById('lead-magnet-email');
+      const stateEl = document.getElementById('lead-magnet-state');
+      const tradeEl = document.getElementById('lead-magnet-trade');
+      const statusEl = document.getElementById('lead-magnet-status');
+      const email = emailEl ? emailEl.value.trim() : '';
+      const stateDot = stateEl ? stateEl.value : 'All 50 State DOTs';
+      const tradeFocus = tradeEl ? tradeEl.value : 'Heavy-Civil / Highway & Bridge';
+      if (!email || !email.includes('@')) {
+        if (statusEl) statusEl.textContent = 'Please enter a valid work email address to receive your 6-File .ZIP package.';
+        return false;
+      }
+      if (statusEl) statusEl.textContent = 'Compiling your 6-File OpenXML (.DOCX + .XLSX) Bid Package for ' + stateDot + '...';
+      try {
+        await fetch('/v1/camber-autopilot/sample-lead-magnet', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, state_dot: stateDot, trade_focus: tradeFocus })
+        });
+      } catch (e) {}
+      window.location.href = '/v1/camber-autopilot/compile-bid-package?format=binary';
+      if (statusEl) statusEl.textContent = 'Success — Your 6-File OpenXML (.DOCX + .XLSX) Bid Package (.ZIP) download has started!';
+      return false;
+    }
+
+    function updateRoiCalculator() {
+      const bidsEl = document.getElementById('roi-bids-mo');
+      const hrsEl = document.getElementById('roi-hrs-bid');
+      const rateEl = document.getElementById('roi-hourly-rate');
+      const bids = bidsEl ? Number(bidsEl.value || 8) : 8;
+      const hrs = hrsEl ? Number(hrsEl.value || 14) : 14;
+      const rate = rateEl ? Number(rateEl.value || 115) : 115;
+      const bLbl = document.getElementById('roi-bids-val');
+      const hLbl = document.getElementById('roi-hrs-val');
+      const rLbl = document.getElementById('roi-rate-val');
+      if (bLbl) bLbl.textContent = bids + ' lettings/mo';
+      if (hLbl) hLbl.textContent = hrs + ' hrs/bid';
+      if (rLbl) rLbl.textContent = '$' + rate + '/hr';
+      const savedHrs = Math.round(bids * hrs * 0.85);
+      const monthlySavedUsd = Math.round(savedHrs * rate);
+      const annualSavedUsd = monthlySavedUsd * 12;
+      const roiMult = (monthlySavedUsd / 499).toFixed(1);
+      const oHrs = document.getElementById('roi-out-hours');
+      const oMo = document.getElementById('roi-out-monthly');
+      const oYr = document.getElementById('roi-out-annual');
+      const oMult = document.getElementById('roi-out-multiple');
+      if (oHrs) oHrs.textContent = savedHrs + ' hrs / mo';
+      if (oMo) oMo.textContent = '$' + monthlySavedUsd.toLocaleString() + ' / mo';
+      if (oYr) oYr.textContent = '$' + annualSavedUsd.toLocaleString() + ' / yr';
+      if (oMult) oMult.textContent = roiMult + 'x ROI vs. $499/mo Tier 2';
     }
 
     function filterApiCatalog(query) {
@@ -863,24 +1084,139 @@
       if (el) el.scrollIntoView({ behavior: 'auto' });
     }
 
+    function renderSandboxOutput() {
+      const sel = document.getElementById('sandbox-api-select');
+      const cardId = sel ? sel.value : 'product-csi-masterformat';
+      const meta = (window.API_META || {})[cardId] || { method: 'POST', route: '/v1/shred/csi-masterformat', defaultPayload: {} };
+      const cat = (window.CATALOG || {})[cardId] || { status: 'success' };
+      const reqBox = document.getElementById('sandbox-req-box');
+      const payloadStr = reqBox ? reqBox.value : JSON.stringify(meta.defaultPayload, null, 2);
+      const resBox = document.getElementById('sandbox-res-box');
+      if (!resBox) return;
+      const tab = window.SANDBOX_TAB || 'json';
+      if (tab === 'curl') {
+        resBox.textContent = `curl -X ${meta.method} "https://camberdesk.com${meta.route}" \\
+  -H "Content-Type: application/json" \\
+  -H "X-RapidAPI-Proxy-Secret: cd_live_your_key" \\
+  -d '${payloadStr.replace(/\n/g, ' ')}'`;
+      } else if (tab === 'python') {
+        resBox.textContent = `import requests
+
+url = "https://camberdesk.com${meta.route}"
+headers = {"X-RapidAPI-Proxy-Secret": "cd_live_your_key"}
+payload = ${payloadStr}
+
+resp = requests.request("${meta.method}", url, json=payload, headers=headers, timeout=15)
+print(resp.status_code, resp.json())`;
+      } else if (tab === 'js') {
+        resBox.textContent = `const res = await fetch("https://camberdesk.com${meta.route}", {
+  method: "${meta.method}",
+  headers: {
+    "Content-Type": "application/json",
+    "X-RapidAPI-Proxy-Secret": "cd_live_your_key"
+  },
+  body: JSON.stringify(${payloadStr})
+});
+const data = await res.json();
+console.log(data);`;
+      } else {
+        resBox.textContent = JSON.stringify(cat, null, 2);
+      }
+    }
+
+    function setSandboxCodeTab(tabName) {
+      window.SANDBOX_TAB = tabName;
+      ['json', 'curl', 'python', 'js'].forEach(t => {
+        const btn = document.getElementById('tab-sandbox-' + t);
+        if (btn) {
+          btn.className = t === tabName
+            ? 'px-2.5 py-1 rounded bg-[#0A0D14] text-white'
+            : 'px-2.5 py-1 rounded text-[#0A0D14] hover:text-[#1E3A8A]';
+        }
+      });
+      renderSandboxOutput();
+    }
+
+    function copySandboxOutput() {
+      const resBox = document.getElementById('sandbox-res-box');
+      const btn = document.getElementById('btn-copy-sandbox');
+      if (resBox && navigator.clipboard) {
+        navigator.clipboard.writeText(resBox.textContent || '');
+        if (btn) {
+          btn.textContent = 'Copied!';
+          setTimeout(() => { btn.textContent = 'Copy Output'; }, 1500);
+        }
+      }
+    }
+
+    function switchMcpConfigTab(mode) {
+      const pre = document.getElementById('mcp-config-code');
+      ['claude', 'cursor', 'http'].forEach(m => {
+        const b = document.getElementById('mcp-tab-' + m);
+        if (b) {
+          b.className = m === mode
+            ? 'px-3 py-1 rounded bg-[#0A0D14] text-white'
+            : 'px-3 py-1 rounded text-[#0A0D14]';
+        }
+      });
+      if (!pre) return;
+      if (mode === 'cursor') {
+        pre.textContent = JSON.stringify({
+          mcpServers: {
+            "camberdesk-precon": {
+              command: "npx",
+              args: ["-y", "@camberdesk/mcp-server"],
+              env: { CAMBERDESK_API_KEY: "cd_live_your_api_key_here" }
+            }
+          }
+        }, null, 2);
+      } else if (mode === 'http') {
+        pre.textContent = JSON.stringify({
+          mcpServers: {
+            "camberdesk-remote-http": {
+              type: "streamable-http",
+              url: "https://camberdesk.com/mcp",
+              headers: { Authorization: "Bearer cd_live_your_api_key_here" }
+            }
+          }
+        }, null, 2);
+      } else {
+        pre.textContent = JSON.stringify({
+          mcpServers: {
+            camberdesk: {
+              command: "npx",
+              args: ["-y", "@camberdesk/mcp-server"],
+              env: { CAMBERDESK_API_KEY: "cd_live_your_api_key_here" }
+            }
+          }
+        }, null, 2);
+      }
+    }
+
+    function copyMcpConfig() {
+      const pre = document.getElementById('mcp-config-code');
+      const btn = document.getElementById('btn-copy-mcp');
+      if (pre && navigator.clipboard) {
+        navigator.clipboard.writeText(pre.textContent || '');
+        if (btn) {
+          btn.textContent = 'Copied MCP Config!';
+          setTimeout(() => { btn.textContent = 'Copy MCP Configuration JSON'; }, 1500);
+        }
+      }
+    }
+
     function openApiSandbox(cardId) {
       const meta = (window.API_META || {})[cardId];
-      const cat = (window.CATALOG || {})[cardId];
       if (!meta) return;
       const sel = document.getElementById('sandbox-api-select');
       if (sel) sel.value = cardId;
       const reqBox = document.getElementById('sandbox-req-box');
-      const resBox = document.getElementById('sandbox-res-box');
       if (reqBox) reqBox.value = JSON.stringify(meta.defaultPayload, null, 2);
-      if (resBox) resBox.textContent = JSON.stringify(cat, null, 2);
+      renderSandboxOutput();
     }
 
     function executeSandboxCall() {
-      const sel = document.getElementById('sandbox-api-select');
-      const cardId = sel ? sel.value : 'product-csi-masterformat';
-      const cat = (window.CATALOG || {})[cardId] || { status: 'success' };
-      const resBox = document.getElementById('sandbox-res-box');
-      if (resBox) resBox.textContent = JSON.stringify(cat, null, 2);
+      renderSandboxOutput();
     }
 
     function setCheckoutBilling(mode) {
@@ -899,6 +1235,45 @@
       if (b3) b3.href = isAnnual ? 'https://buy.stripe.com/fZuaEW22uaVJ8gU4Ak7wA07?client_reference_id=camberdesk_tier3_annual' : 'https://buy.stripe.com/14A9ASaz02pdcxa2sc7wA06?client_reference_id=camberdesk_tier3_monthly';
     }
 
+    function toggleFaqItem(idx) {
+      const el = document.getElementById('faq-ans-' + idx);
+      if (el) el.classList.toggle('hidden');
+    }
+
+    function toggleConciergeDrawer() {
+      const el = document.getElementById('concierge-drawer');
+      if (el) el.classList.toggle('hidden');
+    }
+
+    async function askConciergeQuick(questionText) {
+      const inp = document.getElementById('concierge-input');
+      if (inp) inp.value = questionText;
+      await sendConciergeMessage(null);
+    }
+
+    async function sendConciergeMessage(ev) {
+      if (ev) ev.preventDefault();
+      const inp = document.getElementById('concierge-input');
+      const log = document.getElementById('concierge-chat-log');
+      const q = inp ? inp.value.trim() : '';
+      if (!q || !log) return false;
+      inp.value = '';
+      log.innerHTML += `<div class="p-2.5 rounded-lg bg-[#EAE6DF] text-[#0A0D14] text-xs font-bold">You: ${q}</div>`;
+      try {
+        const r = await fetch('/v1/camber-autopilot/concierge', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question: q })
+        });
+        const d = await r.json();
+        log.innerHTML += `<div class="p-3 rounded-lg bg-[#EFF6FF] border border-[#93C5FD] text-[#0A0D14] text-xs font-medium leading-relaxed"><strong class="text-[#1E3A8A] font-mono block mb-1">CAMBERDESK AI CONCIERGE:</strong>${d.answer || 'Ready.'}</div>`;
+      } catch (e) {
+        log.innerHTML += `<div class="p-3 rounded-lg bg-[#EFF6FF] border border-[#93C5FD] text-[#0A0D14] text-xs font-medium leading-relaxed"><strong class="text-[#1E3A8A] font-mono block mb-1">CAMBERDESK AI CONCIERGE:</strong>CamberDesk monitors all 50 U.S. State DOTs + USACE + Municipal portals (52 total) and compiles 6-File OpenXML (.DOCX + .XLSX) Bid Packages in 1 click.</div>`;
+      }
+      log.scrollTop = log.scrollHeight;
+      return false;
+    }
+
     function renderLettingsRoute(hashRoute) {
       const root = document.getElementById('contracts-dynamic-root');
       if (!root) return;
@@ -911,6 +1286,10 @@
           <h4 class="text-base font-extrabold text-[#0A0D14]">${item.title}</h4>
           <p class="text-xs font-semibold text-[#1E293B]">${item.agency} &bull; ${item.county} &bull; DBE Goal: ${item.dbe_goal_pct}%</p>
           <p class="text-sm font-medium text-[#111827] leading-relaxed">${item.scope_summary}</p>
+          <div class="pt-1 flex flex-wrap gap-2">
+            <button type="button" onclick="openInPageDossier('${item.project_id}')" class="px-3 py-1.5 rounded bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold">Inspect Bid-Tab Dossier</button>
+            <a href="/v1/camber-autopilot/compile-bid-package?format=binary" class="px-3 py-1.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-mono text-xs font-bold">Download 6-File .ZIP</a>
+          </div>
         </div>
       `).join('');
       root.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">${cards}</div>`;

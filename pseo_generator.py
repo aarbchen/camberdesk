@@ -67,11 +67,20 @@ def generate_pseo_pages() -> Dict[str, Any]:
 
         proj_title = f"{title_esc} | CamberDesk DOT Bid-Tab &amp; Takeoff Dossier"
         proj_desc = f"Preconstruction unit-price bid tabulations, Davis-Bacon prevailing wage rates, CSI divisions, and planholder intelligence for {title_esc}."
+        canonical_proj_url = f"{SITE_BASE_URL}/lettings/project/{slug}.html"
         proj_social_head = build_social_and_favicon_head(
             page_title=proj_title,
             page_desc=proj_desc,
-            canonical_url=f"{SITE_BASE_URL}/lettings/project/{slug}.html",
+            canonical_url=canonical_proj_url,
             rel_prefix="../",
+        )
+        breadcrumb_ld = (
+            '<script type="application/ld+json">'
+            '{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":['
+            f'{{"@type":"ListItem","position":1,"name":"CamberDesk","item":"{SITE_BASE_URL}/"}},'
+            f'{{"@type":"ListItem","position":2,"name":"50-State DOT Lettings","item":"{SITE_BASE_URL}/lettings/index.html"}},'
+            f'{{"@type":"ListItem","position":3,"name":"{html.escape(pid)}","item":"{canonical_proj_url}"}}'
+            ']}</script>'
         )
 
         page_html = f"""<!DOCTYPE html>
@@ -82,6 +91,7 @@ def generate_pseo_pages() -> Dict[str, Any]:
   <title>{proj_title}</title>
   <meta name="description" content="{proj_desc}" />
 {proj_social_head}
+  {breadcrumb_ld}
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {{ color: #0A0D14; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }}
@@ -226,14 +236,16 @@ def generate_pseo_pages() -> Dict[str, Any]:
         fh.write(hub_html)
 
     now_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    sitemap_entries = "".join(
-        f"  <url><loc>{u}</loc><lastmod>{now_date}</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>\n"
-        for u in urls
-    )
+    sitemap_rows = []
+    for u in urls:
+        prio = "1.0" if u.endswith(".com/") else ("0.9" if u.endswith(("apis.html", "lettings/index.html")) else "0.8")
+        sitemap_rows.append(
+            f"  <url><loc>{u}</loc><lastmod>{now_date}</lastmod><changefreq>daily</changefreq><priority>{prio}</priority></url>\n"
+        )
     sitemap_xml = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        + sitemap_entries
+        + "".join(sitemap_rows)
         + "</urlset>\n"
     )
     with open(SITEMAP_PATH, "w", encoding="utf-8") as fh:
@@ -241,6 +253,8 @@ def generate_pseo_pages() -> Dict[str, Any]:
 
     robots_txt = f"User-agent: *\nAllow: /\nSitemap: {SITE_BASE_URL}/sitemap.xml\n"
     with open(ROBOTS_PATH, "w", encoding="utf-8") as fh:
+        fh.write(robots_txt)
+    with open(os.path.join(LETTINGS_DIR, "robots.txt"), "w", encoding="utf-8") as fh:
         fh.write(robots_txt)
 
     print(f"[CAMBERDESK pSEO] Generated {len(dossiers)} static project dossiers, /lettings/index.html & sitemap.xml ({len(urls)} URLs).")

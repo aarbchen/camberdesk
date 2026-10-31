@@ -48,11 +48,19 @@ def build_worker_bundle() -> Path:
 
     favicon_svg = (ROOT_DIR / "lettings" / "favicon.svg").read_text(encoding="utf-8")
     bimi_svg = (ROOT_DIR / "bimi-logo.svg").read_text(encoding="utf-8") if (ROOT_DIR / "bimi-logo.svg").exists() else favicon_svg
+    site_webmanifest = (ROOT_DIR / "site.webmanifest").read_text(encoding="utf-8") if (ROOT_DIR / "site.webmanifest").exists() else "{}"
     favicon_ico_b64 = base64.b64encode((ROOT_DIR / "favicon.ico").read_bytes()).decode("ascii") if (ROOT_DIR / "favicon.ico").exists() else ""
     favicon_png_b64 = base64.b64encode((ROOT_DIR / "favicon.png").read_bytes()).decode("ascii") if (ROOT_DIR / "favicon.png").exists() else ""
+    favicon_32_b64 = base64.b64encode((ROOT_DIR / "favicon-32x32.png").read_bytes()).decode("ascii") if (ROOT_DIR / "favicon-32x32.png").exists() else favicon_png_b64
+    favicon_48_b64 = base64.b64encode((ROOT_DIR / "favicon-48x48.png").read_bytes()).decode("ascii") if (ROOT_DIR / "favicon-48x48.png").exists() else favicon_png_b64
+    favicon_96_b64 = base64.b64encode((ROOT_DIR / "favicon-96x96.png").read_bytes()).decode("ascii") if (ROOT_DIR / "favicon-96x96.png").exists() else favicon_png_b64
     apple_touch_b64 = base64.b64encode((ROOT_DIR / "apple-touch-icon.png").read_bytes()).decode("ascii") if (ROOT_DIR / "apple-touch-icon.png").exists() else favicon_png_b64
+    favicon_192_b64 = base64.b64encode((ROOT_DIR / "favicon-192x192.png").read_bytes()).decode("ascii") if (ROOT_DIR / "favicon-192x192.png").exists() else apple_touch_b64
+    favicon_512_b64 = base64.b64encode((ROOT_DIR / "favicon-512x512.png").read_bytes()).decode("ascii") if (ROOT_DIR / "favicon-512x512.png").exists() else favicon_192_b64
     og_image_b64 = base64.b64encode((ROOT_DIR / "og-image.png").read_bytes()).decode("ascii") if (ROOT_DIR / "og-image.png").exists() else apple_touch_b64
     sitemap_xml = (ROOT_DIR / "sitemap.xml").read_text(encoding="utf-8")
+    robots_txt = (ROOT_DIR / "robots.txt").read_text(encoding="utf-8") if (ROOT_DIR / "robots.txt").exists() else "User-agent: *\nAllow: /\nSitemap: https://camberdesk.com/sitemap.xml\n"
+    indexnow_key = "a4f8e2c91b7d3056e8a12f4c9d0b3e71"
     lettings_seed = json.loads((ROOT_DIR / "dot_lettings_seed.json").read_text(encoding="utf-8"))
 
     # 2. Pre-compile default 6-File OpenXML .ZIP package as base64 + Bid-Tab Vault + DBE Clearinghouse
@@ -60,7 +68,7 @@ def build_worker_bundle() -> Path:
 
     worker_js = f"""// CamberDesk Full-Stack Edge Worker (https://camberdesk.com & https://api.camberdesk.com)
 // Serves:
-//  - Static HTML/SVG/XML/PNG/ICO pages (/, /apis, /lettings, /lettings/project/*, /sitemap.xml, /favicon.svg, /bimi-logo.svg, /favicon.ico, /favicon.png, /apple-touch-icon.png, /og-image.png)
+//  - Static HTML/SVG/XML/PNG/ICO pages (/, /apis, /lettings, /lettings/project/*, /sitemap.xml, /robots.txt, /site.webmanifest, /favicon.svg, /bimi-logo.svg, /favicon.ico, /favicon*.png, /apple-touch-icon.png, /og-image.png)
 //  - All 12 Stateless Construction, 50-State DOT Bid-Tab & Davis-Bacon Preconstruction APIs (/v1/*)
 //  - 6-File OpenXML (.DOCX + .XLSX) .ZIP Bid Package Compiler (/v1/camber-autopilot/*)
 //  - Remote Streamable-HTTP MCP Server (/mcp) with 5/5 Glama TDQS compliance
@@ -68,11 +76,19 @@ def build_worker_bundle() -> Path:
 const STATIC_HTML = {json.dumps(static_pages)};
 const FAVICON_SVG = {json.dumps(favicon_svg)};
 const BIMI_SVG = {json.dumps(bimi_svg)};
+const SITE_WEBMANIFEST = {json.dumps(site_webmanifest)};
 const FAVICON_ICO_B64 = {json.dumps(favicon_ico_b64)};
 const FAVICON_PNG_B64 = {json.dumps(favicon_png_b64)};
-const APPLE_TOUCH_PNG_B64 = FAVICON_PNG_B64;
+const FAVICON_32_B64 = {json.dumps(favicon_32_b64)};
+const FAVICON_48_B64 = {json.dumps(favicon_48_b64)};
+const FAVICON_96_B64 = {json.dumps(favicon_96_b64)};
+const APPLE_TOUCH_PNG_B64 = {json.dumps(apple_touch_b64)};
+const FAVICON_192_B64 = {json.dumps(favicon_192_b64)};
+const FAVICON_512_B64 = {json.dumps(favicon_512_b64)};
 const OG_IMAGE_PNG_B64 = {json.dumps(og_image_b64)};
 const SITEMAP_XML = {json.dumps(sitemap_xml)};
+const ROBOTS_TXT = {json.dumps(robots_txt)};
+const INDEXNOW_KEY = {json.dumps(indexnow_key)};
 const LETTINGS_SEED = {json.dumps(lettings_seed)};
 const DEFAULT_ZIP_B64 = {json.dumps(zip_b64)};
 const VAULT_DATA = {json.dumps(vault_data)};
@@ -640,26 +656,33 @@ export default {{
           headers: {{ "Content-Type": "image/x-icon", "Cache-Control": "public, max-age=3600", ...CORS_HEADERS }},
         }});
       }}
-      if ((path === "/apple-touch-icon.png" || path === "/apple-touch-icon-precomposed.png" || path === "/lettings/apple-touch-icon.png") && APPLE_TOUCH_PNG_B64) {{
-        const binStr = atob(APPLE_TOUCH_PNG_B64);
-        const bytes = new Uint8Array(binStr.length);
-        for (let i = 0; i < binStr.length; i++) bytes[i] = binStr.charCodeAt(i);
-        return new Response(bytes.buffer, {{
+      if (path === "/site.webmanifest" || path === "/lettings/site.webmanifest") {{
+        return new Response(SITE_WEBMANIFEST, {{
           status: 200,
-          headers: {{ "Content-Type": "image/png", "Cache-Control": "public, max-age=3600", ...CORS_HEADERS }},
+          headers: {{ "Content-Type": "application/manifest+json; charset=utf-8", "Cache-Control": "public, max-age=3600", ...CORS_HEADERS }},
         }});
       }}
-      if ((path === "/og-image.png" || path === "/lettings/og-image.png") && OG_IMAGE_PNG_B64) {{
-        const binStr = atob(OG_IMAGE_PNG_B64);
-        const bytes = new Uint8Array(binStr.length);
-        for (let i = 0; i < binStr.length; i++) bytes[i] = binStr.charCodeAt(i);
-        return new Response(bytes.buffer, {{
-          status: 200,
-          headers: {{ "Content-Type": "image/png", "Cache-Control": "public, max-age=3600", ...CORS_HEADERS }},
-        }});
-      }}
-      if ((path === "/favicon.png" || path === "/lettings/favicon.png") && FAVICON_PNG_B64) {{
-        const binStr = atob(FAVICON_PNG_B64);
+      const pngRouteMap = {{
+        "/favicon.png": FAVICON_PNG_B64,
+        "/lettings/favicon.png": FAVICON_PNG_B64,
+        "/favicon-32x32.png": FAVICON_32_B64,
+        "/lettings/favicon-32x32.png": FAVICON_32_B64,
+        "/favicon-48x48.png": FAVICON_48_B64,
+        "/lettings/favicon-48x48.png": FAVICON_48_B64,
+        "/favicon-96x96.png": FAVICON_96_B64,
+        "/lettings/favicon-96x96.png": FAVICON_96_B64,
+        "/apple-touch-icon.png": APPLE_TOUCH_PNG_B64,
+        "/apple-touch-icon-precomposed.png": APPLE_TOUCH_PNG_B64,
+        "/lettings/apple-touch-icon.png": APPLE_TOUCH_PNG_B64,
+        "/favicon-192x192.png": FAVICON_192_B64,
+        "/lettings/favicon-192x192.png": FAVICON_192_B64,
+        "/favicon-512x512.png": FAVICON_512_B64,
+        "/lettings/favicon-512x512.png": FAVICON_512_B64,
+        "/og-image.png": OG_IMAGE_PNG_B64,
+        "/lettings/og-image.png": OG_IMAGE_PNG_B64,
+      }};
+      if (pngRouteMap[path]) {{
+        const binStr = atob(pngRouteMap[path]);
         const bytes = new Uint8Array(binStr.length);
         for (let i = 0; i < binStr.length; i++) bytes[i] = binStr.charCodeAt(i);
         return new Response(bytes.buffer, {{
@@ -673,8 +696,21 @@ export default {{
           headers: {{ "Content-Type": "application/xml; charset=utf-8", ...CORS_HEADERS }},
         }});
       }}
-      if (STATIC_HTML[path]) {{
-        return new Response(STATIC_HTML[path], {{
+      if (path === "/robots.txt") {{
+        return new Response(ROBOTS_TXT, {{
+          status: 200,
+          headers: {{ "Content-Type": "text/plain; charset=utf-8", ...CORS_HEADERS }},
+        }});
+      }}
+      if (path === "/a4f8e2c91b7d3056e8a12f4c9d0b3e71.txt" || path === "/lettings/a4f8e2c91b7d3056e8a12f4c9d0b3e71.txt") {{
+        return new Response(INDEXNOW_KEY, {{
+          status: 200,
+          headers: {{ "Content-Type": "text/plain; charset=utf-8", ...CORS_HEADERS }},
+        }});
+      }}
+      const htmlKey = path === "/index.html" ? "/" : (path === "/apis.html" ? "/apis" : ((path === "/lettings/" || path === "/lettings/index.html") ? "/lettings" : (path.startsWith("/lettings/project/") && !path.endsWith(".html") ? path + ".html" : path)));
+      if (STATIC_HTML[htmlKey]) {{
+        return new Response(STATIC_HTML[htmlKey], {{
           status: 200,
           headers: {{ "Content-Type": "text/html; charset=utf-8", ...CORS_HEADERS }},
         }});

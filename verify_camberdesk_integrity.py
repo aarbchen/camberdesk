@@ -823,8 +823,13 @@ def check_zero_signaltender_overlap() -> List[str]:
         pub_p = os.path.join(BASE_DIR, pub_name)
         if os.path.exists(pub_p):
             with open(pub_p, "r", encoding="utf-8") as pf:
-                if "signaltender" in pf.read().lower():
+                pub_txt = pf.read()
+                if "signaltender" in pub_txt.lower():
                     errors.append(f"Public surface `{pub_name}` contains forbidden `signaltender` reference")
+                if pub_name == "cloudflare_worker.js":
+                    for seo_route in ('path === "/robots.txt"', 'path === "/sitemap.xml"', "a4f8e2c91b7d3056e8a12f4c9d0b3e71.txt"):
+                        if seo_route not in pub_txt:
+                            errors.append(f"`cloudflare_worker.js` missing required SEO edge route `{seo_route}`")
 
     return errors
 

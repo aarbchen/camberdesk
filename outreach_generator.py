@@ -27,6 +27,7 @@ from typing import Any, Dict, List
 
 from api_gateway.services.llm_extractor import load_seed_data
 from camberdesk_autopilot import slugify
+from harvest_verified_dot_contacts import load_signaltender_exclusion_sets
 from mlot_sniper_generator import (
     _sanitize_zero_dollar_zero_link,
     build_mlot_and_runner_up_leads,
@@ -57,15 +58,19 @@ def generate_outreach_queue() -> List[Dict[str, Any]]:
     seed = load_seed_data()
     lettings = seed.get("lettings", [])
     verified_contacts = load_verified_dot_contacts()
+    st_excluded_emails, st_excluded_domains = load_signaltender_exclusion_sets()
 
     seen_emails = set()
     leads: List[Dict[str, Any]] = []
 
     def _add_lead(contact: Dict[str, str], matched_let: Dict[str, Any]) -> None:
         clean_em = str(contact.get("email") or "").strip().lower()
+        dom = clean_em.split("@", 1)[1] if "@" in clean_em else ""
         source_url = str(contact.get("source_url") or "").strip()
         source_type = str(contact.get("source_type") or "website_html_mailto").strip()
         if not clean_em or not source_url or clean_em in seen_emails:
+            return
+        if clean_em in st_excluded_emails or dom in st_excluded_domains:
             return
         if not verify_email_domain_mx(clean_em):
             return
@@ -154,6 +159,9 @@ def generate_outreach_queue() -> List[Dict[str, Any]]:
     # 2. Engine 2: Post-Letting 2nd-Place Runner-Up & Margin Left on Table (MLOT) Sniper Loop
     for mlot_lead in build_mlot_and_runner_up_leads(verified_contacts=verified_contacts):
         em = mlot_lead["email"].strip().lower()
+        dom = em.split("@", 1)[1] if "@" in em else ""
+        if em in st_excluded_emails or dom in st_excluded_domains:
+            continue
         if em not in seen_emails and mlot_lead.get("source_url") and verify_email_domain_mx(em):
             seen_emails.add(em)
             leads.append(mlot_lead)

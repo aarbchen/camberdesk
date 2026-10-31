@@ -79,6 +79,15 @@ def run_subscriber_delivery(send_live_webhook: bool = False) -> Dict[str, Any]:
         formatted_messages.append(msg)
 
     webhook_url = (os.getenv("CAMBERDESK_DISCORD_WEBHOOK_URL") or "").strip()
+    signaltender_webhook_ids = (
+        "1555743443802918993",
+        "1560070981563715644",
+        "1561230679860056117",
+        "1563916225862574080",
+        "1563916236126036068",
+    )
+    if any(wid in webhook_url for wid in signaltender_webhook_ids):
+        webhook_url = ""
     sent = 0
     if send_live_webhook and webhook_url:
         for msg in formatted_messages[:3]:

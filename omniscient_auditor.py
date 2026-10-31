@@ -113,6 +113,14 @@ FOUNDATIONAL_RULES: List[Dict[str, str]] = [
         "rule_statement": "Every `dossier_url` in `campaign_leads.csv`, `outbox_ready_queue.json`, and Discord feeds must resolve to an existing `/lettings/project/<slug>.html` file.",
         "invariant_check": "check_outreach_dossier_urls",
     },
+    {
+        "rule_id": "RULE-008-ZERO-SIGNALTENDER-OVERLAP",
+        "pillar": "Cross-Brand Isolation",
+        "root_cause": "Shared prospect lists, Instantly campaigns, Discord webhooks, or Supabase credentials between CamberDesk and SignalTender could cause cross-brand contact or notification collisions.",
+        "fix_applied": "Enforced `load_signaltender_exclusion_sets()`, stripped SignalTender tokens from `.env`, blocked SignalTender webhook/campaign IDs, and removed `api.nsf.gov` queries from `harvest_verified_dot_contacts.py`.",
+        "rule_statement": "Maintain 100% zero overlap with SignalTender across prospect emails, corporate domains, Instantly.ai campaigns/mailboxes, Discord webhooks, and Supabase credentials.",
+        "invariant_check": "check_zero_signaltender_overlap",
+    },
 ]
 
 
@@ -307,6 +315,12 @@ def audit_pillar_2_acquisition() -> Tuple[List[str], List[str]]:
             bxml = bpath.read_text(encoding="utf-8")
             if 'baseProfile="tiny-ps"' not in bxml or "<title>" not in bxml:
                 issues.append(f"[Pillar 2C] `{bimi_rel}` missing `baseProfile=\"tiny-ps\"` or `<title>` element required by BIMI")
+
+    # 2D. 100% Zero Overlap with SignalTender (`check_zero_signaltender_overlap`)
+    from verify_camberdesk_integrity import check_zero_signaltender_overlap
+    st_overlap_errs = check_zero_signaltender_overlap()
+    for err in st_overlap_errs:
+        issues.append(f"[Pillar 2D] {err}")
 
     return issues, healed
 
