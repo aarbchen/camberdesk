@@ -1861,10 +1861,10 @@ console.log(await res.json());`;
       if (tEl) tEl.textContent = r.title;
       if (dEl) dEl.textContent = r.desc;
       if (cEl) {
-        cEl.innerHTML = r.ctaText + ' &rarr;';
+        cEl.textContent = r.ctaText + ' →';
         cEl.setAttribute('href', r.ctaHref);
         if (r.ctaHref === '#apis') {
-          cEl.setAttribute('onclick', "switchSpaView('apis', event)");
+          cEl.setAttribute('onclick', "switchSpaView('apis'); return false;");
         } else {
           const secId = r.ctaHref.replace(/^#/, '');
           cEl.setAttribute('onclick', `navigateToOverviewSection('${secId}', event)`);

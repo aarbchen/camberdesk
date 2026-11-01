@@ -977,12 +977,12 @@ def build_site_files() -> None:
     portal_cards = []
     for code, name in FIFTY_TWO_PORTALS:
         portal_cards.append(
-            f"""<div class="p-3.5 rounded-xl bg-white border border-[#CBD5E1] shadow-sm flex items-center justify-between">
-              <div>
-                <div class="text-xs font-mono font-bold text-[#1E3A8A]">PORTAL // {code}</div>
-                <div class="text-xs font-bold text-[#0A0D14] mt-0.5">{name}</div>
+            f"""<div class="p-3.5 rounded-xl bg-white border border-[#CBD5E1] shadow-sm flex flex-col justify-between gap-2">
+              <div class="flex items-center justify-between gap-1.5">
+                <div class="text-[10.5px] sm:text-xs font-mono font-bold tracking-tight text-[#1E3A8A] whitespace-nowrap">PORTAL // {code}</div>
+                <span class="shrink-0 inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] text-[10px] font-mono font-bold leading-none"><span class="w-1.5 h-1.5 rounded-full bg-[#059669]"></span>LIVE</span>
               </div>
-              <span class="px-2 py-0.5 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] text-[11px] font-mono font-bold">LIVE</span>
+              <div class="text-xs font-bold text-[#0A0D14] leading-snug pt-1.5 border-t border-[#EAE6DF]">{name}</div>
             </div>"""
         )
 
@@ -2986,7 +2986,7 @@ def build_site_files() -> None:
       // 9e. Contact Support / Instant Self-Serve Test Drive / Account Access
       if (/human|real\\s+person|talk\\s+to\\s+someone|support\\s+email|email\\s+address|contact\\s+support|customer\\s+service|phone\\s+call|sales\\s+call|book\\s+a\\s+call|zoom|demo|free\\s+trial|login|sign\\s+in|forgot\\s+key|recover\\s+key/i.test(ql)) {{
         return {{
-          text: "CamberDesk is 100% self-serve with zero sales-call gatekeeping and instant account resolution:\\n• Self-Serve Client Portal (#account): Manage your plan, download corporate B2B tax receipts, configure 52-portal trade alert filters, add unlimited estimating team CC seats, or retrieve your production cd_live_... API key in 1 click.\\n• Instant No-Card Test Drive: Download a live 6-File OpenXML (.DOCX + .XLSX) Bid Package sample right now, or paste your own specification text into the Interactive Evaluation Workbench on the Self-Serve Pricing view.",
+          text: "CamberDesk is 100% self-serve with zero sales-call gatekeeping and instant account resolution:\\n• Self-Serve Client Portal: Manage your plan, download corporate B2B tax receipts, configure 52-portal trade alert filters, add unlimited estimating team CC seats, or retrieve your production cd_live_... API key in 1 click.\\n• Instant No-Card Test Drive: Download a live 6-File OpenXML (.DOCX + .XLSX) Bid Package sample right now, or paste your own specification text into the Interactive Evaluation Workbench on the Self-Serve Pricing view.",
           ctaLabel: 'Open Evaluation Workbench',
           ctaFn: function() {{ closeTrustModals(); switchSpaView('checkout'); const el = document.getElementById('checkout-enterprise-proof-workbench'); if (el) el.scrollIntoView({{behavior:'auto'}}); }},
           actions: [
@@ -3342,15 +3342,23 @@ def build_site_files() -> None:
       }} else if (['overview', 'apis', 'lettings', 'checkout'].includes(rawHash)) {{
         closeTrustModals();
         switchSpaView(rawHash);
+      }} else if (rawHash === 'contracts' || rawHash.startsWith('contracts/') || rawHash.startsWith('lettings/')) {{
+        closeTrustModals();
+        switchSpaView('lettings');
+        renderLettingsRoute('#' + rawHash);
+      }} else if (['zip-package-inspector', 'roi-calculator', 'sample-lead-magnet', 'capture-moat', 'before-after-comparison', 'interactive-state-shredder', 'contract-directory', 'coverage', 'persona-quickstart-bar', 'product-5stage-stepper', 'hero-metrics-strip'].includes(rawHash)) {{
+        closeTrustModals();
+        navigateToOverviewSection(rawHash);
       }} else if (['integrations', 'contractor-profile-vault', 'api-studio-playground', 'mcp-integration-hub'].includes(rawHash)) {{
         closeTrustModals();
         switchSpaView('apis');
         const el = document.getElementById(rawHash);
         if (el) el.scrollIntoView({{ behavior: 'auto' }});
-      }} else if (['checkout-enterprise-proof-workbench', 'checkout-panel-matrix', 'checkout-card-tier1', 'checkout-card-tier2', 'checkout-card-tier3', 'checkout-card-tier4'].includes(rawHash)) {{
+      }} else if (['checkout-enterprise-proof-workbench', 'checkout-panel-matrix', 'checkout-card-tier1', 'checkout-card-tier2', 'checkout-card-tier3', 'checkout-card-tier4', 'checkout-tier1', 'checkout-tier2', 'checkout-tier3', 'checkout-tier4'].includes(rawHash)) {{
         closeTrustModals();
         switchSpaView('checkout');
-        const el = document.getElementById(rawHash);
+        const targetId = rawHash.replace(/^checkout-tier([1-4])$/, 'checkout-card-tier$1');
+        const el = document.getElementById(targetId);
         if (el) el.scrollIntoView({{ behavior: 'auto' }});
       }} else if (rawHash.startsWith('product-')) {{
         closeTrustModals();
@@ -3792,13 +3800,13 @@ def build_site_files() -> None:
       <button type="button" id="sidebar-rail-toggle" onclick="toggleSidebarRail()" class="text-[#0A0D14]">[-]</button>
     </div>
     <div id="sidebar-rail-links" class="flex flex-col gap-1">
-      <a href="#overview" onclick="switchSpaView('overview')" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#0A0D14]">01 // Overview</a>
-      <a href="#interactive-state-shredder" onclick="switchSpaView('overview')" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#0A0D14]">02 // DOT Shredder</a>
-      <a href="#zip-package-inspector" onclick="switchSpaView('overview')" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#0A0D14]">03 // 6-File .ZIP</a>
-      <a href="#roi-calculator" onclick="switchSpaView('overview')" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#0A0D14]">04 // ROI Calc</a>
-      <a href="#contract-directory" onclick="switchSpaView('overview')" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#0A0D14]">05 // Lettings</a>
-      <a href="#apis" onclick="switchSpaView('apis')" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#1E3A8A]">06 // 12 APIs &amp; MCP</a>
-      <a href="#checkout" onclick="switchSpaView('checkout')" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#065F46]">07 // Pricing</a>
+      <a href="#overview" onclick="switchSpaView('overview', event)" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#0A0D14]">01 // Overview</a>
+      <a href="#interactive-state-shredder" onclick="navigateToOverviewSection('interactive-state-shredder', event)" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#0A0D14]">02 // DOT Shredder</a>
+      <a href="#zip-package-inspector" onclick="navigateToOverviewSection('zip-package-inspector', event)" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#0A0D14]">03 // 6-File .ZIP</a>
+      <a href="#roi-calculator" onclick="navigateToOverviewSection('roi-calculator', event)" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#0A0D14]">04 // ROI Calc</a>
+      <a href="#contract-directory" onclick="navigateToOverviewSection('contract-directory', event)" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#0A0D14]">05 // Lettings</a>
+      <a href="#apis" onclick="switchSpaView('apis', event)" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#1E3A8A]">06 // 12 APIs &amp; MCP</a>
+      <a href="#checkout" onclick="switchSpaView('checkout', event)" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#065F46]">07 // Pricing</a>
     </div>
   </aside>
 
@@ -3886,24 +3894,24 @@ def build_site_files() -> None:
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-between gap-4">
       {_render_logo_lockup("50-STATE DOT BID-TAB, PREVAILING-WAGE & CSI TAKEOFF ENGINE", "#overview")}
       <nav class="hidden md:flex items-center gap-5 text-sm font-bold">
-        <a href="#overview" onclick="switchSpaView('overview')" class="text-[#0A0D14] hover:text-[#1E3A8A]">Overview</a>
-        <a href="#zip-package-inspector" onclick="switchSpaView('overview')" class="text-[#0A0D14] hover:text-[#1E3A8A]">6-File .ZIP Inspector</a>
-        <a href="#lettings" onclick="switchSpaView('lettings')" class="text-[#0A0D14] hover:text-[#1E3A8A]">Live DOT Lettings</a>
-        <a href="#apis" onclick="switchSpaView('apis')" class="text-[#0A0D14] hover:text-[#1E3A8A]">API Catalog</a>
+        <a href="#overview" onclick="switchSpaView('overview', event)" class="text-[#0A0D14] hover:text-[#1E3A8A]">Overview</a>
+        <a href="#zip-package-inspector" onclick="navigateToOverviewSection('zip-package-inspector', event)" class="text-[#0A0D14] hover:text-[#1E3A8A]">6-File .ZIP Inspector</a>
+        <a href="#lettings" onclick="switchSpaView('lettings', event)" class="text-[#0A0D14] hover:text-[#1E3A8A]">Live DOT Lettings</a>
+        <a href="#apis" onclick="switchSpaView('apis', event)" class="text-[#0A0D14] hover:text-[#1E3A8A]">API Catalog</a>
         <a href="#account" onclick="openTrustModal('account', event)" class="px-3 py-1.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Client Portal</a>
-        <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold transition">Self-Serve Pricing</a>
+        <a href="#checkout" onclick="switchSpaView('checkout', event)" class="px-4 py-2 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold transition">Self-Serve Pricing</a>
       </nav>
       <button type="button" onclick="toggleMobileNav()" class="md:hidden shrink-0 ml-3 px-3.5 py-2 rounded-lg bg-[#EAE6DF] border border-[#94A3B8] text-xs font-mono font-bold text-[#0A0D14] shadow-sm">MENU</button>
     </div>
     <div id="mobile-nav-drawer" class="hidden md:hidden border-t border-[#CBD5E1] bg-white px-6 py-4 flex flex-col gap-3 text-sm font-bold">
-      <a href="#overview" onclick="switchSpaView('overview')" class="text-[#0A0D14]">Overview</a>
-      <a href="#zip-package-inspector" onclick="switchSpaView('overview')" class="text-[#0A0D14]">6-File .ZIP Package Inspector</a>
-      <a href="#roi-calculator" onclick="switchSpaView('overview')" class="text-[#0A0D14]">Estimating ROI Calculator</a>
-      <a href="#lettings" onclick="switchSpaView('lettings')" class="text-[#0A0D14]">Live 50-State DOT Lettings</a>
-      <a href="#apis" onclick="switchSpaView('apis')" class="text-[#0A0D14]">API Catalog</a>
+      <a href="#overview" onclick="switchSpaView('overview', event)" class="text-[#0A0D14]">Overview</a>
+      <a href="#zip-package-inspector" onclick="navigateToOverviewSection('zip-package-inspector', event)" class="text-[#0A0D14]">6-File .ZIP Package Inspector</a>
+      <a href="#roi-calculator" onclick="navigateToOverviewSection('roi-calculator', event)" class="text-[#0A0D14]">Estimating ROI Calculator</a>
+      <a href="#lettings" onclick="switchSpaView('lettings', event)" class="text-[#0A0D14]">Live 50-State DOT Lettings</a>
+      <a href="#apis" onclick="switchSpaView('apis', event)" class="text-[#0A0D14]">API Catalog</a>
       <a href="#account" onclick="openTrustModal('account', event)" class="text-[#1E3A8A]">Client Portal</a>
       <a href="#status" onclick="openTrustModal('status', event)" class="text-[#065F46]">Live System Status</a>
-      <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2 rounded-lg bg-[#0A0D14] text-white text-center font-bold">Self-Serve Pricing</a>
+      <a href="#checkout" onclick="switchSpaView('checkout', event)" class="px-4 py-2 rounded-lg bg-[#0A0D14] text-white text-center font-bold">Self-Serve Pricing</a>
     </div>
   </header>
 
@@ -3992,6 +4000,9 @@ def build_site_files() -> None:
         </div>
       </div>
       <p id="persona-active-desc" class="text-sm font-medium text-[#111827] leading-relaxed">Eliminate 14+ hours of manual spec reading per letting. Review 36-month DOT winning low unit prices ($/Ton, $/CY, $/LF), competitor planholder spreads, and balanced AIA G702/G703 Schedules of Values before locking in your final markup.</p>
+      <div>
+        <a id="persona-active-cta" href="#roi-calculator" onclick="navigateToOverviewSection('roi-calculator', event)" class="inline-block px-4 py-2 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold transition">Calculate Your Desk's Monthly Savings &rarr;</a>
+      </div>
       <div id="product-5stage-stepper" class="space-y-3 pt-2 border-t border-[#CBD5E1]">
         <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
           <button type="button" id="stage-step-btn-0" onclick="switchOverviewProductTab(0)" class="px-3 py-2 rounded-lg bg-[#0A0D14] text-white font-mono text-xs font-bold transition">01 // 52-Portal Feed</button>
@@ -4193,14 +4204,14 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
         </div>
       </div>
       <div class="flex flex-wrap gap-2 text-xs font-mono">
-        <button type="button" onclick="filterMainLettingTable('all')" class="px-3 py-1.5 rounded bg-[#0A0D14] text-white font-bold">All Portals (52)</button>
-        <button type="button" onclick="filterMainLettingTable('texas')" class="px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] font-bold border border-[#94A3B8]">TxDOT (TX)</button>
-        <button type="button" onclick="filterMainLettingTable('california')" class="px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] font-bold border border-[#94A3B8]">Caltrans (CA)</button>
-        <button type="button" onclick="filterMainLettingTable('florida')" class="px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] font-bold border border-[#94A3B8]">FDOT (FL)</button>
-        <button type="button" onclick="filterMainLettingTable('virginia')" class="px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] font-bold border border-[#94A3B8]">VDOT (VA)</button>
-        <button type="button" onclick="filterMainLettingTable('pennsylvania')" class="px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] font-bold border border-[#94A3B8]">PennDOT (PA)</button>
-        <button type="button" onclick="filterMainLettingTable('new_york')" class="px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] font-bold border border-[#94A3B8]">NYSDOT (NY)</button>
-        <button type="button" onclick="filterMainLettingTable('federal')" class="px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] font-bold border border-[#94A3B8]">USACE Federal</button>
+        <button type="button" data-portal-pill="all" onclick="filterMainLettingTable('all')" class="px-3 py-1.5 rounded-lg bg-[#0A0D14] text-white font-bold transition">All Portals (52)</button>
+        <button type="button" data-portal-pill="texas" onclick="filterMainLettingTable('texas')" class="px-3 py-1.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] font-bold border border-[#94A3B8] transition">TxDOT (TX)</button>
+        <button type="button" data-portal-pill="california" onclick="filterMainLettingTable('california')" class="px-3 py-1.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] font-bold border border-[#94A3B8] transition">Caltrans (CA)</button>
+        <button type="button" data-portal-pill="florida" onclick="filterMainLettingTable('florida')" class="px-3 py-1.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] font-bold border border-[#94A3B8] transition">FDOT (FL)</button>
+        <button type="button" data-portal-pill="virginia" onclick="filterMainLettingTable('virginia')" class="px-3 py-1.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] font-bold border border-[#94A3B8] transition">VDOT (VA)</button>
+        <button type="button" data-portal-pill="pennsylvania" onclick="filterMainLettingTable('pennsylvania')" class="px-3 py-1.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] font-bold border border-[#94A3B8] transition">PennDOT (PA)</button>
+        <button type="button" data-portal-pill="new_york" onclick="filterMainLettingTable('new_york')" class="px-3 py-1.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] font-bold border border-[#94A3B8] transition">NYSDOT (NY)</button>
+        <button type="button" data-portal-pill="federal" onclick="filterMainLettingTable('federal')" class="px-3 py-1.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] font-bold border border-[#94A3B8] transition">USACE Federal</button>
       </div>
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
@@ -4257,8 +4268,8 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
         <h2 class="text-3xl font-extrabold text-[#0A0D14]">Instant Access Across All 50 State DOTs &amp; 12 Precon APIs</h2>
       </div>
       <div class="inline-flex rounded-lg bg-[#EAE6DF] p-1 border border-[#94A3B8] text-xs font-mono">
-        <button type="button" onclick="setCheckoutBilling('monthly')" class="px-3 py-1.5 rounded bg-[#0A0D14] text-white font-bold">Monthly</button>
-        <button type="button" onclick="setCheckoutBilling('annual')" class="px-3 py-1.5 rounded text-[#0A0D14] hover:text-[#1E3A8A] font-bold">Annual (2 Months Free)</button>
+        <button id="billing-toggle-monthly" type="button" onclick="setCheckoutBilling('monthly')" class="px-3 py-1.5 rounded bg-[#0A0D14] text-white font-bold">Monthly</button>
+        <button id="billing-toggle-annual" type="button" onclick="setCheckoutBilling('annual')" class="px-3 py-1.5 rounded text-[#0A0D14] hover:text-[#1E3A8A] font-bold">Annual (2 Months Free)</button>
       </div>
     </div>
 
