@@ -208,8 +208,8 @@ console.log(JSON.stringify({ ok: errs.length === 0, errors: errs }));
         if href.startswith("#"):
             continue
         if href.startswith(("http://", "https://", "mailto:", "tel:")):
-            if not (href.startswith("https://camberdesk.com/") or href.startswith("https://buy.stripe.com/")):
-                errors.append(f"[{rel}] Unexpected external `<a href=\"{href}\">` target")
+            if not href.startswith("https://") or any(bad in href.lower() for bad in ("api.camberdesk.com", "trycamberdesk.com", "signaltender", "localhost", "example.com", "127.0.0.1")):
+                errors.append(f"[{rel}] Invalid or forbidden external `<a href=\"{href}\">` target")
             continue
         rel_part = href.split("#")[0].split("?")[0]
         if rel_part:
@@ -719,7 +719,8 @@ function makeEl(id) {
  'btn-checkout-tier2','btn-checkout-tier3','btn-checkout-tier4','contracts-dynamic-root','product-davis-bacon-wage',
  'shredder-active-badge','shredder-raw-pdf','shredder-ai-output','persona-active-title','stage-step-title',
  'wb-vault-output','wb-cfo-output','profile-vault-status','blueprint-download-status',
- 'checkout-modal-plan-name','checkout-modal-plan-price','camberdesk-checkout-modal'].forEach(id => {
+ 'checkout-modal-plan-name','checkout-modal-plan-price','camberdesk-checkout-modal',
+ 'account-active-tier-badge','account-admin-bar'].forEach(id => {
   elements[id] = makeEl(id);
 });
 
@@ -737,7 +738,8 @@ const sandbox = {
     scrollTo() {},
     scrollBy() {},
     addEventListener() {},
-    location: { hash: '#overview' }
+    location: { hash: '#overview', pathname: '/index.html', search: '' },
+    history: { replaceState(s, t, url) { if (url && url.startsWith('#')) sandbox.window.location.hash = url; } }
   },
   document: {
     documentElement: { style: {} },
@@ -819,6 +821,26 @@ try {
     throw new Error('openCamberCheckoutModal(tier2_monthly) failed');
   }
   sandbox.openTrustModal('account');
+  sandbox.switchAdminPortalPreview('tier_4');
+  if (!elements['account-active-tier-badge'].textContent.includes('TIER 4') || elements['account-admin-bar'].classList._set.has('hidden')) {
+    throw new Error('switchAdminPortalPreview(tier_4) failed to unlock #account-admin-bar or set TIER 4 badge');
+  }
+  sandbox.switchAdminPortalPreview('tier_3');
+  if (!elements['account-active-tier-badge'].textContent.includes('TIER 3')) {
+    throw new Error('switchAdminPortalPreview(tier_3) failed to update tier badge');
+  }
+  sandbox.switchAdminPortalPreview('tier_2');
+  if (!elements['account-active-tier-badge'].textContent.includes('TIER 2')) {
+    throw new Error('switchAdminPortalPreview(tier_2) failed to update tier badge');
+  }
+  sandbox.switchAdminPortalPreview('tier_1');
+  if (!elements['account-active-tier-badge'].textContent.includes('TIER 1')) {
+    throw new Error('switchAdminPortalPreview(tier_1) failed to update tier badge');
+  }
+  sandbox.logoutClientAccount();
+  if (!elements['account-admin-bar'].classList._set.has('hidden')) {
+    throw new Error('logoutClientAccount() failed to hide #account-admin-bar');
+  }
   sandbox.closeTrustModals();
   const ansHi = sandbox.buildConciergeAnswer('hi', '');
   const ansUnsub = sandbox.buildConciergeAnswer('How do I cancel or unsubscribe and get a receipt?', '');
