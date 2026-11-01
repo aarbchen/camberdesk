@@ -914,7 +914,7 @@ def _build_api_catalog_section() -> str:
       <div class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm space-y-4">
         <h3 class="text-lg font-extrabold text-[#0A0D14] font-mono">// CROSS-CATALOG RAPIDAPI &amp; MCP PRICING MATRIX (01–12)</h3>
         <div class="overflow-x-auto">
-          <table class="w-full text-left border-collapse">
+          <table class="w-full min-w-[780px] text-left border-collapse">
             <thead>
               <tr class="bg-[#EAE6DF] border-b-2 border-[#94A3B8] text-xs font-mono font-bold text-[#0A0D14]">
                 <th class="py-2.5 px-3">#</th>
@@ -4214,7 +4214,7 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
         <button type="button" data-portal-pill="federal" onclick="filterMainLettingTable('federal')" class="px-3 py-1.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] font-bold border border-[#94A3B8] transition">USACE Federal</button>
       </div>
       <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse">
+        <table class="w-full min-w-[820px] text-left border-collapse">
           <thead>
             <tr class="bg-[#EAE6DF] border-b-2 border-[#94A3B8] text-xs font-mono font-bold text-[#0A0D14]">
               <th class="py-2.5 px-3">PROJECT ID</th>
@@ -4268,8 +4268,8 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
         <h2 class="text-3xl font-extrabold text-[#0A0D14]">Instant Access Across All 50 State DOTs &amp; 12 Precon APIs</h2>
       </div>
       <div class="inline-flex rounded-lg bg-[#EAE6DF] p-1 border border-[#94A3B8] text-xs font-mono">
-        <button type="button" onclick="setCheckoutBilling('monthly')" class="px-3 py-1.5 rounded bg-[#0A0D14] text-white font-bold">Monthly</button>
-        <button type="button" onclick="setCheckoutBilling('annual')" class="px-3 py-1.5 rounded text-[#0A0D14] hover:text-[#1E3A8A] font-bold">Annual (2 Months Free)</button>
+        <button id="billing-toggle-monthly" type="button" onclick="setCheckoutBilling('monthly')" class="px-3 py-1.5 rounded bg-[#0A0D14] text-white font-bold">Monthly</button>
+        <button id="billing-toggle-annual" type="button" onclick="setCheckoutBilling('annual')" class="px-3 py-1.5 rounded text-[#0A0D14] hover:text-[#1E3A8A] font-bold">Annual (2 Months Free)</button>
       </div>
     </div>
 
