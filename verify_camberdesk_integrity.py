@@ -418,10 +418,20 @@ def check_tier_value_prop_and_capture_moat_parity() -> List[str]:
         'id="checkout-card-tier1"',
         'id="checkout-card-tier2"',
         'id="checkout-card-tier3"',
+        'id="checkout-card-tier4"',
         "$199 / mo",
         "$499 / mo",
         "$1,499 / mo",
+        "$2,499 / mo",
         "All 12 individual CamberDesk microservices",
+        "https://buy.stripe.com/00wbJ08qS0h5cxa2sc7wA0a",
+        "https://buy.stripe.com/8x2eVcgXo2pd2WAfeY7wA0b",
+        "https://buy.stripe.com/5kQ00i9uW5BpgNq6Is7wA0c",
+        "https://buy.stripe.com/7sYaEW22u8NBdBe6Is7wA0d",
+        "https://buy.stripe.com/cNidR8dLc2pdfJmgj27wA0e",
+        "https://buy.stripe.com/3cI28qfTkfbZdBe4Ak7wA0f",
+        "https://buy.stripe.com/fZueVcePg5Bp2WA7Mw7wA0g",
+        "https://buy.stripe.com/3cIeVc4aC4xldBeaYI7wA0h",
     ):
         if checkout_marker not in idx_html:
             errors.append(f"[index.html] Missing checkout surface marker: `{checkout_marker}`")

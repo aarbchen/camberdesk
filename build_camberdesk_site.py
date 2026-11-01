@@ -1547,6 +1547,16 @@ def build_site_files() -> None:
 
     window.BILLING_MODE = 'monthly';
     window.ACTIVE_CHECKOUT_TIER = 'tier2_monthly';
+    window.CAMBERDESK_STRIPE_LINKS = {{
+      tier1_monthly: 'https://buy.stripe.com/00wbJ08qS0h5cxa2sc7wA0a',
+      tier1_annual: 'https://buy.stripe.com/8x2eVcgXo2pd2WAfeY7wA0b',
+      tier2_monthly: 'https://buy.stripe.com/5kQ00i9uW5BpgNq6Is7wA0c',
+      tier2_annual: 'https://buy.stripe.com/7sYaEW22u8NBdBe6Is7wA0d',
+      tier3_monthly: 'https://buy.stripe.com/cNidR8dLc2pdfJmgj27wA0e',
+      tier3_annual: 'https://buy.stripe.com/3cI28qfTkfbZdBe4Ak7wA0f',
+      tier4_monthly: 'https://buy.stripe.com/fZueVcePg5Bp2WA7Mw7wA0g',
+      tier4_annual: 'https://buy.stripe.com/3cIeVc4aC4xldBeaYI7wA0h'
+    }};
 
     function setCheckoutBilling(mode) {{
       window.BILLING_MODE = mode === 'annual' ? 'annual' : 'monthly';
@@ -1571,28 +1581,52 @@ def build_site_files() -> None:
       const b2 = document.getElementById('btn-checkout-tier2');
       const b3 = document.getElementById('btn-checkout-tier3');
       const b4 = document.getElementById('btn-checkout-tier4');
+      const sl1 = document.getElementById('stripe-link-tier1');
+      const sl2 = document.getElementById('stripe-link-tier2');
+      const sl3 = document.getElementById('stripe-link-tier3');
+      const sl4 = document.getElementById('stripe-link-tier4');
       if (t1) t1.textContent = isAnnual ? '$1,990 / yr' : '$199 / mo';
       if (t2) t2.textContent = isAnnual ? '$4,490 / yr' : '$499 / mo';
       if (t3) t3.textContent = isAnnual ? '$14,900 / yr' : '$1,499 / mo';
       if (t4) t4.textContent = isAnnual ? '$24,900 / yr' : '$2,499 / mo';
-      if (b1) b1.setAttribute('onclick', `openCamberCheckoutModal('${{isAnnual ? 'tier1_annual' : 'tier1_monthly'}}')`);
-      if (b2) b2.setAttribute('onclick', `openCamberCheckoutModal('${{isAnnual ? 'tier2_annual' : 'tier2_monthly'}}')`);
-      if (b3) b3.setAttribute('onclick', `openCamberCheckoutModal('${{isAnnual ? 'tier3_annual' : 'tier3_monthly'}}')`);
-      if (b4) b4.setAttribute('onclick', `openCamberCheckoutModal('${{isAnnual ? 'tier4_annual' : 'tier4_monthly'}}')`);
+      const k1 = isAnnual ? 'tier1_annual' : 'tier1_monthly';
+      const k2 = isAnnual ? 'tier2_annual' : 'tier2_monthly';
+      const k3 = isAnnual ? 'tier3_annual' : 'tier3_monthly';
+      const k4 = isAnnual ? 'tier4_annual' : 'tier4_monthly';
+      if (b1) {{
+        b1.setAttribute('onclick', `openCamberCheckoutModal('${{k1}}')`);
+        b1.setAttribute('data-stripe-link', window.CAMBERDESK_STRIPE_LINKS[k1]);
+      }}
+      if (b2) {{
+        b2.setAttribute('onclick', `openCamberCheckoutModal('${{k2}}')`);
+        b2.setAttribute('data-stripe-link', window.CAMBERDESK_STRIPE_LINKS[k2]);
+      }}
+      if (b3) {{
+        b3.setAttribute('onclick', `openCamberCheckoutModal('${{k3}}')`);
+        b3.setAttribute('data-stripe-link', window.CAMBERDESK_STRIPE_LINKS[k3]);
+      }}
+      if (b4) {{
+        b4.setAttribute('onclick', `openCamberCheckoutModal('${{k4}}')`);
+        b4.setAttribute('data-stripe-link', window.CAMBERDESK_STRIPE_LINKS[k4]);
+      }}
+      if (sl1) sl1.setAttribute('href', window.CAMBERDESK_STRIPE_LINKS[k1]);
+      if (sl2) sl2.setAttribute('href', window.CAMBERDESK_STRIPE_LINKS[k2]);
+      if (sl3) sl3.setAttribute('href', window.CAMBERDESK_STRIPE_LINKS[k3]);
+      if (sl4) sl4.setAttribute('href', window.CAMBERDESK_STRIPE_LINKS[k4]);
     }}
 
     function openCamberCheckoutModal(tierKey) {{
       closeTrustModals();
       window.ACTIVE_CHECKOUT_TIER = tierKey || 'tier2_monthly';
       const catalog = {{
-        tier1_monthly: {{ name: 'Tier 1 // CamberWire Pro (Monthly)', price: '$199 / month', desc: 'Real-time 50-State DOT, USACE & Municipal letting alerts + official planholder tracking.' }},
-        tier1_annual: {{ name: 'Tier 1 // CamberWire Pro (Annual — 2 Months Free)', price: '$1,990 / year', desc: 'Real-time 50-State DOT, USACE & Municipal letting alerts + official planholder tracking.' }},
-        tier2_monthly: {{ name: 'Tier 2 // CamberDesk Autopilot (Monthly)', price: '$499 / month', desc: 'Full pre-shredded CSI Divisions 00–48 dossiers, 36-month DOT unit-price bid tabs, WH-347 wages & all 12 APIs.' }},
-        tier2_annual: {{ name: 'Tier 2 // CamberDesk Autopilot (Annual — 2 Months Free)', price: '$4,490 / year', desc: 'Full pre-shredded CSI Divisions 00–48 dossiers, 36-month DOT unit-price bid tabs, WH-347 wages & all 12 APIs.' }},
-        tier3_monthly: {{ name: 'Tier 3 // 6-File .ZIP Takeoff Compiler (Monthly)', price: '$1,499 / month', desc: 'Unlimited 1-Click 6-File OpenXML (.DOCX + .XLSX with live Excel formulas) Bid Package compilations + dedicated MCP.' }},
-        tier3_annual: {{ name: 'Tier 3 // 6-File .ZIP Takeoff Compiler (Annual — 2 Months Free)', price: '$14,900 / year', desc: 'Unlimited 1-Click 6-File OpenXML (.DOCX + .XLSX with live Excel formulas) Bid Package compilations + dedicated MCP.' }},
-        tier4_monthly: {{ name: 'Tier 4 // Surety & ConTech OEM License (Monthly)', price: '$2,499 / month', desc: 'Multi-branch surety underwriting, HeavyBid/Procore ERP webhook pipes, custom SLA & unlimited team seats.' }},
-        tier4_annual: {{ name: 'Tier 4 // Surety & ConTech OEM License (Annual — 2 Months Free)', price: '$24,900 / year', desc: 'Multi-branch surety underwriting, HeavyBid/Procore ERP webhook pipes, custom SLA & unlimited team seats.' }}
+        tier1_monthly: {{ name: 'Tier 1 // CamberWire Pro (Monthly)', price: '$199 / month', desc: 'Real-time 50-State DOT, USACE & Municipal letting alerts + official planholder tracking.', stripeUrl: 'https://buy.stripe.com/00wbJ08qS0h5cxa2sc7wA0a' }},
+        tier1_annual: {{ name: 'Tier 1 // CamberWire Pro (Annual — 2 Months Free)', price: '$1,990 / year', desc: 'Real-time 50-State DOT, USACE & Municipal letting alerts + official planholder tracking.', stripeUrl: 'https://buy.stripe.com/8x2eVcgXo2pd2WAfeY7wA0b' }},
+        tier2_monthly: {{ name: 'Tier 2 // CamberDesk Autopilot (Monthly)', price: '$499 / month', desc: 'Full pre-shredded CSI Divisions 00–48 dossiers, 36-month DOT unit-price bid tabs, WH-347 wages & all 12 APIs.', stripeUrl: 'https://buy.stripe.com/5kQ00i9uW5BpgNq6Is7wA0c' }},
+        tier2_annual: {{ name: 'Tier 2 // CamberDesk Autopilot (Annual — 2 Months Free)', price: '$4,490 / year', desc: 'Full pre-shredded CSI Divisions 00–48 dossiers, 36-month DOT unit-price bid tabs, WH-347 wages & all 12 APIs.', stripeUrl: 'https://buy.stripe.com/7sYaEW22u8NBdBe6Is7wA0d' }},
+        tier3_monthly: {{ name: 'Tier 3 // 6-File .ZIP Takeoff Compiler (Monthly)', price: '$1,499 / month', desc: 'Unlimited 1-Click 6-File OpenXML (.DOCX + .XLSX with live Excel formulas) Bid Package compilations + dedicated MCP.', stripeUrl: 'https://buy.stripe.com/cNidR8dLc2pdfJmgj27wA0e' }},
+        tier3_annual: {{ name: 'Tier 3 // 6-File .ZIP Takeoff Compiler (Annual — 2 Months Free)', price: '$14,900 / year', desc: 'Unlimited 1-Click 6-File OpenXML (.DOCX + .XLSX with live Excel formulas) Bid Package compilations + dedicated MCP.', stripeUrl: 'https://buy.stripe.com/3cI28qfTkfbZdBe4Ak7wA0f' }},
+        tier4_monthly: {{ name: 'Tier 4 // Surety & ConTech OEM License (Monthly)', price: '$2,499 / month', desc: 'Multi-branch surety underwriting, HeavyBid/Procore ERP webhook pipes, custom SLA & unlimited team seats.', stripeUrl: 'https://buy.stripe.com/fZueVcePg5Bp2WA7Mw7wA0g' }},
+        tier4_annual: {{ name: 'Tier 4 // Surety & ConTech OEM License (Annual — 2 Months Free)', price: '$24,900 / year', desc: 'Multi-branch surety underwriting, HeavyBid/Procore ERP webhook pipes, custom SLA & unlimited team seats.', stripeUrl: 'https://buy.stripe.com/3cIeVc4aC4xldBeaYI7wA0h' }}
       }};
       const info = catalog[window.ACTIVE_CHECKOUT_TIER] || catalog.tier2_monthly;
       const modal = document.getElementById('camberdesk-checkout-modal');
@@ -1600,9 +1634,11 @@ def build_site_files() -> None:
       const priceEl = document.getElementById('checkout-modal-plan-price');
       const descEl = document.getElementById('checkout-modal-plan-desc');
       const resBox = document.getElementById('checkout-modal-provisioned-box');
+      const directLinkEl = document.getElementById('checkout-modal-direct-stripe-link');
       if (nameEl) nameEl.textContent = info.name;
       if (priceEl) priceEl.textContent = info.price;
       if (descEl) descEl.textContent = info.desc;
+      if (directLinkEl && info.stripeUrl) directLinkEl.setAttribute('href', info.stripeUrl);
       if (resBox) resBox.classList.add('hidden');
       if (modal) modal.classList.remove('hidden');
       return info;
@@ -1621,6 +1657,7 @@ def build_site_files() -> None:
       const resBox = document.getElementById('checkout-modal-provisioned-box');
       const keyEl = document.getElementById('checkout-modal-api-key');
       const statusEl = document.getElementById('checkout-modal-status');
+      const directLinkEl = document.getElementById('checkout-modal-direct-stripe-link');
       const email = emailEl ? emailEl.value.trim() : 'estimating@contractor.com';
       const company = compEl ? compEl.value.trim() : 'Heavy Civil Contractor';
       const states = stateEl ? stateEl.value.trim() : 'All 50 State DOTs + USACE';
@@ -1629,14 +1666,22 @@ def build_site_files() -> None:
       const plan = parts[0] || 'tier2';
       const billing = parts[1] || 'monthly';
       const generatedKey = 'cd_live_' + btoa(email + ':' + tier).replace(/[^a-zA-Z0-9]/g, '').slice(0, 20).toLowerCase();
-      if (statusEl) statusEl.textContent = 'Provisioning CamberDesk Workspace & API Key via https://camberdesk.com/v1/billing/create-checkout-session...';
+      let resolvedCheckoutUrl = (window.CAMBERDESK_STRIPE_LINKS && window.CAMBERDESK_STRIPE_LINKS[tier]) || 'https://buy.stripe.com/5kQ00i9uW5BpgNq6Is7wA0c';
+      if (statusEl) statusEl.textContent = 'Provisioning CamberDesk Workspace & Stripe Checkout Session via https://camberdesk.com/v1/billing/create-checkout-session...';
       try {{
-        await fetch('https://camberdesk.com/v1/billing/create-checkout-session', {{
+        const resp = await fetch('https://camberdesk.com/v1/billing/create-checkout-session', {{
           method: 'POST',
           headers: {{ 'Content-Type': 'application/json' }},
           body: JSON.stringify({{ plan, billing, email, tier, customer_email: email, company_name: company, state_dots: states }})
         }});
+        if (resp && resp.ok) {{
+          const data = await resp.json();
+          if (data && data.checkout_url) {{
+            resolvedCheckoutUrl = data.checkout_url;
+          }}
+        }}
       }} catch (e) {{}}
+      if (directLinkEl && resolvedCheckoutUrl) directLinkEl.setAttribute('href', resolvedCheckoutUrl);
       if (keyEl) keyEl.textContent = generatedKey;
       if (resBox) resBox.classList.remove('hidden');
       if (statusEl) statusEl.textContent = 'CAMBERDESK WORKSPACE ACTIVE — API Key & 50-State DOT Alert Routing Provisioned for ' + email;
@@ -2967,6 +3012,13 @@ def build_site_files() -> None:
       const rawHash = String((window.location && window.location.hash) || '').replace(/^#/, '').trim();
       try {{
         const qs = new URLSearchParams((window.location && window.location.search) || '');
+        const checkoutParam = (qs.get('checkout') || '').toLowerCase();
+        if (checkoutParam === 'success') {{
+          openTrustModal('account');
+          const box = document.getElementById('account-portal-result');
+          if (box) box.classList.remove('hidden');
+          return;
+        }}
         const planParam = (qs.get('plan') || '').toLowerCase();
         const billParam = (qs.get('billing') || 'monthly').toLowerCase() === 'annual' ? 'annual' : 'monthly';
         if (['tier1', 'tier2', 'tier3', 'tier4'].includes(planParam)) {{
@@ -3094,7 +3146,10 @@ def build_site_files() -> None:
           <label class="block font-mono font-bold text-[#0A0D14] mb-1">PRIMARY STATE DOTS &amp; PORTALS TO MONITOR (52 PORTALS INCLUDED)</label>
           <input id="checkout-modal-states" type="text" value="All 50 U.S. State DOTs + Federal USACE NAICS 236–238 + Municipal" class="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] font-bold text-[#0A0D14]" />
         </div>
-        <button type="submit" class="w-full py-3 rounded-xl bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold transition">Provision CamberDesk Workspace &amp; API Key Now &rarr;</button>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <button type="submit" class="w-full py-3 rounded-xl bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold transition">Provision CamberDesk Workspace &amp; API Key &rarr;</button>
+          <a id="checkout-modal-direct-stripe-link" href="https://buy.stripe.com/5kQ00i9uW5BpgNq6Is7wA0c" target="_blank" rel="noopener" class="w-full py-3 rounded-xl bg-[#1E3A8A] hover:bg-[#0A0D14] text-white font-mono text-xs font-bold text-center transition">Complete Payment on Stripe &rarr;</a>
+        </div>
       </form>
       <div id="checkout-modal-status" class="text-xs font-mono font-bold text-[#065F46]">Zero Lock-In &bull; Instant <code class="text-[#1E3A8A]">cd_live_...</code> API Key &amp; 6-File OpenXML (.DOCX + .XLSX) Access</div>
       <div id="checkout-modal-provisioned-box" class="hidden p-4 rounded-xl bg-[#ECFDF5] border-2 border-[#065F46] space-y-3 text-xs font-mono">
@@ -3838,7 +3893,10 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
           <div id="price-tier1" class="text-3xl font-extrabold text-[#0A0D14]">$199 / mo</div>
           <p class="text-xs font-medium text-[#111827] leading-relaxed">Real-time 50-State DOT, USACE Civil &amp; Municipal letting alerts + official planholder tracking.</p>
         </div>
-        <button type="button" id="btn-checkout-tier1" onclick="openCamberCheckoutModal('tier1_monthly')" class="w-full text-center py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] font-bold text-xs font-mono transition">Activate Tier 1</button>
+        <div class="space-y-2">
+          <button type="button" id="btn-checkout-tier1" data-stripe-link="https://buy.stripe.com/00wbJ08qS0h5cxa2sc7wA0a" onclick="openCamberCheckoutModal('tier1_monthly')" class="w-full text-center py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] font-bold text-xs font-mono transition">Activate Tier 1</button>
+          <a id="stripe-link-tier1" href="https://buy.stripe.com/00wbJ08qS0h5cxa2sc7wA0a" target="_blank" rel="noopener" class="block w-full text-center py-1.5 rounded-lg bg-[#FAF8F5] hover:bg-[#EAE6DF] text-[#1E3A8A] border border-[#CBD5E1] font-mono text-[11px] font-bold transition">Direct Stripe Checkout &rarr;</a>
+        </div>
       </div>
 
       <div id="checkout-card-tier2" class="p-6 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-md flex flex-col justify-between space-y-4">
@@ -3847,7 +3905,10 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
           <div id="price-tier2" class="text-3xl font-extrabold text-[#0A0D14]">$499 / mo</div>
           <p class="text-xs font-medium text-[#111827] leading-relaxed">Full pre-shredded CSI Divisions 00–48 dossiers, 36-month DOT item bid tabulations, Davis-Bacon WH-347 rates, and API key for all 12 microservices.</p>
         </div>
-        <button type="button" id="btn-checkout-tier2" onclick="openCamberCheckoutModal('tier2_monthly')" class="w-full text-center py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Activate Tier 2 Autopilot</button>
+        <div class="space-y-2">
+          <button type="button" id="btn-checkout-tier2" data-stripe-link="https://buy.stripe.com/5kQ00i9uW5BpgNq6Is7wA0c" onclick="openCamberCheckoutModal('tier2_monthly')" class="w-full text-center py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Activate Tier 2 Autopilot</button>
+          <a id="stripe-link-tier2" href="https://buy.stripe.com/5kQ00i9uW5BpgNq6Is7wA0c" target="_blank" rel="noopener" class="block w-full text-center py-1.5 rounded-lg bg-[#EFF6FF] hover:bg-[#DBEAFE] text-[#1E3A8A] border border-[#93C5FD] font-mono text-[11px] font-bold transition">Direct Stripe Checkout &rarr;</a>
+        </div>
       </div>
 
       <div id="checkout-card-tier3" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm flex flex-col justify-between space-y-4">
@@ -3856,7 +3917,10 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
           <div id="price-tier3" class="text-3xl font-extrabold text-[#0A0D14]">$1,499 / mo</div>
           <p class="text-xs font-medium text-[#111827] leading-relaxed">Unlimited 1-Click 6-File OpenXML (.DOCX + .XLSX with live formulas) Bid-Tab, Prevailing-Wage &amp; AIA G702/G703 compilations.</p>
         </div>
-        <button type="button" id="btn-checkout-tier3" onclick="openCamberCheckoutModal('tier3_monthly')" class="w-full text-center py-2.5 rounded-lg bg-[#1E3A8A] hover:bg-[#0A0D14] text-white font-bold text-xs font-mono transition">Activate Tier 3 Compiler</button>
+        <div class="space-y-2">
+          <button type="button" id="btn-checkout-tier3" data-stripe-link="https://buy.stripe.com/cNidR8dLc2pdfJmgj27wA0e" onclick="openCamberCheckoutModal('tier3_monthly')" class="w-full text-center py-2.5 rounded-lg bg-[#1E3A8A] hover:bg-[#0A0D14] text-white font-bold text-xs font-mono transition">Activate Tier 3 Compiler</button>
+          <a id="stripe-link-tier3" href="https://buy.stripe.com/cNidR8dLc2pdfJmgj27wA0e" target="_blank" rel="noopener" class="block w-full text-center py-1.5 rounded-lg bg-[#FAF8F5] hover:bg-[#EAE6DF] text-[#1E3A8A] border border-[#CBD5E1] font-mono text-[11px] font-bold transition">Direct Stripe Checkout &rarr;</a>
+        </div>
       </div>
 
       <div id="checkout-card-tier4" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm flex flex-col justify-between space-y-4">
@@ -3865,7 +3929,10 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
           <div id="price-tier4" class="text-3xl font-extrabold text-[#0A0D14]">$2,499 / mo</div>
           <p class="text-xs font-medium text-[#111827] leading-relaxed">Multi-branch surety underwriting, HeavyBid/Procore ERP webhook pipes, custom SLA &amp; unlimited estimating seats.</p>
         </div>
-        <button type="button" id="btn-checkout-tier4" onclick="openCamberCheckoutModal('tier4_monthly')" class="w-full text-center py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] font-bold text-xs font-mono transition">Activate Tier 4 OEM</button>
+        <div class="space-y-2">
+          <button type="button" id="btn-checkout-tier4" data-stripe-link="https://buy.stripe.com/fZueVcePg5Bp2WA7Mw7wA0g" onclick="openCamberCheckoutModal('tier4_monthly')" class="w-full text-center py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] font-bold text-xs font-mono transition">Activate Tier 4 OEM</button>
+          <a id="stripe-link-tier4" href="https://buy.stripe.com/fZueVcePg5Bp2WA7Mw7wA0g" target="_blank" rel="noopener" class="block w-full text-center py-1.5 rounded-lg bg-[#FAF8F5] hover:bg-[#EAE6DF] text-[#1E3A8A] border border-[#CBD5E1] font-mono text-[11px] font-bold transition">Direct Stripe Checkout &rarr;</a>
+        </div>
       </div>
     </div>
 

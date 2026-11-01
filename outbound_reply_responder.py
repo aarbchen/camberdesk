@@ -29,9 +29,10 @@ SITE_BASE_URL = os.getenv("CAMBERDESK_SITE_URL", "https://camberdesk.com").rstri
 CSV_PATH = ROOT_DIR / "campaign_leads.csv"
 PROCESSED_PATH = ROOT_DIR / "processed_outbound_replies.json"
 
-TIER1_STRIPE_URL = "https://camberdesk.com/?plan=tier1&billing=monthly#checkout"
-TIER2_STRIPE_URL = "https://camberdesk.com/?plan=tier2&billing=monthly#checkout"
-TIER3_STRIPE_URL = "https://camberdesk.com/?plan=tier3&billing=monthly#checkout"
+TIER1_STRIPE_URL = "https://buy.stripe.com/00wbJ08qS0h5cxa2sc7wA0a"
+TIER2_STRIPE_URL = "https://buy.stripe.com/5kQ00i9uW5BpgNq6Is7wA0c"
+TIER3_STRIPE_URL = "https://buy.stripe.com/cNidR8dLc2pdfJmgj27wA0e"
+TIER4_STRIPE_URL = "https://buy.stripe.com/fZueVcePg5Bp2WA7Mw7wA0g"
 
 
 def lookup_prospect_context(from_email: str) -> Dict[str, str]:
