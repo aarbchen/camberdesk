@@ -104,8 +104,8 @@ def generate_pseo_pages() -> Dict[str, Any]:
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-3">
       <a href="../../index.html" class="inline-flex items-center gap-2 text-xl font-bold text-[#0A0D14]">
         {LOGO_SVG}
-        <span>CamberDesk</span>
-        <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">50-STATE DOT &amp; CIVIL</span>
+        <span class="whitespace-nowrap">CamberDesk</span>
+        <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] whitespace-nowrap">50-STATE DOT &amp; CIVIL</span>
       </a>
       <div class="flex flex-wrap items-center gap-3 sm:gap-5 text-sm font-bold">
         <a href="../index.html" class="text-[#0A0D14] hover:text-[#1E3A8A]">All Lettings</a>
@@ -233,8 +233,8 @@ def generate_pseo_pages() -> Dict[str, Any]:
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-3">
       <a href="../index.html" class="inline-flex items-center gap-2 text-xl font-bold text-[#0A0D14]">
         {LOGO_SVG}
-        <span>CamberDesk</span>
-        <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">52 PORTALS ACTIVE</span>
+        <span class="whitespace-nowrap">CamberDesk</span>
+        <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] whitespace-nowrap">52 PORTALS ACTIVE</span>
       </a>
       <nav class="flex flex-wrap items-center gap-4 text-sm font-bold">
         <a href="../index.html" class="text-[#0A0D14] hover:text-[#1E3A8A]">Overview</a>

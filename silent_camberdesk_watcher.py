@@ -70,7 +70,7 @@ def main() -> int:
         now_iso = datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %z")
         try:
             HEARTBEAT_PATH.write_text(
-                json.dumps({"pid": os.getpid(), "updated_at": now_iso, "cycle": cycle}, indent=2),
+                json.dumps({"pid": os.getpid(), "timestamp": time.time(), "updated_at": now_iso, "cycle": cycle}, indent=2),
                 encoding="utf-8",
             )
         except Exception:

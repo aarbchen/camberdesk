@@ -242,7 +242,8 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
                 s1 = str(payload_vars.get("step1_body_zero_link") or "")
                 s2 = str(payload_vars.get("step2_body_dossier_link") or "")
                 subj1 = str(payload_vars.get("step1_subject") or "")
-                has_dollar_or_link = ("$" in s1) or ("$" in s2) or ("$" in subj1) or ("http://" in s1) or ("https://" in s1) or ("http://" in s2) or ("https://" in s2)
+                comp_url = str(payload_vars.get("compiler_url") or "")
+                has_dollar_or_link = ("$" in s1) or ("$" in s2) or ("$" in subj1) or ("http://" in s1) or ("https://" in s1) or ("http://" in s2) or ("https://" in s2) or ("api.camberdesk.com" in comp_url)
                 is_st_overlap = (em_existing in st_excluded_emails) or (dom_existing in st_excluded_domains)
                 is_in_flight = (item.get("status") in (1, 2)) or (int(item.get("email_open_count") or 0) > 0)
                 if lid and (is_st_overlap or has_dollar_or_link or (not is_in_flight and (em_existing not in valid_email_map or not payload_vars.get("source_url")))):

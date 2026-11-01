@@ -635,16 +635,17 @@ def build_social_and_favicon_head(
 
 def _render_logo_lockup(subtitle: str, href: str = "#overview") -> str:
     """Renders Symbol #07 (Compass Quadrant Lock) + High-Contrast Editorial Theme 1 (Warm Vellum & Obsidian Ink) header lockup."""
-    return f"""<a href="{href}" onclick="if(window.switchSpaView && '{href}'.startsWith('#')) switchSpaView('overview')" class="group inline-flex flex-col">
+    return f"""<a href="{href}" onclick="if(window.switchSpaView && '{href}'.startsWith('#')) switchSpaView('overview')" class="group inline-flex flex-col min-w-0 pr-2">
       <div class="inline-flex items-center gap-[6px]">
-        <svg viewBox="0 0 64 64" class="w-[23px] h-[23px] shrink-0 -translate-y-[1px]" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 64 64" class="w-[21px] h-[21px] sm:w-[23px] sm:h-[23px] shrink-0 -translate-y-[1px]" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill="#0A0D14" d="M32 8A24 24 0 1 0 56 32H32V8Z"/>
           <rect x="37" y="11" width="16" height="16" rx="2" fill="#1E3A8A"/>
         </svg>
-        <span class="text-[23px] font-bold tracking-[-0.035em] text-[#0A0D14] leading-none whitespace-nowrap">CamberDesk</span>
-        <span class="ml-1.5 px-2 py-0.5 text-[11px] font-mono font-bold uppercase tracking-wider rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] leading-none">50-STATE DOT &amp; CIVIL</span>
+        <span class="text-[20px] sm:text-[23px] font-bold tracking-[-0.035em] text-[#0A0D14] leading-none whitespace-nowrap">CamberDesk</span>
+        <span class="hidden sm:inline-block ml-1.5 px-2 py-0.5 text-[11px] font-mono font-bold uppercase tracking-wider rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] leading-none whitespace-nowrap">50-STATE DOT &amp; CIVIL</span>
+        <span class="sm:hidden ml-1 px-1.5 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] leading-none whitespace-nowrap">50-STATE DOT</span>
       </div>
-      <span class="text-xs font-mono font-semibold text-[#1E3A8A] mt-1">{subtitle}</span>
+      <span class="text-[10px] sm:text-xs font-mono font-semibold text-[#1E3A8A] mt-1 leading-snug max-w-[235px] sm:max-w-none">{subtitle}</span>
     </a>"""
 
 
@@ -3507,7 +3508,7 @@ def build_site_files() -> None:
 
   <!-- Navigation Header -->
   <header class="sticky top-0 z-40 border-b border-[#CBD5E1] bg-white/95 backdrop-blur">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-between gap-4">
       {_render_logo_lockup("50-STATE DOT BID-TAB, PREVAILING-WAGE & CSI TAKEOFF ENGINE", "#overview")}
       <nav class="hidden md:flex items-center gap-5 text-sm font-bold">
         <a href="#overview" onclick="switchSpaView('overview')" class="text-[#0A0D14] hover:text-[#1E3A8A]">Overview</a>
@@ -3517,7 +3518,7 @@ def build_site_files() -> None:
         <a href="#account" onclick="openTrustModal('account', event)" class="px-3 py-1.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Client Portal</a>
         <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold transition">Self-Serve Pricing</a>
       </nav>
-      <button type="button" onclick="toggleMobileNav()" class="md:hidden px-3 py-1.5 rounded-lg bg-[#EAE6DF] border border-[#94A3B8] text-xs font-mono font-bold text-[#0A0D14]">MENU</button>
+      <button type="button" onclick="toggleMobileNav()" class="md:hidden shrink-0 ml-3 px-3.5 py-2 rounded-lg bg-[#EAE6DF] border border-[#94A3B8] text-xs font-mono font-bold text-[#0A0D14] shadow-sm">MENU</button>
     </div>
     <div id="mobile-nav-drawer" class="hidden md:hidden border-t border-[#CBD5E1] bg-white px-6 py-4 flex flex-col gap-3 text-sm font-bold">
       <a href="#overview" onclick="switchSpaView('overview')" class="text-[#0A0D14]">Overview</a>
@@ -3863,12 +3864,12 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
 
   <!-- VIEW 3: LETTINGS DIRECTORY (#page-lettings) -->
   <section id="page-lettings" class="hidden max-w-7xl mx-auto px-6 py-12 space-y-6">
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
       <div>
         <div class="text-xs font-mono font-bold text-[#1E3A8A]">52 PORTALS ACTIVE &bull; 50-STATE DOT &amp; USACE DIRECTORY</div>
         <h2 class="text-2xl font-extrabold text-[#0A0D14]">Interactive Preconstruction &amp; Bid-Tab Dossier Explorer</h2>
       </div>
-      <a href="lettings/index.html" class="px-4 py-2 rounded-lg bg-white text-[#0A0D14] text-xs font-mono font-bold border border-[#94A3B8] shadow-sm">Open Static HTML Index &rarr;</a>
+      <a href="lettings/index.html" class="self-start sm:self-auto shrink-0 whitespace-nowrap px-4 py-2 rounded-lg bg-white text-[#0A0D14] text-xs font-mono font-bold border border-[#94A3B8] shadow-sm">Open Static HTML Index &rarr;</a>
     </div>
     <div id="contracts-dynamic-root" class="min-h-[200px]"></div>
   </section>
@@ -4157,7 +4158,7 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
 </head>
 <body class="bg-[#FAF8F5] text-[#0A0D14] font-sans antialiased pb-14 md:pb-0">
   <header class="sticky top-0 z-40 border-b border-[#CBD5E1] bg-white/95 backdrop-blur">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-between gap-4">
       {_render_logo_lockup("12 STATELESS PRECONSTRUCTION REST & MCP MICROSERVICES", "index.html")}
       <nav class="hidden md:flex items-center gap-5 text-sm font-bold">
         <a href="index.html" class="text-[#0A0D14] hover:text-[#1E3A8A]">Overview</a>
@@ -4166,7 +4167,7 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
         <a href="#account" onclick="openTrustModal('account', event)" class="px-3 py-1.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Client Portal</a>
         <a href="index.html#checkout" class="px-4 py-2 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold transition">Self-Serve Pricing</a>
       </nav>
-      <button type="button" onclick="toggleMobileNav()" class="md:hidden px-3 py-1.5 rounded-lg bg-[#EAE6DF] border border-[#94A3B8] text-xs font-mono font-bold text-[#0A0D14]">MENU</button>
+      <button type="button" onclick="toggleMobileNav()" class="md:hidden shrink-0 ml-3 px-3.5 py-2 rounded-lg bg-[#EAE6DF] border border-[#94A3B8] text-xs font-mono font-bold text-[#0A0D14] shadow-sm">MENU</button>
     </div>
     <div id="mobile-nav-drawer" class="hidden md:hidden border-t border-[#CBD5E1] bg-white px-6 py-4 flex flex-col gap-3 text-sm font-bold">
       <a href="index.html" class="text-[#0A0D14]">Overview</a>

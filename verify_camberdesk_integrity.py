@@ -860,6 +860,21 @@ def check_mobile_viewport_overflow() -> List[str]:
                         errors.append(
                             f"[Viewport {vw}x{vh}] Horizontal overflow on `{label}`: scrollWidth={overflow['sw']} > innerWidth={overflow['iw']}"
                         )
+                    if vw == 375 and label in ("index.html#overview", "apis.html"):
+                        header_gap = page.evaluate(
+                            """() => {
+                                const btn = document.querySelector('header button[onclick*="toggleMobileNav"]');
+                                const lockup = document.querySelector('header a.group');
+                                if (!btn || !lockup) return 999;
+                                const bRect = btn.getBoundingClientRect();
+                                const lRect = lockup.getBoundingClientRect();
+                                return bRect.left - lRect.right;
+                            }"""
+                        )
+                        if header_gap < 12:
+                            errors.append(
+                                f"[Viewport {vw}x{vh}] Mobile header MENU button too close to logo lockup on `{label}`: gap={header_gap:.1f}px (expected >= 12px)"
+                            )
                 page.close()
             browser.close()
     except Exception as exc:
