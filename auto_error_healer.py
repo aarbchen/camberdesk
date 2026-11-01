@@ -107,18 +107,90 @@ def check_python_syntax() -> List[str]:
     return issues
 
 
+def discover_latest_anthropic_models() -> Dict[str, str]:
+    """
+    Query Anthropic's official `GET /v1/models` endpoint (cached for 12 hours in `.frontier_model_cache.json`)
+    to automatically discover the highest semantic version of `claude-sonnet-*`, `claude-haiku-*`, and `claude-opus-*`.
+    """
+    defaults = {
+        "sonnet": "claude-sonnet-5-5",
+        "haiku": "claude-haiku-5-5",
+        "opus": "claude-opus-5-5",
+    }
+    cache_path = CAMBERDESK_DIR / ".frontier_model_cache.json"
+    now_ts = datetime.now(timezone.utc).timestamp()
+    if cache_path.exists():
+        try:
+            cached = json.loads(cache_path.read_text(encoding="utf-8"))
+            if now_ts - float(cached.get("timestamp") or 0) < 43200 and cached.get("sonnet"):
+                return {
+                    "sonnet": str(cached.get("sonnet") or defaults["sonnet"]),
+                    "haiku": str(cached.get("haiku") or defaults["haiku"]),
+                    "opus": str(cached.get("opus") or defaults["opus"]),
+                }
+        except Exception:
+            pass
+
+    api_key = (os.getenv("ANTHROPIC_API_KEY") or "").strip()
+    if not api_key:
+        return defaults
+
+    try:
+        resp = requests.get(
+            "https://api.anthropic.com/v1/models",
+            headers={"x-api-key": api_key, "anthropic-version": "2023-06-01"},
+            timeout=8,
+        )
+        if resp.status_code == 200:
+            items = (resp.json() or {}).get("data") or []
+            best_versions: Dict[str, Tuple[Tuple[int, int], str]] = {
+                "sonnet": ((5, 5), defaults["sonnet"]),
+                "haiku": ((5, 5), defaults["haiku"]),
+                "opus": ((5, 5), defaults["opus"]),
+            }
+            ver_re = re.compile(r"^claude-(sonnet|haiku|opus)-(\d+)(?:-(\d+))?$")
+            for item in items:
+                mid = str((item or {}).get("id") or "").strip()
+                m = ver_re.match(mid)
+                if not m:
+                    continue
+                family = m.group(1)
+                major = int(m.group(2))
+                minor = int(m.group(3) or 0)
+                if (major, minor) > best_versions[family][0]:
+                    best_versions[family] = ((major, minor), mid)
+            discovered = {k: v[1] for k, v in best_versions.items()}
+            try:
+                cache_path.write_text(
+                    json.dumps({"timestamp": now_ts, **discovered}, indent=2),
+                    encoding="utf-8",
+                )
+            except Exception:
+                pass
+            return discovered
+    except Exception:
+        pass
+    return defaults
+
+
 def check_scraper_and_pipeline_contracts() -> Tuple[List[str], List[str]]:
     """
     Verify:
     1. All scrapers in SCRAPER_MODULES define `async def run_scraper(push_to_db=True)` and avoid `timedelta(` / `abs(hash(`.
     2. All monitored files import `error_telemetry` and never call `.upsert(`.
-    3. All LLM files use the latest frontier Anthropic model (`claude-sonnet-5-5`) and auto-heal retired model IDs.
+    3. Automatically discovers the latest frontier Anthropic Sonnet & Haiku models via `/v1/models` and auto-upgrades older model IDs.
     4. `send_discord_alert()` functions use silent `report_error()` instead of raw Discord posts.
     """
     issues: List[str] = []
     auto_fixed: List[str] = []
-    retired_model_pattern = re.compile(
-        r"claude-(?:3-[a-z0-9\-]+|sonnet-4[a-z0-9\-]*|haiku-4[a-z0-9\-]*|haiku-5[a-z0-9\-]*)"
+    frontier = discover_latest_anthropic_models()
+    latest_sonnet = frontier["sonnet"]
+    latest_haiku = frontier["haiku"]
+    sonnet_model_pattern = re.compile(
+        r"\bclaude-(?:3-(?:5-|7-)?sonnet[a-z0-9\-]*|sonnet-[0-9]+(?:-[0-9]+)*)"
+    )
+    haiku_model_pattern = re.compile(
+        r"\bclaude-(?:3-(?:5-)?haiku[a-z0-9\-]*|haiku-[0-9]+(?:-[0-9]+)*)"
     )
 
     for mod_name in SCRAPER_MODULES:
@@ -189,17 +261,19 @@ def check_scraper_and_pipeline_contracts() -> Tuple[List[str], List[str]]:
                     f"{fpath.name}: `send_discord_alert()` posts raw error alerts to Discord (violates RULE-001-SILENT-DETECTION-RESOLVED-ONLY)."
                 )
 
-        bad_models = set(retired_model_pattern.findall(src))
-        if bad_models:
-            healed_src = retired_model_pattern.sub("claude-sonnet-5-5", src)
+        bad_sonnets = {m for m in sonnet_model_pattern.findall(src) if m != latest_sonnet}
+        bad_haikus = {m for m in haiku_model_pattern.findall(src) if m != latest_haiku}
+        if bad_sonnets or bad_haikus:
+            healed_src = sonnet_model_pattern.sub(latest_sonnet, src)
+            healed_src = haiku_model_pattern.sub(latest_haiku, healed_src)
             try:
                 fpath.write_text(healed_src, encoding="utf-8")
-                msg = f"Auto-upgraded retired Anthropic model(s) {sorted(bad_models)} -> 'claude-sonnet-5-5' in {fpath.name}"
+                msg = f"Auto-upgraded Anthropic model(s) -> '{latest_sonnet}' / '{latest_haiku}' in {fpath.name}"
                 print(f"  [AUTO-HEALED] {msg}")
                 auto_fixed.append(msg)
             except Exception as exc:
                 issues.append(
-                    f"{fpath.name}: Uses outdated/lower-tier Anthropic model(s) {sorted(bad_models)} and auto-heal failed: {exc}"
+                    f"{fpath.name}: Uses outdated Anthropic model(s) and auto-heal failed: {exc}"
                 )
 
     return issues, auto_fixed

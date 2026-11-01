@@ -3440,7 +3440,7 @@ def build_site_files() -> None:
   </nav>
 
   <!-- FLOATING AI PRECONSTRUCTION CONCIERGE WIDGET (#ai-concierge-widget) -->
-  <div id="ai-concierge-widget" class="fixed bottom-14 md:bottom-5 right-4 z-40">
+  <div id="ai-concierge-widget" class="fixed bottom-14 md:bottom-5 right-4 z-40 flex flex-col items-end">
     <div id="concierge-drawer" class="hidden mb-2 w-80 sm:w-[410px] p-4 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl space-y-3">
       <div class="flex items-center justify-between border-b border-[#CBD5E1] pb-2">
         <div class="text-xs font-mono font-extrabold text-[#0A0D14]">CAMBERDESK AI CONCIERGE // 52 PORTALS</div>
@@ -3466,8 +3466,12 @@ def build_site_files() -> None:
         <button type="submit" class="px-3 py-1.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold">Send</button>
       </form>
     </div>
-    <button type="button" id="concierge-trigger-btn" onclick="toggleConciergeDrawer()" class="px-4 py-2.5 rounded-full bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold shadow-lg border border-white/20 transition">
-      AI Precon Concierge &bull; Ask Anything
+    <button type="button" id="concierge-trigger-btn" onclick="toggleConciergeDrawer()" aria-label="Open AI Preconstruction Concierge" title="AI Preconstruction Concierge" class="w-11 h-11 rounded-full flex items-center justify-center bg-[#0A0D14] hover:bg-[#1E3A8A] text-white shadow-lg border border-white/20 transition">
+      <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        <path d="M8 9h8"></path>
+        <path d="M8 13h5"></path>
+      </svg>
     </button>
   </div>
 """
