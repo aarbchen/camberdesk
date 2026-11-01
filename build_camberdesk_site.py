@@ -1000,7 +1000,7 @@ def build_site_files() -> None:
     )
 
     account_letting_options_html = "\n              ".join(
-        f'<option value="{item["project_id"]}|{item.get("state_code", "TX")}" data-state="{item.get("state_code", "TX")}">{item["project_id"]} — {item["title"][:68]} ({item.get("state_code", "TX")})</option>'
+        f'<option value="{item["project_id"]}|{item.get("state_code", "TX")}" data-state="{item.get("state_code", "TX")}">{item["project_id"]} ({item.get("state_code", "TX")}) — {item["title"].replace("[" + item["project_id"] + "] ", "")[:58]}</option>'
         for item in lettings
     )
 
@@ -3435,12 +3435,12 @@ def build_site_files() -> None:
     trust_modals_and_concierge_html = """
   <!-- IN-PAGE BID-TAB DOSSIER QUICK-VIEW MODAL (#inpage-dossier-modal) -->
   <div id="inpage-dossier-modal" onclick="if(event.target===this) closeInPageDossier()" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
-    <div id="inpage-dossier-content" class="max-w-3xl w-full max-h-[88vh] overflow-y-auto p-6 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl"></div>
+    <div id="inpage-dossier-content" class="max-w-4xl w-full max-h-[88vh] overflow-y-auto overflow-x-hidden p-6 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl"></div>
   </div>
 
   <!-- CAMBERDESK SELF-SERVE CHECKOUT & INSTANT API KEY PROVISIONING MODAL (#camberdesk-checkout-modal) -->
   <div id="camberdesk-checkout-modal" onclick="if(event.target===this) closeCamberCheckoutModal()" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
-    <div class="max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl space-y-5">
+    <div class="max-w-3xl w-full max-h-[90vh] overflow-y-auto overflow-x-hidden p-6 sm:p-8 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl space-y-5">
       <div class="flex items-start justify-between gap-4 border-b border-[#CBD5E1] pb-3">
         <div>
           <div class="text-xs font-mono font-bold text-[#1E3A8A]">// CAMBERDESK INC. SELF-SERVE ACTIVATION &amp; INSTANT KEY PROVISIONING</div>
@@ -3488,40 +3488,40 @@ def build_site_files() -> None:
 
   <!-- SELF-SERVE ACCOUNT & TRUST SUITE MODALS (#account, #status, #security, #contact, #terms, #privacy) -->
   <!-- 1. #account — Self-Serve Client Portal, API Key Manager, Alert Filters & Team Console -->
-  <div id="account" onclick="if(event.target===this) closeTrustModals()" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
-    <div class="max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl space-y-5">
+  <div id="account" onclick="if(event.target===this) closeTrustModals()" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-3 sm:p-6">
+    <div id="account-modal-card" class="max-w-5xl w-full max-h-[92vh] overflow-y-auto overflow-x-hidden p-5 sm:p-8 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl space-y-5">
       <div class="flex items-start justify-between gap-4 border-b border-[#CBD5E1] pb-3">
-        <div>
+        <div class="min-w-0">
           <div class="text-xs font-mono font-bold text-[#1E3A8A]">// SELF-SERVE CLIENT PORTAL, DOT ALERT FILTERS &amp; API KEY CONSOLE</div>
-          <h3 class="text-xl font-extrabold text-[#0A0D14] mt-0.5">Manage Your CamberDesk Subscription, API Keys, Team Seats &amp; Webhooks</h3>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-[#0A0D14] mt-0.5">Manage Your CamberDesk Subscription, API Keys, Team Seats &amp; Webhooks</h3>
         </div>
         <button type="button" onclick="closeTrustModals()" class="shrink-0 whitespace-nowrap px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
       </div>
       <form onsubmit="lookupSubscriberAccount(event)" class="space-y-3">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-          <div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="min-w-0">
             <label class="block text-xs font-mono font-bold text-[#0A0D14] mb-1">SUBSCRIBER WORK EMAIL OR API KEY (<code class="text-[#1E3A8A]">cd_live_...</code>)</label>
-            <input id="account-lookup-input" type="text" required placeholder="estimating@yourcontractor.com or cd_live_..." class="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-sm font-medium text-[#0A0D14] placeholder-[#1E293B]" />
+            <input id="account-lookup-input" type="text" required placeholder="estimating@yourcontractor.com or cd_live_..." class="w-full min-w-0 px-3.5 py-2.5 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-sm font-medium text-[#0A0D14] placeholder-[#1E293B]" />
           </div>
-          <div>
+          <div class="min-w-0">
             <label class="block text-xs font-mono font-bold text-[#0A0D14] mb-1">PORTAL PASSWORD OR API KEY (OPTIONAL FOR SUBSCRIBERS)</label>
-            <input id="account-password-input" type="password" placeholder="Password or cd_live_..." class="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-sm font-medium text-[#0A0D14] placeholder-[#1E293B]" />
+            <input id="account-password-input" type="password" placeholder="Password or cd_live_..." class="w-full min-w-0 px-3.5 py-2.5 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-sm font-medium text-[#0A0D14] placeholder-[#1E293B]" />
           </div>
         </div>
         <div class="flex flex-wrap items-center justify-between gap-2">
-          <div id="account-auth-status" class="text-xs font-mono font-bold text-[#1E3A8A]">Enter your work email, API key, or Founder/Admin credentials to unlock your Client Portal.</div>
-          <button type="submit" class="px-5 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold transition">Access Client Portal &rarr;</button>
+          <div id="account-auth-status" class="text-xs font-mono font-bold text-[#1E3A8A] min-w-0">Enter your work email, API key, or Founder/Admin credentials to unlock your Client Portal.</div>
+          <button type="submit" class="shrink-0 whitespace-nowrap px-5 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold transition">Access Client Portal &rarr;</button>
         </div>
       </form>
-      <div id="account-portal-result" class="hidden p-4 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-3 text-xs font-mono">
+      <div id="account-portal-result" class="hidden p-4 sm:p-5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-3.5 text-xs font-mono min-w-0 overflow-hidden">
         <!-- Founder & Admin Tier Preview Switcher (Visible Only When Authenticated as Founder/Admin) -->
-        <div id="account-admin-bar" class="hidden p-3.5 rounded-xl bg-[#EFF6FF] border-2 border-[#1E3A8A] space-y-2.5">
+        <div id="account-admin-bar" class="hidden p-3.5 rounded-xl bg-[#EFF6FF] border-2 border-[#1E3A8A] space-y-2.5 min-w-0">
           <div class="flex flex-wrap items-center justify-between gap-2">
-            <div>
+            <div class="min-w-0">
               <span class="px-2 py-0.5 rounded bg-[#1E3A8A] text-white font-bold text-[10px]">FOUNDER &amp; ADMIN CONSOLE</span>
               <span class="font-extrabold text-[#0A0D14] ml-1.5">CLIENT PORTAL TIER VIEW SWITCHER (ALL 4 TIERS UNLOCKED)</span>
             </div>
-            <button type="button" onclick="logoutClientAccount()" class="px-2.5 py-1 rounded bg-white hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] font-bold text-[11px] transition">Sign Out</button>
+            <button type="button" onclick="logoutClientAccount()" class="shrink-0 whitespace-nowrap px-2.5 py-1 rounded bg-white hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] font-bold text-[11px] transition">Sign Out</button>
           </div>
           <div class="flex flex-wrap gap-1.5">
             <button type="button" id="admin-tier-btn-tier_4" onclick="switchAdminPortalPreview('tier_4')" class="px-2.5 py-1 rounded bg-[#1E3A8A] text-white font-mono text-[11px] font-bold transition">Tier 4 OEM ($2,499/mo)</button>
@@ -3531,32 +3531,43 @@ def build_site_files() -> None:
           </div>
         </div>
 
-        <div class="flex flex-wrap items-center justify-between gap-2">
-          <div><span class="font-bold text-[#0A0D14]">SUBSCRIBER IDENTITY:</span> <span id="account-active-id" class="font-extrabold text-[#1E3A8A]">estimating@yourcontractor.com</span></div>
-          <span id="account-active-tier-badge" class="px-2.5 py-0.5 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">ACTIVE WORKSPACE READY</span>
-        </div>
-        <div class="text-[11px] font-bold text-[#0A0D14]">ENTITLEMENTS &amp; QUOTA: <span id="account-active-quota" class="text-[#1E3A8A]">50,000 API Calls/Mo + Unlimited 6-File .ZIP Compilations + 50-State Vault</span></div>
-        <div class="p-3 rounded-lg bg-white border border-[#CBD5E1] flex flex-wrap items-center justify-between gap-2">
-          <div><span class="font-bold text-[#0A0D14]">REST &amp; MCP API KEY:</span> <code id="account-api-key-val" class="text-[#1E3A8A] font-extrabold">cd_live_98a4f2c1b0e7d6a3</code></div>
-          <button type="button" id="btn-copy-account-key" onclick="copyAccountApiKey()" class="px-3 py-1 rounded bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold">Copy Key</button>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 min-w-0">
+          <div class="p-3.5 rounded-xl bg-white border border-[#CBD5E1] space-y-2 min-w-0">
+            <div class="flex flex-wrap items-center justify-between gap-2 min-w-0">
+              <div class="min-w-0"><span class="font-bold text-[#0A0D14]">SUBSCRIBER IDENTITY:</span> <span id="account-active-id" class="font-extrabold text-[#1E3A8A] break-all">estimating@yourcontractor.com</span></div>
+              <span id="account-active-tier-badge" class="inline-block px-2.5 py-0.5 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold text-[11px]">ACTIVE WORKSPACE READY</span>
+            </div>
+            <div class="text-[11px] font-bold text-[#0A0D14] leading-snug">ENTITLEMENTS &amp; QUOTA: <span id="account-active-quota" class="text-[#1E3A8A]">50,000 API Calls/Mo + Unlimited 6-File .ZIP Compilations + 50-State Vault</span></div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-white border border-[#CBD5E1] flex flex-col justify-between gap-2 min-w-0">
+            <div class="font-bold text-[#0A0D14]">PRODUCTION REST &amp; MCP API KEY</div>
+            <div class="flex items-center justify-between gap-2 min-w-0">
+              <code id="account-api-key-val" class="text-[#1E3A8A] font-extrabold truncate min-w-0">cd_live_98a4f2c1b0e7d6a3</code>
+              <button type="button" id="btn-copy-account-key" onclick="copyAccountApiKey()" class="shrink-0 whitespace-nowrap px-3 py-1.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold transition">Copy Key</button>
+            </div>
+          </div>
         </div>
 
         <!-- Direct On-Demand 6-File .ZIP & Dossier Selector Inside Client Portal -->
-        <div class="p-3 rounded-lg bg-white border border-[#CBD5E1] space-y-2">
+        <div class="p-3.5 rounded-xl bg-white border border-[#CBD5E1] space-y-2.5 min-w-0 overflow-hidden">
           <div class="font-bold text-[#0A0D14]">ON-DEMAND 6-FILE OPENXML (.DOCX + .XLSX) BID PACKAGE &amp; DOSSIER VAULT</div>
-          <div class="flex flex-col sm:flex-row gap-2">
-            <select id="account-zip-project-select" class="flex-1 px-2.5 py-1.5 rounded bg-[#FAF8F5] border border-[#94A3B8] text-[#0A0D14] font-bold">
-              __ACCOUNT_LETTING_OPTIONS__
-            </select>
-            <button type="button" onclick="downloadAccountSelectedZip()" class="px-3 py-1.5 rounded bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold">Download 6-File .ZIP</button>
-            <button type="button" onclick="inspectAccountSelectedDossier()" class="px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] font-bold">Inspect Bid-Tab Dossier</button>
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-2.5 items-center min-w-0">
+            <div class="lg:col-span-7 min-w-0">
+              <select id="account-zip-project-select" class="w-full min-w-0 max-w-full truncate px-3 py-2 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-[#0A0D14] font-bold text-xs">
+                __ACCOUNT_LETTING_OPTIONS__
+              </select>
+            </div>
+            <div class="lg:col-span-5 flex flex-col sm:flex-row gap-2 min-w-0">
+              <button type="button" onclick="downloadAccountSelectedZip()" class="flex-1 whitespace-nowrap px-3.5 py-2 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-center transition">Download 6-File .ZIP</button>
+              <button type="button" onclick="inspectAccountSelectedDossier()" class="flex-1 whitespace-nowrap px-3.5 py-2 rounded-lg bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] font-bold text-center transition">Inspect Bid-Tab Dossier</button>
+            </div>
           </div>
         </div>
 
         <!-- Ready-to-Paste Claude Desktop / Cursor MCP Config -->
-        <div class="p-3 rounded-lg bg-white border border-[#CBD5E1] space-y-1.5">
+        <div class="p-3.5 rounded-xl bg-white border border-[#CBD5E1] space-y-1.5 min-w-0 overflow-hidden">
           <div class="font-bold text-[#0A0D14]">CLAUDE DESKTOP / CURSOR / WINDSURF MCP CONFIG (PRE-FILLED WITH YOUR KEY)</div>
-          <pre id="account-mcp-config-pre" class="p-2.5 rounded bg-[#0A0D14] text-[#F8FAFC] text-[11px] overflow-x-auto">{
+          <pre id="account-mcp-config-pre" class="p-3 rounded-lg bg-[#0A0D14] text-[#F8FAFC] text-[11px] leading-relaxed overflow-x-auto max-w-full">{
   "mcpServers": {
     "camberdesk": {
       "command": "npx",
@@ -3569,15 +3580,15 @@ def build_site_files() -> None:
 }</pre>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
-          <a href="https://camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary" class="px-3.5 py-2 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white text-center font-bold">Download Latest 6-File .ZIP</a>
-          <button type="button" onclick="openCamberCheckoutModal('tier2_monthly')" class="px-3.5 py-2 rounded-lg bg-white hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] text-center font-bold">Manage / Upgrade CamberDesk Plan</button>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 min-w-0">
+          <a href="https://camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary" class="px-3.5 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white text-center font-bold transition">Download Latest 6-File .ZIP</a>
+          <button type="button" onclick="openCamberCheckoutModal('tier2_monthly')" class="px-3.5 py-2.5 rounded-lg bg-white hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] text-center font-bold transition">Manage / Upgrade CamberDesk Plan</button>
         </div>
       </div>
 
       <!-- 50-State DOT & USACE Letting Alert Filter Toggles + Team Seats + Webhooks -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-        <div class="p-4 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-2.5">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs min-w-0">
+        <div class="p-4 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-2.5 min-w-0">
           <div class="font-mono font-bold text-[#1E3A8A]">01 // 52-PORTAL DOT &amp; TRADE ALERT ROUTING</div>
           <div class="flex flex-wrap gap-2 font-mono text-[11px] font-bold text-[#0A0D14]">
             <label class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-white border border-[#CBD5E1]"><input type="checkbox" checked /> All 50 State DOTs</label>
@@ -3588,18 +3599,18 @@ def build_site_files() -> None:
           <button type="button" onclick="saveAccountAlertFilters()" class="px-3 py-1.5 rounded bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono font-bold">Save Alert Filters</button>
           <div id="account-filter-status" class="font-mono font-bold text-[#065F46]">52/52 Portals Enabled</div>
         </div>
-        <div class="p-4 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-2.5">
+        <div class="p-4 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-2.5 min-w-0">
           <div class="font-mono font-bold text-[#065F46]">02 // ESTIMATING TEAM CC SEATS &amp; WEBHOOKS</div>
-          <div class="flex gap-1.5">
-            <input id="account-seat-email" type="email" placeholder="senior.estimator@contractor.com" class="flex-1 px-2.5 py-1.5 rounded bg-white border border-[#94A3B8] font-medium text-[#0A0D14] placeholder-[#1E293B]" />
-            <button type="button" onclick="addAccountTeamSeat()" class="px-3 py-1.5 rounded bg-[#0A0D14] text-white font-mono font-bold">Add Seat</button>
+          <div class="flex gap-1.5 min-w-0">
+            <input id="account-seat-email" type="email" placeholder="senior.estimator@contractor.com" class="flex-1 min-w-0 px-2.5 py-1.5 rounded bg-white border border-[#94A3B8] font-medium text-[#0A0D14] placeholder-[#1E293B]" />
+            <button type="button" onclick="addAccountTeamSeat()" class="shrink-0 whitespace-nowrap px-3 py-1.5 rounded bg-[#0A0D14] text-white font-mono font-bold">Add Seat</button>
           </div>
-          <div id="account-seat-list" class="flex flex-wrap gap-1.5">
-            <span class="px-2 py-0.5 rounded bg-white border border-[#94A3B8] font-mono font-bold text-[#0A0D14]">chief.estimator@contractor.com (PRIMARY)</span>
+          <div id="account-seat-list" class="flex flex-wrap gap-1.5 min-w-0">
+            <span class="px-2 py-0.5 rounded bg-white border border-[#94A3B8] font-mono font-bold text-[#0A0D14] break-all">chief.estimator@contractor.com (PRIMARY)</span>
           </div>
-          <div class="flex gap-1.5 pt-1">
-            <input id="account-webhook-url" type="url" placeholder="https://hooks.slack.com/services/..." class="flex-1 px-2.5 py-1.5 rounded bg-white border border-[#94A3B8] font-medium text-[#0A0D14] placeholder-[#1E293B]" />
-            <button type="button" onclick="saveAccountWebhookUrl()" class="px-3 py-1.5 rounded bg-[#1E3A8A] text-white font-mono font-bold">Save Webhook</button>
+          <div class="flex gap-1.5 pt-1 min-w-0">
+            <input id="account-webhook-url" type="url" placeholder="https://hooks.slack.com/services/..." class="flex-1 min-w-0 px-2.5 py-1.5 rounded bg-white border border-[#94A3B8] font-medium text-[#0A0D14] placeholder-[#1E293B]" />
+            <button type="button" onclick="saveAccountWebhookUrl()" class="shrink-0 whitespace-nowrap px-3 py-1.5 rounded bg-[#1E3A8A] text-white font-mono font-bold">Save Webhook</button>
           </div>
           <div id="account-webhook-status" class="font-mono font-bold text-[#1E3A8A]">Slack / Teams / Procore Webhook Ready</div>
         </div>
@@ -3738,9 +3749,9 @@ def build_site_files() -> None:
               <input id="contact-modal-email" type="email" placeholder="estimating@yourcontractor.com (optional)" class="w-full px-3 py-2 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#1E293B]" />
             </div>
           </div>
-          <form onsubmit="sendContactModalConcierge(event)" class="flex gap-2">
-            <input id="contact-modal-input" type="text" required placeholder="Ask anything about CamberDesk plans, 50-State DOT bid tabs, 6-File .ZIPs, or APIs..." class="flex-1 px-3.5 py-2.5 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#1E293B]" />
-            <button type="submit" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold shrink-0">Get Instant Answer &rarr;</button>
+          <form onsubmit="sendContactModalConcierge(event)" class="flex gap-2 min-w-0">
+            <input id="contact-modal-input" type="text" required placeholder="Ask anything about CamberDesk plans, 50-State DOT bid tabs, 6-File .ZIPs, or APIs..." class="flex-1 min-w-0 px-3.5 py-2.5 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#1E293B]" />
+            <button type="submit" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold shrink-0 whitespace-nowrap">Get Instant Answer &rarr;</button>
           </form>
           <div id="contact-modal-log" class="p-4 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-2.5 max-h-72 overflow-y-auto text-xs">
             <div class="p-3 rounded-lg bg-white border border-[#CBD5E1] font-medium text-[#0A0D14] leading-relaxed">

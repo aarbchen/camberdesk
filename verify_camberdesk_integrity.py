@@ -821,7 +821,7 @@ try {
   }
   sandbox.openTrustModal('account');
   sandbox.switchAdminPortalPreview('tier_4');
-  if (!elements['account-active-tier-badge'].textContent.includes('TIER 4') || elements['account-admin-bar']._classes.has('hidden')) {
+  if (!elements['account-active-tier-badge'].textContent.includes('TIER 4') || elements['account-admin-bar'].classList._set.has('hidden')) {
     throw new Error('switchAdminPortalPreview(tier_4) failed to unlock #account-admin-bar or set TIER 4 badge');
   }
   sandbox.switchAdminPortalPreview('tier_3');
@@ -837,7 +837,7 @@ try {
     throw new Error('switchAdminPortalPreview(tier_1) failed to update tier badge');
   }
   sandbox.logoutClientAccount();
-  if (!elements['account-admin-bar']._classes.has('hidden')) {
+  if (!elements['account-admin-bar'].classList._set.has('hidden')) {
     throw new Error('logoutClientAccount() failed to hide #account-admin-bar');
   }
   sandbox.closeTrustModals();
@@ -975,6 +975,29 @@ def check_mobile_viewport_overflow() -> List[str]:
                             )
                     if vw == 375 and label == "index.html#overview":
                         page.evaluate("if (window.switchZipInspectorTab) window.switchZipInspectorTab(5);")
+                        portal_collisions = page.evaluate(
+                            """() => {
+                                const bad = [];
+                                document.querySelectorAll('#coverage .grid > div').forEach((card, idx) => {
+                                    const codeEl = card.querySelector('.whitespace-nowrap');
+                                    const badgeEl = card.querySelector('span');
+                                    if (!codeEl || !badgeEl) {
+                                        bad.push('Card #' + idx + ' missing vertical header structure');
+                                        return;
+                                    }
+                                    const cRect = codeEl.getBoundingClientRect();
+                                    const bRect = badgeEl.getBoundingClientRect();
+                                    if (bRect.left - cRect.right < 4) {
+                                        bad.push(codeEl.innerText + ' collides with LIVE badge (gap=' + (bRect.left - cRect.right).toFixed(1) + 'px)');
+                                    }
+                                });
+                                return bad;
+                            }"""
+                        )
+                        if portal_collisions:
+                            errors.append(
+                                f"[Viewport {vw}x{vh}] `#coverage` portal card collision on `{label}`: {portal_collisions[:5]}"
+                            )
                     if vw == 375:
                         box_overflows = page.evaluate(
                             """() => {
@@ -993,6 +1016,52 @@ def check_mobile_viewport_overflow() -> List[str]:
                         if box_overflows:
                             errors.append(
                                 f"[Viewport {vw}x{vh}] Element text overflow on `{label}`: {box_overflows[:5]}"
+                            )
+                    if label == "index.html#overview" and vw in (375, 1280):
+                        acct_audit = page.evaluate(
+                            """async (vw) => {
+                                const bad = [];
+                                if (window.openTrustModal) window.openTrustModal('account');
+                                const inp = document.getElementById('account-lookup-input');
+                                const pw = document.getElementById('account-password-input');
+                                if (inp) inp.value = 'admin@camberdesk.com';
+                                if (pw) pw.value = 'CamberAdmin!6D812228';
+                                if (window.lookupSubscriberAccount) await window.lookupSubscriberAccount(null);
+                                const card = document.getElementById('account-modal-card');
+                                const resBox = document.getElementById('account-portal-result');
+                                const sel = document.getElementById('account-zip-project-select');
+                                const dlBtn = document.querySelector('button[onclick*="downloadAccountSelectedZip"]');
+                                const dsBtn = document.querySelector('button[onclick*="inspectAccountSelectedDossier"]');
+                                if (!card || !resBox) {
+                                    bad.push('Missing #account-modal-card or #account-portal-result');
+                                    return bad;
+                                }
+                                const cardRect = card.getBoundingClientRect();
+                                const resRect = resBox.getBoundingClientRect();
+                                if (vw >= 1280 && cardRect.width < 900) {
+                                    bad.push('Desktop #account-modal-card too narrow: width=' + cardRect.width.toFixed(1) + 'px (expected >= 900px / max-w-5xl)');
+                                }
+                                if (card.scrollWidth > card.clientWidth + 2) {
+                                    bad.push('#account-modal-card horizontal overflow: sw=' + card.scrollWidth + ' > cw=' + card.clientWidth);
+                                }
+                                if (resBox.scrollWidth > resBox.clientWidth + 2) {
+                                    bad.push('#account-portal-result horizontal overflow: sw=' + resBox.scrollWidth + ' > cw=' + resBox.clientWidth);
+                                }
+                                [sel, dlBtn, dsBtn].forEach(el => {
+                                    if (!el) return;
+                                    const r = el.getBoundingClientRect();
+                                    if (r.right > resRect.right + 2 || r.left < resRect.left - 2) {
+                                        bad.push((el.id || el.innerText) + ' overflows #account-portal-result (el.right=' + r.right.toFixed(1) + ' > box.right=' + resRect.right.toFixed(1) + ')');
+                                    }
+                                });
+                                if (window.closeTrustModals) window.closeTrustModals();
+                                return bad;
+                            }""",
+                            vw,
+                        )
+                        if acct_audit:
+                            errors.append(
+                                f"[Viewport {vw}x{vh}] `#account` Client Portal layout/overflow error: {acct_audit}"
                             )
                 page.close()
             browser.close()
