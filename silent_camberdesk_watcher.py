@@ -93,9 +93,11 @@ def main() -> int:
             except Exception:
                 pass
 
-        # 4. Every 8 cycles (~2 hours), run 3-Pillar Omniscient Auditor (gated to Nighttime & User-Away)
-        if cycle % 8 == 0:
+        # 4. Run 3-Pillar Omniscient Auditor at most ONCE per calendar night (gated to Nighttime & User-Away)
+        today_night_key = datetime.now().astimezone().strftime("%Y-%m-%d")
+        if cycle % 8 == 0 and globals().get("_LAST_OMNISCIENT_AUDIT_DATE") != today_night_key:
             try:
+                globals()["_LAST_OMNISCIENT_AUDIT_DATE"] = today_night_key
                 omniscient_auditor.run_omniscient_audit(mode="full", force_now=False, auto_deploy=True)
             except Exception:
                 pass
