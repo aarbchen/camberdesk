@@ -1,12 +1,18 @@
 {
-  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json",
-  "name": "io.github.camberdesk/camberdesk-mcp",
-  "description": "Construction Preconstruction, 50-State DOT Historical Item Bid Tabulation, Davis-Bacon Prevailing Wage & CSI MasterFormat Spec Shredder MCP Server.",
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.aarbchen/camberdesk-mcp",
+  "title": "CamberDesk 50-State DOT Civil & Preconstruction MCP Server",
+  "description": "50-State DOT bid tabulations, Davis-Bacon WH-347 wages, CSI shredder & BABA/DBE MCP server.",
+  "websiteUrl": "https://camberdesk.com/apis.html",
+  "repository": {
+    "url": "https://github.com/camberdesk/camberdesk-platform",
+    "source": "github"
+  },
   "version": "1.0.0",
   "remotes": [
     {
       "type": "streamable-http",
-      "url": "https://api.camberdesk.com/mcp"
+      "url": "https://camberdesk.com/mcp"
     }
   ]
 }
