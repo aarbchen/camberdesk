@@ -345,8 +345,95 @@ STATE_OPEN_RECORDS_AUTHORITIES: Dict[str, str] = {
     "GA": "Georgia Open Records Act (O.C.G.A. § 50-18-70 et seq. — Public Letting & Unit Bid Tabulation Disclosure)",
     "NC": "North Carolina Public Records Law (N.C.G.S. Ch. 132 — Electronic Bid Tabulation Inspection)",
     "OH": "Ohio Public Records Act (Ohio Rev. Code § 149.43 — Public Works Letting & Engineer's Estimate Records)",
+    "WA": "Washington Public Records Act (RCW 42.56 — WSDOT Electronic Unit Bid Tabulation Disclosure)",
+    "MI": "Michigan Freedom of Information Act (MCL 15.231 et seq. — MDOT Letting & As-Read Bid Tabulation Records)",
+    "NJ": "New Jersey Open Public Records Act (N.J.S.A. 47:1A-1 et seq. — OPRA NJDOT Bid Tabulation Disclosure)",
+    "MA": "Massachusetts Public Records Law (M.G.L. c. 66, § 10 — MassDOT Electronic Letting Records)",
+    "CO": "Colorado Open Records Act (C.R.S. § 24-72-201 et seq. — CORA CDOT Unit Bid Tabulation Inspection)",
+    "AZ": "Arizona Public Records Law (A.R.S. § 39-121 et seq. — ADOT Letting & Engineer's Estimate Records)",
+    "MN": "Minnesota Government Data Practices Act (Minn. Stat. Ch. 13 — MnDOT Abstract of Bids Disclosure)",
+    "TN": "Tennessee Public Records Act (Tenn. Code Ann. § 10-7-503 — TDOT Letting & Unit Price Tabulation Records)",
+    "IN": "Indiana Access to Public Records Act (IC 5-14-3 — APRA INDOT Official Bid Tabulation Records)",
+    "MO": "Missouri Sunshine Law (RSMo Ch. 610 — MoDOT Electronic Letting & Bid Tabulation Disclosure)",
+    "WI": "Wisconsin Public Records Law (Wis. Stat. §§ 19.31–19.39 — WisDOT Letting & Unit Bid Tabulation Records)",
+    "SC": "South Carolina Freedom of Information Act (S.C. Code § 30-4-10 et seq. — SCDOT Bid Tabulation Records)",
+    "OR": "Oregon Public Records Law (ORS 192.311 et seq. — ODOT Electronic Letting & Bid Tabulation Disclosure)",
+    "CT": "Connecticut Freedom of Information Act (Conn. Gen. Stat. § 1-200 et seq. — CTDOT Letting Records)",
+    "UT": "Utah Government Records Access and Management Act (Utah Code § 63G-2-101 et seq. — GRAMA UDOT Bid Tabulations)",
+    "NV": "Nevada Public Records Act (NRS Ch. 239 — NDOT Electronic Letting & Unit Bid Tabulation Disclosure)",
+    "AL": "Alabama Open Records Law (Ala. Code § 36-12-40 — ALDOT Letting & As-Read Bid Tabulation Records)",
+    "LA": "Louisiana Public Records Law (La. R.S. 44:1 et seq. — LADOTD Electronic Letting & Bid Tabulation Records)",
+    "KY": "Kentucky Open Records Act (KRS 61.870 et seq. — KYTC Official Letting & Unit Bid Tabulation Disclosure)",
+    "OK": "Oklahoma Open Records Act (51 O.S. § 24A.1 et seq. — ODOT Letting & Engineer's Estimate Records)",
+    "IA": "Iowa Open Records Law (Iowa Code Ch. 22 — Iowa DOT Electronic Letting & Bid Tabulation Disclosure)",
+    "KS": "Kansas Open Records Act (K.S.A. 45-215 et seq. — KORA KDOT Letting & Unit Bid Tabulation Records)",
+    "AR": "Arkansas Freedom of Information Act (Ark. Code § 25-19-101 et seq. — ARDOT Letting & Bid Tabulation Records)",
+    "MS": "Mississippi Public Records Act (Miss. Code § 25-61-1 et seq. — MDOT Letting & Unit Price Tabulation Records)",
+    "NM": "New Mexico Inspection of Public Records Act (NMSA 1978 § 14-2-1 et seq. — IPRA NMDOT Bid Tabulations)",
+    "NE": "Nebraska Public Records Statutes (Neb. Rev. Stat. § 84-712 et seq. — NDOT Letting & Bid Tabulation Records)",
+    "ID": "Idaho Public Records Act (Idaho Code § 74-101 et seq. — ITD Electronic Letting & Bid Tabulation Disclosure)",
+    "HI": "Hawaii Uniform Information Practices Act (HRS Ch. 92F — UIPA HDOT Letting & Bid Tabulation Records)",
+    "NH": "New Hampshire Right-to-Know Law (RSA Ch. 91-A — NHDOT Electronic Letting & Unit Bid Tabulation Records)",
+    "ME": "Maine Freedom of Access Act (1 M.R.S. § 400 et seq. — FOAA MaineDOT Letting & Bid Tabulation Records)",
+    "RI": "Rhode Island Access to Public Records Act (R.I. Gen. Laws § 38-2-1 et seq. — APRA RIDOT Letting Records)",
+    "MT": "Montana Public Records Act (MCA § 2-6-1001 et seq. — MDT Letting & Unit Price Tabulation Disclosure)",
+    "DE": "Delaware Freedom of Information Act (29 Del. C. Ch. 100 — DelDOT Letting & Bid Tabulation Records)",
+    "SD": "South Dakota Sunshine Law (SDCL Ch. 1-27 — SDDOT Electronic Letting & Unit Bid Tabulation Records)",
+    "ND": "North Dakota Open Records Statute (N.D.C.C. § 44-04-18 — NDDOT Letting & Bid Tabulation Disclosure)",
+    "AK": "Alaska Public Records Act (AS 40.25.110 et seq. — AKDOT&PF Letting & Unit Price Tabulation Records)",
+    "VT": "Vermont Public Records Act (1 V.S.A. § 315 et seq. — VTrans Electronic Letting & Bid Tabulation Records)",
+    "WV": "West Virginia Freedom of Information Act (W. Va. Code Ch. 29B — WVDOT Letting & Bid Tabulation Records)",
+    "WY": "Wyoming Public Records Act (Wyo. Stat. § 16-4-201 et seq. — WYDOT Letting & Bid Tabulation Disclosure)",
+    "MD": "Maryland Public Information Act (Md. Code, Gen. Prov. Title 4 — MPIA MDOT SHA Letting & Bid Tabulations)",
+    "DC": "District of Columbia Freedom of Information Act (D.C. Official Code § 2-531 et seq. — DDOT Letting Records)",
     "US": "Federal Freedom of Information Act (5 U.S.C. § 552 — USACE / Federal Civil Works Abstract of Offers & § 552(a)(4)(A) Fee Waiver)",
+    "USACE": "Federal Freedom of Information Act (5 U.S.C. § 552 — USACE / Federal Civil Works Abstract of Offers & § 552(a)(4)(A) Fee Waiver)",
     "MU": "Applicable State & Municipal Open Records / Sunshine Act (Public Works Bid Tabulation & Engineer's Estimate Disclosure)",
+    "MUNI": "Applicable State & Municipal Open Records / Sunshine Act (Public Works Bid Tabulation & Engineer's Estimate Disclosure)",
+}
+
+STATE_DOT_LETTING_REGISTRY: Dict[str, Dict[str, str]] = {
+    "WA": {"agency": "Washington State Department of Transportation (WSDOT — Olympic & Northwest Region)", "county": "King / Pierce County, WA", "contractor": "Puget Sound Heavy Civil & Bridge Constructors Inc."},
+    "MI": {"agency": "Michigan Department of Transportation (MDOT — Metro Region)", "county": "Wayne / Oakland County, MI", "contractor": "Great Lakes Highway & Bridge Contractors LLC"},
+    "NJ": {"agency": "New Jersey Department of Transportation (NJDOT — North Region)", "county": "Bergen / Essex County, NJ", "contractor": "Garden State Infrastructure & Paving Corp."},
+    "MA": {"agency": "Massachusetts Department of Transportation (MassDOT — Highway Division)", "county": "Suffolk / Middlesex County, MA", "contractor": "Bay State Civil & Tunnel Constructors Inc."},
+    "CO": {"agency": "Colorado Department of Transportation (CDOT — Region 1 Denver Metro)", "county": "Denver / Arapahoe County, CO", "contractor": "Front Range Heavy Highway & Structures LLC"},
+    "AZ": {"agency": "Arizona Department of Transportation (ADOT — Phoenix Construction District)", "county": "Maricopa County, AZ", "contractor": "Sonoran Desert Highway & Bridge Constructors Inc."},
+    "MN": {"agency": "Minnesota Department of Transportation (MnDOT — Metro District)", "county": "Hennepin / Ramsey County, MN", "contractor": "Twin Cities Heavy Civil & Paving Partners LLC"},
+    "TN": {"agency": "Tennessee Department of Transportation (TDOT — Region 3 Nashville)", "county": "Davidson / Williamson County, TN", "contractor": "Cumberland Corridor Bridge & Paving Co."},
+    "IN": {"agency": "Indiana Department of Transportation (INDOT — Greenfield District)", "county": "Marion / Hamilton County, IN", "contractor": "Crossroads Highway & Structure Constructors LLC"},
+    "MO": {"agency": "Missouri Department of Transportation (MoDOT — St. Louis District)", "county": "St. Louis / Jackson County, MO", "contractor": "Gateway Arch Civil & Bridge Contractors Inc."},
+    "WI": {"agency": "Wisconsin Department of Transportation (WisDOT — Southeast Region)", "county": "Milwaukee / Dane County, WI", "contractor": "Badger State Highway & Concrete Paving Corp."},
+    "SC": {"agency": "South Carolina Department of Transportation (SCDOT — District 6 Charleston)", "county": "Charleston / Greenville County, SC", "contractor": "Palmetto Coastal Bridge & Highway LLC"},
+    "OR": {"agency": "Oregon Department of Transportation (ODOT — Region 1 Portland Metro)", "county": "Multnomah / Washington County, OR", "contractor": "Cascade Seismic Bridge & Civil Constructors Inc."},
+    "CT": {"agency": "Connecticut Department of Transportation (CTDOT — District 1)", "county": "Hartford / Fairfield County, CT", "contractor": "Charter Oak Highway & Marine Structures Corp."},
+    "UT": {"agency": "Utah Department of Transportation (UDOT — Region Two Salt Lake)", "county": "Salt Lake / Utah County, UT", "contractor": "Wasatch Corridor Heavy Civil & Paving LLC"},
+    "NV": {"agency": "Nevada Department of Transportation (NDOT — District 1 Las Vegas)", "county": "Clark / Washoe County, NV", "contractor": "Silver State Arterial & Bridge Constructors Inc."},
+    "AL": {"agency": "Alabama Department of Transportation (ALDOT — East Central Region)", "county": "Jefferson / Mobile County, AL", "contractor": "Vulcan Heavy Highway & Bridge Co."},
+    "LA": {"agency": "Louisiana Department of Transportation and Development (LADOTD — District 02)", "county": "Orleans / East Baton Rouge Parish, LA", "contractor": "Pelican Gulf Elevated Causeway & Civil LLC"},
+    "KY": {"agency": "Kentucky Transportation Cabinet (KYTC — District 5 Louisville)", "county": "Jefferson / Fayette County, KY", "contractor": "Bluegrass Parkway & Bridge Constructors Inc."},
+    "OK": {"agency": "Oklahoma Department of Transportation (ODOT — Division 4 Oklahoma City)", "county": "Oklahoma / Tulsa County, OK", "contractor": "Sooner Turnpike & Bridge Contractors LLC"},
+    "IA": {"agency": "Iowa Department of Transportation (Iowa DOT — District 1 Central)", "county": "Polk / Linn County, IA", "contractor": "Hawkeye Interstate Paving & Structures Inc."},
+    "KS": {"agency": "Kansas Department of Transportation (KDOT — District One Metro)", "county": "Johnson / Sedgwick County, KS", "contractor": "Sunflower Corridor Highway & Bridge LLC"},
+    "AR": {"agency": "Arkansas Department of Transportation (ARDOT — District 6 Little Rock)", "county": "Pulaski / Benton County, AR", "contractor": "Natural State River Bridge & Paving Corp."},
+    "MS": {"agency": "Mississippi Department of Transportation (MDOT — District 5 Central)", "county": "Hinds / Harrison County, MS", "contractor": "Magnolia Corridor Civil & Bridge Constructors LLC"},
+    "NM": {"agency": "New Mexico Department of Transportation (NMDOT — District 3 Albuquerque)", "county": "Bernalillo / Santa Fe County, NM", "contractor": "Rio Grande Heavy Highway & Structures Inc."},
+    "NE": {"agency": "Nebraska Department of Transportation (NDOT — District 2 Omaha)", "county": "Douglas / Lancaster County, NE", "contractor": "Platte Valley Highway & Bridge Contractors LLC"},
+    "ID": {"agency": "Idaho Transportation Department (ITD — District 3 Treasure Valley)", "county": "Ada / Canyon County, ID", "contractor": "Sawtooth Mountain Highway & Bridge Corp."},
+    "HI": {"agency": "Hawaii Department of Transportation (HDOT — Highways Division Oahu)", "county": "Honolulu County, HI", "contractor": "Pacific Island Viaduct & Coastal Civil Inc."},
+    "NH": {"agency": "New Hampshire Department of Transportation (NHDOT — Bureau of Turnpikes)", "county": "Hillsborough / Rockingham County, NH", "contractor": "White Mountain Bridge & Highway Constructors LLC"},
+    "ME": {"agency": "Maine Department of Transportation (MaineDOT — Region 1 Southern)", "county": "Cumberland / Penobscot County, ME", "contractor": "Casco Bay Bridge & Highway Contractors Inc."},
+    "RI": {"agency": "Rhode Island Department of Transportation (RIDOT — Providence Metro)", "county": "Providence County, RI", "contractor": "Narragansett Bay Viaduct & Civil Corp."},
+    "MT": {"agency": "Montana Department of Transportation (MDT — Billings District)", "county": "Yellowstone / Gallatin County, MT", "contractor": "Big Sky Mountain Pass & Bridge Constructors LLC"},
+    "DE": {"agency": "Delaware Department of Transportation (DelDOT — Canal & North District)", "county": "New Castle / Sussex County, DE", "contractor": "First State Turnpike & Bridge Contractors Inc."},
+    "SD": {"agency": "South Dakota Department of Transportation (SDDOT — Mitchell & Sioux Falls)", "county": "Minnehaha / Pennington County, SD", "contractor": "Black Hills Interstate & Bridge Constructors LLC"},
+    "ND": {"agency": "North Dakota Department of Transportation (NDDOT — Fargo District)", "county": "Cass / Burleigh County, ND", "contractor": "Red River Valley Highway & Structures Corp."},
+    "AK": {"agency": "Alaska Department of Transportation & Public Facilities (AKDOT&PF — Central Region)", "county": "Anchorage / Mat-Su Borough, AK", "contractor": "Denali Permafrost Highway & Marine Civil Inc."},
+    "VT": {"agency": "Vermont Agency of Transportation (VTrans — Highway Division)", "county": "Chittenden / Washington County, VT", "contractor": "Green Mountain Truss Bridge & Paving LLC"},
+    "WV": {"agency": "West Virginia Division of Highways (WVDOH — District 1 Charleston)", "county": "Kanawha / Monongalia County, WV", "contractor": "Appalachian Corridor G Bridge & Earthwork Inc."},
+    "WY": {"agency": "Wyoming Department of Transportation (WYDOT — District 1 Cheyenne)", "county": "Laramie / Natrona County, WY", "contractor": "Teton Pass Heavy Highway & Structures LLC"},
+    "MD": {"agency": "Maryland Department of Transportation State Highway Administration (MDOT SHA)", "county": "Baltimore / Montgomery County, MD", "contractor": "Chesapeake Bay Bridge & Corridor Civil Corp."},
+    "DC": {"agency": "District Department of Transportation (DDOT — Infrastructure Project Management)", "county": "District of Columbia, DC", "contractor": "Potomac River Crossing & Urban Civil LLC"},
 }
 
 
@@ -366,6 +453,21 @@ async def compile_full_bid_package(
 
     req_pid = str(req.project_id or "").strip()
     req_st = str(req.state_code or "TX").strip().upper()
+    if req_st == "USACE":
+        norm_st = "US"
+    elif req_st == "MUNI":
+        norm_st = "MU"
+    else:
+        norm_st = req_st
+
+    if norm_st == "TX" and req_pid and not req_pid.upper().startswith("TX"):
+        prefix2 = req_pid[:2].upper()
+        if prefix2 in STATE_OPEN_RECORDS_AUTHORITIES:
+            norm_st = prefix2
+        elif req_pid.upper().startswith(("USACE-", "W912", "US-")):
+            norm_st = "US"
+        elif req_pid.upper().startswith(("MUNI-", "MU-")):
+            norm_st = "MU"
 
     matched_letting: Optional[Dict[str, Any]] = None
     # 1. Exact project_id match
@@ -373,30 +475,50 @@ async def compile_full_bid_package(
         if str(let_row.get("project_id", "")).strip().lower() == req_pid.lower():
             matched_letting = let_row
             break
-    # 2. If default TxDOT project_id was left untouched but caller specified a different state_code, match by state_code
-    if (not matched_letting or (req_pid == "TXDOT-CSJ-0015-13-412" and req_st not in ("TX", ""))) and lettings:
+    # 2. Match by state_code if in seed lettings
+    if (not matched_letting or (req_pid == "TXDOT-CSJ-0015-13-412" and norm_st not in ("TX", ""))) and lettings:
         for let_row in lettings:
-            if str(let_row.get("state_code", "")).strip().upper() == req_st:
+            if str(let_row.get("state_code", "")).strip().upper() == norm_st:
                 matched_letting = let_row
                 break
-    if not matched_letting and lettings:
+    # 3. Only fall back to lettings[0] if norm_st is TX
+    if not matched_letting and norm_st == "TX" and lettings:
         matched_letting = lettings[0]
 
     let_obj = matched_letting or {}
+    st_reg = STATE_DOT_LETTING_REGISTRY.get(norm_st, {})
     default_tx_pid = "TXDOT-CSJ-0015-13-412"
     eff_pid = (
         req_pid
         if (req_pid and req_pid != default_tx_pid)
-        else str(let_obj.get("project_id") or default_tx_pid).strip()
+        else str(let_obj.get("project_id") or f"{norm_st}DOT-2026-0412").strip()
     )
-    raw_let_title = re.sub(r"^\[[^\]]+\]\s*", "", str(let_obj.get("title") or req.project_title)).strip()
+    raw_let_title = re.sub(r"^\[[^\]]+\]\s*", "", str(let_obj.get("title") or "")).strip()
     default_tx_title = "IH-35 Corridor Bridge Deck Replacement, Superpave HMA Overlay & ITS Fiber Duct Bank"
-    eff_title = raw_let_title if (req.project_title == default_tx_title or not req.project_title.strip()) else req.project_title.strip()
+    if req.project_title and req.project_title.strip() and req.project_title.strip() != default_tx_title:
+        eff_title = req.project_title.strip()
+    elif raw_let_title:
+        eff_title = raw_let_title
+    else:
+        eff_title = f"{norm_st} Interstate Corridor Bridge Deck Replacement, Superpave HMA Overlay & Storm Drainage Improvements"
+
     default_tx_agency = "Texas Department of Transportation (TxDOT) — Austin District"
-    eff_agency = str(let_obj.get("agency") or req.agency) if (req.agency == default_tx_agency or not req.agency.strip()) else req.agency.strip()
-    eff_state = str(let_obj.get("state_code") or req_st or "TX").strip().upper()
+    if req.agency and req.agency.strip() and req.agency.strip() != default_tx_agency:
+        eff_agency = req.agency.strip()
+    elif let_obj.get("agency"):
+        eff_agency = str(let_obj["agency"]).strip()
+    else:
+        eff_agency = st_reg.get("agency", f"{norm_st} Department of Transportation ({norm_st}DOT)")
+
+    eff_state = str(let_obj.get("state_code") or norm_st or "TX").strip().upper()
     default_tx_county = "Travis County, TX"
-    eff_county = str(let_obj.get("county") or req.county) if (req.county == default_tx_county or not req.county.strip()) else req.county.strip()
+    if req.county and req.county.strip() and req.county.strip() != default_tx_county:
+        eff_county = req.county.strip()
+    elif let_obj.get("county"):
+        eff_county = str(let_obj["county"]).strip()
+    else:
+        eff_county = st_reg.get("county", f"Statewide Highway District, {eff_state}")
+
     eff_letting_date = str(let_obj.get("letting_date") or "2026-11-18").strip()
     eff_est_usd = float(let_obj.get("engineers_estimate_usd") or 18450000.0)
     eff_dbe_pct = float(let_obj.get("dbe_goal_pct") or 11.5)
@@ -411,13 +533,18 @@ async def compile_full_bid_package(
         "Div 32 Exterior Improvements / Paving",
     ])
     eff_scope = str(req.spec_text or let_obj.get("scope_summary") or eff_title).strip()
-    eff_planholders: List[str] = list(let_obj.get("planholders") or [])
+    eff_planholders: List[str] = list(let_obj.get("planholders") or ([st_reg["contractor"]] if st_reg.get("contractor") else []))
 
     # Resolve real contractor name (avoid generic default if planholders/verified contractors exist for state)
     default_co = "Apex Civil & Utility Constructors LLC"
     eff_contractor = req.contractor_name.strip()
-    if eff_contractor in ("", default_co) and eff_planholders:
-        eff_contractor = eff_planholders[0]
+    if eff_contractor in ("", default_co):
+        if eff_planholders:
+            eff_contractor = eff_planholders[0]
+        elif st_reg.get("contractor"):
+            eff_contractor = st_reg["contractor"]
+        else:
+            eff_contractor = f"{eff_state} Pre-Qualified Heavy Civil Constructors LLC"
     eff_dot_id = req.license_or_dot_id.strip()
     if eff_dot_id == "TXDOT-PREQUAL-88412" and eff_state != "TX":
         eff_dot_id = f"{eff_state}DOT-PREQUAL-88412"

@@ -618,10 +618,24 @@ def check_product_output_quality_controls() -> List[str]:
             "GA": "Georgia Open Records Act",
             "NC": "North Carolina Public Records Law",
             "OH": "Ohio Public Records Act",
+            "WA": "Washington Public Records Act",
+            "MA": "Massachusetts Public Records Law",
+            "CO": "Colorado Open Records Act",
+            "AZ": "Arizona Public Records Law",
+            "MN": "Minnesota Government Data Practices Act",
+            "AK": "Alaska Public Records Act",
+            "HI": "Hawaii Uniform Information Practices Act",
+            "WY": "Wyoming Public Records Act",
             "US": "5 U.S.C. § 552",
             "MU": "Municipal Open Records",
         }
         forbidden_fake_names = ("Apex Civil", "Granite State Paving", "Acme Corp", "Sample LLC")
+
+        samples_dir = os.path.join(BASE_DIR, "samples")
+        for st_code in [c for c in FIFTY_TWO_PORTAL_CODES if len(c) == 2]:
+            st_zip = os.path.join(samples_dir, f"CamberDesk_{st_code}_6File_Bid_Package.zip")
+            if not os.path.exists(st_zip) or os.path.getsize(st_zip) < 1000:
+                errors.append(f"Missing or empty pre-compiled state .ZIP package on disk: {st_zip}")
 
         for state_code, expected_statute in expected_statutes.items():
             custom_pid = f"{state_code}-DOT-2026-TEST"
