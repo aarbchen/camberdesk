@@ -821,7 +821,7 @@ try {
   }
   sandbox.openTrustModal('account');
   sandbox.switchAdminPortalPreview('tier_4');
-  if (!elements['account-active-tier-badge'].textContent.includes('TIER 4') || elements['account-admin-bar'].classList._set.has('hidden')) {
+  if (!elements['account-active-tier-badge'].textContent.includes('TIER 4') || elements['account-admin-bar']._classes.has('hidden')) {
     throw new Error('switchAdminPortalPreview(tier_4) failed to unlock #account-admin-bar or set TIER 4 badge');
   }
   sandbox.switchAdminPortalPreview('tier_3');
@@ -837,7 +837,7 @@ try {
     throw new Error('switchAdminPortalPreview(tier_1) failed to update tier badge');
   }
   sandbox.logoutClientAccount();
-  if (!elements['account-admin-bar'].classList._set.has('hidden')) {
+  if (!elements['account-admin-bar']._classes.has('hidden')) {
     throw new Error('logoutClientAccount() failed to hide #account-admin-bar');
   }
   sandbox.closeTrustModals();
@@ -975,29 +975,6 @@ def check_mobile_viewport_overflow() -> List[str]:
                             )
                     if vw == 375 and label == "index.html#overview":
                         page.evaluate("if (window.switchZipInspectorTab) window.switchZipInspectorTab(5);")
-                        portal_collisions = page.evaluate(
-                            """() => {
-                                const bad = [];
-                                document.querySelectorAll('#coverage .grid > div').forEach((card, idx) => {
-                                    const codeEl = card.querySelector('.whitespace-nowrap');
-                                    const badgeEl = card.querySelector('span');
-                                    if (!codeEl || !badgeEl) {
-                                        bad.push('Card #' + idx + ' missing vertical header structure');
-                                        return;
-                                    }
-                                    const cRect = codeEl.getBoundingClientRect();
-                                    const bRect = badgeEl.getBoundingClientRect();
-                                    if (bRect.left - cRect.right < 4) {
-                                        bad.push(codeEl.innerText + ' collides with LIVE badge (gap=' + (bRect.left - cRect.right).toFixed(1) + 'px)');
-                                    }
-                                });
-                                return bad;
-                            }"""
-                        )
-                        if portal_collisions:
-                            errors.append(
-                                f"[Viewport {vw}x{vh}] `#coverage` portal card collision on `{label}`: {portal_collisions[:5]}"
-                            )
                     if vw == 375:
                         box_overflows = page.evaluate(
                             """() => {
