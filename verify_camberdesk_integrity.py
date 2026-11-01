@@ -719,8 +719,7 @@ function makeEl(id) {
  'btn-checkout-tier2','btn-checkout-tier3','btn-checkout-tier4','contracts-dynamic-root','product-davis-bacon-wage',
  'shredder-active-badge','shredder-raw-pdf','shredder-ai-output','persona-active-title','stage-step-title',
  'wb-vault-output','wb-cfo-output','profile-vault-status','blueprint-download-status',
- 'checkout-modal-plan-name','checkout-modal-plan-price','camberdesk-checkout-modal',
- 'account-active-tier-badge','account-admin-bar'].forEach(id => {
+ 'checkout-modal-plan-name','checkout-modal-plan-price','camberdesk-checkout-modal'].forEach(id => {
   elements[id] = makeEl(id);
 });
 
