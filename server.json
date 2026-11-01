@@ -5,7 +5,7 @@
   "description": "50-State DOT bid tabulations, Davis-Bacon WH-347 wages, CSI shredder & BABA/DBE MCP server.",
   "websiteUrl": "https://camberdesk.com/apis.html",
   "repository": {
-    "url": "https://github.com/camberdesk/camberdesk-platform",
+    "url": "https://github.com/aarbchen/camberdesk",
     "source": "github"
   },
   "version": "1.0.0",
