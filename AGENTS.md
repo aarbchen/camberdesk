@@ -47,6 +47,11 @@
 9. **Self-Serve Stripe Checkout Modal & Deep-Link Routing (`index.html`, `api_gateway/routers/billing_webhook.py`):**
    - Navigating to `/?plan=tier1..tier4&billing=monthly|annual#checkout` must automatically open the self-serve checkout modal, and `POST /v1/billing/create-checkout-session` must accept both `{ plan, billing, email }` and `{ tier, customer_email, company_name, state_dots }`.
 
+10. **Mandatory Zero Unnecessary AI Token Waste & Nightly Omniscient Screening Rule (`RULE-009-ZERO-UNNECESSARY-AI-TOKEN-WASTE`):**
+   - **Pre-Database & Deterministic Fast-Pass Filtering:** Never invoke Anthropic LLMs (`messages.create`) on contract/letting URLs already stored in the database or on pre-vetted deterministic notices; always pre-filter against existing URLs and deterministic regex filters first so LLM tokens are spent exclusively on net-new, unseen records and live customer requests.
+   - **Zero-Token Verification & Telemetry Caching:** Integrity and quality-control test suites must always set `use_llm_synthesis=False` (zero live LLM calls during tests), and repeat RapidAPI health/telemetry probes must be served from an in-memory SHA-256 response cache at `$0.00` token cost.
+   - **Once-Per-Night Omniscient Screening (`_LAST_OMNISCIENT_AUDIT_DATE`):** `silent_camberdesk_watcher.py` and `d:\Daas\omniscient_auditor.py` must screen CamberDesk (`d:\CamberDesk\omniscient_auditor.py`) at most **once per calendar night** during the nighttime user-away window (`11:00 PM ? 6:00 AM`, `>= 15m` idle), never in an un-gated 15-minute loop.
+
 ---
 
 <!-- AUTONOMOUS_LEARNED_RULES_START -->
@@ -70,4 +75,6 @@ The following rules were automatically learned from past detections and fixes. E
 - **`RULE-024-ROOT-DOMAIN-EDGE-AND-50-STATE-WORKBENCH` [Pillar 3: Website & Edge Gateway] (2026-10-31):** Route all API, MCP, `.ZIP`, and telemetry endpoints through `https://camberdesk.com` (never `api.camberdesk.com`), and populate all 50 U.S. State DOT options in `#lead-magnet-state`, `#wb-vault-state`, and `#wb-dbe-state`. *(Enforced by `check_portal_parity_and_telemetry`)*
 - **`RULE-025-CUSTOMER-FACING-COPY-DISCIPLINE` [Pillar 3: Visual & Brand Standards] (2026-10-31):** Never leak internal backend framework names (`FastAPI`, `Supabase`, `Render`) or raw JS escape artefacts into customer-facing HTML text. *(Enforced by `check_html_file`)*
 - **`RULE-FRONTIER-MODEL-ONLY` [System Integrity] (2026-11-01):** Always use the frontier Anthropic model (`claude-sonnet-5-5`) across all scrapers, `camberdesk_autopilot.py`, `outbound_reply_responder.py`, and `llm_extractor.py`; never use retired models. *(Enforced by `check_frontier_model_strings`)*
+- **`RULE-009-ZERO-UNNECESSARY-AI-TOKEN-WASTE` [Cost Discipline & LLM Efficiency] (2026-11-01):** Never spend Anthropic LLM tokens on already-stored database records, deterministic test suites (`use_llm_synthesis=False`), repeat RapidAPI telemetry probes (use SHA-256 response cache), or >1x/night background auditor runs. *(Enforced by `check_zero_ai_token_waste`)*
+- **`RULE-INLINE-JS-SYNTAX` [System Integrity] (2026-11-01):** Every inline `<script>` block and `on*` event attribute in `index.html`, `apis.html`, and generated `/lettings/**/*.html` must pass Node.js `vm.Script` compilation with zero unescaped quotes. *(Enforced by `check_html_inline_js_vm`)*
 <!-- AUTONOMOUS_LEARNED_RULES_END -->

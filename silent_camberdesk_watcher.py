@@ -94,13 +94,14 @@ def main() -> int:
                 pass
 
         # 4. Run 3-Pillar Omniscient Auditor at most ONCE per calendar night (gated to Nighttime & User-Away)
-        today_night_key = datetime.now().astimezone().strftime("%Y-%m-%d")
-        if cycle % 8 == 0 and globals().get("_LAST_OMNISCIENT_AUDIT_DATE") != today_night_key:
-            try:
+        try:
+            night_allowed, _ = omniscient_auditor.is_nighttime_and_user_away(min_idle_seconds=900)
+            today_night_key = datetime.now().astimezone().strftime("%Y-%m-%d")
+            if night_allowed and globals().get("_LAST_OMNISCIENT_AUDIT_DATE") != today_night_key:
                 globals()["_LAST_OMNISCIENT_AUDIT_DATE"] = today_night_key
-                omniscient_auditor.run_omniscient_audit(mode="full", force_now=False, auto_deploy=True)
-            except Exception:
-                pass
+                omniscient_auditor.run_omniscient_audit(mode="full", force_now=True, auto_deploy=True)
+        except Exception:
+            pass
 
         # 5. Every 16 cycles (~4 hours), refresh RapidAPI 100% Service Level telemetry across all 12 APIs
         if cycle % 16 == 0 and cycle > 0:

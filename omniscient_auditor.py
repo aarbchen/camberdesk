@@ -121,6 +121,14 @@ FOUNDATIONAL_RULES: List[Dict[str, str]] = [
         "rule_statement": "Maintain 100% zero overlap with SignalTender across prospect emails, corporate domains, Instantly.ai campaigns/mailboxes, Discord webhooks, and Supabase credentials.",
         "invariant_check": "check_zero_signaltender_overlap",
     },
+    {
+        "rule_id": "RULE-009-ZERO-UNNECESSARY-AI-TOKEN-WASTE",
+        "pillar": "Cost Discipline & LLM Efficiency",
+        "root_cause": "Repeatedly calling Anthropic LLMs on already-scraped database URLs, static health/telemetry probes, deterministic test fixtures, or 15-minute un-gated overnight audit loops wastes API credits.",
+        "fix_applied": "Enforced pre-database URL deduplication and deterministic `[Fast-Pass]` filtering before any LLM call, SHA-256 deterministic response caching for repeat telemetry probes, `use_llm_synthesis=False` in integrity test suites, and a strict once-per-calendar-night guard (`_LAST_OMNISCIENT_AUDIT_DATE`) on `omniscient_auditor.py`.",
+        "rule_statement": "Never spend Anthropic LLM tokens on already-stored database records, deterministic test suites (`use_llm_synthesis=False`), repeat RapidAPI telemetry probes (use SHA-256 response cache), or >1x/night background auditor runs.",
+        "invariant_check": "check_zero_ai_token_waste",
+    },
 ]
 
 
@@ -182,17 +190,27 @@ def audit_pillar_1_products() -> Tuple[List[str], List[str]]:
     issues: List[str] = []
     healed: List[str] = []
 
-    # 1A. Audit `client_delivery.py` and `camberdesk_autopilot.py` Discord standards
+    # 1A. Run Closed-Loop Autonomous Error Healer (syntax, AST contracts, live Anthropic /v1/models upgrade, route parity)
+    try:
+        import auto_error_healer
+
+        healer_ok = auto_error_healer.run_healer(clear_resolved=True, run_smoke=False)
+        if not healer_ok:
+            issues.append("[Pillar 1A] `auto_error_healer.run_healer()` reported unresolved syntax, AST, or route parity errors")
+    except Exception as exc:
+        issues.append(f"[Pillar 1A] `auto_error_healer` execution failed: {exc}")
+
+    # 1B. Audit `client_delivery.py` and `camberdesk_autopilot.py` Discord standards
     for script_name in ("client_delivery.py", "camberdesk_autopilot.py"):
         spath = CAMBERDESK_DIR / script_name
         if not spath.exists():
-            issues.append(f"[Pillar 1A] Missing {script_name}")
+            issues.append(f"[Pillar 1B] Missing {script_name}")
             continue
         src = spath.read_text(encoding="utf-8")
         if '"flags": 4' not in src and "'flags': 4" not in src:
-            issues.append(f"[Pillar 1A] `{script_name}` missing `\"flags\": 4` (SUPPRESS_EMBEDS) on Discord webhook payloads")
+            issues.append(f"[Pillar 1B] `{script_name}` missing `\"flags\": 4` (SUPPRESS_EMBEDS) on Discord webhook payloads")
         if "($499/mo)" in src or "($199/mo)" in src or "($1,499/mo)" in src:
-            issues.append(f"[Pillar 1A] `{script_name}` leaks subscription dollar prices inside paid subscriber Discord embeds")
+            issues.append(f"[Pillar 1B] `{script_name}` leaks subscription dollar prices inside paid subscriber Discord embeds")
 
     # 1B. Audit Tier 3 6-File OpenXML (.DOCX + .XLSX + .JSON) .ZIP Compiler
     try:
@@ -322,6 +340,29 @@ def audit_pillar_2_acquisition() -> Tuple[List[str], List[str]]:
     for err in st_overlap_errs:
         issues.append(f"[Pillar 2D] {err}")
 
+    # 2E. Outbound Reply Log Schema, Live Stripe Treasury Sync & Instantly V2 Warmed Mailbox Continuity
+    replies_path = CAMBERDESK_DIR / "processed_outbound_replies.json"
+    if replies_path.exists():
+        try:
+            loaded_rep = json.loads(replies_path.read_text(encoding="utf-8"))
+            if isinstance(loaded_rep, list):
+                replies_path.write_text(
+                    json.dumps({"processed_ids": [str(x) for x in loaded_rep], "updated_at": datetime.now(timezone.utc).isoformat()}, indent=2),
+                    encoding="utf-8",
+                )
+                healed.append("Normalized `processed_outbound_replies.json` from legacy list to canonical dict schema.")
+        except Exception as exc:
+            issues.append(f"[Pillar 2E] Corrupt `processed_outbound_replies.json`: {exc}")
+
+    try:
+        import autonomous_mailbox_scaler
+
+        scaler_summary = autonomous_mailbox_scaler.run_autonomous_mailbox_scaler(dry_run=False)
+        if scaler_summary.get("newly_synced_stripe_events", 0) > 0:
+            healed.append(f"Synced {scaler_summary['newly_synced_stripe_events']} new live CamberDesk Stripe subscription(s) into treasury.")
+    except Exception as exc:
+        issues.append(f"[Pillar 2E] `autonomous_mailbox_scaler` check failed: {exc}")
+
     return issues, healed
 
 
@@ -405,6 +446,26 @@ def run_omniscient_audit(
             verification_summary="All 3 Pillars (Products, Acquisition Channels, Website/Edge Worker) passed 100% verification.",
             learned_rules=learned_rules_added,
         )
+        if auto_deploy:
+            try:
+                st_chk = subprocess.run(
+                    ["git", "status", "--porcelain"],
+                    cwd=str(CAMBERDESK_DIR),
+                    capture_output=True,
+                    text=True,
+                    check=False,
+                )
+                if (st_chk.stdout or "").strip():
+                    subprocess.run(["git", "add", "-A"], cwd=str(CAMBERDESK_DIR), check=False)
+                    subprocess.run(
+                        ["git", "commit", "-m", "fix(self-healer): auto-heal CamberDesk 3-Pillar Omniscient Audit & codify anti-regression rule"],
+                        cwd=str(CAMBERDESK_DIR),
+                        check=False,
+                        capture_output=True,
+                    )
+                    subprocess.run(["git", "push", "origin", "main"], cwd=str(CAMBERDESK_DIR), check=False, capture_output=True)
+            except Exception:
+                pass
     elif all_issues:
         for iss in all_issues:
             report_error("omniscient_auditor.py", iss)
