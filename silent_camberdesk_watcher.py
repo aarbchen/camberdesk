@@ -107,6 +107,23 @@ def main() -> int:
             except Exception:
                 pass
 
+        # 6. Every 24 cycles (~6 hours), refresh 52-Portal DOT Lettings, pSEO pages, and Instantly lead queue
+        if cycle % 24 == 0 and cycle > 0:
+            try:
+                import asyncio
+                import mainscraper
+                import camberdesk_autopilot
+                import pseo_generator
+                import outreach_generator
+                import sync_instantly_campaign
+                asyncio.run(mainscraper.run_scraper(push_to_db=True))
+                camberdesk_autopilot.build_dossiers()
+                pseo_generator.generate_pseo_pages()
+                outreach_generator.generate_outreach_queue()
+                sync_instantly_campaign.sync_leads_to_instantly()
+            except Exception:
+                pass
+
         cycle += 1
         time.sleep(CHECK_INTERVAL_SECONDS)
 

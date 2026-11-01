@@ -570,6 +570,9 @@ def queue_mailboxes_to_instantly_and_expand(new_mailboxes: List[Dict[str, Any]],
     # Refresh live accounts after any additions
     cd_accounts, warmed_emails, warming_emails = fetch_live_camberdesk_instantly_accounts()
     all_cd_emails = sorted(set(warmed_emails + warming_emails))
+    # Only attach warmed accounts (stat_warmup_score >= 85) to active cold sending;
+    # fall back to the initial 3 seed accounts only if 0 accounts have crossed 85 yet.
+    active_sending_emails = sorted(set(warmed_emails)) if warmed_emails else all_cd_emails[:3]
 
     if all_cd_emails and INSTANTLY_API_KEY:
         try:
@@ -582,16 +585,16 @@ def queue_mailboxes_to_instantly_and_expand(new_mailboxes: List[Dict[str, Any]],
         except Exception:
             pass
 
-    daily_send_cap = max(25, len(all_cd_emails) * SENDS_PER_MAILBOX_PER_DAY)
+    daily_send_cap = max(25, len(active_sending_emails) * SENDS_PER_MAILBOX_PER_DAY)
     campaign_activated = False
 
-    if INSTANTLY_API_KEY and CAMBERDESK_INSTANTLY_CAMPAIGN_ID and all_cd_emails:
+    if INSTANTLY_API_KEY and CAMBERDESK_INSTANTLY_CAMPAIGN_ID and active_sending_emails:
         try:
             requests.patch(
                 f"https://api.instantly.ai/api/v2/campaigns/{CAMBERDESK_INSTANTLY_CAMPAIGN_ID}",
                 headers=inst_headers,
                 json={
-                    "email_list": all_cd_emails,
+                    "email_list": active_sending_emails,
                     "daily_limit": daily_send_cap,
                 },
                 timeout=12,
@@ -608,13 +611,114 @@ def queue_mailboxes_to_instantly_and_expand(new_mailboxes: List[Dict[str, Any]],
 
     return {
         "total_camberdesk_instantly_accounts": len(cd_accounts),
-        "active_camberdesk_senders": all_cd_emails,
+        "active_camberdesk_senders": active_sending_emails,
+        "all_camberdesk_accounts": all_cd_emails,
         "warmed_count": len(warmed_emails),
         "warming_count": len(warming_emails),
         "campaign_id": CAMBERDESK_INSTANTLY_CAMPAIGN_ID,
         "campaign_daily_limit": daily_send_cap,
         "campaign_activated": campaign_activated,
     }
+
+
+def sync_live_camberdesk_stripe_conversions(ledger: Dict[str, Any]) -> int:
+    """
+    Poll Stripe Checkout Sessions (`GET /v1/checkout/sessions?limit=50`) using `STRIPE_API_KEY`
+    to detect paid CamberDesk subscriptions (`client_reference_id` starting with `camberdesk`,
+    `metadata.brand == 'CamberDesk'`, or `success_url` containing `camberdesk.com`), credit
+    `reinvestment_treasury_ledger.json` using the 3-Stage `80% -> 50% -> 5%` curve, and dispatch
+    an instant `cd_live_...` API key + welcome onboarding email to the buyer.
+    """
+    stripe_key = (os.getenv("STRIPE_SECRET_KEY") or os.getenv("STRIPE_API_KEY") or "").strip()
+    if not stripe_key:
+        return 0
+
+    credited = set(ledger.get("credited_conversion_keys") or [])
+    new_conversions = 0
+    try:
+        resp = requests.get(
+            "https://api.stripe.com/v1/checkout/sessions",
+            params={"limit": 50},
+            auth=(stripe_key, ""),
+            timeout=12,
+        )
+        if resp.status_code != 200:
+            return 0
+        sessions = (resp.json() or {}).get("data") or []
+        for sess in sessions:
+            if not isinstance(sess, dict):
+                continue
+            if str(sess.get("payment_status") or "").lower() != "paid":
+                continue
+            sess_id = str(sess.get("id") or "").strip()
+            if not sess_id or sess_id in credited:
+                continue
+
+            client_ref = str(sess.get("client_reference_id") or "").strip().lower()
+            meta = sess.get("metadata") or {}
+            brand_meta = str(meta.get("brand") or "").strip().lower()
+            succ_url = str(sess.get("success_url") or "").strip().lower()
+            if not (
+                client_ref.startswith("camberdesk")
+                or "camberdesk" in brand_meta
+                or "camberdesk.com" in succ_url
+            ):
+                continue
+
+            amount_usd = round(float(sess.get("amount_total") or 0) / 100.0, 2)
+            if amount_usd <= 0:
+                continue
+
+            cust_email = str(
+                ((sess.get("customer_details") or {}).get("email"))
+                or sess.get("customer_email")
+                or ""
+            ).strip().lower()
+            if cust_email in {"aarbchen@gmail.com", "camberdesk.dev@gmail.com", "aaron@trycamberdesk.com"}:
+                continue
+
+            active_mb_count = len(ledger.get("provisioned_mailboxes") or []) or 3
+            active_ratio, stage_label = compute_dynamic_reinvestment_ratio(active_mb_count)
+            reinvest_usd = round(amount_usd * active_ratio, 2)
+            ledger["reinvestment_ratio"] = active_ratio
+            ledger["reinvestment_stage"] = stage_label
+            ledger["total_gross_revenue_usd"] = round(float(ledger.get("total_gross_revenue_usd") or 0.0) + amount_usd, 2)
+            ledger["total_reinvestment_allocated_usd"] = round(
+                float(ledger.get("total_reinvestment_allocated_usd") or 0.0) + reinvest_usd, 2
+            )
+            spent = float(ledger.get("total_reinvestment_spent_usd") or 0.0)
+            ledger["available_reinvestment_balance_usd"] = round(
+                max(0.0, ledger["total_reinvestment_allocated_usd"] - spent), 2
+            )
+            credited.add(sess_id)
+            ledger["credited_conversion_keys"] = sorted(credited)
+            new_conversions += 1
+
+            if cust_email and "@" in cust_email:
+                try:
+                    import hashlib
+                    import outbound_mailer
+                    derived_key = "cd_live_" + hashlib.sha256(f"camberdesk_sub_{cust_email}".encode("utf-8")).hexdigest()[:24]
+                    tier_str = str(meta.get("tier") or client_ref or "tier_2")
+                    subj = "Welcome to CamberDesk — Your 50-State DOT Letting & 6-File .ZIP API Key"
+                    body = (
+                        f"Hi team,\n\n"
+                        f"Your CamberDesk subscription ({tier_str} — ${amount_usd:,.2f}) is now active.\n\n"
+                        f"• Portal & Account Workbench: https://camberdesk.com/#account\n"
+                        f"• Live 50-State DOT Lettings: https://camberdesk.com/#lettings\n"
+                        f"• Production API & MCP Key: {derived_key}\n"
+                        f"• Remote MCP Server Endpoint: https://camberdesk.com/mcp\n\n"
+                        f"Best,\nAaron Chen\nCamberDesk Systems\nhttps://camberdesk.com"
+                    )
+                    outbound_mailer.send_email(to_email=cust_email, subject=subj, body_text=body)
+                except Exception:
+                    pass
+    except Exception as exc:
+        report_error("autonomous_mailbox_scaler.py", f"Stripe live conversion sync warning: {exc}", severity="WARNING")
+
+    if new_conversions > 0:
+        _save_local_ledger(ledger)
+    return new_conversions
 
 
 def record_stripe_conversion_reinvestment(
@@ -656,6 +760,8 @@ def run_autonomous_mailbox_scaler(
 ) -> Dict[str, Any]:
     ensure_camberdesk_avatar_png()
     ledger = _load_local_ledger()
+    if not dry_run:
+        sync_live_camberdesk_stripe_conversions(ledger)
     active_mb_count = len(ledger.get("provisioned_mailboxes") or []) or 3
     active_ratio, stage_label = compute_dynamic_reinvestment_ratio(active_mb_count)
     ledger["reinvestment_ratio"] = active_ratio
