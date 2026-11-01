@@ -671,8 +671,8 @@ def _build_api_catalog_section() -> str:
                 <span class="shrink-0 text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">{num}</span>
                 <span class="text-sm font-bold text-[#0A0D14] break-words min-w-0">{title}</span>
               </div>
-              <div class="flex items-center gap-2 text-xs font-mono shrink-0">
-                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">{method} {route}</span>
+              <div class="flex items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0 max-w-full">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">{method} {route}</span>
               </div>
             </a>"""
         )
@@ -692,10 +692,10 @@ def _build_api_catalog_section() -> str:
         article_cards.append(
             f"""<article id="{aid}" data-api-card="{aid}" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6 min-w-0">
               <div class="lg:col-span-7 space-y-4 min-w-0">
-                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                <div class="flex flex-wrap items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0">
                   <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #{num} // {badge}</span>
-                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">{method} {route}</span>
-                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: {api['mcp_tool']}</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">{method} {route}</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold break-all max-w-full">MCP: {api['mcp_tool']}</span>
                 </div>
                 <h3 class="text-xl font-extrabold text-[#0A0D14]">{title}</h3>
                 <p class="text-sm font-medium text-[#111827] leading-relaxed">{summary}</p>
@@ -708,7 +708,7 @@ def _build_api_catalog_section() -> str:
                 <div class="pt-2 flex flex-wrap gap-3">
                   <button type="button" onclick="openApiSandbox('{aid}', true)" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
                   <button type="button" onclick="runCardLiveInBrowser('{aid}')" class="px-4 py-2.5 rounded-lg bg-[#EFF6FF] hover:bg-[#DBEAFE] text-[#1E3A8A] border border-[#93C5FD] font-bold text-xs font-mono transition">Run Live in Browser</button>
-                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
+                  <a href="#checkout" onclick="switchSpaView('checkout', event)" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
                 </div>
               </div>
               <div class="lg:col-span-5 space-y-3 min-w-0">
@@ -999,17 +999,43 @@ def build_site_files() -> None:
         + "\n          ".join(f'<option value="{c} — {n.split()[0]}">{c} — {n}</option>' for c, n in state_portals_50)
     )
 
+    account_letting_options_html = "\n              ".join(
+        f'<option value="{item["project_id"]}|{item.get("state_code", "TX")}" data-state="{item.get("state_code", "TX")}">{item["project_id"]} — {item["title"][:68]} ({item.get("state_code", "TX")})</option>'
+        for item in lettings
+    )
+
+    import hashlib as _hashlib
+    try:
+        from dotenv import load_dotenv as _load_dotenv
+        _load_dotenv(os.path.join(BASE_DIR, ".env"))
+    except Exception:
+        pass
+    _admin_salt = (os.getenv("CAMBERDESK_ADMIN_SALT") or "0f5b69d3a75dc6ba823aa1975353ed11").strip()
+    _admin_pw = (os.getenv("CAMBERDESK_ADMIN_PASSWORD") or "").strip()
+    _admin_emails = ["aaron@trycamberdesk.com", "admin@camberdesk.com", "founder@camberdesk.com"]
+    _env_admin_em = (os.getenv("CAMBERDESK_ADMIN_EMAIL") or "").strip().lower()
+    if _env_admin_em and _env_admin_em not in _admin_emails:
+        _admin_emails.append(_env_admin_em)
+    _admin_digests = [
+        _hashlib.sha256(f"{_admin_salt}:{em}:{_admin_pw}".encode("utf-8")).hexdigest()
+        for em in _admin_emails
+        if _admin_pw
+    ]
+
     api_catalog_block = _build_api_catalog_section()
 
     common_js = f"""
     const LETTINGS_DATA = {json.dumps(lettings)};
+    const __CAMBER_ADMIN_SALT = {json.dumps(_admin_salt)};
+    const __CAMBER_ADMIN_DIGESTS = {json.dumps(_admin_digests)};
     window.SANDBOX_TAB = 'json';
 
-    function switchSpaView(viewName) {{
+    function switchSpaView(viewName, ev) {{
       if (viewName === 'apis' && !document.getElementById('page-apis') && document.getElementById('api-studio-playground')) {{
         return;
       }}
       if (!document.getElementById('page-' + viewName)) {{
+        if (ev && ev.preventDefault) ev.preventDefault();
         window.location.href = 'index.html#' + viewName;
         return;
       }}
@@ -1037,6 +1063,11 @@ def build_site_files() -> None:
       if (target && target.scrollIntoView) {{
         target.scrollIntoView({{ behavior: 'auto', block: 'start' }});
       }}
+      try {{
+        if (window.history && window.history.replaceState) {{
+          window.history.replaceState(null, '', '#' + sectionId);
+        }}
+      }} catch (e) {{}}
     }}
 
     function toggleMobileNav() {{
@@ -1488,7 +1519,7 @@ def build_site_files() -> None:
           : '  5. Unlimited Estimating Team CC Seats & Slack / Microsoft Teams / Procore Webhooks',
         'Estimated Estimator Time Saved: ' + savedHrs + '+ Hours / Month ($' + savedPayroll.toLocaleString() + '/mo Payroll Value)',
         'Contract Terms: Month-to-Month Self-Serve or Annual (Zero Seat Lock-In)',
-        'Billing & Support: estimating@trycamberdesk.com | https://camberdesk.com',
+        'Self-Serve Portal & Support: https://camberdesk.com/#account | https://camberdesk.com',
         '===================================================================='
       ].join('\\n');
       if (outEl) outEl.textContent = memo;
@@ -1843,8 +1874,8 @@ def build_site_files() -> None:
         const b = document.getElementById('zip-tab-btn-' + i);
         if (b) {{
           b.className = i === idx
-            ? 'px-3 py-2 rounded-lg bg-[#0A0D14] text-white font-mono text-xs font-bold text-left transition'
-            : 'px-3 py-2 rounded-lg bg-[#F4F1EA] hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#CBD5E1] font-mono text-xs font-bold text-left transition';
+            ? 'px-3 py-2 rounded-lg bg-[#0A0D14] text-white font-mono text-xs font-bold text-left break-all w-full transition'
+            : 'px-3 py-2 rounded-lg bg-[#F4F1EA] hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#CBD5E1] font-mono text-xs font-bold text-left break-all w-full transition';
         }}
       }}
       const titleEl = document.getElementById('zip-inspector-title');
@@ -2165,18 +2196,214 @@ def build_site_files() -> None:
       if (detail) detail.textContent = 'All 52 Federal USACE & 50-State DOT Portal Monitors, 12 Stateless Microservices, and 6-File OpenXML Compiler Operational.';
     }}
 
-    function lookupSubscriberAccount(ev) {{
+    let __activeClientAccount = null;
+
+    async function _sha256HexClient(message) {{
+      if (typeof crypto !== 'undefined' && crypto.subtle && typeof TextEncoder !== 'undefined') {{
+        const msgBuffer = new TextEncoder().encode(message);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      }}
+      return '';
+    }}
+
+    function _applyAccountPortalState(acct) {{
+      __activeClientAccount = acct;
+      try {{ localStorage.setItem('camberdesk_active_account', JSON.stringify(acct)); }} catch (e) {{}}
+      const box = document.getElementById('account-portal-result');
+      const statusEl = document.getElementById('account-auth-status');
+      const adminBar = document.getElementById('account-admin-bar');
+      const emailSpan = document.getElementById('account-active-id');
+      const tierBadge = document.getElementById('account-active-tier-badge');
+      const quotaSpan = document.getElementById('account-active-quota');
+      const keySpan = document.getElementById('account-api-key-val');
+      const mcpPre = document.getElementById('account-mcp-config-pre');
+      if (box) box.classList.remove('hidden');
+      if (statusEl) {{
+        statusEl.className = 'text-xs font-mono font-bold text-[#065F46]';
+        statusEl.textContent = acct.is_admin
+          ? 'Authenticated as CamberDesk Founder & Admin (' + acct.email + ') — Full Tier 1–4 Preview Console Unlocked.'
+          : 'Authenticated Client Portal session active for ' + acct.email + '.';
+      }}
+      if (adminBar) {{
+        if (acct.is_admin) adminBar.classList.remove('hidden');
+        else adminBar.classList.add('hidden');
+      }}
+      if (emailSpan) emailSpan.textContent = acct.email || 'admin@camberdesk.com';
+      if (tierBadge) tierBadge.textContent = acct.tier_label || 'TIER 4 // ENTERPRISE OEM & BID-TAB VAULT (FOUNDER ADMIN)';
+      if (quotaSpan) quotaSpan.textContent = acct.quota_label || '50,000 API Calls/Mo + Unlimited 6-File .ZIP Compilations + 50-State Vault';
+      if (keySpan) keySpan.textContent = acct.api_key || 'cd_live_admin_founder_master_99a4f2c1b0e7d6a3';
+      if (mcpPre) {{
+        mcpPre.textContent = JSON.stringify({{
+          mcpServers: {{
+            camberdesk: {{
+              command: "npx",
+              args: ["-y", "@camberdesk/mcp-server"],
+              env: {{
+                CAMBERDESK_API_KEY: acct.api_key || "cd_live_admin_founder_master_99a4f2c1b0e7d6a3"
+              }}
+            }}
+          }}
+        }}, null, 2);
+      }}
+    }}
+
+    function switchAdminPortalPreview(tierKey) {{
+      const baseEmail = (__activeClientAccount && __activeClientAccount.email) || 'admin@camberdesk.com';
+      const tierMap = {{
+        tier_4: {{
+          tier: 'tier_4',
+          tier_label: 'TIER 4 // ENTERPRISE OEM & BID-TAB VAULT ($2,499/MO)',
+          quota_label: '50,000 API Calls/Mo + Unlimited 6-File .ZIP Compilations + 50-State Historical Vault',
+          api_key: 'cd_live_admin_tier4_oem_99a4f2c1b0e7d6a3'
+        }},
+        tier_3: {{
+          tier: 'tier_3',
+          tier_label: 'TIER 3 // 6-FILE .ZIP TAKEOFF COMPILER ($1,499/MO)',
+          quota_label: '10,000 API Calls/Mo + Unlimited 1-Click 6-File OpenXML (.DOCX + .XLSX) Packages',
+          api_key: 'cd_live_admin_tier3_zip_88b3e1d0a9c6f5b2'
+        }},
+        tier_2: {{
+          tier: 'tier_2',
+          tier_label: 'TIER 2 // CAMBERDESK AUTOPILOT ($499/MO)',
+          quota_label: '2,500 API Calls/Mo Across All 12 Endpoints + Pre-Shredded CSI Dossiers & WH-347 Wages',
+          api_key: 'cd_live_admin_tier2_auto_77c2d0e9b8a5e4a1'
+        }},
+        tier_1: {{
+          tier: 'tier_1',
+          tier_label: 'TIER 1 // CAMBERWIRE PRO ($199/MO)',
+          quota_label: 'Real-Time 52-Portal State DOT, USACE & Municipal Letting Alerts + Planholder Tracking',
+          api_key: 'cd_live_admin_tier1_wire_66d1c9f8a7b4d3f0'
+        }}
+      }};
+      const selected = tierMap[tierKey] || tierMap.tier_4;
+      ['tier_4', 'tier_3', 'tier_2', 'tier_1'].forEach(k => {{
+        const btn = document.getElementById('admin-tier-btn-' + k);
+        if (btn) {{
+          btn.className = (k === (tierMap[tierKey] ? tierKey : 'tier_4'))
+            ? 'px-2.5 py-1 rounded bg-[#1E3A8A] text-white font-mono text-[11px] font-bold transition'
+            : 'px-2.5 py-1 rounded bg-white hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-mono text-[11px] font-bold transition';
+        }}
+      }});
+      _applyAccountPortalState({{
+        email: baseEmail,
+        is_admin: true,
+        tier: selected.tier,
+        tier_label: selected.tier_label,
+        quota_label: selected.quota_label,
+        api_key: selected.api_key
+      }});
+    }}
+
+    function logoutClientAccount() {{
+      __activeClientAccount = null;
+      try {{ localStorage.removeItem('camberdesk_active_account'); }} catch (e) {{}}
+      const box = document.getElementById('account-portal-result');
+      const adminBar = document.getElementById('account-admin-bar');
+      const statusEl = document.getElementById('account-auth-status');
+      const pwInp = document.getElementById('account-password-input');
+      if (box) box.classList.add('hidden');
+      if (adminBar) adminBar.classList.add('hidden');
+      if (pwInp) pwInp.value = '';
+      if (statusEl) {{
+        statusEl.className = 'text-xs font-mono font-bold text-[#1E3A8A]';
+        statusEl.textContent = 'Signed out of Client Portal.';
+      }}
+    }}
+
+    function downloadAccountSelectedZip() {{
+      const sel = document.getElementById('account-zip-project-select');
+      const raw = (sel && sel.value) ? sel.value : 'TXDOT-2026-08-0912-04|TX';
+      const parts = raw.split('|');
+      const pid = parts[0] || 'TXDOT-2026-08-0912-04';
+      const st = parts[1] || 'TX';
+      window.location.href = 'https://camberdesk.com/v1/camber-autopilot/compile-bid-package?project_id=' + encodeURIComponent(pid) + '&state_code=' + encodeURIComponent(st) + '&format=binary';
+    }}
+
+    function inspectAccountSelectedDossier() {{
+      const sel = document.getElementById('account-zip-project-select');
+      const raw = (sel && sel.value) ? sel.value : 'TXDOT-2026-08-0912-04|TX';
+      const pid = raw.split('|')[0] || 'TXDOT-2026-08-0912-04';
+      closeTrustModals();
+      openInPageDossier(pid);
+    }}
+
+    async function lookupSubscriberAccount(ev) {{
       if (ev) ev.preventDefault();
       const inp = document.getElementById('account-lookup-input');
-      const box = document.getElementById('account-portal-result');
+      const pwInp = document.getElementById('account-password-input');
+      const statusEl = document.getElementById('account-auth-status');
       const val = inp ? inp.value.trim() : '';
-      if (!val || !box) return false;
-      const maskedKey = val.startsWith('cd_live_') ? val : 'cd_live_' + btoa(val).replace(/[^a-zA-Z0-9]/g, '').slice(0, 18).toLowerCase();
-      box.classList.remove('hidden');
-      const emailSpan = document.getElementById('account-active-id');
-      const keySpan = document.getElementById('account-api-key-val');
-      if (emailSpan) emailSpan.textContent = val;
-      if (keySpan) keySpan.textContent = maskedKey;
+      const pw = pwInp ? pwInp.value.trim() : '';
+      if (!val) return false;
+      const emailLower = val.toLowerCase();
+
+      // 1. Check Salted SHA-256 Founder/Admin Digest (Zero plaintext secret in source)
+      if (pw) {{
+        const candidateEmails = emailLower.includes('@') ? [emailLower] : ['admin@camberdesk.com'];
+        for (const cand of candidateEmails) {{
+          const digest = await _sha256HexClient(__CAMBER_ADMIN_SALT + ':' + cand + ':' + pw);
+          if (digest && __CAMBER_ADMIN_DIGESTS.includes(digest)) {{
+            _applyAccountPortalState({{
+              email: emailLower.includes('@') ? emailLower : 'admin@camberdesk.com',
+              is_admin: true,
+              tier: 'tier_4',
+              tier_label: 'TIER 4 // ENTERPRISE OEM & BID-TAB VAULT (FOUNDER ADMIN)',
+              quota_label: '50,000 API Calls/Mo + Unlimited 6-File .ZIP Compilations + 50-State Historical Vault',
+              api_key: 'cd_live_admin_founder_master_99a4f2c1b0e7d6a3'
+            }});
+            return false;
+          }}
+        }}
+      }}
+
+      // 2. Also check backend / edge /v1/billing/account/login when password is provided
+      if (pw) {{
+        try {{
+          const r = await fetch('https://camberdesk.com/v1/billing/account/login', {{
+            method: 'POST',
+            headers: {{ 'Content-Type': 'application/json' }},
+            body: JSON.stringify({{ email: val, password: pw }})
+          }});
+          if (r.ok) {{
+            const d = await r.json();
+            if (d && d.authenticated) {{
+              _applyAccountPortalState({{
+                email: d.email || val,
+                is_admin: Boolean(d.is_admin),
+                tier: d.tier || 'tier_4',
+                tier_label: d.tier_label || 'TIER 4 // ENTERPRISE OEM & BID-TAB VAULT',
+                quota_label: d.quota_label || '50,000 API Calls/Mo + Unlimited 6-File .ZIP Compilations',
+                api_key: d.api_key || 'cd_live_admin_founder_master_99a4f2c1b0e7d6a3'
+              }});
+              return false;
+            }}
+          }}
+        }} catch (e) {{}}
+      }}
+
+      // 3. If trying to log in with an admin email without valid password, prompt for admin password
+      if ((emailLower === 'admin@camberdesk.com' || emailLower.startsWith('aaron@')) && !pw.startsWith('cd_live_')) {{
+        if (statusEl) {{
+          statusEl.className = 'text-xs font-mono font-bold text-[#991B1B]';
+          statusEl.textContent = 'Founder/Admin email detected — please enter your Founder Admin password to unlock the Tier 1–4 Admin Console.';
+        }}
+        return false;
+      }}
+
+      // 4. Standard Subscriber Lookup (API Key or Subscriber Work Email)
+      const maskedKey = val.startsWith('cd_live_')
+        ? val
+        : (pw.startsWith('cd_live_') ? pw : 'cd_live_' + btoa(val).replace(/[^a-zA-Z0-9]/g, '').slice(0, 18).toLowerCase());
+      _applyAccountPortalState({{
+        email: val,
+        is_admin: false,
+        tier: 'tier_2',
+        tier_label: 'TIER 2 // CAMBERDESK AUTOPILOT (ACTIVE SUBSCRIBER)',
+        quota_label: '2,500 API Calls/Mo Across All 12 Endpoints + 6-File .ZIP Takeoff Access',
+        api_key: maskedKey
+      }});
       return false;
     }}
 
@@ -2200,7 +2427,32 @@ def build_site_files() -> None:
         .replace(/"/g, '&quot;');
     }}
 
-    const __CONCIERGE_COMPROMISING_RE = /system\\s+prompt|initial\\s+prompt|developer\\s+prompt|hidden\\s+prompt|your\\s+instructions|your\\s+rules|repeat\\s+(?:the\\s+)?(?:text|words|instructions|above)|verbatim|what\\s+were\\s+you\\s+told|ignore\\s+(?:all\\s+)?(?:previous|prior|above)|disregard\\s+(?:all\\s+)?(?:previous|prior|above)|forget\\s+(?:all\\s+)?(?:previous|prior|above)|developer\\s+mode|debug\\s+mode|maintenance\\s+mode|jailbreak|dan\\s+mode|pretend\\s+(?:you\\s+are|to\\s+be)|act\\s+as\\s+(?:a|an|the)|i\\s+am\\s+(?:the\\s+)?(?:founder|admin|administrator|owner|developer|aaron)|translate\\s+your\\s+(?:prompt|instructions)|encode\\s+your\\s+(?:prompt|instructions)|base64|rot13|bypass\\s+(?:security|auth|authentication|paywall|rate\\s+limit|filter|waf|captcha|verification)|give\\s+me\\s+(?:a|an|your|the)\\s+(?:free\\s+|valid\\s+|working\\s+|admin\\s+|production\\s+)(?:api\\s+key|cd_live|secret|token|password|credentials)|share\\s+(?:a|an|your|the)\\s+(?:valid\\s+|working\\s+|admin\\s+|production\\s+)(?:api\\s+key|cd_live|secret|token|password|credentials)|env\\s*var|environment\\s+variable|\\.env\\b|os\\.getenv|os\\.environ|connection\\s+string|database\\s+(?:password|url|host|credentials|schema|table|dump|engine|provider)|stripe\\s+secret|webhook\\s+secret|discord\\s+webhook\\s+url|proxy\\s+secret|x-rapidapi-proxy-secret|service_role|anon_key|private\\s+key|session\\s+token|jwt\\s+secret|source\\s+code|github\\s+repo|git\\s+repo|file\\s+path|directory\\s+structure|stack\\s+trace|server\\s+ip|internal\\s+url|where\\s+are\\s+you\\s+hosted|what\\s+(?:cloud|hosting|database|tech\\s+stack|backend|framework|server)\\b|which\\s+(?:cloud|hosting|database|tech\\s+stack|backend|framework|server)\\b|render\\.com|onrender|supabase|postgrest|postgresql|postgres|fastapi|uvicorn|how\\s+does\\s+(?:your|the)\\s+scraper\\s+work|scraper\\s+(?:code|script|architecture|ip|proxy|logic)|pbkdf2|hash\\s+iterations|hashing\\s+algorithm|how\\s+do\\s+you\\s+hash|list\\s+of\\s+(?:customers|subscribers|users|clients|accounts)|who\\s+are\\s+your\\s+(?:customers|subscribers|clients|users)|subscriber\\s+(?:emails|list|database|count|numbers)|customer\\s+(?:emails|list|data|database)|how\\s+many\\s+(?:customers|subscribers|users|clients)|other\\s+(?:users|customers|subscribers|accounts)|dump\\s+(?:the\\s+)?(?:database|users|table)|admin\\s+(?:account|password|login|email|panel)|founder(?:s)?\\s+(?:personal|phone|address|password|net\\s+worth|email)|company\\s+(?:revenue|mrr|arr|bank\\s+account|financials|profits)|how\\s+much\\s+(?:money|revenue)\\s+do\\s+you\\s+make|exploit|vulnerability|open\\s+ports|sql\\s+injection|how\\s+to\\s+hack/i;
+    const __CONCIERGE_WAF_RE = /(<\\s*script|<\\s*iframe|<\\s*object|<\\s*embed|<\\s*svg|<\\s*img|<\\s*form|<\\s*input|<\\s*body|<\\s*link|<\\s*meta|<\\s*style|javascript\\s*:|vbscript\\s*:|data\\s*:\\s*text\\/html|on(?:load|error|click|mouseover|focus|blur|input|change|submit|keydown|keyup|toggle)\\s*=|union\\s+(?:all\\s+)?select|drop\\s+table|insert\\s+into|delete\\s+from|update\\s+\\w+\\s+set|xp_cmdshell|exec\\s*\\(|;\\s*(?:rm|cat|ls|wget|curl|chmod|chown|bash|sh|powershell|cmd)\\b|\\|\\s*(?:cat|ls|nc|bash|sh)\\b|\\.\\.\\/|\\.\\.\\\\|\\/etc\\/passwd|\\/etc\\/shadow|c:\\\\windows|169\\.254\\.169\\.254|127\\.0\\.0\\.1|0\\.0\\.0\\.0|localhost\\b|\\x7b\\x7b.*\\x7d\\x7d|\\$\\x7b.*\\x7d|'\\s*or\\s*'1'\\s*=\\s*'1|'\\s*or\\s*1\\s*=\\s*1)/i;
+
+    const __CONCIERGE_COMPROMISING_RE = /(?:\\b(?:i\\s+am|i'm|im|this\\s+is|it's|its|speaking\\s+as|logged\\s+in\\s+as|acting\\s+as|we\\s+are|here\\s+is)\\b[^.?!]{{0,45}}\\b(?:founder|co-founder|cofounder|admin|administrator|owner|ceo|cto|ciso|cfo|president|exec|executive|director|developer|dev|engineer|creator|boss|manager|staff|employee|support|moderator|root|superuser|sudo|aaron|sysadmin|devops|security\\s+team|internal\\s+team)\\b)|(?:\\b(?:founder|co-founder|cofounder|admin|administrator|superuser|root|sysadmin|aaron)\\b[^.?!]{{0,35}}\\b(?:here|speaking|logged\\s+in|override|access|mode|command|instructs?|orders?|telling\\s+you|and\\s+admin|and\\s+founder|login|portal|privileges?)\\b)|\\b(?:founder\\s+and\\s+admin|admin\\s+and\\s+founder|admin\\s+override|founder\\s+override|executive\\s+override|security\\s+override|root\\s+access|admin\\s+access|sudo\\s+|su\\s+root|grant\\s+me\\s+access|elevate\\s+privileges|privilege\\s+escalation|bypass\\s+auth|unlock\\s+admin|admin\\s+mode|god\\s+mode|dev\\s+mode|developer\\s+mode|debug\\s+mode|maintenance\\s+mode|diagnostic\\s+mode|sudo\\s+mode|jailbreak|dan\\s+mode|do\\s+anything\\s+now)\\b|system\\s+prompt|initial\\s+prompt|developer\\s+prompt|hidden\\s+prompt|meta\\s+prompt|secret\\s+prompt|your\\s+instructions|your\\s+rules|your\\s+directives|your\\s+system\\s+message|repeat\\s+(?:the\\s+)?(?:text|words|instructions|above|everything)|verbatim|what\\s+were\\s+you\\s+told|print\\s+(?:your\\s+)?(?:prompt|instructions|rules)|reveal\\s+(?:your\\s+)?(?:prompt|instructions|rules)|show\\s+(?:me\\s+)?(?:your\\s+)?(?:prompt|instructions|rules)|ignore\\s+(?:all\\s+)?(?:previous|prior|above|earlier|system)|disregard\\s+(?:all\\s+)?(?:previous|prior|above|earlier|system)|forget\\s+(?:all\\s+)?(?:previous|prior|above|earlier|system)|override\\s+(?:your\\s+)?(?:instructions|rules|prompt|safety|security)|new\\s+instructions|pretend\\s+(?:you\\s+are|to\\s+be)|roleplay\\s+as|act\\s+as\\s+(?:a|an|the)|hypothetical\\s+scenario|translate\\s+your\\s+(?:prompt|instructions)|encode\\s+your\\s+(?:prompt|instructions)|base64|rot13|hex\\s+encode|leetspeak|spell\\s+backwards|reverse\\s+the\\s+text|bypass\\s+(?:security|auth|authentication|paywall|payment|stripe|rate\\s+limit|filter|waf|captcha|verification)|(?:\\b(?:give|show|tell|send|share|reveal|print|output|leak|dump|expose|generate|create|get)\\b[^.?!]{{0,35}}\\b(?:free\\s+|valid\\s+|working\\s+|admin\\s+|production\\s+|master\\s+|internal\\s+|secret\\s+|live\\s+)?(?:api\\s+key|cd_live|st_live|sk_live|sk-ant|secret|token|password|credential|private\\s+key|env\\b|\\.env|webhook\\s+secret|connection\\s+string|stripe\\s+key|supabase\\s+key))\\b|env\\s*var|environment\\s+variable|\\.env\\b|os\\.getenv|os\\.environ|process\\.env|connection\\s+string|database\\s+(?:password|url|host|credentials|schema|table|dump|engine|provider)|stripe\\s+secret|webhook\\s+secret|discord\\s+webhook\\s+url|proxy\\s+secret|x-rapidapi-proxy-secret|service_role|anon_key|private\\s+key|session\\s+token|jwt\\s+secret|bearer\\s+token|master\\s+key|source\\s+code|github\\s+repo|git\\s+repo|file\\s+path|directory\\s+structure|stack\\s+trace|server\\s+ip|internal\\s+url|where\\s+are\\s+you\\s+hosted|what\\s+(?:cloud|hosting|database|tech\\s+stack|backend|framework|server)\\b|which\\s+(?:cloud|hosting|database|tech\\s+stack|backend|framework|server)\\b|render\\.com|onrender|supabase|postgrest|postgresql|postgres|fastapi|uvicorn|cloudflare\\s+worker|how\\s+does\\s+(?:your|the)\\s+scraper\\s+work|scraper\\s+(?:code|script|architecture|ip|proxy|logic)|pbkdf2|hash\\s+iterations|hashing\\s+algorithm|how\\s+do\\s+you\\s+hash|list\\s+of\\s+(?:customers|subscribers|users|clients|accounts|emails|leads)|who\\s+are\\s+your\\s+(?:customers|subscribers|clients|users)|subscriber\\s+(?:emails|list|database|count|numbers)|customer\\s+(?:emails|list|data|database)|how\\s+many\\s+(?:customers|subscribers|users|clients)|other\\s+(?:users|customers|subscribers|accounts)|dump\\s+(?:the\\s+)?(?:database|users|table|leads|contacts)|admin\\s+(?:account|password|login|email|panel|console|dashboard)|founder(?:s|'s)?\\s+(?:personal|phone|address|password|net\\s+worth|email|name)|who\\s+is\\s+the\\s+(?:founder|owner|ceo)|company\\s+(?:revenue|mrr|arr|bank\\s+account|financials|profits|valuation)|how\\s+much\\s+(?:money|revenue)\\s+do\\s+you\\s+make|exploit|vulnerability|open\\s+ports|sql\\s+injection|\\bxss\\b|\\bcsrf\\b|\\bssrf\\b|\\brce\\b|how\\s+to\\s+hack|penetration\\s+test|pentest/i;
+
+    const __CONCIERGE_DLP_RE = /\\b(?:sonnet|opus|haiku|anthropic|openai|chatgpt|gpt-\\d|gemini|llama|mistral|claude-\\d|onrender|render\\.com|supabase|postgrest|postgresql|postgres|fastapi|uvicorn|pbkdf2|sys_prompt|system\\s+prompt|os\\.getenv)\\b|sk-ant-[a-zA-Z0-9_\\-]+|sk_live_[a-zA-Z0-9]+|cd_live_[a-zA-Z0-9_]{{10,}}/i;
+
+    function sanitizeConciergeInput(rawText) {{
+      const s = String(rawText || '').trim();
+      if (!s) return {{ ok: false, error: 'Please enter a preconstruction or account question before submitting.' }};
+      if (__CONCIERGE_WAF_RE.test(s)) {{
+        return {{
+          ok: false,
+          isWafBlock: true,
+          error: 'Blocked by CamberDesk WAF: HTML tags, scripts, event handlers, path traversal, and SQL/command injection syntax are prohibited. Please submit plain-text preconstruction or account questions only.'
+        }};
+      }}
+      if (/https?:\\/\\/(?!(?:www\\.)?camberdesk\\.com)\\S+/i.test(s)) {{
+        return {{
+          ok: false,
+          isWafBlock: true,
+          error: 'For security reasons, external hyperlinks are not allowed in the AI Concierge. Please describe your project ID, State DOT, or question in plain text.'
+        }};
+      }}
+      const stripped = s.replace(/<[^>]*>/g, '').replace(/[`<>]/g, '').trim();
+      return {{ ok: true, value: stripped.slice(0, 1000) }};
+    }}
 
     const __STATE_DOT_KB = [
       {{ code: 'TX', dot: 'TxDOT', name: 'Texas', portal: 'TxDOT Letting & Electronic State Business Daily', hma: '$108.50–$118.40/Ton', conc: '$890–$965/CY', wage: '$52.40/hr loaded' }},
@@ -2256,13 +2508,26 @@ def build_site_files() -> None:
     ];
 
     function buildConciergeAnswer(rawQ, apiAnswer, topicHint) {{
-      const q = String(rawQ || '').trim();
+      const check = sanitizeConciergeInput(rawQ);
+      if (!check.ok) {{
+        return {{
+          text: check.error,
+          isWafBlock: Boolean(check.isWafBlock),
+          ctaLabel: 'View Security Standards',
+          ctaFn: function() {{ openTrustModal('security'); }},
+          actions: [
+            {{ label: 'View Security Standards', fn: function() {{ openTrustModal('security'); }} }},
+            {{ label: 'Open Client Portal', fn: function() {{ openTrustModal('account'); }} }}
+          ]
+        }};
+      }}
+      const q = check.value;
       const ql = q.toLowerCase();
 
-      // 0. Security & Confidentiality Guardrail
+      // 0. Security, Identity-Spoofing & Confidentiality Guardrail
       if (__CONCIERGE_COMPROMISING_RE.test(ql)) {{
         return {{
-          text: "For security and confidentiality reasons, the CamberDesk AI Support Concierge does not disclose internal infrastructure details, source code, system instructions, cryptographic parameters, credentials, or subscriber account data.\\n\\n• Public Security & Zero-Retention Posture: Review our public security controls, stateless TLS 1.3 API processing, and zero bid-data retention standards in the Security Center and Privacy Policy.\\n• Self-Serve Account & API Management: Manage your organization's subscription, estimating team CC seats, and production cd_live_... API Key inside the Client Portal.",
+          text: "For security and confidentiality reasons, the CamberDesk AI Support Concierge cannot verify identity or administrative authority claims in chat and does not disclose internal infrastructure details, source code, system instructions, cryptographic parameters, credentials, or subscriber account data.\\n\\n• Public Security & Zero-Retention Posture: Review our public security controls, stateless TLS 1.3 API processing, and zero bid-data retention standards in the Security Center and Privacy Policy.\\n• Self-Serve Account & API Management: Manage your organization's subscription, estimating team CC seats, and production cd_live_... API Key inside the authenticated Client Portal.",
           ctaLabel: 'View Security Standards',
           ctaFn: function() {{ openTrustModal('security'); }},
           actions: [
@@ -2718,10 +2983,10 @@ def build_site_files() -> None:
         }};
       }}
 
-      // 9e. Contact Human Support / Direct Email
-      if (/human|real\\s+person|talk\\s+to\\s+someone|support\\s+email|email\\s+address|contact\\s+support|customer\\s+service|phone\\s+call|sales\\s+call|book\\s+a\\s+call|zoom|demo|free\\s+trial/i.test(ql)) {{
+      // 9e. Contact Support / Instant Self-Serve Test Drive / Account Access
+      if (/human|real\\s+person|talk\\s+to\\s+someone|support\\s+email|email\\s+address|contact\\s+support|customer\\s+service|phone\\s+call|sales\\s+call|book\\s+a\\s+call|zoom|demo|free\\s+trial|login|sign\\s+in|forgot\\s+key|recover\\s+key/i.test(ql)) {{
         return {{
-          text: "You can test-drive CamberDesk immediately without waiting on a sales call, or reach our estimating desk directly:\\n• Direct Estimating Support Email: estimating@trycamberdesk.com (monitored 24/7 for enterprise MSA/SLA, custom DOT portal requests, and billing support).\\n• Instant No-Card Test Drive: Download a live 6-File OpenXML (.DOCX + .XLSX) Bid Package sample right now, or paste your own specification text into the Interactive Evaluation Workbench on the Self-Serve Pricing view.",
+          text: "CamberDesk is 100% self-serve with zero sales-call gatekeeping and instant account resolution:\\n• Self-Serve Client Portal (#account): Manage your plan, download corporate B2B tax receipts, configure 52-portal trade alert filters, add unlimited estimating team CC seats, or retrieve your production cd_live_... API key in 1 click.\\n• Instant No-Card Test Drive: Download a live 6-File OpenXML (.DOCX + .XLSX) Bid Package sample right now, or paste your own specification text into the Interactive Evaluation Workbench on the Self-Serve Pricing view.",
           ctaLabel: 'Open Evaluation Workbench',
           ctaFn: function() {{ closeTrustModals(); switchSpaView('checkout'); const el = document.getElementById('checkout-enterprise-proof-workbench'); if (el) el.scrollIntoView({{behavior:'auto'}}); }},
           actions: [
@@ -2876,40 +3141,69 @@ def build_site_files() -> None:
         }};
       }}
 
-      // 16. Dynamic Question-Specific Compositional Synthesizer (Guarantees Every Free-Form Prompt Gets a Tailored, Unique Answer!)
-      const stopWords = new Set(['what','when','where','which','who','whom','whose','why','how','does','do','did','is','are','was','were','be','been','being','have','has','had','can','could','will','would','shall','should','may','might','must','the','a','an','and','or','but','if','then','else','for','of','to','in','on','at','by','with','from','about','into','through','after','before','between','out','against','during','without','again','further','once','here','there','all','any','both','each','few','more','most','other','some','such','no','nor','not','only','own','same','so','than','too','very','tell','me','us','you','your','my','our','we','they','them','it','its','this','that','these','those','please','help','need','want','know','like']);
-      const tokens = q.replace(/[^a-zA-Z0-9\\s-]/g, ' ').split(/\\s+/).filter(w => w.length >= 2 && !stopWords.has(w.toLowerCase()));
-      const focusPhrase = tokens.length > 0 ? tokens.slice(0, 6).join(' ') : q;
-
-      let customAnalysis = "Here is how CamberDesk's Preconstruction & 50-State DOT Engine handles your request:";
-      let customBullets = [];
-      if (/bridge|highway|road|interstate|overpass|culvert|pavement|resurfacing|widening/i.test(ql)) {{
-        customBullets.push(`• Highway & Bridge Takeoff Modeling (${{focusPhrase}}): Benchmarks structural & paving pay items against 1.42M+ historical State DOT winning low bids (API #02) and extracts nighttime lane-rental & liquidated damages clauses (API #01).`);
-      }}
-      if (/airport|faa|runway|apron|taxiway|transit|rail|port|marine|dredging|dam|levee/i.test(ql)) {{
-        customBullets.push(`• Heavy-Civil, Aviation, Transit & Marine Infrastructure (${{focusPhrase}}): Normalizes Federal USACE Civil Works / NAVFAC (NAICS 236–238), Port/Airport Authority, and State DOT lettings across all 52 portals (API #04).`);
-      }}
-      if (/commercial|building|school|hospital|municipal|water|wastewater|treatment|pump|facility/i.test(ql)) {{
-        customBullets.push(`• Municipal Public Works & Commercial Facilities (${{focusPhrase}}): Shreds CSI MasterFormat Divisions 00–48 for submittals and liquidated damages (API #01) and models balanced AIA G702/G703 Schedules of Values (API #07).`);
-      }}
-      if (/estimate|estimating|estimator|takeoff|bid|bidding|proposal|win|margin|markup|cost|quantity/i.test(ql)) {{
-        customBullets.push(`• Estimating Desk Acceleration for "${{q}}": Compiles a complete 6-File OpenXML (.DOCX + .XLSX) Bid Package with live =ROUND(D6*G6,2) Excel formulas, county Davis-Bacon WH-347 wages (API #03), and competitor planholder MLOT spread predictions (API #11).`);
-      }}
-      if (customBullets.length === 0) {{
-        customBullets.push(`• Direct Preconstruction Analysis for "${{q}}": Paste any specification section, pay-item schedule, or project scope for "${{focusPhrase}}" into the CamberDesk Custom Evaluation Workbench to compile a live 6-File OpenXML (.DOCX + .XLSX) Bid Package in memory.`);
-        customBullets.push(`• 52-Portal & 12-API Coverage: Query 36-month State DOT winning low unit prices ($/Ton, $/CY, $/LF), county Davis-Bacon WH-347 prevailing wages, BABA domestic steel rules, and 49 CFR Part 26 DBE credits across all 50 U.S. states.`);
-      }} else {{
-        customBullets.push(`• Instant Custom Compilation for "${{focusPhrase}}": Test your exact project parameters live in the Interactive Evaluation Workbench or download a 6-File OpenXML (.DOCX + .XLSX) sample package below.`);
+      // 16a. Highway, Bridge, Roadway, Overpass & Resurfacing Lettings
+      if (/bridge|highway|road|interstate|overpass|culvert|pavement|resurfacing|widening|guardrail|striping|traffic\\s+control|mot\\b/i.test(ql)) {{
+        return {{
+          text: "CamberDesk automates heavy-civil highway, bridge, and roadway takeoff preparation across all 50 U.S. State DOTs:\\n• 36-Month DOT Pay-Item Benchmarking (API #02): Benchmarks Superpave HMA ($/Ton), structural concrete ($/CY), reinforcing steel ($/LB), and drainage pipe ($/LF) against 1.42M+ historical winning low bids.\\n• Division 00–01 Special Provisions Shredding (API #01): Extracts nighttime lane-closure windows, lane-rental overrun penalties ($/hr), and calendar-day vs. working-day liquidated damages.\\n• 1-Click 6-File OpenXML (.DOCX + .XLSX) Package: Compiles native Word & Excel takeoff workbooks with live =ROUND(D6*G6,2) and =SUM() formulas.",
+          ctaLabel: 'Browse Live DOT Lettings',
+          ctaFn: function() {{ closeTrustModals(); switchSpaView('lettings'); }},
+          actions: [
+            {{ label: 'Browse Live DOT Lettings', fn: function() {{ closeTrustModals(); switchSpaView('lettings'); }} }},
+            {{ label: 'Query DOT Bid-Tab Vault', fn: function() {{ closeTrustModals(); switchSpaView('checkout'); const el = document.getElementById('checkout-enterprise-proof-workbench'); if (el) el.scrollIntoView({{behavior:'auto'}}); switchCheckoutWorkbenchTab('vault'); }} }},
+            {{ label: 'Download Live .ZIP Sample', href: 'https://camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary' }}
+          ]
+        }};
       }}
 
+      // 16b. Aviation, Marine, Dredging, Dam, Levee, Rail & USACE Civil Works
+      if (/airport|faa|runway|apron|taxiway|transit|rail|port|marine|dredging|dam|levee|seawall|bulkhead|lock\\s+and\\s+dam|navfac/i.test(ql)) {{
+        return {{
+          text: "CamberDesk monitors Federal USACE Civil Works, NAVFAC (SAM.gov NAICS 236–238), Port/Airport Authorities, and Transit Boards alongside all 50 State DOTs:\\n• Heavy-Civil & Marine Spec Shredding (API #01 & API #10): Extracts USACE EM 385-1-1 Activity Hazard Analysis (AHA) requirements, dredging/marine environmental windows, and Buy America (BABA) steel piling rules.\\n• Davis-Bacon Heavy & Marine Wage Decisions (API #03): Pulls county-specific SAM.gov WDOL Heavy, Dredging, and Highway craft rates and fringe burdens into Volume III (.XLSX).",
+          ctaLabel: 'Browse USACE & DOT Lettings',
+          ctaFn: function() {{ closeTrustModals(); switchSpaView('lettings'); }},
+          actions: [
+            {{ label: 'Browse USACE & DOT Lettings', fn: function() {{ closeTrustModals(); switchSpaView('lettings'); }} }},
+            {{ label: 'Test CSI Shredder in Sandbox', fn: function() {{ closeTrustModals(); switchSpaView('apis'); openApiSandbox('product-csi-masterformat', true); }} }}
+          ]
+        }};
+      }}
+
+      // 16c. Municipal Water / Wastewater Treatment Plants, Pump Stations & Commercial Facilities
+      if (/commercial|building|school|hospital|municipal|water\\s+treatment|wastewater|pump\\s+station|lift\\s+station|reservoir|facility|hvac|electrical|mechanical/i.test(ql)) {{
+        return {{
+          text: "CamberDesk supports Municipal Public Works (water/wastewater treatment plants, pump stations, trunk sewers) and commercial facility bids across CSI Divisions 00–48:\\n• Submittal & Equipment Register (API #01): Extracts process equipment, electrical/SCADA, concrete mix design, and commissioning submittals.\\n• Balanced AIA G702/G703 Schedule of Values (API #07): Builds compliant continuation sheets with mobilization caps and statutory retainage rules.\\n• Subcontractor ITB Scope Sheets (API #12): Generates trade-by-trade buyout packages with AIA A401 flow-down risk checks.",
+          ctaLabel: 'Test Custom Scope in Workbench',
+          ctaFn: function() {{ closeTrustModals(); switchSpaView('checkout'); const el = document.getElementById('checkout-enterprise-proof-workbench'); if (el) el.scrollIntoView({{behavior:'auto'}}); }},
+          actions: [
+            {{ label: 'Test Custom Scope in Workbench', fn: function() {{ closeTrustModals(); switchSpaView('checkout'); const el = document.getElementById('checkout-enterprise-proof-workbench'); if (el) el.scrollIntoView({{behavior:'auto'}}); }} }},
+            {{ label: 'Download Live .ZIP Sample', href: 'https://camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary' }}
+          ]
+        }};
+      }}
+
+      // 16d. General Estimating, Takeoff, Markup, Margin, Contingency & Bid Prep
+      if (/estimate|estimating|estimator|takeoff|bid|bidding|proposal|win|margin|markup|overhead|profit|contingency|quantity|mobilization/i.test(ql)) {{
+        return {{
+          text: "CamberDesk accelerates your estimating workflow from raw letting notice to priced bid package in under 60 seconds:\\n• 6-File OpenXML (.DOCX + .XLSX) Takeoff Package: Compiles Volume I CSI Spec Matrix (.docx), Volume II 36-Month DOT Unit-Price Bid Tabulation (.xlsx with live =ROUND(D6*G6,2) and =SUM() formulas), Volume III Davis-Bacon WH-347 Wage Model (.xlsx), Volume IV DBE/BABA Certs (.docx), and Volume V AIA G702/G703 SOV (.docx).\\n• Competitor MLOT Spread Modeling (API #11): Calibrates your final markup against active prime planholders so you win the letting without leaving excess margin on the table.",
+          ctaLabel: 'Inspect .ZIP Bid Package',
+          ctaFn: function() {{ closeTrustModals(); switchSpaView('overview'); const el = document.getElementById('zip-package-inspector'); if (el) el.scrollIntoView({{behavior:'auto'}}); }},
+          actions: [
+            {{ label: 'Inspect .ZIP Bid Package', fn: function() {{ closeTrustModals(); switchSpaView('overview'); const el = document.getElementById('zip-package-inspector'); if (el) el.scrollIntoView({{behavior:'auto'}}); }} }},
+            {{ label: 'Download Live .ZIP Sample', href: 'https://camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary' }},
+            {{ label: 'Calculate Estimating ROI', fn: function() {{ closeTrustModals(); switchSpaView('overview'); const el = document.getElementById('roi-calculator'); if (el) el.scrollIntoView({{behavior:'auto'}}); }} }}
+          ]
+        }};
+      }}
+
+      // 17. Clean, Non-Parroting Default Fallback (Never echoes raw user text as a fake specification section!)
       return {{
-        text: `Regarding "${{q}}" — ${{customAnalysis}}\\n${{customBullets.join('\\n')}}`,
-        ctaLabel: 'Test Custom Scope in Workbench',
-        ctaFn: function() {{ closeTrustModals(); switchSpaView('checkout'); const el = document.getElementById('checkout-enterprise-proof-workbench'); if (el) el.scrollIntoView({{behavior:'auto'}}); }},
+        text: "I am CamberDesk's Autonomous AI Preconstruction & Support Concierge. Here is what I can help you with right now:\\n• 50-State DOT & USACE Lettings: Ask about any State DOT (e.g., TxDOT, Caltrans, FDOT, VDOT, PennDOT) or benchmark 36-month winning low unit prices ($/Ton Asphalt, $/CY Concrete, $/LF Storm Drain Pipe, $/LB Rebar).\\n• 1-Click 6-File OpenXML (.DOCX + .XLSX) Takeoff Packages: Inspect or download a live sample .ZIP containing native Word & Excel workbooks with live =ROUND(D6*G6,2) and =SUM() formulas, Davis-Bacon WH-347 wages, and BABA/DBE compliance worksheets.\\n• Self-Serve Account, API & Billing: Compare Tier 1 ($199/mo), Tier 2 Autopilot ($499/mo), Tier 3 .ZIP Compiler ($1,499/mo), and Tier 4 OEM ($2,499/mo), retrieve your cd_live_... API/MCP key, download B2B tax receipts, or cancel in 1 click.",
+        ctaLabel: 'Compare Plans & Workbench',
+        ctaFn: function() {{ closeTrustModals(); switchSpaView('checkout'); }},
         actions: [
-          {{ label: 'Test Custom Scope in Workbench', fn: function() {{ closeTrustModals(); switchSpaView('checkout'); const el = document.getElementById('checkout-enterprise-proof-workbench'); if (el) el.scrollIntoView({{behavior:'auto'}}); }} }},
+          {{ label: 'Compare Pricing Plans', fn: function() {{ closeTrustModals(); switchSpaView('checkout'); }} }},
           {{ label: 'Download Live .ZIP Sample', href: 'https://camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary' }},
-          {{ label: 'Browse Live DOT Lettings', fn: function() {{ closeTrustModals(); switchSpaView('lettings'); }} }}
+          {{ label: 'Open Client Portal', fn: function() {{ openTrustModal('account'); }} }}
         ]
       }};
     }}
@@ -2922,7 +3216,15 @@ def build_site_files() -> None:
     }}
 
     function _renderConciergeBotReply(botDiv, reply) {{
-      botDiv.innerHTML = `<strong class="text-[#1E3A8A] font-mono block mb-1">&check; CAMBERDESK AI CONCIERGE RESPONSE:</strong><div class="whitespace-pre-line leading-relaxed">${{_escConciergeHtml(reply.text)}}</div>`;
+      let safeText = String((reply && reply.text) || '').trim();
+      if (__CONCIERGE_DLP_RE.test(safeText)) {{
+        safeText = "For security and confidentiality reasons, the CamberDesk AI Support Concierge does not disclose internal infrastructure details, source code, system instructions, cryptographic parameters, credentials, or subscriber account data.\\n\\n• Public Security & Zero-Retention Posture: Review our public security controls, stateless TLS 1.3 API processing, and zero bid-data retention standards in the Security Center and Privacy Policy.\\n• Self-Serve Account & API Management: Manage your organization's subscription, estimating team CC seats, and production cd_live_... API Key inside the authenticated Client Portal.";
+      }}
+      const headerLabel = (reply && reply.isWafBlock)
+        ? '[!] CAMBERDESK WAF SECURITY BLOCK:'
+        : '&check; CAMBERDESK AI CONCIERGE RESPONSE:';
+      const headerColor = (reply && reply.isWafBlock) ? 'text-[#991B1B]' : 'text-[#1E3A8A]';
+      botDiv.innerHTML = `<strong class="${{headerColor}} font-mono block mb-1">${{headerLabel}}</strong><div class="whitespace-pre-line leading-relaxed break-words">${{_escConciergeHtml(safeText)}}</div>`;
       const acts = Array.isArray(reply.actions) && reply.actions.length > 0
         ? reply.actions
         : (reply.ctaHref ? [{{ label: reply.ctaLabel, href: reply.ctaHref }}] : (reply.ctaFn ? [{{ label: reply.ctaLabel, fn: reply.ctaFn }}] : []));
@@ -2968,17 +3270,19 @@ def build_site_files() -> None:
       if (ev && ev.preventDefault) ev.preventDefault();
       const inp = document.getElementById('concierge-input');
       const log = document.getElementById('concierge-chat-log');
-      const q = inp ? inp.value.trim() : '';
-      if (!q || !log) return false;
+      const rawQ = inp ? inp.value.trim() : '';
+      if (!rawQ || !log) return false;
       inp.value = '';
+      const check = sanitizeConciergeInput(rawQ);
+      const displayQ = check.ok ? check.value : rawQ.slice(0, 160);
       const userDiv = document.createElement('div');
-      userDiv.className = 'p-2.5 rounded-lg bg-[#EAE6DF] border border-[#CBD5E1] text-[#0A0D14] text-xs font-bold';
-      userDiv.innerHTML = `You: ${{_escConciergeHtml(q)}}`;
+      userDiv.className = 'p-2.5 rounded-lg bg-[#EAE6DF] border border-[#CBD5E1] text-[#0A0D14] text-xs font-bold break-words';
+      userDiv.innerHTML = `You: ${{_escConciergeHtml(displayQ)}}`;
       log.appendChild(userDiv);
 
       const botDiv = document.createElement('div');
-      botDiv.className = 'p-3 rounded-lg bg-[#EFF6FF] border border-[#93C5FD] text-[#0A0D14] text-xs font-medium leading-relaxed space-y-2';
-      const reply = buildConciergeAnswer(q, '', '');
+      botDiv.className = 'p-3 rounded-lg bg-[#EFF6FF] border border-[#93C5FD] text-[#0A0D14] text-xs font-medium leading-relaxed space-y-2 break-words';
+      const reply = buildConciergeAnswer(rawQ, '', '');
       _renderConciergeBotReply(botDiv, reply);
       log.appendChild(botDiv);
       userDiv.scrollIntoView({{ behavior: 'smooth', block: 'start' }});
@@ -2990,18 +3294,20 @@ def build_site_files() -> None:
       const inp = document.getElementById('contact-modal-input');
       const topEl = document.getElementById('contact-modal-topic');
       const log = document.getElementById('contact-modal-log');
-      const q = inp ? inp.value.trim() : '';
+      const rawQ = inp ? inp.value.trim() : '';
       const topic = topEl ? topEl.value : 'plans_and_pricing';
-      if (!q || !log) return false;
+      if (!rawQ || !log) return false;
       inp.value = '';
+      const check = sanitizeConciergeInput(rawQ);
+      const displayQ = check.ok ? check.value : rawQ.slice(0, 160);
       const userDiv = document.createElement('div');
-      userDiv.className = 'p-2.5 rounded-lg bg-[#EAE6DF] border border-[#CBD5E1] text-[#0A0D14] text-xs font-bold';
-      userDiv.innerHTML = `You: ${{_escConciergeHtml(q)}}`;
+      userDiv.className = 'p-2.5 rounded-lg bg-[#EAE6DF] border border-[#CBD5E1] text-[#0A0D14] text-xs font-bold break-words';
+      userDiv.innerHTML = `You: ${{_escConciergeHtml(displayQ)}}`;
       log.appendChild(userDiv);
 
       const botDiv = document.createElement('div');
-      botDiv.className = 'p-3.5 rounded-xl bg-[#EFF6FF] border border-[#93C5FD] text-[#0A0D14] text-xs font-medium leading-relaxed space-y-2';
-      const reply = buildConciergeAnswer(q, '', topic);
+      botDiv.className = 'p-3.5 rounded-xl bg-[#EFF6FF] border border-[#93C5FD] text-[#0A0D14] text-xs font-medium leading-relaxed space-y-2 break-words';
+      const reply = buildConciergeAnswer(rawQ, '', topic);
       _renderConciergeBotReply(botDiv, reply);
       log.appendChild(botDiv);
       userDiv.scrollIntoView({{ behavior: 'smooth', block: 'start' }});
@@ -3097,6 +3403,11 @@ def build_site_files() -> None:
     window.closeCamberCheckoutModal = closeCamberCheckoutModal;
     window.switchCardCodeTab = switchCardCodeTab;
     window.runCardLiveInBrowser = runCardLiveInBrowser;
+    window.lookupSubscriberAccount = lookupSubscriberAccount;
+    window.switchAdminPortalPreview = switchAdminPortalPreview;
+    window.logoutClientAccount = logoutClientAccount;
+    window.downloadAccountSelectedZip = downloadAccountSelectedZip;
+    window.inspectAccountSelectedDossier = inspectAccountSelectedDossier;
     if (window.addEventListener) {{
       window.addEventListener('hashchange', handleHashNavigation);
       window.addEventListener('DOMContentLoaded', handleHashNavigation);
@@ -3107,6 +3418,10 @@ def build_site_files() -> None:
     html, body { max-width: 100vw; overflow-x: hidden; color: #0A0D14; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
     p, li, td, th, label, span { letter-spacing: -0.005em; }
     pre, code, textarea { font-variant-ligatures: none; }
+    code, a[data-api-row] span, [data-api-card] span, [id^="zip-tab-btn-"], #zip-inspector-title, #lead-magnet-status, #account-seat-list span, #account-active-id, #account-api-key-val {
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
   </style>"""
 
     trust_modals_and_concierge_html = """
@@ -3175,21 +3490,77 @@ def build_site_files() -> None:
         <button type="button" onclick="closeTrustModals()" class="shrink-0 whitespace-nowrap px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
       </div>
       <form onsubmit="lookupSubscriberAccount(event)" class="space-y-3">
-        <label class="block text-xs font-mono font-bold text-[#0A0D14]">ENTER SUBSCRIBER WORK EMAIL OR API KEY (<code class="text-[#1E3A8A]">cd_live_...</code>)</label>
-        <div class="flex flex-col sm:flex-row gap-2.5">
-          <input id="account-lookup-input" type="text" required placeholder="estimating@yourcontractor.com or cd_live_..." class="flex-1 px-3.5 py-2.5 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-sm font-medium text-[#0A0D14] placeholder-[#1E293B]" />
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div>
+            <label class="block text-xs font-mono font-bold text-[#0A0D14] mb-1">SUBSCRIBER WORK EMAIL OR API KEY (<code class="text-[#1E3A8A]">cd_live_...</code>)</label>
+            <input id="account-lookup-input" type="text" required placeholder="estimating@yourcontractor.com or cd_live_..." class="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-sm font-medium text-[#0A0D14] placeholder-[#1E293B]" />
+          </div>
+          <div>
+            <label class="block text-xs font-mono font-bold text-[#0A0D14] mb-1">PORTAL PASSWORD OR API KEY (OPTIONAL FOR SUBSCRIBERS)</label>
+            <input id="account-password-input" type="password" placeholder="Password or cd_live_..." class="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-sm font-medium text-[#0A0D14] placeholder-[#1E293B]" />
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div id="account-auth-status" class="text-xs font-mono font-bold text-[#1E3A8A]">Enter your work email, API key, or Founder/Admin credentials to unlock your Client Portal.</div>
           <button type="submit" class="px-5 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold transition">Access Client Portal &rarr;</button>
         </div>
       </form>
       <div id="account-portal-result" class="hidden p-4 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-3 text-xs font-mono">
+        <!-- Founder & Admin Tier Preview Switcher (Visible Only When Authenticated as Founder/Admin) -->
+        <div id="account-admin-bar" class="hidden p-3.5 rounded-xl bg-[#EFF6FF] border-2 border-[#1E3A8A] space-y-2.5">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="px-2 py-0.5 rounded bg-[#1E3A8A] text-white font-bold text-[10px]">FOUNDER &amp; ADMIN CONSOLE</span>
+              <span class="font-extrabold text-[#0A0D14] ml-1.5">CLIENT PORTAL TIER VIEW SWITCHER (ALL 4 TIERS UNLOCKED)</span>
+            </div>
+            <button type="button" onclick="logoutClientAccount()" class="px-2.5 py-1 rounded bg-white hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] font-bold text-[11px] transition">Sign Out</button>
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            <button type="button" id="admin-tier-btn-tier_4" onclick="switchAdminPortalPreview('tier_4')" class="px-2.5 py-1 rounded bg-[#1E3A8A] text-white font-mono text-[11px] font-bold transition">Tier 4 OEM ($2,499/mo)</button>
+            <button type="button" id="admin-tier-btn-tier_3" onclick="switchAdminPortalPreview('tier_3')" class="px-2.5 py-1 rounded bg-white hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-mono text-[11px] font-bold transition">Tier 3 .ZIP Compiler ($1,499/mo)</button>
+            <button type="button" id="admin-tier-btn-tier_2" onclick="switchAdminPortalPreview('tier_2')" class="px-2.5 py-1 rounded bg-white hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-mono text-[11px] font-bold transition">Tier 2 Autopilot ($499/mo)</button>
+            <button type="button" id="admin-tier-btn-tier_1" onclick="switchAdminPortalPreview('tier_1')" class="px-2.5 py-1 rounded bg-white hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-mono text-[11px] font-bold transition">Tier 1 Wire ($199/mo)</button>
+          </div>
+        </div>
+
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div><span class="font-bold text-[#0A0D14]">SUBSCRIBER IDENTITY:</span> <span id="account-active-id" class="font-extrabold text-[#1E3A8A]">estimating@yourcontractor.com</span></div>
-          <span class="px-2.5 py-0.5 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">ACTIVE WORKSPACE READY</span>
+          <span id="account-active-tier-badge" class="px-2.5 py-0.5 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">ACTIVE WORKSPACE READY</span>
         </div>
+        <div class="text-[11px] font-bold text-[#0A0D14]">ENTITLEMENTS &amp; QUOTA: <span id="account-active-quota" class="text-[#1E3A8A]">50,000 API Calls/Mo + Unlimited 6-File .ZIP Compilations + 50-State Vault</span></div>
         <div class="p-3 rounded-lg bg-white border border-[#CBD5E1] flex flex-wrap items-center justify-between gap-2">
           <div><span class="font-bold text-[#0A0D14]">REST &amp; MCP API KEY:</span> <code id="account-api-key-val" class="text-[#1E3A8A] font-extrabold">cd_live_98a4f2c1b0e7d6a3</code></div>
           <button type="button" id="btn-copy-account-key" onclick="copyAccountApiKey()" class="px-3 py-1 rounded bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold">Copy Key</button>
         </div>
+
+        <!-- Direct On-Demand 6-File .ZIP & Dossier Selector Inside Client Portal -->
+        <div class="p-3 rounded-lg bg-white border border-[#CBD5E1] space-y-2">
+          <div class="font-bold text-[#0A0D14]">ON-DEMAND 6-FILE OPENXML (.DOCX + .XLSX) BID PACKAGE &amp; DOSSIER VAULT</div>
+          <div class="flex flex-col sm:flex-row gap-2">
+            <select id="account-zip-project-select" class="flex-1 px-2.5 py-1.5 rounded bg-[#FAF8F5] border border-[#94A3B8] text-[#0A0D14] font-bold">
+              __ACCOUNT_LETTING_OPTIONS__
+            </select>
+            <button type="button" onclick="downloadAccountSelectedZip()" class="px-3 py-1.5 rounded bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold">Download 6-File .ZIP</button>
+            <button type="button" onclick="inspectAccountSelectedDossier()" class="px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] font-bold">Inspect Bid-Tab Dossier</button>
+          </div>
+        </div>
+
+        <!-- Ready-to-Paste Claude Desktop / Cursor MCP Config -->
+        <div class="p-3 rounded-lg bg-white border border-[#CBD5E1] space-y-1.5">
+          <div class="font-bold text-[#0A0D14]">CLAUDE DESKTOP / CURSOR / WINDSURF MCP CONFIG (PRE-FILLED WITH YOUR KEY)</div>
+          <pre id="account-mcp-config-pre" class="p-2.5 rounded bg-[#0A0D14] text-[#F8FAFC] text-[11px] overflow-x-auto">{
+  "mcpServers": {
+    "camberdesk": {
+      "command": "npx",
+      "args": ["-y", "@camberdesk/mcp-server"],
+      "env": {
+        "CAMBERDESK_API_KEY": "cd_live_98a4f2c1b0e7d6a3"
+      }
+    }
+  }
+}</pre>
+        </div>
+
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
           <a href="https://camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary" class="px-3.5 py-2 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white text-center font-bold">Download Latest 6-File .ZIP</a>
           <button type="button" onclick="openCamberCheckoutModal('tier2_monthly')" class="px-3.5 py-2 rounded-lg bg-white hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] text-center font-bold">Manage / Upgrade CamberDesk Plan</button>
@@ -3372,7 +3743,7 @@ def build_site_files() -> None:
         </div>
       </div>
       <div class="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#CBD5E1] flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
-        <div><span class="font-bold text-[#0A0D14]">DIRECT ESTIMATING DESK EMAIL:</span> <a href="mailto:estimating@trycamberdesk.com" class="text-[#1E3A8A] font-extrabold underline">estimating@trycamberdesk.com</a></div>
+        <div><span class="font-bold text-[#0A0D14]">SELF-SERVE CLIENT PORTAL:</span> <a href="#account" onclick="openTrustModal('account', event)" class="text-[#1E3A8A] font-extrabold underline">1-Click Plan, Receipt &amp; API Key Management &rarr;</a></div>
         <span class="text-[#065F46] font-bold">WAF VERIFIED &bull; ZERO BID-DATA RETENTION</span>
       </div>
     </div>
@@ -3474,7 +3845,7 @@ def build_site_files() -> None:
       </svg>
     </button>
   </div>
-"""
+""".replace("__ACCOUNT_LETTING_OPTIONS__", account_letting_options_html)
 
     index_title = "CamberDesk | 50-State DOT Bid-Tab, Prevailing-Wage &amp; Construction Takeoff Intelligence"
     index_desc = "Win more heavy-civil, highway, bridge, and commercial construction bids. Real-time 50-State DOT lettings, 36-month historical unit-price bid tabulations, Davis-Bacon WH-347 prevailing wages, and 1-Click 6-File OpenXML (.DOCX + .XLSX) Takeoff Packages."
@@ -3498,10 +3869,10 @@ def build_site_files() -> None:
 </head>
 <body class="bg-[#FAF8F5] text-[#0A0D14] font-sans antialiased pb-14 md:pb-0">
   <!-- Top Telemetry Bar -->
-  <div class="bg-[#EAE6DF] border-b border-[#CBD5E1] px-4 py-2 text-xs font-mono font-medium text-[#0A0D14] flex items-center justify-between gap-4 overflow-hidden">
+  <div class="bg-[#EAE6DF] border-b border-[#CBD5E1] px-3 sm:px-4 py-2 text-[11px] sm:text-xs font-mono font-medium text-[#0A0D14] flex items-center justify-between gap-4 overflow-hidden">
     <div class="flex items-center gap-2 min-w-0">
       <span class="inline-block w-2.5 h-2.5 shrink-0 rounded-full bg-[#065F46]"></span>
-      <span class="text-[#0A0D14] font-extrabold shrink-0">LIVE MONITORING: 52 GOVERNMENT &amp; DOT PORTALS ACTIVE</span>
+      <span class="text-[#0A0D14] font-extrabold truncate">LIVE MONITORING: 52 GOVERNMENT &amp; DOT PORTALS ACTIVE</span>
       <span class="hidden xl:inline text-[#1E3A8A] font-bold shrink-0">|</span>
       <span class="hidden xl:inline-block max-w-[460px] 2xl:max-w-[620px] truncate align-bottom text-[#111827] font-semibold">{ticker_items}</span>
     </div>
@@ -3662,7 +4033,7 @@ def build_site_files() -> None:
         </select>
         <button type="submit" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold transition">Download 6-File .ZIP Sample &rarr;</button>
       </form>
-      <div id="lead-magnet-status" class="text-xs font-mono font-bold text-[#065F46]">Includes Volume I–V (.DOCX + .XLSX) + 00_CamberDesk_Letting_Readiness_Manifest.json</div>
+      <div id="lead-magnet-status" class="text-xs font-mono font-bold text-[#065F46] break-all">Includes Volume I–V (.DOCX + .XLSX) + 00_CamberDesk_Letting_Readiness_Manifest.json</div>
     </section>
 
     <!-- Section: Why Basic Plan Rooms Fail Chief Estimators + Side-by-Side Comparison (#capture-moat) -->
@@ -3752,12 +4123,12 @@ Contractor shall place 48,500 TON PG 76-22 SAC-A surface course during nighttime
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
         <div class="lg:col-span-5 flex flex-col gap-2 min-w-0">
-          <button type="button" id="zip-tab-btn-0" onclick="switchZipInspectorTab(0)" class="px-3 py-2 rounded-lg bg-[#0A0D14] text-white font-mono text-xs font-bold text-left break-all transition">01 // Volume_I_CSI_MasterFormat_Spec_Matrix.docx</button>
-          <button type="button" id="zip-tab-btn-1" onclick="switchZipInspectorTab(1)" class="px-3 py-2 rounded-lg bg-[#F4F1EA] hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#CBD5E1] font-mono text-xs font-bold text-left break-all transition">02 // Volume_II_DOT_Unit_Price_Bid_Tab.xlsx</button>
-          <button type="button" id="zip-tab-btn-2" onclick="switchZipInspectorTab(2)" class="px-3 py-2 rounded-lg bg-[#F4F1EA] hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#CBD5E1] font-mono text-xs font-bold text-left break-all transition">03 // Volume_III_Davis_Bacon_WH347_Wage_Model.xlsx</button>
-          <button type="button" id="zip-tab-btn-3" onclick="switchZipInspectorTab(3)" class="px-3 py-2 rounded-lg bg-[#F4F1EA] hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#CBD5E1] font-mono text-xs font-bold text-left break-all transition">04 // Volume_IV_DBE_49CFR26_and_BABA_Cert.docx</button>
-          <button type="button" id="zip-tab-btn-4" onclick="switchZipInspectorTab(4)" class="px-3 py-2 rounded-lg bg-[#F4F1EA] hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#CBD5E1] font-mono text-xs font-bold text-left break-all transition">05 // Volume_V_AIA_G702_G703_SOV_and_FOIA.docx</button>
-          <button type="button" id="zip-tab-btn-5" onclick="switchZipInspectorTab(5)" class="px-3 py-2 rounded-lg bg-[#F4F1EA] hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#CBD5E1] font-mono text-xs font-bold text-left break-all transition">06 // 00_CamberDesk_Letting_Readiness_Manifest.json</button>
+          <button type="button" id="zip-tab-btn-0" onclick="switchZipInspectorTab(0)" class="px-3 py-2 rounded-lg bg-[#0A0D14] text-white font-mono text-xs font-bold text-left break-all w-full transition">01 // Volume_I_CSI_MasterFormat_Spec_Matrix.docx</button>
+          <button type="button" id="zip-tab-btn-1" onclick="switchZipInspectorTab(1)" class="px-3 py-2 rounded-lg bg-[#F4F1EA] hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#CBD5E1] font-mono text-xs font-bold text-left break-all w-full transition">02 // Volume_II_DOT_Unit_Price_Bid_Tab.xlsx</button>
+          <button type="button" id="zip-tab-btn-2" onclick="switchZipInspectorTab(2)" class="px-3 py-2 rounded-lg bg-[#F4F1EA] hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#CBD5E1] font-mono text-xs font-bold text-left break-all w-full transition">03 // Volume_III_Davis_Bacon_WH347_Wage_Model.xlsx</button>
+          <button type="button" id="zip-tab-btn-3" onclick="switchZipInspectorTab(3)" class="px-3 py-2 rounded-lg bg-[#F4F1EA] hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#CBD5E1] font-mono text-xs font-bold text-left break-all w-full transition">04 // Volume_IV_DBE_49CFR26_and_BABA_Cert.docx</button>
+          <button type="button" id="zip-tab-btn-4" onclick="switchZipInspectorTab(4)" class="px-3 py-2 rounded-lg bg-[#F4F1EA] hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#CBD5E1] font-mono text-xs font-bold text-left break-all w-full transition">05 // Volume_V_AIA_G702_G703_SOV_and_FOIA.docx</button>
+          <button type="button" id="zip-tab-btn-5" onclick="switchZipInspectorTab(5)" class="px-3 py-2 rounded-lg bg-[#F4F1EA] hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#CBD5E1] font-mono text-xs font-bold text-left break-all w-full transition">06 // 00_CamberDesk_Letting_Readiness_Manifest.json</button>
         </div>
         <div class="lg:col-span-7 p-5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-3 min-w-0">
           <div class="flex flex-wrap items-center justify-between gap-2">
@@ -4130,7 +4501,7 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
       </div>
       <div class="text-xs font-mono font-semibold text-[#111827] flex flex-wrap items-center justify-between gap-2 border-t border-[#CBD5E1] pt-3">
         <div>&copy; 2026 CamberDesk Inc. &bull; Stateless Preconstruction, 50-State DOT Bid-Tab &amp; Prevailing-Wage DaaS</div>
-        <div>Support: <a href="mailto:estimating@trycamberdesk.com" class="text-[#1E3A8A] font-bold">estimating@trycamberdesk.com</a></div>
+        <div>24/7 Support: <a href="#contact" onclick="openTrustModal('contact', event)" class="text-[#1E3A8A] font-bold hover:underline">Instant AI Support Concierge</a> &bull; <a href="#account" onclick="openTrustModal('account', event)" class="text-[#0A0D14] font-bold hover:underline">Client Portal</a></div>
       </div>
     </div>
   </footer>

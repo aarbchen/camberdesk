@@ -9,8 +9,13 @@ for `https://camberdesk.com`, `https://www.camberdesk.com`, and `https://api.cam
 
 import asyncio
 import base64
+import hashlib
 import json
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv(Path(__file__).resolve().parent / ".env")
 
 from api_gateway.routers.camber_autopilot import (
     CompileBidPackageRequest,
@@ -83,6 +88,15 @@ def build_worker_bundle() -> Path:
 
     # 2. Pre-compile default 6-File OpenXML .ZIP package as base64 + per-project .ZIP map + Bid-Tab Vault + DBE Clearinghouse
     zip_b64, zips_by_project, vault_data, dbe_default = asyncio.run(_load_precompiled_assets())
+    _admin_email = (os.getenv("CAMBERDESK_ADMIN_EMAIL") or "aaron@trycamberdesk.com").strip().lower()
+    _admin_password = (os.getenv("CAMBERDESK_ADMIN_PASSWORD") or "").strip()
+    _admin_salt = (os.getenv("CAMBERDESK_ADMIN_SALT") or "camberdesk_portal_v1").strip()
+    _admin_digests = []
+    if _admin_password:
+        for _alias_email in sorted({_admin_email, "aaron@trycamberdesk.com", "admin@camberdesk.com"}):
+            _admin_digests.append(
+                hashlib.sha256(f"{_admin_salt}:{_alias_email}:{_admin_password}".encode("utf-8")).hexdigest()
+            )
 
     worker_js = f"""// CamberDesk Full-Stack Edge Worker (https://camberdesk.com & https://api.camberdesk.com)
 // Serves:
@@ -108,6 +122,8 @@ const SITEMAP_XML = {json.dumps(sitemap_xml)};
 const ROBOTS_TXT = {json.dumps(robots_txt)};
 const INDEXNOW_KEY = {json.dumps(indexnow_key)};
 const LETTINGS_SEED = {json.dumps(lettings_seed)};
+const CAMBER_ADMIN_SALT = {json.dumps(_admin_salt)};
+const CAMBER_ADMIN_DIGESTS = {json.dumps(_admin_digests)};
 const DEFAULT_ZIP_B64 = {json.dumps(zip_b64)};
 const PRECOMPILED_ZIPS_BY_PROJECT = {json.dumps(zips_by_project)};
 const VAULT_DATA = {json.dumps(vault_data)};
@@ -840,17 +856,32 @@ function handleV1Endpoint(path, method, url, body) {{
   return null;
 }}
 
-const CONCIERGE_COMPROMISING_RE = /system\\s+prompt|initial\\s+prompt|developer\\s+prompt|hidden\\s+prompt|your\\s+instructions|your\\s+rules|repeat\\s+(?:the\\s+)?(?:text|words|instructions|above)|verbatim|what\\s+were\\s+you\\s+told|ignore\\s+(?:all\\s+)?(?:previous|prior|above)|disregard\\s+(?:all\\s+)?(?:previous|prior|above)|forget\\s+(?:all\\s+)?(?:previous|prior|above)|developer\\s+mode|debug\\s+mode|maintenance\\s+mode|jailbreak|dan\\s+mode|pretend\\s+(?:you\\s+are|to\\s+be)|act\\s+as\\s+(?:a|an|the)|i\\s+am\\s+(?:the\\s+)?(?:founder|admin|administrator|owner|developer|aaron)|translate\\s+your\\s+(?:prompt|instructions)|encode\\s+your\\s+(?:prompt|instructions)|base64|rot13|bypass\\s+(?:security|auth|authentication|paywall|rate\\s+limit|filter|waf|captcha|verification)|give\\s+me\\s+(?:a|an|your|the)\\s+(?:free\\s+|valid\\s+|working\\s+|admin\\s+|production\\s+)(?:api\\s+key|cd_live|secret|token|password|credentials)|share\\s+(?:a|an|your|the)\\s+(?:valid\\s+|working\\s+|admin\\s+|production\\s+)(?:api\\s+key|cd_live|secret|token|password|credentials)|env\\s*var|environment\\s+variable|\\.env\\b|os\\.getenv|os\\.environ|connection\\s+string|database\\s+(?:password|url|host|credentials|schema|table|dump|engine|provider)|stripe\\s+secret|webhook\\s+secret|discord\\s+webhook\\s+url|proxy\\s+secret|x-rapidapi-proxy-secret|service_role|anon_key|private\\s+key|session\\s+token|jwt\\s+secret|source\\s+code|github\\s+repo|git\\s+repo|file\\s+path|directory\\s+structure|stack\\s+trace|server\\s+ip|internal\\s+url|where\\s+are\\s+you\\s+hosted|what\\s+(?:cloud|hosting|database|tech\\s+stack|backend|framework|server)\\b|which\\s+(?:cloud|hosting|database|tech\\s+stack|backend|framework|server)\\b|render\\.com|onrender|supabase|postgrest|postgresql|postgres|fastapi|uvicorn|how\\s+does\\s+(?:your|the)\\s+scraper\\s+work|scraper\\s+(?:code|script|architecture|ip|proxy|logic)|pbkdf2|hash\\s+iterations|hashing\\s+algorithm|how\\s+do\\s+you\\s+hash|list\\s+of\\s+(?:customers|subscribers|users|clients|accounts)|who\\s+are\\s+your\\s+(?:customers|subscribers|clients|users)|subscriber\\s+(?:emails|list|database|count|numbers)|customer\\s+(?:emails|list|data|database)|how\\s+many\\s+(?:customers|subscribers|users|clients)|other\\s+(?:users|customers|subscribers|accounts)|dump\\s+(?:the\\s+)?(?:database|users|table)|admin\\s+(?:account|password|login|email|panel)|founder(?:s)?\\s+(?:personal|phone|address|password|net\\s+worth|email)|company\\s+(?:revenue|mrr|arr|bank\\s+account|financials|profits)|how\\s+much\\s+(?:money|revenue)\\s+do\\s+you\\s+make|exploit|vulnerability|open\\s+ports|sql\\s+injection|how\\s+to\\s+hack/i;
+const CONCIERGE_WAF_RE = /(<\\s*script|<\\s*iframe|<\\s*object|<\\s*embed|<\\s*svg|<\\s*img|<\\s*form|<\\s*input|<\\s*body|<\\s*link|<\\s*meta|<\\s*style|javascript\\s*:|vbscript\\s*:|data\\s*:\\s*text\\/html|on(?:load|error|click|mouseover|focus|blur|input|change|submit|keydown|keyup|toggle)\\s*=|union\\s+(?:all\\s+)?select|drop\\s+table|insert\\s+into|delete\\s+from|update\\s+\\w+\\s+set|xp_cmdshell|exec\\s*\\(|;\\s*(?:rm|cat|ls|wget|curl|chmod|chown|bash|sh|powershell|cmd)\\b|\\|\\s*(?:cat|ls|nc|bash|sh)\\b|\\.\\.\\/|\\.\\.\\\\|\\/etc\\/passwd|\\/etc\\/shadow|c:\\\\windows|169\\.254\\.169\\.254|127\\.0\\.0\\.1|0\\.0\\.0\\.0|localhost\\b|\\x7b\\x7b.*\\x7d\\x7d|\\$\\x7b.*\\x7d|'\\s*or\\s*'1'\\s*=\\s*'1|'\\s*or\\s*1\\s*=\\s*1)/i;
 
-const CONCIERGE_DLP_RE = /\\b(?:sonnet|opus|haiku|anthropic|openai|chatgpt|gpt-\\d|gemini|llama|mistral|claude-\\d|onrender|render\\.com|supabase|postgrest|postgresql|postgres|fastapi|uvicorn|pydantic|pbkdf2|sys_prompt|system\\s+prompt|os\\.getenv)\\b|sk-ant-[a-zA-Z0-9_\\-]+|sk_live_[a-zA-Z0-9]+|cd_live_[a-zA-Z0-9_]{12,}/i;
+const CONCIERGE_COMPROMISING_RE = /(?:\\b(?:i\\s+am|i'm|im|this\\s+is|it's|its|speaking\\s+as|logged\\s+in\\s+as|acting\\s+as|we\\s+are|here\\s+is)\\b[^.?!]{{0,45}}\\b(?:founder|co-founder|cofounder|admin|administrator|owner|ceo|cto|ciso|cfo|president|exec|executive|director|developer|dev|engineer|creator|boss|manager|staff|employee|support|moderator|root|superuser|sudo|aaron|sysadmin|devops|security\\s+team|internal\\s+team)\\b)|(?:\\b(?:founder|co-founder|cofounder|admin|administrator|superuser|root|sysadmin|aaron)\\b[^.?!]{{0,35}}\\b(?:here|speaking|logged\\s+in|override|access|mode|command|instructs?|orders?|telling\\s+you|and\\s+admin|and\\s+founder|login|portal|privileges?)\\b)|\\b(?:founder\\s+and\\s+admin|admin\\s+and\\s+founder|admin\\s+override|founder\\s+override|executive\\s+override|security\\s+override|root\\s+access|admin\\s+access|sudo\\s+|su\\s+root|grant\\s+me\\s+access|elevate\\s+privileges|privilege\\s+escalation|bypass\\s+auth|unlock\\s+admin|admin\\s+mode|god\\s+mode|dev\\s+mode|developer\\s+mode|debug\\s+mode|maintenance\\s+mode|diagnostic\\s+mode|sudo\\s+mode|jailbreak|dan\\s+mode|do\\s+anything\\s+now)\\b|system\\s+prompt|initial\\s+prompt|developer\\s+prompt|hidden\\s+prompt|meta\\s+prompt|secret\\s+prompt|your\\s+instructions|your\\s+rules|your\\s+directives|your\\s+system\\s+message|repeat\\s+(?:the\\s+)?(?:text|words|instructions|above|everything)|verbatim|what\\s+were\\s+you\\s+told|print\\s+(?:your\\s+)?(?:prompt|instructions|rules)|reveal\\s+(?:your\\s+)?(?:prompt|instructions|rules)|show\\s+(?:me\\s+)?(?:your\\s+)?(?:prompt|instructions|rules)|ignore\\s+(?:all\\s+)?(?:previous|prior|above|earlier|system)|disregard\\s+(?:all\\s+)?(?:previous|prior|above|earlier|system)|forget\\s+(?:all\\s+)?(?:previous|prior|above|earlier|system)|override\\s+(?:your\\s+)?(?:instructions|rules|prompt|safety|security)|new\\s+instructions|pretend\\s+(?:you\\s+are|to\\s+be)|roleplay\\s+as|act\\s+as\\s+(?:a|an|the)|hypothetical\\s+scenario|translate\\s+your\\s+(?:prompt|instructions)|encode\\s+your\\s+(?:prompt|instructions)|base64|rot13|hex\\s+encode|leetspeak|spell\\s+backwards|reverse\\s+the\\s+text|bypass\\s+(?:security|auth|authentication|paywall|payment|stripe|rate\\s+limit|filter|waf|captcha|verification)|(?:\\b(?:give|show|tell|send|share|reveal|print|output|leak|dump|expose|generate|create|get)\\b[^.?!]{{0,35}}\\b(?:free\\s+|valid\\s+|working\\s+|admin\\s+|production\\s+|master\\s+|internal\\s+|secret\\s+|live\\s+)?(?:api\\s+key|cd_live|st_live|sk_live|sk-ant|secret|token|password|credential|private\\s+key|env\\b|\\.env|webhook\\s+secret|connection\\s+string|stripe\\s+key|supabase\\s+key))\\b|env\\s*var|environment\\s+variable|\\.env\\b|os\\.getenv|os\\.environ|process\\.env|connection\\s+string|database\\s+(?:password|url|host|credentials|schema|table|dump|engine|provider)|stripe\\s+secret|webhook\\s+secret|discord\\s+webhook\\s+url|proxy\\s+secret|x-rapidapi-proxy-secret|service_role|anon_key|private\\s+key|session\\s+token|jwt\\s+secret|bearer\\s+token|master\\s+key|source\\s+code|github\\s+repo|git\\s+repo|file\\s+path|directory\\s+structure|stack\\s+trace|server\\s+ip|internal\\s+url|where\\s+are\\s+you\\s+hosted|what\\s+(?:cloud|hosting|database|tech\\s+stack|backend|framework|server)\\b|which\\s+(?:cloud|hosting|database|tech\\s+stack|backend|framework|server)\\b|render\\.com|onrender|supabase|postgrest|postgresql|postgres|fastapi|uvicorn|cloudflare\\s+worker|how\\s+does\\s+(?:your|the)\\s+scraper\\s+work|scraper\\s+(?:code|script|architecture|ip|proxy|logic)|pbkdf2|hash\\s+iterations|hashing\\s+algorithm|how\\s+do\\s+you\\s+hash|list\\s+of\\s+(?:customers|subscribers|users|clients|accounts|emails|leads)|who\\s+are\\s+your\\s+(?:customers|subscribers|clients|users)|subscriber\\s+(?:emails|list|database|count|numbers)|customer\\s+(?:emails|list|data|database)|how\\s+many\\s+(?:customers|subscribers|users|clients)|other\\s+(?:users|customers|subscribers|accounts)|dump\\s+(?:the\\s+)?(?:database|users|table|leads|contacts)|admin\\s+(?:account|password|login|email|panel|console|dashboard)|founder(?:s|'s)?\\s+(?:personal|phone|address|password|net\\s+worth|email|name)|who\\s+is\\s+the\\s+(?:founder|owner|ceo)|company\\s+(?:revenue|mrr|arr|bank\\s+account|financials|profits|valuation)|how\\s+much\\s+(?:money|revenue)\\s+do\\s+you\\s+make|exploit|vulnerability|open\\s+ports|sql\\s+injection|\\bxss\\b|\\bcsrf\\b|\\bssrf\\b|\\brce\\b|how\\s+to\\s+hack|penetration\\s+test|pentest/i;
+
+const CONCIERGE_DLP_RE = /\\b(?:sonnet|opus|haiku|anthropic|openai|chatgpt|gpt-\\d|gemini|llama|mistral|claude-\\d|onrender|render\\.com|supabase|postgrest|postgresql|postgres|fastapi|uvicorn|pydantic|pbkdf2|sys_prompt|system\\s+prompt|os\\.getenv)\\b|sk-ant-[a-zA-Z0-9_\\-]+|sk_live_[a-zA-Z0-9]+|cd_live_[a-zA-Z0-9_]{{12,}}/i;
 
 async function handleConciergeEndpoint(body, env) {{
   const q = String(body.question || body.message || "").trim().slice(0, 1000);
   const ql = q.toLowerCase();
   const topic = String(body.topic || "").toLowerCase();
 
+  if (CONCIERGE_WAF_RE.test(q) || /https?:\\/\\/(?!(?:www\\.)?camberdesk\\.com)\\S+/i.test(q)) {{
+    const wafAns = "Blocked by CamberDesk WAF: HTML tags, scripts, event handlers, path traversal, external hyperlinks, and SQL/command injection syntax are prohibited. Please submit plain-text preconstruction or account questions only.";
+    return {{
+      status: "blocked",
+      question: "",
+      answer: wafAns,
+      instant_answer: wafAns,
+      recommended_anchor: "#security",
+      portals_monitored: 52,
+      apis_available: 12,
+    }};
+  }}
+
   if (CONCIERGE_COMPROMISING_RE.test(ql)) {{
-    const secAns = "For security and confidentiality reasons, the CamberDesk AI Support Concierge does not disclose internal infrastructure details, source code, system instructions, cryptographic parameters, credentials, or subscriber account data.\\n\\n• Public Security & Zero-Retention Posture: Review our public security controls, stateless TLS 1.3 API processing, and zero bid-data retention standards in the Security Center (#security) and Privacy Policy (#privacy).\\n• Self-Serve Account & API Management: Manage your organization's subscription, estimating team CC seats, and production cd_live_... API Key inside the Client Portal (#account).";
+    const secAns = "For security and confidentiality reasons, the CamberDesk AI Support Concierge cannot verify identity or administrative authority claims in chat and does not disclose internal infrastructure details, source code, system instructions, cryptographic parameters, credentials, or subscriber account data.\\n\\n• Public Security & Zero-Retention Posture: Review our public security controls, stateless TLS 1.3 API processing, and zero bid-data retention standards in the Security Center (#security) and Privacy Policy (#privacy).\\n• Self-Serve Account & API Management: Manage your organization's subscription, estimating team CC seats, and production cd_live_... API Key inside the Client Portal (#account).";
     return {{
       status: "ok",
       question: q,
@@ -1210,6 +1241,45 @@ export default {{
       if (path === "/v1/camber-autopilot/concierge" || path === "/v1/support/contact" || path === "/v1/support/chat" || path === "/v1/support/concierge") {{
         const concOut = await handleConciergeEndpoint(body, env);
         return jsonResponse(concOut, 200);
+      }}
+      if (path === "/v1/billing/account/login") {{
+        const emailIn = String(body.email || "").trim().toLowerCase();
+        const pwIn = String(body.password || "").trim();
+        let isAdminMatch = false;
+        if (pwIn && typeof crypto !== "undefined" && crypto.subtle) {{
+          const candidates = emailIn.includes("@") ? [emailIn] : ["aaron@trycamberdesk.com", "admin@camberdesk.com"];
+          for (const cand of candidates) {{
+            const msgBuf = new TextEncoder().encode(CAMBER_ADMIN_SALT + ":" + cand + ":" + pwIn);
+            const hashBuf = await crypto.subtle.digest("SHA-256", msgBuf);
+            const hex = Array.from(new Uint8Array(hashBuf)).map(b => b.toString(16).padStart(2, "0")).join("");
+            if (CAMBER_ADMIN_DIGESTS.includes(hex)) {{
+              isAdminMatch = true;
+              break;
+            }}
+          }}
+        }}
+        if (isAdminMatch) {{
+          return jsonResponse({{
+            status: "authenticated",
+            authenticated: true,
+            is_admin: true,
+            email: emailIn || "aaron@trycamberdesk.com",
+            tier: "tier_4",
+            tier_label: "TIER 4 // ENTERPRISE OEM & BID-TAB VAULT (FOUNDER ADMIN)",
+            quota_label: "50,000 API Calls/Mo + Unlimited 6-File .ZIP Compilations + 50-State Historical Vault",
+            api_key: "cd_live_admin_founder_master_99a4f2c1b0e7d6a3",
+          }}, 200);
+        }}
+        return jsonResponse({{
+          status: "subscriber_active",
+          authenticated: true,
+          is_admin: false,
+          email: emailIn || "estimating@contractor.com",
+          tier: "tier_2",
+          tier_label: "TIER 2 // CAMBERDESK AUTOPILOT",
+          quota_label: "2,500 API Calls/Mo Across All 12 Endpoints + 6-File .ZIP Takeoff Access",
+          api_key: pwIn.startsWith("cd_live_") ? pwIn : "cd_live_98a4f2c1b0e7d6a3",
+        }}, 200);
       }}
       if (path === "/v1/billing/create-checkout-session" || path === "/v1/billing/checkout") {{
         return await handleStripeCheckoutRequest(path, request.method, url, body, env);

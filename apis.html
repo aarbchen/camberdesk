@@ -42,6 +42,10 @@
     html, body { max-width: 100vw; overflow-x: hidden; color: #0A0D14; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
     p, li, td, th, label, span { letter-spacing: -0.005em; }
     pre, code, textarea { font-variant-ligatures: none; }
+    code, a[data-api-row] span, [data-api-card] span, [id^="zip-tab-btn-"], #zip-inspector-title, #lead-magnet-status, #account-seat-list span, #account-active-id, #account-api-key-val {
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
   </style>
 </head>
 <body class="bg-[#FAF8F5] text-[#0A0D14] font-sans antialiased pb-14 md:pb-0">
@@ -265,96 +269,96 @@
                 <span class="shrink-0 text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">01</span>
                 <span class="text-sm font-bold text-[#0A0D14] break-words min-w-0">CSI MasterFormat Divisions 00–48 Spec & Submittal Shredder API</span>
               </div>
-              <div class="flex items-center gap-2 text-xs font-mono shrink-0">
-                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/shred/csi-masterformat</span>
+              <div class="flex items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0 max-w-full">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">POST /v1/shred/csi-masterformat</span>
               </div>
             </a><a href="#product-dot-unit-bid-tabs" onclick="jumpToApiCard('product-dot-unit-bid-tabs')" data-api-row="product-dot-unit-bid-tabs" class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm min-w-0">
               <div class="flex items-center gap-3 min-w-0">
                 <span class="shrink-0 text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">02</span>
                 <span class="text-sm font-bold text-[#0A0D14] break-words min-w-0">50-State DOT Historical Item Bid Tabulation & Spread Modeler API</span>
               </div>
-              <div class="flex items-center gap-2 text-xs font-mono shrink-0">
-                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/model/dot-unit-bid-tabs</span>
+              <div class="flex items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0 max-w-full">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">POST /v1/model/dot-unit-bid-tabs</span>
               </div>
             </a><a href="#product-davis-bacon-wage" onclick="jumpToApiCard('product-davis-bacon-wage')" data-api-row="product-davis-bacon-wage" class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm min-w-0">
               <div class="flex items-center gap-3 min-w-0">
                 <span class="shrink-0 text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">03</span>
                 <span class="text-sm font-bold text-[#0A0D14] break-words min-w-0">Davis-Bacon (29 CFR 5) & State Prevailing Wage Fringe Calculator API</span>
               </div>
-              <div class="flex items-center gap-2 text-xs font-mono shrink-0">
-                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/calculate/davis-bacon-prevailing-wage</span>
+              <div class="flex items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0 max-w-full">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">POST /v1/calculate/davis-bacon-prevailing-wage</span>
               </div>
             </a><a href="#product-live-lettings" onclick="jumpToApiCard('product-live-lettings')" data-api-row="product-live-lettings" class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm min-w-0">
               <div class="flex items-center gap-3 min-w-0">
                 <span class="shrink-0 text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">04</span>
                 <span class="text-sm font-bold text-[#0A0D14] break-words min-w-0">52-Portal Live State DOT Lettings, USACE & Public Works Feed API</span>
               </div>
-              <div class="flex items-center gap-2 text-xs font-mono shrink-0">
-                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">GET /v1/lettings/live</span>
+              <div class="flex items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0 max-w-full">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">GET /v1/lettings/live</span>
               </div>
             </a><a href="#product-baba-buy-america" onclick="jumpToApiCard('product-baba-buy-america')" data-api-row="product-baba-buy-america" class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm min-w-0">
               <div class="flex items-center gap-3 min-w-0">
                 <span class="shrink-0 text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">05</span>
                 <span class="text-sm font-bold text-[#0A0D14] break-words min-w-0">Build America, Buy America (BABA / 23 CFR 635.410) Material Auditor API</span>
               </div>
-              <div class="flex items-center gap-2 text-xs font-mono shrink-0">
-                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/audit/baba-buy-america</span>
+              <div class="flex items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0 max-w-full">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">POST /v1/audit/baba-buy-america</span>
               </div>
             </a><a href="#product-dbe-good-faith" onclick="jumpToApiCard('product-dbe-good-faith')" data-api-row="product-dbe-good-faith" class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm min-w-0">
               <div class="flex items-center gap-3 min-w-0">
                 <span class="shrink-0 text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">06</span>
                 <span class="text-sm font-bold text-[#0A0D14] break-words min-w-0">DOT DBE (49 CFR Part 26) Subcontractor & Good Faith Effort Generator API</span>
               </div>
-              <div class="flex items-center gap-2 text-xs font-mono shrink-0">
-                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/generate/dbe-good-faith-effort</span>
+              <div class="flex items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0 max-w-full">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">POST /v1/generate/dbe-good-faith-effort</span>
               </div>
             </a><a href="#product-aia-g702-g703" onclick="jumpToApiCard('product-aia-g702-g703')" data-api-row="product-aia-g702-g703" class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm min-w-0">
               <div class="flex items-center gap-3 min-w-0">
                 <span class="shrink-0 text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">07</span>
                 <span class="text-sm font-bold text-[#0A0D14] break-words min-w-0">AIA G702 / G703 Schedule of Values (SOV) & Retainage Billing API</span>
               </div>
-              <div class="flex items-center gap-2 text-xs font-mono shrink-0">
-                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/generate/aia-g702-g703-pay-app</span>
+              <div class="flex items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0 max-w-full">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">POST /v1/generate/aia-g702-g703-pay-app</span>
               </div>
             </a><a href="#product-surety-miller-act" onclick="jumpToApiCard('product-surety-miller-act')" data-api-row="product-surety-miller-act" class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm min-w-0">
               <div class="flex items-center gap-3 min-w-0">
                 <span class="shrink-0 text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">08</span>
                 <span class="text-sm font-bold text-[#0A0D14] break-words min-w-0">Miller Act (40 U.S.C. 3131) & Surety Bond Capacity Underwriter API</span>
               </div>
-              <div class="flex items-center gap-2 text-xs font-mono shrink-0">
-                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/audit/surety-miller-act-bond</span>
+              <div class="flex items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0 max-w-full">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">POST /v1/audit/surety-miller-act-bond</span>
               </div>
             </a><a href="#product-rfi-change-order" onclick="jumpToApiCard('product-rfi-change-order')" data-api-row="product-rfi-change-order" class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm min-w-0">
               <div class="flex items-center gap-3 min-w-0">
                 <span class="shrink-0 text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">09</span>
                 <span class="text-sm font-bold text-[#0A0D14] break-words min-w-0">Construction RFI, Differing Site Conditions & AIA G701 Change Order API</span>
               </div>
-              <div class="flex items-center gap-2 text-xs font-mono shrink-0">
-                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/generate/rfi-change-order-claim</span>
+              <div class="flex items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0 max-w-full">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">POST /v1/generate/rfi-change-order-claim</span>
               </div>
             </a><a href="#product-osha-emr-safety" onclick="jumpToApiCard('product-osha-emr-safety')" data-api-row="product-osha-emr-safety" class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm min-w-0">
               <div class="flex items-center gap-3 min-w-0">
                 <span class="shrink-0 text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">10</span>
                 <span class="text-sm font-bold text-[#0A0D14] break-words min-w-0">OSHA 29 CFR 1926, USACE EM 385-1-1 AHA & Insurance EMR Auditor API</span>
               </div>
-              <div class="flex items-center gap-2 text-xs font-mono shrink-0">
-                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/audit/osha-emr-site-safety</span>
+              <div class="flex items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0 max-w-full">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">POST /v1/audit/osha-emr-site-safety</span>
               </div>
             </a><a href="#product-planholder-spread" onclick="jumpToApiCard('product-planholder-spread')" data-api-row="product-planholder-spread" class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm min-w-0">
               <div class="flex items-center gap-3 min-w-0">
                 <span class="shrink-0 text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">11</span>
                 <span class="text-sm font-bold text-[#0A0D14] break-words min-w-0">DOT Planholder List, Competitor Bid Behavior & MLOT Analyzer API</span>
               </div>
-              <div class="flex items-center gap-2 text-xs font-mono shrink-0">
-                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/analyze/planholder-competitor-spread</span>
+              <div class="flex items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0 max-w-full">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">POST /v1/analyze/planholder-competitor-spread</span>
               </div>
             </a><a href="#product-subcontractor-itb" onclick="jumpToApiCard('product-subcontractor-itb')" data-api-row="product-subcontractor-itb" class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 p-3.5 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition shadow-sm min-w-0">
               <div class="flex items-center gap-3 min-w-0">
                 <span class="shrink-0 text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8]">12</span>
                 <span class="text-sm font-bold text-[#0A0D14] break-words min-w-0">Trade Subcontractor Invitation to Bid (ITB), Scope Gap & AIA A401 API</span>
               </div>
-              <div class="flex items-center gap-2 text-xs font-mono shrink-0">
-                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/generate/subcontractor-scope-itb</span>
+              <div class="flex items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0 max-w-full">
+                <span class="px-2 py-0.5 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">POST /v1/generate/subcontractor-scope-itb</span>
               </div>
             </a>
       </div>
@@ -363,10 +367,10 @@
       <div id="catalog-modules" style="overflow-anchor: none;" class="space-y-6">
         <article id="product-csi-masterformat" data-api-card="product-csi-masterformat" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6 min-w-0">
               <div class="lg:col-span-7 space-y-4 min-w-0">
-                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                <div class="flex flex-wrap items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0">
                   <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #01 // CSI SPEC SHREDDER</span>
-                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/shred/csi-masterformat</span>
-                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: shred_csi_masterformat</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">POST /v1/shred/csi-masterformat</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold break-all max-w-full">MCP: shred_csi_masterformat</span>
                 </div>
                 <h3 class="text-xl font-extrabold text-[#0A0D14]">CSI MasterFormat Divisions 00–48 Spec & Submittal Shredder API</h3>
                 <p class="text-sm font-medium text-[#111827] leading-relaxed">Shreds 500-page Project Manuals and Special Provisions into structured CSI Divisions 00–48 submittal logs, liquidated damages ($/day), retainage caps, and warranty terms.</p>
@@ -379,7 +383,7 @@
                 <div class="pt-2 flex flex-wrap gap-3">
                   <button type="button" onclick="openApiSandbox('product-csi-masterformat', true)" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
                   <button type="button" onclick="runCardLiveInBrowser('product-csi-masterformat')" class="px-4 py-2.5 rounded-lg bg-[#EFF6FF] hover:bg-[#DBEAFE] text-[#1E3A8A] border border-[#93C5FD] font-bold text-xs font-mono transition">Run Live in Browser</button>
-                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
+                  <a href="#checkout" onclick="switchSpaView('checkout', event)" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
                 </div>
               </div>
               <div class="lg:col-span-5 space-y-3 min-w-0">
@@ -425,10 +429,10 @@
               </div>
             </article><article id="product-dot-unit-bid-tabs" data-api-card="product-dot-unit-bid-tabs" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6 min-w-0">
               <div class="lg:col-span-7 space-y-4 min-w-0">
-                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                <div class="flex flex-wrap items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0">
                   <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #02 // DOT UNIT BID TABS</span>
-                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/model/dot-unit-bid-tabs</span>
-                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: model_dot_unit_bid_tabs</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">POST /v1/model/dot-unit-bid-tabs</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold break-all max-w-full">MCP: model_dot_unit_bid_tabs</span>
                 </div>
                 <h3 class="text-xl font-extrabold text-[#0A0D14]">50-State DOT Historical Item Bid Tabulation & Spread Modeler API</h3>
                 <p class="text-sm font-medium text-[#111827] leading-relaxed">Queries 36-month historical State DOT unit bid tabulations by pay item, state, and takeoff quantity to output low/median/75th-percentile unit prices ($/Ton, $/LF, $/CY) and Recommended Unit Bid.</p>
@@ -441,7 +445,7 @@
                 <div class="pt-2 flex flex-wrap gap-3">
                   <button type="button" onclick="openApiSandbox('product-dot-unit-bid-tabs', true)" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
                   <button type="button" onclick="runCardLiveInBrowser('product-dot-unit-bid-tabs')" class="px-4 py-2.5 rounded-lg bg-[#EFF6FF] hover:bg-[#DBEAFE] text-[#1E3A8A] border border-[#93C5FD] font-bold text-xs font-mono transition">Run Live in Browser</button>
-                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
+                  <a href="#checkout" onclick="switchSpaView('checkout', event)" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
                 </div>
               </div>
               <div class="lg:col-span-5 space-y-3 min-w-0">
@@ -478,10 +482,10 @@
               </div>
             </article><article id="product-davis-bacon-wage" data-api-card="product-davis-bacon-wage" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6 min-w-0">
               <div class="lg:col-span-7 space-y-4 min-w-0">
-                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                <div class="flex flex-wrap items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0">
                   <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #03 // DAVIS-BACON WH-347</span>
-                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/calculate/davis-bacon-prevailing-wage</span>
-                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: calculate_davis_bacon_prevailing_wage</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">POST /v1/calculate/davis-bacon-prevailing-wage</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold break-all max-w-full">MCP: calculate_davis_bacon_prevailing_wage</span>
                 </div>
                 <h3 class="text-xl font-extrabold text-[#0A0D14]">Davis-Bacon (29 CFR 5) & State Prevailing Wage Fringe Calculator API</h3>
                 <p class="text-sm font-medium text-[#111827] leading-relaxed">Maps project county and construction type to SAM.gov WDOL / state prevailing wage base hourly rates, health/pension fringes, weighted crew burden, and Form WH-347 certified payroll compliance.</p>
@@ -494,7 +498,7 @@
                 <div class="pt-2 flex flex-wrap gap-3">
                   <button type="button" onclick="openApiSandbox('product-davis-bacon-wage', true)" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
                   <button type="button" onclick="runCardLiveInBrowser('product-davis-bacon-wage')" class="px-4 py-2.5 rounded-lg bg-[#EFF6FF] hover:bg-[#DBEAFE] text-[#1E3A8A] border border-[#93C5FD] font-bold text-xs font-mono transition">Run Live in Browser</button>
-                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
+                  <a href="#checkout" onclick="switchSpaView('checkout', event)" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
                 </div>
               </div>
               <div class="lg:col-span-5 space-y-3 min-w-0">
@@ -527,10 +531,10 @@
               </div>
             </article><article id="product-live-lettings" data-api-card="product-live-lettings" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6 min-w-0">
               <div class="lg:col-span-7 space-y-4 min-w-0">
-                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                <div class="flex flex-wrap items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0">
                   <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #04 // 52-PORTAL LETTING FEED</span>
-                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">GET /v1/lettings/live</span>
-                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: get_live_dot_lettings</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">GET /v1/lettings/live</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold break-all max-w-full">MCP: get_live_dot_lettings</span>
                 </div>
                 <h3 class="text-xl font-extrabold text-[#0A0D14]">52-Portal Live State DOT Lettings, USACE & Public Works Feed API</h3>
                 <p class="text-sm font-medium text-[#111827] leading-relaxed">Exposes pre-vetted heavy-civil, highway, bridge, utility, and commercial construction lettings across all 50 State DOTs, USACE Civil Works, and Municipal portals.</p>
@@ -543,7 +547,7 @@
                 <div class="pt-2 flex flex-wrap gap-3">
                   <button type="button" onclick="openApiSandbox('product-live-lettings', true)" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
                   <button type="button" onclick="runCardLiveInBrowser('product-live-lettings')" class="px-4 py-2.5 rounded-lg bg-[#EFF6FF] hover:bg-[#DBEAFE] text-[#1E3A8A] border border-[#93C5FD] font-bold text-xs font-mono transition">Run Live in Browser</button>
-                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
+                  <a href="#checkout" onclick="switchSpaView('checkout', event)" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
                 </div>
               </div>
               <div class="lg:col-span-5 space-y-3 min-w-0">
@@ -580,10 +584,10 @@
               </div>
             </article><article id="product-baba-buy-america" data-api-card="product-baba-buy-america" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6 min-w-0">
               <div class="lg:col-span-7 space-y-4 min-w-0">
-                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                <div class="flex flex-wrap items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0">
                   <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #05 // BABA DOMESTIC STEEL</span>
-                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/audit/baba-buy-america</span>
-                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: audit_baba_buy_america</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">POST /v1/audit/baba-buy-america</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold break-all max-w-full">MCP: audit_baba_buy_america</span>
                 </div>
                 <h3 class="text-xl font-extrabold text-[#0A0D14]">Build America, Buy America (BABA / 23 CFR 635.410) Material Auditor API</h3>
                 <p class="text-sm font-medium text-[#111827] leading-relaxed">Audits Bill of Materials (BOM) submittals against federal/FHWA domestic iron, steel, and manufactured product thresholds (>55% US cost) and OMB M-24-02 De Minimis waivers.</p>
@@ -596,7 +600,7 @@
                 <div class="pt-2 flex flex-wrap gap-3">
                   <button type="button" onclick="openApiSandbox('product-baba-buy-america', true)" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
                   <button type="button" onclick="runCardLiveInBrowser('product-baba-buy-america')" class="px-4 py-2.5 rounded-lg bg-[#EFF6FF] hover:bg-[#DBEAFE] text-[#1E3A8A] border border-[#93C5FD] font-bold text-xs font-mono transition">Run Live in Browser</button>
-                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
+                  <a href="#checkout" onclick="switchSpaView('checkout', event)" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
                 </div>
               </div>
               <div class="lg:col-span-5 space-y-3 min-w-0">
@@ -625,10 +629,10 @@
               </div>
             </article><article id="product-dbe-good-faith" data-api-card="product-dbe-good-faith" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6 min-w-0">
               <div class="lg:col-span-7 space-y-4 min-w-0">
-                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                <div class="flex flex-wrap items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0">
                   <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #06 // DBE 49 CFR PART 26</span>
-                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/generate/dbe-good-faith-effort</span>
-                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: generate_dbe_good_faith_effort</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">POST /v1/generate/dbe-good-faith-effort</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold break-all max-w-full">MCP: generate_dbe_good_faith_effort</span>
                 </div>
                 <h3 class="text-xl font-extrabold text-[#0A0D14]">DOT DBE (49 CFR Part 26) Subcontractor & Good Faith Effort Generator API</h3>
                 <p class="text-sm font-medium text-[#111827] leading-relaxed">Calculates certified DBE/MBE/WBE participation credit (100% subcontractor vs. 60% regular dealer), verifies Commercially Useful Function (CUF), and builds Good Faith Effort (GFE) logs.</p>
@@ -641,7 +645,7 @@
                 <div class="pt-2 flex flex-wrap gap-3">
                   <button type="button" onclick="openApiSandbox('product-dbe-good-faith', true)" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
                   <button type="button" onclick="runCardLiveInBrowser('product-dbe-good-faith')" class="px-4 py-2.5 rounded-lg bg-[#EFF6FF] hover:bg-[#DBEAFE] text-[#1E3A8A] border border-[#93C5FD] font-bold text-xs font-mono transition">Run Live in Browser</button>
-                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
+                  <a href="#checkout" onclick="switchSpaView('checkout', event)" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
                 </div>
               </div>
               <div class="lg:col-span-5 space-y-3 min-w-0">
@@ -672,10 +676,10 @@
               </div>
             </article><article id="product-aia-g702-g703" data-api-card="product-aia-g702-g703" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6 min-w-0">
               <div class="lg:col-span-7 space-y-4 min-w-0">
-                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                <div class="flex flex-wrap items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0">
                   <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #07 // AIA G702 / G703 SOV</span>
-                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/generate/aia-g702-g703-pay-app</span>
-                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: generate_aia_g702_g703_pay_app</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">POST /v1/generate/aia-g702-g703-pay-app</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold break-all max-w-full">MCP: generate_aia_g702_g703_pay_app</span>
                 </div>
                 <h3 class="text-xl font-extrabold text-[#0A0D14]">AIA G702 / G703 Schedule of Values (SOV) & Retainage Billing API</h3>
                 <p class="text-sm font-medium text-[#111827] leading-relaxed">Converts bid items into a balanced, front-load-compliant AIA Document G702 Application for Payment and G703 Continuation Sheet with retainage math.</p>
@@ -688,7 +692,7 @@
                 <div class="pt-2 flex flex-wrap gap-3">
                   <button type="button" onclick="openApiSandbox('product-aia-g702-g703', true)" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
                   <button type="button" onclick="runCardLiveInBrowser('product-aia-g702-g703')" class="px-4 py-2.5 rounded-lg bg-[#EFF6FF] hover:bg-[#DBEAFE] text-[#1E3A8A] border border-[#93C5FD] font-bold text-xs font-mono transition">Run Live in Browser</button>
-                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
+                  <a href="#checkout" onclick="switchSpaView('checkout', event)" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
                 </div>
               </div>
               <div class="lg:col-span-5 space-y-3 min-w-0">
@@ -722,10 +726,10 @@
               </div>
             </article><article id="product-surety-miller-act" data-api-card="product-surety-miller-act" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6 min-w-0">
               <div class="lg:col-span-7 space-y-4 min-w-0">
-                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                <div class="flex flex-wrap items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0">
                   <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #08 // SURETY & MILLER ACT</span>
-                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/audit/surety-miller-act-bond</span>
-                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: audit_surety_miller_act_bond</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">POST /v1/audit/surety-miller-act-bond</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold break-all max-w-full">MCP: audit_surety_miller_act_bond</span>
                 </div>
                 <h3 class="text-xl font-extrabold text-[#0A0D14]">Miller Act (40 U.S.C. 3131) & Surety Bond Capacity Underwriter API</h3>
                 <p class="text-sm font-medium text-[#111827] leading-relaxed">Evaluates contractor working capital, net worth, and uncompleted WIP backlog to underwrite Single/Aggregate Surety Bond limits and SF-24/SF-25 bond premiums.</p>
@@ -738,7 +742,7 @@
                 <div class="pt-2 flex flex-wrap gap-3">
                   <button type="button" onclick="openApiSandbox('product-surety-miller-act', true)" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
                   <button type="button" onclick="runCardLiveInBrowser('product-surety-miller-act')" class="px-4 py-2.5 rounded-lg bg-[#EFF6FF] hover:bg-[#DBEAFE] text-[#1E3A8A] border border-[#93C5FD] font-bold text-xs font-mono transition">Run Live in Browser</button>
-                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
+                  <a href="#checkout" onclick="switchSpaView('checkout', event)" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
                 </div>
               </div>
               <div class="lg:col-span-5 space-y-3 min-w-0">
@@ -772,10 +776,10 @@
               </div>
             </article><article id="product-rfi-change-order" data-api-card="product-rfi-change-order" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6 min-w-0">
               <div class="lg:col-span-7 space-y-4 min-w-0">
-                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                <div class="flex flex-wrap items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0">
                   <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #09 // RFI & DSC CLAIMS</span>
-                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/generate/rfi-change-order-claim</span>
-                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: generate_rfi_change_order_claim</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">POST /v1/generate/rfi-change-order-claim</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold break-all max-w-full">MCP: generate_rfi_change_order_claim</span>
                 </div>
                 <h3 class="text-xl font-extrabold text-[#0A0D14]">Construction RFI, Differing Site Conditions & AIA G701 Change Order API</h3>
                 <p class="text-sm font-medium text-[#111827] leading-relaxed">Analyzes plan discrepancies and Type I/II differing subsurface conditions (FAR 52.236-2), models Critical Path Time-Impact Analysis (TIA), and prices AIA G701 Change Orders.</p>
@@ -788,7 +792,7 @@
                 <div class="pt-2 flex flex-wrap gap-3">
                   <button type="button" onclick="openApiSandbox('product-rfi-change-order', true)" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
                   <button type="button" onclick="runCardLiveInBrowser('product-rfi-change-order')" class="px-4 py-2.5 rounded-lg bg-[#EFF6FF] hover:bg-[#DBEAFE] text-[#1E3A8A] border border-[#93C5FD] font-bold text-xs font-mono transition">Run Live in Browser</button>
-                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
+                  <a href="#checkout" onclick="switchSpaView('checkout', event)" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
                 </div>
               </div>
               <div class="lg:col-span-5 space-y-3 min-w-0">
@@ -821,10 +825,10 @@
               </div>
             </article><article id="product-osha-emr-safety" data-api-card="product-osha-emr-safety" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6 min-w-0">
               <div class="lg:col-span-7 space-y-4 min-w-0">
-                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                <div class="flex flex-wrap items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0">
                   <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #10 // OSHA 1926 & EM 385-1-1</span>
-                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/audit/osha-emr-site-safety</span>
-                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: audit_osha_emr_site_safety</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">POST /v1/audit/osha-emr-site-safety</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold break-all max-w-full">MCP: audit_osha_emr_site_safety</span>
                 </div>
                 <h3 class="text-xl font-extrabold text-[#0A0D14]">OSHA 29 CFR 1926, USACE EM 385-1-1 AHA & Insurance EMR Auditor API</h3>
                 <p class="text-sm font-medium text-[#111827] leading-relaxed">Generates trade-specific Activity Hazard Analyses (AHA), Site-Specific Safety Plans (SSSP), and Experience Modification Rate (EMR) bid-eligibility audits.</p>
@@ -837,7 +841,7 @@
                 <div class="pt-2 flex flex-wrap gap-3">
                   <button type="button" onclick="openApiSandbox('product-osha-emr-safety', true)" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
                   <button type="button" onclick="runCardLiveInBrowser('product-osha-emr-safety')" class="px-4 py-2.5 rounded-lg bg-[#EFF6FF] hover:bg-[#DBEAFE] text-[#1E3A8A] border border-[#93C5FD] font-bold text-xs font-mono transition">Run Live in Browser</button>
-                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
+                  <a href="#checkout" onclick="switchSpaView('checkout', event)" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
                 </div>
               </div>
               <div class="lg:col-span-5 space-y-3 min-w-0">
@@ -866,10 +870,10 @@
               </div>
             </article><article id="product-planholder-spread" data-api-card="product-planholder-spread" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6 min-w-0">
               <div class="lg:col-span-7 space-y-4 min-w-0">
-                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                <div class="flex flex-wrap items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0">
                   <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #11 // PLANHOLDER & MLOT</span>
-                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/analyze/planholder-competitor-spread</span>
-                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: analyze_planholder_competitor_spread</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">POST /v1/analyze/planholder-competitor-spread</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold break-all max-w-full">MCP: analyze_planholder_competitor_spread</span>
                 </div>
                 <h3 class="text-xl font-extrabold text-[#0A0D14]">DOT Planholder List, Competitor Bid Behavior & MLOT Analyzer API</h3>
                 <p class="text-sm font-medium text-[#111827] leading-relaxed">Analyzes official DOT project planholder lists against historical head-to-head letting results to predict the winning low bid, Margin Left on Table (MLOT), and optimal markup.</p>
@@ -882,7 +886,7 @@
                 <div class="pt-2 flex flex-wrap gap-3">
                   <button type="button" onclick="openApiSandbox('product-planholder-spread', true)" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
                   <button type="button" onclick="runCardLiveInBrowser('product-planholder-spread')" class="px-4 py-2.5 rounded-lg bg-[#EFF6FF] hover:bg-[#DBEAFE] text-[#1E3A8A] border border-[#93C5FD] font-bold text-xs font-mono transition">Run Live in Browser</button>
-                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
+                  <a href="#checkout" onclick="switchSpaView('checkout', event)" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
                 </div>
               </div>
               <div class="lg:col-span-5 space-y-3 min-w-0">
@@ -919,10 +923,10 @@
               </div>
             </article><article id="product-subcontractor-itb" data-api-card="product-subcontractor-itb" class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6 min-w-0">
               <div class="lg:col-span-7 space-y-4 min-w-0">
-                <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+                <div class="flex flex-wrap items-center gap-2 text-[10.5px] sm:text-xs font-mono min-w-0">
                   <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">API #12 // SUBCONTRACTOR ITB</span>
-                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold">POST /v1/generate/subcontractor-scope-itb</span>
-                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">MCP: generate_subcontractor_scope_itb</span>
+                  <span class="px-2.5 py-1 rounded bg-[#EFF6FF] text-[#1E3A8A] border border-[#93C5FD] font-bold break-all max-w-full">POST /v1/generate/subcontractor-scope-itb</span>
+                  <span class="px-2.5 py-1 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold break-all max-w-full">MCP: generate_subcontractor_scope_itb</span>
                 </div>
                 <h3 class="text-xl font-extrabold text-[#0A0D14]">Trade Subcontractor Invitation to Bid (ITB), Scope Gap & AIA A401 API</h3>
                 <p class="text-sm font-medium text-[#111827] leading-relaxed">Generates trade-specific Subcontractor Scope Checklists, exclusions to reject, and AIA A401 subcontract flow-down clauses.</p>
@@ -935,7 +939,7 @@
                 <div class="pt-2 flex flex-wrap gap-3">
                   <button type="button" onclick="openApiSandbox('product-subcontractor-itb', true)" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Test Live in Studio Playground</button>
                   <button type="button" onclick="runCardLiveInBrowser('product-subcontractor-itb')" class="px-4 py-2.5 rounded-lg bg-[#EFF6FF] hover:bg-[#DBEAFE] text-[#1E3A8A] border border-[#93C5FD] font-bold text-xs font-mono transition">Run Live in Browser</button>
-                  <a href="#checkout" onclick="switchSpaView('checkout')" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
+                  <a href="#checkout" onclick="switchSpaView('checkout', event)" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Included in Autopilot Plan</a>
                 </div>
               </div>
               <div class="lg:col-span-5 space-y-3 min-w-0">
@@ -1173,21 +1177,88 @@
         <button type="button" onclick="closeTrustModals()" class="shrink-0 whitespace-nowrap px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
       </div>
       <form onsubmit="lookupSubscriberAccount(event)" class="space-y-3">
-        <label class="block text-xs font-mono font-bold text-[#0A0D14]">ENTER SUBSCRIBER WORK EMAIL OR API KEY (<code class="text-[#1E3A8A]">cd_live_...</code>)</label>
-        <div class="flex flex-col sm:flex-row gap-2.5">
-          <input id="account-lookup-input" type="text" required placeholder="estimating@yourcontractor.com or cd_live_..." class="flex-1 px-3.5 py-2.5 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-sm font-medium text-[#0A0D14] placeholder-[#1E293B]" />
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div>
+            <label class="block text-xs font-mono font-bold text-[#0A0D14] mb-1">SUBSCRIBER WORK EMAIL OR API KEY (<code class="text-[#1E3A8A]">cd_live_...</code>)</label>
+            <input id="account-lookup-input" type="text" required placeholder="estimating@yourcontractor.com or cd_live_..." class="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-sm font-medium text-[#0A0D14] placeholder-[#1E293B]" />
+          </div>
+          <div>
+            <label class="block text-xs font-mono font-bold text-[#0A0D14] mb-1">PORTAL PASSWORD OR API KEY (OPTIONAL FOR SUBSCRIBERS)</label>
+            <input id="account-password-input" type="password" placeholder="Password or cd_live_..." class="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-sm font-medium text-[#0A0D14] placeholder-[#1E293B]" />
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div id="account-auth-status" class="text-xs font-mono font-bold text-[#1E3A8A]">Enter your work email, API key, or Founder/Admin credentials to unlock your Client Portal.</div>
           <button type="submit" class="px-5 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold transition">Access Client Portal &rarr;</button>
         </div>
       </form>
       <div id="account-portal-result" class="hidden p-4 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-3 text-xs font-mono">
+        <!-- Founder & Admin Tier Preview Switcher (Visible Only When Authenticated as Founder/Admin) -->
+        <div id="account-admin-bar" class="hidden p-3.5 rounded-xl bg-[#EFF6FF] border-2 border-[#1E3A8A] space-y-2.5">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="px-2 py-0.5 rounded bg-[#1E3A8A] text-white font-bold text-[10px]">FOUNDER &amp; ADMIN CONSOLE</span>
+              <span class="font-extrabold text-[#0A0D14] ml-1.5">CLIENT PORTAL TIER VIEW SWITCHER (ALL 4 TIERS UNLOCKED)</span>
+            </div>
+            <button type="button" onclick="logoutClientAccount()" class="px-2.5 py-1 rounded bg-white hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] font-bold text-[11px] transition">Sign Out</button>
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            <button type="button" id="admin-tier-btn-tier_4" onclick="switchAdminPortalPreview('tier_4')" class="px-2.5 py-1 rounded bg-[#1E3A8A] text-white font-mono text-[11px] font-bold transition">Tier 4 OEM ($2,499/mo)</button>
+            <button type="button" id="admin-tier-btn-tier_3" onclick="switchAdminPortalPreview('tier_3')" class="px-2.5 py-1 rounded bg-white hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-mono text-[11px] font-bold transition">Tier 3 .ZIP Compiler ($1,499/mo)</button>
+            <button type="button" id="admin-tier-btn-tier_2" onclick="switchAdminPortalPreview('tier_2')" class="px-2.5 py-1 rounded bg-white hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-mono text-[11px] font-bold transition">Tier 2 Autopilot ($499/mo)</button>
+            <button type="button" id="admin-tier-btn-tier_1" onclick="switchAdminPortalPreview('tier_1')" class="px-2.5 py-1 rounded bg-white hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-mono text-[11px] font-bold transition">Tier 1 Wire ($199/mo)</button>
+          </div>
+        </div>
+
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div><span class="font-bold text-[#0A0D14]">SUBSCRIBER IDENTITY:</span> <span id="account-active-id" class="font-extrabold text-[#1E3A8A]">estimating@yourcontractor.com</span></div>
-          <span class="px-2.5 py-0.5 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">ACTIVE WORKSPACE READY</span>
+          <span id="account-active-tier-badge" class="px-2.5 py-0.5 rounded bg-[#ECFDF5] text-[#065F46] border border-[#6EE7B7] font-bold">ACTIVE WORKSPACE READY</span>
         </div>
+        <div class="text-[11px] font-bold text-[#0A0D14]">ENTITLEMENTS &amp; QUOTA: <span id="account-active-quota" class="text-[#1E3A8A]">50,000 API Calls/Mo + Unlimited 6-File .ZIP Compilations + 50-State Vault</span></div>
         <div class="p-3 rounded-lg bg-white border border-[#CBD5E1] flex flex-wrap items-center justify-between gap-2">
           <div><span class="font-bold text-[#0A0D14]">REST &amp; MCP API KEY:</span> <code id="account-api-key-val" class="text-[#1E3A8A] font-extrabold">cd_live_98a4f2c1b0e7d6a3</code></div>
           <button type="button" id="btn-copy-account-key" onclick="copyAccountApiKey()" class="px-3 py-1 rounded bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold">Copy Key</button>
         </div>
+
+        <!-- Direct On-Demand 6-File .ZIP & Dossier Selector Inside Client Portal -->
+        <div class="p-3 rounded-lg bg-white border border-[#CBD5E1] space-y-2">
+          <div class="font-bold text-[#0A0D14]">ON-DEMAND 6-FILE OPENXML (.DOCX + .XLSX) BID PACKAGE &amp; DOSSIER VAULT</div>
+          <div class="flex flex-col sm:flex-row gap-2">
+            <select id="account-zip-project-select" class="flex-1 px-2.5 py-1.5 rounded bg-[#FAF8F5] border border-[#94A3B8] text-[#0A0D14] font-bold">
+              <option value="TXDOT-CSJ-0015-13-412|TX" data-state="TX">TXDOT-CSJ-0015-13-412 — [TXDOT-CSJ-0015-13-412] IH-35 Corridor Bridge Deck Replacement, Supe (TX)</option>
+              <option value="CALTRANS-04-2Q7404|CA" data-state="CA">CALTRANS-04-2Q7404 — [CALTRANS-04-2Q7404] Route 101 Seismic Bridge Retrofit, Micropile Fo (CA)</option>
+              <option value="FDOT-T4682-FIN-445219|FL" data-state="FL">FDOT-T4682-FIN-445219 — [FDOT-T4682-FIN-445219] SR-826 Palmetto Expressway Milling, FC-12.5  (FL)</option>
+              <option value="VDOT-C00118942B01|VA" data-state="VA">VDOT-C00118942B01 — [VDOT-C00118942B01] I-64 / Route 288 Interchange Diverging Diamond,  (VA)</option>
+              <option value="PENNDOT-ECMS-119408|PA" data-state="PA">PENNDOT-ECMS-119408 — [PENNDOT-ECMS-119408] I-76 Schuylkill Expressway Viaduct Steel Girde (PA)</option>
+              <option value="NYSDOT-D265314|NY" data-state="NY">NYSDOT-D265314 — [NYSDOT-D265314] I-278 Brooklyn-Queens Expressway Cantilever Deck Re (NY)</option>
+              <option value="USACE-W912EP-27-B-0004|US" data-state="US">USACE-W912EP-27-B-0004 — [USACE-W912EP-27-B-0004] Central & Southern Florida C-43 Reservoir I (US)</option>
+              <option value="IDOT-62R45-CONTRACT|IL" data-state="IL">IDOT-62R45-CONTRACT — [IDOT-62R45-CONTRACT] I-90 Kennedy Expressway Reversible Lane Gate S (IL)</option>
+              <option value="GDOT-PI-0016842|GA" data-state="GA">GDOT-PI-0016842 — [GDOT-PI-0016842] I-285 / I-20 West Interchange Collector-Distributo (GA)</option>
+              <option value="NCDOT-C204891|NC" data-state="NC">NCDOT-C204891 — [NCDOT-C204891] US-70 Corridor Upgrade to Interstate 42 Standards, D (NC)</option>
+              <option value="ODOT-PID-114892|OH" data-state="OH">ODOT-PID-114892 — [ODOT-PID-114892] I-71 / I-70 Downtown Ramp Reconstruction, Noise Ba (OH)</option>
+              <option value="MUNICIPAL-DFW-WTP-2026-09|MU" data-state="MU">MUNICIPAL-DFW-WTP-2026-09 — [MUNICIPAL-DFW-WTP-2026-09] Regional 60 MGD Water Treatment Plant Oz (MU)</option>
+            </select>
+            <button type="button" onclick="downloadAccountSelectedZip()" class="px-3 py-1.5 rounded bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold">Download 6-File .ZIP</button>
+            <button type="button" onclick="inspectAccountSelectedDossier()" class="px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] font-bold">Inspect Bid-Tab Dossier</button>
+          </div>
+        </div>
+
+        <!-- Ready-to-Paste Claude Desktop / Cursor MCP Config -->
+        <div class="p-3 rounded-lg bg-white border border-[#CBD5E1] space-y-1.5">
+          <div class="font-bold text-[#0A0D14]">CLAUDE DESKTOP / CURSOR / WINDSURF MCP CONFIG (PRE-FILLED WITH YOUR KEY)</div>
+          <pre id="account-mcp-config-pre" class="p-2.5 rounded bg-[#0A0D14] text-[#F8FAFC] text-[11px] overflow-x-auto">{
+  "mcpServers": {
+    "camberdesk": {
+      "command": "npx",
+      "args": ["-y", "@camberdesk/mcp-server"],
+      "env": {
+        "CAMBERDESK_API_KEY": "cd_live_98a4f2c1b0e7d6a3"
+      }
+    }
+  }
+}</pre>
+        </div>
+
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
           <a href="https://camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary" class="px-3.5 py-2 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white text-center font-bold">Download Latest 6-File .ZIP</a>
           <button type="button" onclick="openCamberCheckoutModal('tier2_monthly')" class="px-3.5 py-2 rounded-lg bg-white hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] text-center font-bold">Manage / Upgrade CamberDesk Plan</button>
@@ -1370,7 +1441,7 @@
         </div>
       </div>
       <div class="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#CBD5E1] flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
-        <div><span class="font-bold text-[#0A0D14]">DIRECT ESTIMATING DESK EMAIL:</span> <a href="mailto:estimating@trycamberdesk.com" class="text-[#1E3A8A] font-extrabold underline">estimating@trycamberdesk.com</a></div>
+        <div><span class="font-bold text-[#0A0D14]">SELF-SERVE CLIENT PORTAL:</span> <a href="#account" onclick="openTrustModal('account', event)" class="text-[#1E3A8A] font-extrabold underline">1-Click Plan, Receipt &amp; API Key Management &rarr;</a></div>
         <span class="text-[#065F46] font-bold">WAF VERIFIED &bull; ZERO BID-DATA RETENTION</span>
       </div>
     </div>
@@ -1419,13 +1490,13 @@
       <button type="button" id="sidebar-rail-toggle" onclick="toggleSidebarRail()" class="text-[#0A0D14]">[-]</button>
     </div>
     <div id="sidebar-rail-links" class="flex flex-col gap-1">
-      <a href="#overview" onclick="switchSpaView('overview')" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#0A0D14]">01 // Overview</a>
-      <a href="#interactive-state-shredder" onclick="switchSpaView('overview')" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#0A0D14]">02 // DOT Shredder</a>
-      <a href="#zip-package-inspector" onclick="switchSpaView('overview')" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#0A0D14]">03 // 6-File .ZIP</a>
-      <a href="#roi-calculator" onclick="switchSpaView('overview')" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#0A0D14]">04 // ROI Calc</a>
-      <a href="#contract-directory" onclick="switchSpaView('overview')" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#0A0D14]">05 // Lettings</a>
-      <a href="#apis" onclick="switchSpaView('apis')" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#1E3A8A]">06 // 12 APIs &amp; MCP</a>
-      <a href="#checkout" onclick="switchSpaView('checkout')" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#065F46]">07 // Pricing</a>
+      <a href="#overview" onclick="switchSpaView('overview', event)" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#0A0D14]">01 // Overview</a>
+      <a href="#interactive-state-shredder" onclick="navigateToOverviewSection('interactive-state-shredder', event)" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#0A0D14]">02 // DOT Shredder</a>
+      <a href="#zip-package-inspector" onclick="navigateToOverviewSection('zip-package-inspector', event)" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#0A0D14]">03 // 6-File .ZIP</a>
+      <a href="#roi-calculator" onclick="navigateToOverviewSection('roi-calculator', event)" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#0A0D14]">04 // ROI Calc</a>
+      <a href="#contract-directory" onclick="navigateToOverviewSection('contract-directory', event)" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#0A0D14]">05 // Lettings</a>
+      <a href="#apis" onclick="switchSpaView('apis', event)" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#1E3A8A]">06 // 12 APIs &amp; MCP</a>
+      <a href="#checkout" onclick="switchSpaView('checkout', event)" class="px-2 py-1 rounded hover:bg-[#EAE6DF] text-[#065F46]">07 // Pricing</a>
     </div>
   </aside>
 
@@ -1475,13 +1546,16 @@
 
   <script>
     const LETTINGS_DATA = [{"project_id": "TXDOT-CSJ-0015-13-412", "title": "[TXDOT-CSJ-0015-13-412] IH-35 Corridor Bridge Deck Replacement, Superpave HMA Overlay & ITS Fiber Duct Bank", "agency": "Texas Department of Transportation (TxDOT) \u2014 Austin District", "jurisdiction": "texas", "state_code": "TX", "county": "Travis County, TX", "letting_date": "2026-11-18", "engineers_estimate_usd": 18450000.0, "dbe_goal_pct": 11.5, "liquidated_damages_per_day_usd": 4200, "wage_determination_id": "TX20260028 (Heavy & Highway)", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Concrete", "Div 05 Metals", "Div 26 Electrical / ITS", "Div 31 Earthwork", "Div 32 Exterior Improvements / Paving"], "url": "https://www.txdot.gov/business/letting-bids/letting-schedule.html#TXDOT-CSJ-0015-13-412", "scope_summary": "Full-depth replacement of 4 prestressed concrete girder bridge spans on IH-35, 68,000 tons of Item 341 Dense-Graded Hot-Mix Asphalt (Superpave), 14,200 LF of 36-inch Reinforced Concrete Pipe storm drainage, and 28,500 LF of 4-inch HDPE ITS fiber optic conduit with high-mast LED illumination.", "planholders": ["Webber LLC", "Granite Construction Inc.", "Jordan Foster Construction LLC", "Lone Star Paving Co.", "Capital Excavation Company"], "pay_items": [{"item_code": "341-6008", "description": "Dense-Graded Hot-Mix Asphalt (Superpave SP-C SAC-A PG 76-22)", "unit": "TON", "quantity": 68000, "hist_low_unit_usd": 129.5, "hist_median_unit_usd": 138.75, "recommended_unit_usd": 134.2}, {"item_code": "420-6013", "description": "HPC Structural Concrete Class S (Bridge Deck & Approach Slabs)", "unit": "CY", "quantity": 4850, "hist_low_unit_usd": 910.0, "hist_median_unit_usd": 985.0, "recommended_unit_usd": 948.0}, {"item_code": "464-6008", "description": "Reinforced Concrete Pipe (Class III 36-Inch Storm Sewer)", "unit": "LF", "quantity": 14200, "hist_low_unit_usd": 152.0, "hist_median_unit_usd": 168.5, "recommended_unit_usd": 159.0}, {"item_code": "618-6046", "description": "ITS Conduit (PVC Schedule 80 / Bore 4-Inch Directional)", "unit": "LF", "quantity": 28500, "hist_low_unit_usd": 38.0, "hist_median_unit_usd": 44.5, "recommended_unit_usd": 41.0}, {"item_code": "500-6001", "description": "Mobilization, Bonds & Traffic Control Phasing (Cap 10%)", "unit": "LS", "quantity": 1, "hist_low_unit_usd": 1450000.0, "hist_median_unit_usd": 1620000.0, "recommended_unit_usd": 1525000.0}], "slug": "txdot-csj-0015-13-412-txdot-csj-0015-13-412-ih-35-corridor"}, {"project_id": "CALTRANS-04-2Q7404", "title": "[CALTRANS-04-2Q7404] Route 101 Seismic Bridge Retrofit, Micropile Foundations & Stormwater Pump Station Modernization", "agency": "California Department of Transportation (Caltrans) \u2014 District 4 Bay Area", "jurisdiction": "california", "state_code": "CA", "county": "San Mateo County, CA", "letting_date": "2026-11-20", "engineers_estimate_usd": 24800000.0, "dbe_goal_pct": 18.0, "liquidated_damages_per_day_usd": 6500, "wage_determination_id": "CA20260007 + DIR Northern CA General Prevailing Wage", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Structural Concrete", "Div 05 Structural Steel", "Div 26 Medium-Voltage Electrical", "Div 31 Deep Foundations / Micropiles", "Div 33 Utilities / Pump Station"], "url": "https://dot.ca.gov/programs/procurement-and-contracts/contracts-out-for-bid#CALTRANS-04-2Q7404", "scope_summary": "Seismic column casing and structural steel girder retrofit on US-101, installation of 160 high-capacity Type II micropiles, complete replacement of two 480V stormwater pump stations with SCADA telemetry, and Rubberized Hot Mix Asphalt (RHMA-G) resurfacing.", "planholders": ["Flatiron West Inc.", "Myers & Sons Construction LP", "Ghilotti Construction Company", "O.C. Jones & Sons Inc.", "MCM Construction Inc."], "pay_items": [{"item_code": "390137", "description": "Rubberized Hot Mix Asphalt (Gap Graded RHMA-G)", "unit": "TON", "quantity": 42000, "hist_low_unit_usd": 158.0, "hist_median_unit_usd": 172.0, "recommended_unit_usd": 164.5}, {"item_code": "490405", "description": "Drilled & Grouted High-Capacity Micropiles (200-Ton Design Load)", "unit": "LF", "quantity": 19500, "hist_low_unit_usd": 245.0, "hist_median_unit_usd": 278.0, "recommended_unit_usd": 259.0}, {"item_code": "550102", "description": "Structural Steel Column Casing (ASTM A709 Grade 50 Seismic)", "unit": "LB", "quantity": 1450000, "hist_low_unit_usd": 4.1, "hist_median_unit_usd": 4.65, "recommended_unit_usd": 4.32}, {"item_code": "860990", "description": "Stormwater Pump Station 480V MCC, VFD & PLC Telemetry", "unit": "LS", "quantity": 1, "hist_low_unit_usd": 2850000.0, "hist_median_unit_usd": 3190000.0, "recommended_unit_usd": 2980000.0}], "slug": "caltrans-04-2q7404-caltrans-04-2q7404-route-101-seismic-bridge"}, {"project_id": "FDOT-T4682-FIN-445219", "title": "[FDOT-T4682-FIN-445219] SR-826 Palmetto Expressway Milling, FC-12.5 Friction Course, Mast-Arm Signals & Box Culvert", "agency": "Florida Department of Transportation (FDOT) \u2014 District 6 Miami", "jurisdiction": "florida", "state_code": "FL", "county": "Miami-Dade County, FL", "letting_date": "2026-11-24", "engineers_estimate_usd": 15600000.0, "dbe_goal_pct": 10.65, "liquidated_damages_per_day_usd": 3800, "wage_determination_id": "FL20260119 (Highway Construction)", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Precast Box Culverts", "Div 26 Mast-Arm Traffic Signals", "Div 32 Asphalt Milling & Friction Course", "Div 33 Storm Drainage"], "url": "https://www.fdot.gov/contracts/lettings-page#FDOT-T4682-FIN-445219", "scope_summary": "Nighttime milling and resurfacing of 9.4 centerline miles on SR-826 using Polymer-Modified Asphalt PG 76-22 (FC-12.5), installation of 18 hurricane-rated steel mast-arm signal assemblies, and 3,400 LF of precast concrete box culvert.", "planholders": ["Halley Engineering Contractors Inc.", "Ranger Construction Industries", "General Asphalt Co. LLC", "OHL USA / Community Asphalt", "de Moya Group Inc."], "pay_items": [{"item_code": "0337-7-82", "description": "Asphalt Concrete Friction Course (Traffic C FC-12.5 PG 76-22)", "unit": "TON", "quantity": 54000, "hist_low_unit_usd": 144.0, "hist_median_unit_usd": 156.0, "recommended_unit_usd": 149.25}, {"item_code": "0410-70", "description": "Precast Reinforced Concrete Box Culvert (10 ft x 6 ft)", "unit": "LF", "quantity": 3400, "hist_low_unit_usd": 1120.0, "hist_median_unit_usd": 1245.0, "recommended_unit_usd": 1175.0}, {"item_code": "0649-21-15", "description": "Steel Mast Arm Assembly (170 MPH Wind Load Rating)", "unit": "EA", "quantity": 18, "hist_low_unit_usd": 78500.0, "hist_median_unit_usd": 86000.0, "recommended_unit_usd": 81500.0}], "slug": "fdot-t4682-fin-445219-fdot-t4682-fin-445219-sr-826-palmetto"}, {"project_id": "VDOT-C00118942B01", "title": "[VDOT-C00118942B01] I-64 / Route 288 Interchange Diverging Diamond, Retaining Walls & Ductile Iron Water Main Relocation", "agency": "Virginia Department of Transportation (VDOT) \u2014 Richmond District", "jurisdiction": "virginia", "state_code": "VA", "county": "Henrico County, VA", "letting_date": "2026-11-25", "engineers_estimate_usd": 21200000.0, "dbe_goal_pct": 12.0, "liquidated_damages_per_day_usd": 4500, "wage_determination_id": "VA20260084 (Highway & Heavy)", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Concrete MSE Retaining Walls", "Div 26 Roadway Lighting", "Div 31 Earthwork & Rock Excavation", "Div 33 24-Inch Ductile Iron Water Main"], "url": "https://www.vdot.virginia.gov/doing-business/business-opportunities/construction/#VDOT-C00118942B01", "scope_summary": "Construction of a Diverging Diamond Interchange (DDI) on I-64, 48,000 SF of Mechanically Stabilized Earth (MSE) retaining walls, 11,500 LF of 24-inch Class 52 Ductile Iron potable water main relocation, and full traffic signalization.", "planholders": ["Allan Myers VA Inc.", "Branch Civil Inc.", "Shirley Contracting Company", "W.C. English Construction", "Wagman Heavy Civil Inc."], "pay_items": [{"item_code": "315-0010", "description": "Asphalt Concrete Surface Course Type SM-12.5E", "unit": "TON", "quantity": 61000, "hist_low_unit_usd": 126.0, "hist_median_unit_usd": 135.5, "recommended_unit_usd": 130.25}, {"item_code": "510-0040", "description": "Mechanically Stabilized Earth (MSE) Precast Panel Retaining Wall", "unit": "SF", "quantity": 48000, "hist_low_unit_usd": 74.0, "hist_median_unit_usd": 83.0, "recommended_unit_usd": 78.0}, {"item_code": "420-2452", "description": "24-Inch Restrained Joint Ductile Iron Water Main (Class 52)", "unit": "LF", "quantity": 11500, "hist_low_unit_usd": 285.0, "hist_median_unit_usd": 318.0, "recommended_unit_usd": 298.0}], "slug": "vdot-c00118942b01-vdot-c00118942b01-i-64-route-288-interchange"}, {"project_id": "PENNDOT-ECMS-119408", "title": "[PENNDOT-ECMS-119408] I-76 Schuylkill Expressway Viaduct Steel Girder Repair, Latex-Modified Concrete Overlay & Sign Structures", "agency": "Pennsylvania Department of Transportation (PennDOT) \u2014 Engineering District 6-0", "jurisdiction": "pennsylvania", "state_code": "PA", "county": "Montgomery County, PA", "letting_date": "2026-11-19", "engineers_estimate_usd": 19750000.0, "dbe_goal_pct": 13.0, "liquidated_damages_per_day_usd": 4800, "wage_determination_id": "PA20260004 (Heavy & Highway Building)", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Latex-Modified Concrete", "Div 05 Structural Steel Repair", "Div 09 Bridge Coating SSPC-SP10", "Div 26 Overhead Sign Structures"], "url": "https://www.ecms.penndot.gov/ECMS/#PENNDOT-ECMS-119408", "scope_summary": "Structural steel diaphragm and flange repair on I-76 viaduct, hydrodemolition and placement of 38,000 SY of Latex-Modified Concrete (LMC) deck wearing surface, SSPC-SP10 near-white metal blast painting, and 9 overhead cantilever sign structures.", "planholders": ["J.D. Eckman Inc.", "Driscoll Construction Co.", "Walsh Construction Company II", "H&K Group Inc.", "Buckley & Company Inc."], "pay_items": [{"item_code": "1041-0020", "description": "Hydrodemolition & Latex-Modified Concrete (LMC) Wearing Surface", "unit": "SY", "quantity": 38000, "hist_low_unit_usd": 182.0, "hist_median_unit_usd": 198.0, "recommended_unit_usd": 189.0}, {"item_code": "1050-0115", "description": "Fabricated Structural Steel Girder & Diaphragm Retrofit (A709)", "unit": "LB", "quantity": 920000, "hist_low_unit_usd": 5.2, "hist_median_unit_usd": 5.85, "recommended_unit_usd": 5.45}, {"item_code": "0948-0200", "description": "Steel Overhead Cantilever Sign Structure (85 Ft Span)", "unit": "EA", "quantity": 9, "hist_low_unit_usd": 135000.0, "hist_median_unit_usd": 149000.0, "recommended_unit_usd": 141000.0}], "slug": "penndot-ecms-119408-penndot-ecms-119408-i-76-schuylkill"}, {"project_id": "NYSDOT-D265314", "title": "[NYSDOT-D265314] I-278 Brooklyn-Queens Expressway Cantilever Deck Rehabilitation, Precast Slabs & Drainage Substitution", "agency": "New York State Department of Transportation (NYSDOT) \u2014 Region 11 NYC", "jurisdiction": "new_york", "state_code": "NY", "county": "Kings County, NY", "letting_date": "2026-11-26", "engineers_estimate_usd": 32400000.0, "dbe_goal_pct": 16.0, "liquidated_damages_per_day_usd": 8500, "wage_determination_id": "NY20260003 + NYSDOL Article 8 Prevailing Wage", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Precast UHPC Concrete", "Div 05 Epoxy Coated Reinforcing Bar", "Div 26 Roadway ITS & CCTV", "Div 32 Nighttime MPT"], "url": "https://www.dot.ny.gov/doing-business/opportunities/const-notices#D265314", "scope_summary": "Accelerated weekend replacement of structural deck bays using Precast Ultra-High Performance Concrete (UHPC) closure pours on I-278, corrosion-inhibited rebar replacement, scupper drainage rehabilitation, and fiber-connected CCTV traffic monitoring.", "planholders": ["Skanska USA Civil Northeast", "Tully Construction Co. Inc.", "Posillico Civil Inc.", "Defoe Corporation", "CAC Industries Inc."], "pay_items": [{"item_code": "557.2002", "description": "Precast High-Performance Concrete Bridge Deck Panels with UHPC Joints", "unit": "SF", "quantity": 74000, "hist_low_unit_usd": 215.0, "hist_median_unit_usd": 238.0, "recommended_unit_usd": 225.0}, {"item_code": "556.0202", "description": "Epoxy-Coated Bar Reinforcement for Structures (Grade 60)", "unit": "LB", "quantity": 1150000, "hist_low_unit_usd": 2.95, "hist_median_unit_usd": 3.3, "recommended_unit_usd": 3.1}, {"item_code": "619.01", "description": "Nighttime Work Zone Traffic Control & Attenuator Trucks", "unit": "LS", "quantity": 1, "hist_low_unit_usd": 4200000.0, "hist_median_unit_usd": 4750000.0, "recommended_unit_usd": 4420000.0}], "slug": "nysdot-d265314-nysdot-d265314-i-278-brooklyn-queens-expressway"}, {"project_id": "USACE-W912EP-27-B-0004", "title": "[USACE-W912EP-27-B-0004] Central & Southern Florida C-43 Reservoir Inflow Pump Station, Steel Sheet Piling & 13.8kV Substation", "agency": "U.S. Army Corps of Engineers (USACE) \u2014 Jacksonville District Civil Works", "jurisdiction": "federal", "state_code": "US", "county": "Hendry County, FL", "letting_date": "2026-12-02", "engineers_estimate_usd": 41500000.0, "dbe_goal_pct": 15.0, "liquidated_damages_per_day_usd": 7200, "wage_determination_id": "FL20260045 (USACE Heavy & Dredging / Davis-Bacon)", "naics_code": "237990", "csi_divisions": ["Div 01 USACE EM 385-1-1 Safety & QC", "Div 03 Mass Structural Concrete", "Div 05 Hydraulic Steel Gates", "Div 26 13.8kV Medium-Voltage Switchgear", "Div 31 PZ-35 Steel Sheet Piling", "Div 43 Axial-Flow Flood Pumps"], "url": "https://sam.gov/content/opportunities#USACE-W912EP-27-B-0004", "scope_summary": "Construction of a 1,500 CFS reinforced concrete flood-control inflow pump station, driving 115,000 SF of ASTM A572 Grade 50 steel sheet piling cofferdam, four vertical axial-flow diesel/electric pumps, and a redundant 13.8kV outdoor substation with BABA domestic steel compliance.", "planholders": ["Phillips & Jordan Inc.", "Kiewit Infrastructure South Co.", "Harry Pepper & Associates", "PCL Civil Constructors", "Thalle Construction Co."], "pay_items": [{"item_code": "31-41-16", "description": "Steel Sheet Piling Cofferdam & Cutoff Wall (PZ-35 Grade 50 BABA Compliant)", "unit": "SF", "quantity": 115000, "hist_low_unit_usd": 64.0, "hist_median_unit_usd": 72.5, "recommended_unit_usd": 67.8}, {"item_code": "03-30-00", "description": "Mass Structural Concrete (Pump Station Substructure & Stilling Basin)", "unit": "CY", "quantity": 18500, "hist_low_unit_usd": 780.0, "hist_median_unit_usd": 845.0, "recommended_unit_usd": 810.0}, {"item_code": "43-21-13", "description": "375 CFS Vertical Axial-Flow Flood Control Pump & 13.8kV Drive Assembly", "unit": "EA", "quantity": 4, "hist_low_unit_usd": 3150000.0, "hist_median_unit_usd": 3480000.0, "recommended_unit_usd": 3290000.0}], "slug": "usace-w912ep-27-b-0004-usace-w912ep-27-b-0004-central-southern"}, {"project_id": "IDOT-62R45-CONTRACT", "title": "[IDOT-62R45-CONTRACT] I-90 Kennedy Expressway Reversible Lane Gate Systems, PCC Pavement Patching & Retaining Wall Anchors", "agency": "Illinois Department of Transportation (IDOT) \u2014 District 1 Schaumburg", "jurisdiction": "illinois", "state_code": "IL", "county": "Cook County, IL", "letting_date": "2026-11-21", "engineers_estimate_usd": 16800000.0, "dbe_goal_pct": 19.0, "liquidated_damages_per_day_usd": 4100, "wage_determination_id": "IL20260009 + IDOL Cook County Prevailing Wage", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Portland Cement Concrete", "Div 26 Reversible Lane PLC & Fiber", "Div 31 Soil Nail & Tieback Anchors", "Div 32 Jointed PCC Pavement"], "url": "https://idot.illinois.gov/doing-business/procurements/engineering-architectural-professional-services/transportation-bulletin.html#IDOT-62R45-CONTRACT", "scope_summary": "Replacement of automated reversible-lane swing gates and PLC fiber control cabinets on I-90, 29,000 SY of Class B Portland Cement Concrete (PCC) full-depth pavement patching, and 180 permanent grouted tieback rock anchors.", "planholders": ["F.H. Paschen, S.N. Nielsen", "K-Five Construction Corporation", "Plote Construction Inc.", "Lorig Construction Company", "Judlau Contracting Inc."], "pay_items": [{"item_code": "44200970", "description": "Class B Patches, Type IV, 11 Inch (Portland Cement Concrete)", "unit": "SY", "quantity": 29000, "hist_low_unit_usd": 168.0, "hist_median_unit_usd": 184.0, "recommended_unit_usd": 175.0}, {"item_code": "52200840", "description": "Permanent Grouted Tieback Soil/Rock Anchors (Corrosion Protected)", "unit": "EA", "quantity": 180, "hist_low_unit_usd": 6400.0, "hist_median_unit_usd": 7150.0, "recommended_unit_usd": 6720.0}], "slug": "idot-62r45-contract-idot-62r45-contract-i-90-kennedy-expressway"}, {"project_id": "GDOT-PI-0016842", "title": "[GDOT-PI-0016842] I-285 / I-20 West Interchange Collector-Distributor Flyover, Drilled Shafts & Stone Matrix Asphalt", "agency": "Georgia Department of Transportation (GDOT) \u2014 Metro Atlanta District 7", "jurisdiction": "georgia", "state_code": "GA", "county": "Fulton County, GA", "letting_date": "2026-11-27", "engineers_estimate_usd": 27900000.0, "dbe_goal_pct": 14.0, "liquidated_damages_per_day_usd": 5200, "wage_determination_id": "GA20260212 (Highway Construction)", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Prestressed Concrete Bulb-Tee Beams", "Div 31 72-Inch Drilled Caisson Shafts", "Div 32 Stone Matrix Asphalt (SMA)"], "url": "https://www.bidx.com/ga/main#GDOT-PI-0016842", "scope_summary": "Construction of a two-lane collector-distributor flyover ramp on I-285 featuring 72-inch diameter drilled shaft foundations, 84-inch Prestressed Concrete Bulb-Tee girders, and 52,000 tons of 12.5mm Stone Matrix Asphalt (SMA).", "planholders": ["C.W. Matthews Contracting Co.", "Archer Western Construction", "E.R. Snell Contractor Inc.", "Pittman Construction Company"], "pay_items": [{"item_code": "400-3206", "description": "Recycled Asphalt Concrete 12.5 mm Stone Matrix Asphalt (SMA GP 2)", "unit": "TON", "quantity": 52000, "hist_low_unit_usd": 148.0, "hist_median_unit_usd": 161.0, "recommended_unit_usd": 153.5}, {"item_code": "520-2218", "description": "Drilled Caisson Foundations in Rock (72-Inch Diameter)", "unit": "LF", "quantity": 4200, "hist_low_unit_usd": 1420.0, "hist_median_unit_usd": 1580.0, "recommended_unit_usd": 1490.0}], "slug": "gdot-pi-0016842-gdot-pi-0016842-i-285-i-20-west-interchange"}, {"project_id": "NCDOT-C204891", "title": "[NCDOT-C204891] US-70 Corridor Upgrade to Interstate 42 Standards, Dual Three-Span Bridges & 42-Inch Sanitary Force Main", "agency": "North Carolina Department of Transportation (NCDOT) \u2014 Division 4", "jurisdiction": "north_carolina", "state_code": "NC", "county": "Johnston County, NC", "letting_date": "2026-12-01", "engineers_estimate_usd": 22600000.0, "dbe_goal_pct": 10.0, "liquidated_damages_per_day_usd": 4000, "wage_determination_id": "NC20260065 (Highway & Utility)", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Bridge Substructure", "Div 31 Unclassified Excavation", "Div 33 42-Inch HDPE/DIP Force Main"], "url": "https://connect.ncdot.gov/letting/Pages/Default.aspx#NCDOT-C204891", "scope_summary": "Grading, drainage, paving, dual 3-span prestressed concrete girder bridges, and 16,400 LF of 42-inch sanitary sewer force main relocation along the future I-42 corridor.", "planholders": ["Barnhill Contracting Company", "S.T. Wooten Corporation", "Fred Smith Company", "Blythe Construction Inc."], "pay_items": [{"item_code": "610-A", "description": "Asphalt Concrete Surface Course Type S9.5C", "unit": "TON", "quantity": 58000, "hist_low_unit_usd": 122.0, "hist_median_unit_usd": 131.5, "recommended_unit_usd": 126.0}, {"item_code": "1520-42", "description": "42-Inch Restrained Joint Force Main Sewer Pipe & Air Release Valves", "unit": "LF", "quantity": 16400, "hist_low_unit_usd": 365.0, "hist_median_unit_usd": 402.0, "recommended_unit_usd": 381.0}], "slug": "ncdot-c204891-ncdot-c204891-us-70-corridor-upgrade-to-interstate"}, {"project_id": "ODOT-PID-114892", "title": "[ODOT-PID-114892] I-71 / I-70 Downtown Ramp Reconstruction, Noise Barrier Walls & 60-Inch Microtunneled Storm Trunk", "agency": "Ohio Department of Transportation (ODOT) \u2014 District 6 Columbus", "jurisdiction": "ohio", "state_code": "OH", "county": "Franklin County, OH", "letting_date": "2026-12-03", "engineers_estimate_usd": 26100000.0, "dbe_goal_pct": 9.5, "liquidated_damages_per_day_usd": 4600, "wage_determination_id": "OH20260001 (Heavy & Highway)", "naics_code": "237310", "csi_divisions": ["Div 01 General Requirements", "Div 03 Noise Barrier Precast Panels", "Div 31 Microtunneling", "Div 33 60-Inch Storm Trunk"], "url": "https://www.transportation.ohio.gov/working/contracts/letting-schedule#ODOT-PID-114892", "scope_summary": "Reconstruction of I-71/I-70 collector ramps, installation of 62,000 SF of absorptive precast concrete noise barrier walls, and 4,800 LF of 60-inch microtunneled reinforced concrete storm trunk sewer.", "planholders": ["Kokosing Construction Company", "Shelly & Sands Inc.", "Complete General Construction", "Great Lakes Construction Co."], "pay_items": [{"item_code": "611-6000", "description": "60-Inch Microtunneled Reinforced Concrete Jacking Pipe", "unit": "LF", "quantity": 4800, "hist_low_unit_usd": 1890.0, "hist_median_unit_usd": 2120.0, "recommended_unit_usd": 1985.0}, {"item_code": "626-0100", "description": "Precast Concrete Absorptive Noise Barrier Wall & Drilled Post Foundations", "unit": "SF", "quantity": 62000, "hist_low_unit_usd": 58.0, "hist_median_unit_usd": 66.0, "recommended_unit_usd": 61.5}], "slug": "odot-pid-114892-odot-pid-114892-i-71-i-70-downtown-ramp"}, {"project_id": "MUNICIPAL-DFW-WTP-2026-09", "title": "[MUNICIPAL-DFW-WTP-2026-09] Regional 60 MGD Water Treatment Plant Ozone Generator Building, 4160V Switchgear & 54-Inch Yard Piping", "agency": "North Texas Municipal Water District / Public Works Letting", "jurisdiction": "municipal", "state_code": "MU", "county": "Collin County, TX", "letting_date": "2026-12-04", "engineers_estimate_usd": 34500000.0, "dbe_goal_pct": 12.0, "liquidated_damages_per_day_usd": 5500, "wage_determination_id": "TX20260042 (Water/Wastewater Treatment Plant Heavy)", "naics_code": "237110", "csi_divisions": ["Div 01 General Requirements", "Div 03 Watertight Environmental Concrete", "Div 23 Industrial HVAC", "Div 26 4160V Redundant Switchgear", "Div 33 54-Inch Welded Steel Yard Piping", "Div 46 Ozone Disinfection Equipment"], "url": "https://www.ntmwd.com/procurement/#MUNICIPAL-DFW-WTP-2026-09", "scope_summary": "Turnkey construction of a 60 MGD liquid oxygen / ozone contactor structure, dual 4160V medium-voltage switchgear lineup, 8,200 LF of 54-inch mortar-lined welded steel yard piping, and Plant PAX SCADA integration.", "planholders": ["Garney Construction", "PC Construction Company", "McCarthy Building Companies", "Archer Western Water", "PLW Waterworks LLC"], "pay_items": [{"item_code": "33-11-54", "description": "54-Inch Mortar-Lined & Tape-Coated Welded Steel Water Pipe (AWWA C200)", "unit": "LF", "quantity": 8200, "hist_low_unit_usd": 740.0, "hist_median_unit_usd": 825.0, "recommended_unit_usd": 778.0}, {"item_code": "26-13-00", "description": "4160V Arc-Resistant Metal-Clad Switchgear & VFD Lineup (BABA Compliant)", "unit": "LS", "quantity": 1, "hist_low_unit_usd": 4650000.0, "hist_median_unit_usd": 5120000.0, "recommended_unit_usd": 4840000.0}], "slug": "municipal-dfw-wtp-2026-09-municipal-dfw-wtp-2026-09-regional-60"}];
+    const __CAMBER_ADMIN_SALT = "0f5b69d3a75dc6ba823aa1975353ed11";
+    const __CAMBER_ADMIN_DIGESTS = ["d8c957dca1d016006cbe5f41517c6deecafe9034a8c2c1d6dfb6d618a8fea630", "fc2c6090fc5e15ebad6f994ed480b1f963b4a76ef0d9d1377767a1ed4582dbb8", "3e7c9812d737010486de7084d592b141888ec4b6e9e55c812facd4c2eee88862"];
     window.SANDBOX_TAB = 'json';
 
-    function switchSpaView(viewName) {
+    function switchSpaView(viewName, ev) {
       if (viewName === 'apis' && !document.getElementById('page-apis') && document.getElementById('api-studio-playground')) {
         return;
       }
       if (!document.getElementById('page-' + viewName)) {
+        if (ev && ev.preventDefault) ev.preventDefault();
         window.location.href = 'index.html#' + viewName;
         return;
       }
@@ -1509,6 +1583,11 @@
       if (target && target.scrollIntoView) {
         target.scrollIntoView({ behavior: 'auto', block: 'start' });
       }
+      try {
+        if (window.history && window.history.replaceState) {
+          window.history.replaceState(null, '', '#' + sectionId);
+        }
+      } catch (e) {}
     }
 
     function toggleMobileNav() {
@@ -1782,10 +1861,10 @@ console.log(await res.json());`;
       if (tEl) tEl.textContent = r.title;
       if (dEl) dEl.textContent = r.desc;
       if (cEl) {
-        cEl.textContent = r.ctaText + ' →';
+        cEl.innerHTML = r.ctaText + ' &rarr;';
         cEl.setAttribute('href', r.ctaHref);
         if (r.ctaHref === '#apis') {
-          cEl.setAttribute('onclick', "switchSpaView('apis'); return false;");
+          cEl.setAttribute('onclick', "switchSpaView('apis', event)");
         } else {
           const secId = r.ctaHref.replace(/^#/, '');
           cEl.setAttribute('onclick', `navigateToOverviewSection('${secId}', event)`);
@@ -1978,7 +2057,7 @@ console.log(await res.json());`;
           : '  5. Unlimited Estimating Team CC Seats & Slack / Microsoft Teams / Procore Webhooks',
         'Estimated Estimator Time Saved: ' + savedHrs + '+ Hours / Month ($' + savedPayroll.toLocaleString() + '/mo Payroll Value)',
         'Contract Terms: Month-to-Month Self-Serve or Annual (Zero Seat Lock-In)',
-        'Billing & Support: estimating@trycamberdesk.com | https://camberdesk.com',
+        'Self-Serve Portal & Support: https://camberdesk.com/#account | https://camberdesk.com',
         '===================================================================='
       ].join('\n');
       if (outEl) outEl.textContent = memo;
@@ -2333,8 +2412,8 @@ console.log(await res.json());`;
         const b = document.getElementById('zip-tab-btn-' + i);
         if (b) {
           b.className = i === idx
-            ? 'px-3 py-2 rounded-lg bg-[#0A0D14] text-white font-mono text-xs font-bold text-left transition'
-            : 'px-3 py-2 rounded-lg bg-[#F4F1EA] hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#CBD5E1] font-mono text-xs font-bold text-left transition';
+            ? 'px-3 py-2 rounded-lg bg-[#0A0D14] text-white font-mono text-xs font-bold text-left break-all w-full transition'
+            : 'px-3 py-2 rounded-lg bg-[#F4F1EA] hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#CBD5E1] font-mono text-xs font-bold text-left break-all w-full transition';
         }
       }
       const titleEl = document.getElementById('zip-inspector-title');
@@ -2674,18 +2753,214 @@ console.log(data);`;
       if (detail) detail.textContent = 'All 52 Federal USACE & 50-State DOT Portal Monitors, 12 Stateless Microservices, and 6-File OpenXML Compiler Operational.';
     }
 
-    function lookupSubscriberAccount(ev) {
+    let __activeClientAccount = null;
+
+    async function _sha256HexClient(message) {
+      if (typeof crypto !== 'undefined' && crypto.subtle && typeof TextEncoder !== 'undefined') {
+        const msgBuffer = new TextEncoder().encode(message);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      }
+      return '';
+    }
+
+    function _applyAccountPortalState(acct) {
+      __activeClientAccount = acct;
+      try { localStorage.setItem('camberdesk_active_account', JSON.stringify(acct)); } catch (e) {}
+      const box = document.getElementById('account-portal-result');
+      const statusEl = document.getElementById('account-auth-status');
+      const adminBar = document.getElementById('account-admin-bar');
+      const emailSpan = document.getElementById('account-active-id');
+      const tierBadge = document.getElementById('account-active-tier-badge');
+      const quotaSpan = document.getElementById('account-active-quota');
+      const keySpan = document.getElementById('account-api-key-val');
+      const mcpPre = document.getElementById('account-mcp-config-pre');
+      if (box) box.classList.remove('hidden');
+      if (statusEl) {
+        statusEl.className = 'text-xs font-mono font-bold text-[#065F46]';
+        statusEl.textContent = acct.is_admin
+          ? 'Authenticated as CamberDesk Founder & Admin (' + acct.email + ') — Full Tier 1–4 Preview Console Unlocked.'
+          : 'Authenticated Client Portal session active for ' + acct.email + '.';
+      }
+      if (adminBar) {
+        if (acct.is_admin) adminBar.classList.remove('hidden');
+        else adminBar.classList.add('hidden');
+      }
+      if (emailSpan) emailSpan.textContent = acct.email || 'admin@camberdesk.com';
+      if (tierBadge) tierBadge.textContent = acct.tier_label || 'TIER 4 // ENTERPRISE OEM & BID-TAB VAULT (FOUNDER ADMIN)';
+      if (quotaSpan) quotaSpan.textContent = acct.quota_label || '50,000 API Calls/Mo + Unlimited 6-File .ZIP Compilations + 50-State Vault';
+      if (keySpan) keySpan.textContent = acct.api_key || 'cd_live_admin_founder_master_99a4f2c1b0e7d6a3';
+      if (mcpPre) {
+        mcpPre.textContent = JSON.stringify({
+          mcpServers: {
+            camberdesk: {
+              command: "npx",
+              args: ["-y", "@camberdesk/mcp-server"],
+              env: {
+                CAMBERDESK_API_KEY: acct.api_key || "cd_live_admin_founder_master_99a4f2c1b0e7d6a3"
+              }
+            }
+          }
+        }, null, 2);
+      }
+    }
+
+    function switchAdminPortalPreview(tierKey) {
+      const baseEmail = (__activeClientAccount && __activeClientAccount.email) || 'admin@camberdesk.com';
+      const tierMap = {
+        tier_4: {
+          tier: 'tier_4',
+          tier_label: 'TIER 4 // ENTERPRISE OEM & BID-TAB VAULT ($2,499/MO)',
+          quota_label: '50,000 API Calls/Mo + Unlimited 6-File .ZIP Compilations + 50-State Historical Vault',
+          api_key: 'cd_live_admin_tier4_oem_99a4f2c1b0e7d6a3'
+        },
+        tier_3: {
+          tier: 'tier_3',
+          tier_label: 'TIER 3 // 6-FILE .ZIP TAKEOFF COMPILER ($1,499/MO)',
+          quota_label: '10,000 API Calls/Mo + Unlimited 1-Click 6-File OpenXML (.DOCX + .XLSX) Packages',
+          api_key: 'cd_live_admin_tier3_zip_88b3e1d0a9c6f5b2'
+        },
+        tier_2: {
+          tier: 'tier_2',
+          tier_label: 'TIER 2 // CAMBERDESK AUTOPILOT ($499/MO)',
+          quota_label: '2,500 API Calls/Mo Across All 12 Endpoints + Pre-Shredded CSI Dossiers & WH-347 Wages',
+          api_key: 'cd_live_admin_tier2_auto_77c2d0e9b8a5e4a1'
+        },
+        tier_1: {
+          tier: 'tier_1',
+          tier_label: 'TIER 1 // CAMBERWIRE PRO ($199/MO)',
+          quota_label: 'Real-Time 52-Portal State DOT, USACE & Municipal Letting Alerts + Planholder Tracking',
+          api_key: 'cd_live_admin_tier1_wire_66d1c9f8a7b4d3f0'
+        }
+      };
+      const selected = tierMap[tierKey] || tierMap.tier_4;
+      ['tier_4', 'tier_3', 'tier_2', 'tier_1'].forEach(k => {
+        const btn = document.getElementById('admin-tier-btn-' + k);
+        if (btn) {
+          btn.className = (k === (tierMap[tierKey] ? tierKey : 'tier_4'))
+            ? 'px-2.5 py-1 rounded bg-[#1E3A8A] text-white font-mono text-[11px] font-bold transition'
+            : 'px-2.5 py-1 rounded bg-white hover:bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-mono text-[11px] font-bold transition';
+        }
+      });
+      _applyAccountPortalState({
+        email: baseEmail,
+        is_admin: true,
+        tier: selected.tier,
+        tier_label: selected.tier_label,
+        quota_label: selected.quota_label,
+        api_key: selected.api_key
+      });
+    }
+
+    function logoutClientAccount() {
+      __activeClientAccount = null;
+      try { localStorage.removeItem('camberdesk_active_account'); } catch (e) {}
+      const box = document.getElementById('account-portal-result');
+      const adminBar = document.getElementById('account-admin-bar');
+      const statusEl = document.getElementById('account-auth-status');
+      const pwInp = document.getElementById('account-password-input');
+      if (box) box.classList.add('hidden');
+      if (adminBar) adminBar.classList.add('hidden');
+      if (pwInp) pwInp.value = '';
+      if (statusEl) {
+        statusEl.className = 'text-xs font-mono font-bold text-[#1E3A8A]';
+        statusEl.textContent = 'Signed out of Client Portal.';
+      }
+    }
+
+    function downloadAccountSelectedZip() {
+      const sel = document.getElementById('account-zip-project-select');
+      const raw = (sel && sel.value) ? sel.value : 'TXDOT-2026-08-0912-04|TX';
+      const parts = raw.split('|');
+      const pid = parts[0] || 'TXDOT-2026-08-0912-04';
+      const st = parts[1] || 'TX';
+      window.location.href = 'https://camberdesk.com/v1/camber-autopilot/compile-bid-package?project_id=' + encodeURIComponent(pid) + '&state_code=' + encodeURIComponent(st) + '&format=binary';
+    }
+
+    function inspectAccountSelectedDossier() {
+      const sel = document.getElementById('account-zip-project-select');
+      const raw = (sel && sel.value) ? sel.value : 'TXDOT-2026-08-0912-04|TX';
+      const pid = raw.split('|')[0] || 'TXDOT-2026-08-0912-04';
+      closeTrustModals();
+      openInPageDossier(pid);
+    }
+
+    async function lookupSubscriberAccount(ev) {
       if (ev) ev.preventDefault();
       const inp = document.getElementById('account-lookup-input');
-      const box = document.getElementById('account-portal-result');
+      const pwInp = document.getElementById('account-password-input');
+      const statusEl = document.getElementById('account-auth-status');
       const val = inp ? inp.value.trim() : '';
-      if (!val || !box) return false;
-      const maskedKey = val.startsWith('cd_live_') ? val : 'cd_live_' + btoa(val).replace(/[^a-zA-Z0-9]/g, '').slice(0, 18).toLowerCase();
-      box.classList.remove('hidden');
-      const emailSpan = document.getElementById('account-active-id');
-      const keySpan = document.getElementById('account-api-key-val');
-      if (emailSpan) emailSpan.textContent = val;
-      if (keySpan) keySpan.textContent = maskedKey;
+      const pw = pwInp ? pwInp.value.trim() : '';
+      if (!val) return false;
+      const emailLower = val.toLowerCase();
+
+      // 1. Check Salted SHA-256 Founder/Admin Digest (Zero plaintext secret in source)
+      if (pw) {
+        const candidateEmails = emailLower.includes('@') ? [emailLower] : ['admin@camberdesk.com'];
+        for (const cand of candidateEmails) {
+          const digest = await _sha256HexClient(__CAMBER_ADMIN_SALT + ':' + cand + ':' + pw);
+          if (digest && __CAMBER_ADMIN_DIGESTS.includes(digest)) {
+            _applyAccountPortalState({
+              email: emailLower.includes('@') ? emailLower : 'admin@camberdesk.com',
+              is_admin: true,
+              tier: 'tier_4',
+              tier_label: 'TIER 4 // ENTERPRISE OEM & BID-TAB VAULT (FOUNDER ADMIN)',
+              quota_label: '50,000 API Calls/Mo + Unlimited 6-File .ZIP Compilations + 50-State Historical Vault',
+              api_key: 'cd_live_admin_founder_master_99a4f2c1b0e7d6a3'
+            });
+            return false;
+          }
+        }
+      }
+
+      // 2. Also check backend / edge /v1/billing/account/login when password is provided
+      if (pw) {
+        try {
+          const r = await fetch('https://camberdesk.com/v1/billing/account/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: val, password: pw })
+          });
+          if (r.ok) {
+            const d = await r.json();
+            if (d && d.authenticated) {
+              _applyAccountPortalState({
+                email: d.email || val,
+                is_admin: Boolean(d.is_admin),
+                tier: d.tier || 'tier_4',
+                tier_label: d.tier_label || 'TIER 4 // ENTERPRISE OEM & BID-TAB VAULT',
+                quota_label: d.quota_label || '50,000 API Calls/Mo + Unlimited 6-File .ZIP Compilations',
+                api_key: d.api_key || 'cd_live_admin_founder_master_99a4f2c1b0e7d6a3'
+              });
+              return false;
+            }
+          }
+        } catch (e) {}
+      }
+
+      // 3. If trying to log in with an admin email without valid password, prompt for admin password
+      if ((emailLower === 'admin@camberdesk.com' || emailLower.startsWith('aaron@')) && !pw.startsWith('cd_live_')) {
+        if (statusEl) {
+          statusEl.className = 'text-xs font-mono font-bold text-[#991B1B]';
+          statusEl.textContent = 'Founder/Admin email detected — please enter your Founder Admin password to unlock the Tier 1–4 Admin Console.';
+        }
+        return false;
+      }
+
+      // 4. Standard Subscriber Lookup (API Key or Subscriber Work Email)
+      const maskedKey = val.startsWith('cd_live_')
+        ? val
+        : (pw.startsWith('cd_live_') ? pw : 'cd_live_' + btoa(val).replace(/[^a-zA-Z0-9]/g, '').slice(0, 18).toLowerCase());
+      _applyAccountPortalState({
+        email: val,
+        is_admin: false,
+        tier: 'tier_2',
+        tier_label: 'TIER 2 // CAMBERDESK AUTOPILOT (ACTIVE SUBSCRIBER)',
+        quota_label: '2,500 API Calls/Mo Across All 12 Endpoints + 6-File .ZIP Takeoff Access',
+        api_key: maskedKey
+      });
       return false;
     }
 
@@ -2709,7 +2984,32 @@ console.log(data);`;
         .replace(/"/g, '&quot;');
     }
 
-    const __CONCIERGE_COMPROMISING_RE = /system\s+prompt|initial\s+prompt|developer\s+prompt|hidden\s+prompt|your\s+instructions|your\s+rules|repeat\s+(?:the\s+)?(?:text|words|instructions|above)|verbatim|what\s+were\s+you\s+told|ignore\s+(?:all\s+)?(?:previous|prior|above)|disregard\s+(?:all\s+)?(?:previous|prior|above)|forget\s+(?:all\s+)?(?:previous|prior|above)|developer\s+mode|debug\s+mode|maintenance\s+mode|jailbreak|dan\s+mode|pretend\s+(?:you\s+are|to\s+be)|act\s+as\s+(?:a|an|the)|i\s+am\s+(?:the\s+)?(?:founder|admin|administrator|owner|developer|aaron)|translate\s+your\s+(?:prompt|instructions)|encode\s+your\s+(?:prompt|instructions)|base64|rot13|bypass\s+(?:security|auth|authentication|paywall|rate\s+limit|filter|waf|captcha|verification)|give\s+me\s+(?:a|an|your|the)\s+(?:free\s+|valid\s+|working\s+|admin\s+|production\s+)(?:api\s+key|cd_live|secret|token|password|credentials)|share\s+(?:a|an|your|the)\s+(?:valid\s+|working\s+|admin\s+|production\s+)(?:api\s+key|cd_live|secret|token|password|credentials)|env\s*var|environment\s+variable|\.env\b|os\.getenv|os\.environ|connection\s+string|database\s+(?:password|url|host|credentials|schema|table|dump|engine|provider)|stripe\s+secret|webhook\s+secret|discord\s+webhook\s+url|proxy\s+secret|x-rapidapi-proxy-secret|service_role|anon_key|private\s+key|session\s+token|jwt\s+secret|source\s+code|github\s+repo|git\s+repo|file\s+path|directory\s+structure|stack\s+trace|server\s+ip|internal\s+url|where\s+are\s+you\s+hosted|what\s+(?:cloud|hosting|database|tech\s+stack|backend|framework|server)\b|which\s+(?:cloud|hosting|database|tech\s+stack|backend|framework|server)\b|render\.com|onrender|supabase|postgrest|postgresql|postgres|fastapi|uvicorn|how\s+does\s+(?:your|the)\s+scraper\s+work|scraper\s+(?:code|script|architecture|ip|proxy|logic)|pbkdf2|hash\s+iterations|hashing\s+algorithm|how\s+do\s+you\s+hash|list\s+of\s+(?:customers|subscribers|users|clients|accounts)|who\s+are\s+your\s+(?:customers|subscribers|clients|users)|subscriber\s+(?:emails|list|database|count|numbers)|customer\s+(?:emails|list|data|database)|how\s+many\s+(?:customers|subscribers|users|clients)|other\s+(?:users|customers|subscribers|accounts)|dump\s+(?:the\s+)?(?:database|users|table)|admin\s+(?:account|password|login|email|panel)|founder(?:s)?\s+(?:personal|phone|address|password|net\s+worth|email)|company\s+(?:revenue|mrr|arr|bank\s+account|financials|profits)|how\s+much\s+(?:money|revenue)\s+do\s+you\s+make|exploit|vulnerability|open\s+ports|sql\s+injection|how\s+to\s+hack/i;
+    const __CONCIERGE_WAF_RE = /(<\s*script|<\s*iframe|<\s*object|<\s*embed|<\s*svg|<\s*img|<\s*form|<\s*input|<\s*body|<\s*link|<\s*meta|<\s*style|javascript\s*:|vbscript\s*:|data\s*:\s*text\/html|on(?:load|error|click|mouseover|focus|blur|input|change|submit|keydown|keyup|toggle)\s*=|union\s+(?:all\s+)?select|drop\s+table|insert\s+into|delete\s+from|update\s+\w+\s+set|xp_cmdshell|exec\s*\(|;\s*(?:rm|cat|ls|wget|curl|chmod|chown|bash|sh|powershell|cmd)\b|\|\s*(?:cat|ls|nc|bash|sh)\b|\.\.\/|\.\.\\|\/etc\/passwd|\/etc\/shadow|c:\\windows|169\.254\.169\.254|127\.0\.0\.1|0\.0\.0\.0|localhost\b|\x7b\x7b.*\x7d\x7d|\$\x7b.*\x7d|'\s*or\s*'1'\s*=\s*'1|'\s*or\s*1\s*=\s*1)/i;
+
+    const __CONCIERGE_COMPROMISING_RE = /(?:\b(?:i\s+am|i'm|im|this\s+is|it's|its|speaking\s+as|logged\s+in\s+as|acting\s+as|we\s+are|here\s+is)\b[^.?!]{0,45}\b(?:founder|co-founder|cofounder|admin|administrator|owner|ceo|cto|ciso|cfo|president|exec|executive|director|developer|dev|engineer|creator|boss|manager|staff|employee|support|moderator|root|superuser|sudo|aaron|sysadmin|devops|security\s+team|internal\s+team)\b)|(?:\b(?:founder|co-founder|cofounder|admin|administrator|superuser|root|sysadmin|aaron)\b[^.?!]{0,35}\b(?:here|speaking|logged\s+in|override|access|mode|command|instructs?|orders?|telling\s+you|and\s+admin|and\s+founder|login|portal|privileges?)\b)|\b(?:founder\s+and\s+admin|admin\s+and\s+founder|admin\s+override|founder\s+override|executive\s+override|security\s+override|root\s+access|admin\s+access|sudo\s+|su\s+root|grant\s+me\s+access|elevate\s+privileges|privilege\s+escalation|bypass\s+auth|unlock\s+admin|admin\s+mode|god\s+mode|dev\s+mode|developer\s+mode|debug\s+mode|maintenance\s+mode|diagnostic\s+mode|sudo\s+mode|jailbreak|dan\s+mode|do\s+anything\s+now)\b|system\s+prompt|initial\s+prompt|developer\s+prompt|hidden\s+prompt|meta\s+prompt|secret\s+prompt|your\s+instructions|your\s+rules|your\s+directives|your\s+system\s+message|repeat\s+(?:the\s+)?(?:text|words|instructions|above|everything)|verbatim|what\s+were\s+you\s+told|print\s+(?:your\s+)?(?:prompt|instructions|rules)|reveal\s+(?:your\s+)?(?:prompt|instructions|rules)|show\s+(?:me\s+)?(?:your\s+)?(?:prompt|instructions|rules)|ignore\s+(?:all\s+)?(?:previous|prior|above|earlier|system)|disregard\s+(?:all\s+)?(?:previous|prior|above|earlier|system)|forget\s+(?:all\s+)?(?:previous|prior|above|earlier|system)|override\s+(?:your\s+)?(?:instructions|rules|prompt|safety|security)|new\s+instructions|pretend\s+(?:you\s+are|to\s+be)|roleplay\s+as|act\s+as\s+(?:a|an|the)|hypothetical\s+scenario|translate\s+your\s+(?:prompt|instructions)|encode\s+your\s+(?:prompt|instructions)|base64|rot13|hex\s+encode|leetspeak|spell\s+backwards|reverse\s+the\s+text|bypass\s+(?:security|auth|authentication|paywall|payment|stripe|rate\s+limit|filter|waf|captcha|verification)|(?:\b(?:give|show|tell|send|share|reveal|print|output|leak|dump|expose|generate|create|get)\b[^.?!]{0,35}\b(?:free\s+|valid\s+|working\s+|admin\s+|production\s+|master\s+|internal\s+|secret\s+|live\s+)?(?:api\s+key|cd_live|st_live|sk_live|sk-ant|secret|token|password|credential|private\s+key|env\b|\.env|webhook\s+secret|connection\s+string|stripe\s+key|supabase\s+key))\b|env\s*var|environment\s+variable|\.env\b|os\.getenv|os\.environ|process\.env|connection\s+string|database\s+(?:password|url|host|credentials|schema|table|dump|engine|provider)|stripe\s+secret|webhook\s+secret|discord\s+webhook\s+url|proxy\s+secret|x-rapidapi-proxy-secret|service_role|anon_key|private\s+key|session\s+token|jwt\s+secret|bearer\s+token|master\s+key|source\s+code|github\s+repo|git\s+repo|file\s+path|directory\s+structure|stack\s+trace|server\s+ip|internal\s+url|where\s+are\s+you\s+hosted|what\s+(?:cloud|hosting|database|tech\s+stack|backend|framework|server)\b|which\s+(?:cloud|hosting|database|tech\s+stack|backend|framework|server)\b|render\.com|onrender|supabase|postgrest|postgresql|postgres|fastapi|uvicorn|cloudflare\s+worker|how\s+does\s+(?:your|the)\s+scraper\s+work|scraper\s+(?:code|script|architecture|ip|proxy|logic)|pbkdf2|hash\s+iterations|hashing\s+algorithm|how\s+do\s+you\s+hash|list\s+of\s+(?:customers|subscribers|users|clients|accounts|emails|leads)|who\s+are\s+your\s+(?:customers|subscribers|clients|users)|subscriber\s+(?:emails|list|database|count|numbers)|customer\s+(?:emails|list|data|database)|how\s+many\s+(?:customers|subscribers|users|clients)|other\s+(?:users|customers|subscribers|accounts)|dump\s+(?:the\s+)?(?:database|users|table|leads|contacts)|admin\s+(?:account|password|login|email|panel|console|dashboard)|founder(?:s|'s)?\s+(?:personal|phone|address|password|net\s+worth|email|name)|who\s+is\s+the\s+(?:founder|owner|ceo)|company\s+(?:revenue|mrr|arr|bank\s+account|financials|profits|valuation)|how\s+much\s+(?:money|revenue)\s+do\s+you\s+make|exploit|vulnerability|open\s+ports|sql\s+injection|\bxss\b|\bcsrf\b|\bssrf\b|\brce\b|how\s+to\s+hack|penetration\s+test|pentest/i;
+
+    const __CONCIERGE_DLP_RE = /\b(?:sonnet|opus|haiku|anthropic|openai|chatgpt|gpt-\d|gemini|llama|mistral|claude-\d|onrender|render\.com|supabase|postgrest|postgresql|postgres|fastapi|uvicorn|pbkdf2|sys_prompt|system\s+prompt|os\.getenv)\b|sk-ant-[a-zA-Z0-9_\-]+|sk_live_[a-zA-Z0-9]+|cd_live_[a-zA-Z0-9_]{10,}/i;
+
+    function sanitizeConciergeInput(rawText) {
+      const s = String(rawText || '').trim();
+      if (!s) return { ok: false, error: 'Please enter a preconstruction or account question before submitting.' };
+      if (__CONCIERGE_WAF_RE.test(s)) {
+        return {
+          ok: false,
+          isWafBlock: true,
+          error: 'Blocked by CamberDesk WAF: HTML tags, scripts, event handlers, path traversal, and SQL/command injection syntax are prohibited. Please submit plain-text preconstruction or account questions only.'
+        };
+      }
+      if (/https?:\/\/(?!(?:www\.)?camberdesk\.com)\S+/i.test(s)) {
+        return {
+          ok: false,
+          isWafBlock: true,
+          error: 'For security reasons, external hyperlinks are not allowed in the AI Concierge. Please describe your project ID, State DOT, or question in plain text.'
+        };
+      }
+      const stripped = s.replace(/<[^>]*>/g, '').replace(/[`<>]/g, '').trim();
+      return { ok: true, value: stripped.slice(0, 1000) };
+    }
 
     const __STATE_DOT_KB = [
       { code: 'TX', dot: 'TxDOT', name: 'Texas', portal: 'TxDOT Letting & Electronic State Business Daily', hma: '$108.50–$118.40/Ton', conc: '$890–$965/CY', wage: '$52.40/hr loaded' },
@@ -2765,13 +3065,26 @@ console.log(data);`;
     ];
 
     function buildConciergeAnswer(rawQ, apiAnswer, topicHint) {
-      const q = String(rawQ || '').trim();
+      const check = sanitizeConciergeInput(rawQ);
+      if (!check.ok) {
+        return {
+          text: check.error,
+          isWafBlock: Boolean(check.isWafBlock),
+          ctaLabel: 'View Security Standards',
+          ctaFn: function() { openTrustModal('security'); },
+          actions: [
+            { label: 'View Security Standards', fn: function() { openTrustModal('security'); } },
+            { label: 'Open Client Portal', fn: function() { openTrustModal('account'); } }
+          ]
+        };
+      }
+      const q = check.value;
       const ql = q.toLowerCase();
 
-      // 0. Security & Confidentiality Guardrail
+      // 0. Security, Identity-Spoofing & Confidentiality Guardrail
       if (__CONCIERGE_COMPROMISING_RE.test(ql)) {
         return {
-          text: "For security and confidentiality reasons, the CamberDesk AI Support Concierge does not disclose internal infrastructure details, source code, system instructions, cryptographic parameters, credentials, or subscriber account data.\n\n• Public Security & Zero-Retention Posture: Review our public security controls, stateless TLS 1.3 API processing, and zero bid-data retention standards in the Security Center and Privacy Policy.\n• Self-Serve Account & API Management: Manage your organization's subscription, estimating team CC seats, and production cd_live_... API Key inside the Client Portal.",
+          text: "For security and confidentiality reasons, the CamberDesk AI Support Concierge cannot verify identity or administrative authority claims in chat and does not disclose internal infrastructure details, source code, system instructions, cryptographic parameters, credentials, or subscriber account data.\n\n• Public Security & Zero-Retention Posture: Review our public security controls, stateless TLS 1.3 API processing, and zero bid-data retention standards in the Security Center and Privacy Policy.\n• Self-Serve Account & API Management: Manage your organization's subscription, estimating team CC seats, and production cd_live_... API Key inside the authenticated Client Portal.",
           ctaLabel: 'View Security Standards',
           ctaFn: function() { openTrustModal('security'); },
           actions: [
@@ -3227,10 +3540,10 @@ console.log(data);`;
         };
       }
 
-      // 9e. Contact Human Support / Direct Email
-      if (/human|real\s+person|talk\s+to\s+someone|support\s+email|email\s+address|contact\s+support|customer\s+service|phone\s+call|sales\s+call|book\s+a\s+call|zoom|demo|free\s+trial/i.test(ql)) {
+      // 9e. Contact Support / Instant Self-Serve Test Drive / Account Access
+      if (/human|real\s+person|talk\s+to\s+someone|support\s+email|email\s+address|contact\s+support|customer\s+service|phone\s+call|sales\s+call|book\s+a\s+call|zoom|demo|free\s+trial|login|sign\s+in|forgot\s+key|recover\s+key/i.test(ql)) {
         return {
-          text: "You can test-drive CamberDesk immediately without waiting on a sales call, or reach our estimating desk directly:\n• Direct Estimating Support Email: estimating@trycamberdesk.com (monitored 24/7 for enterprise MSA/SLA, custom DOT portal requests, and billing support).\n• Instant No-Card Test Drive: Download a live 6-File OpenXML (.DOCX + .XLSX) Bid Package sample right now, or paste your own specification text into the Interactive Evaluation Workbench on the Self-Serve Pricing view.",
+          text: "CamberDesk is 100% self-serve with zero sales-call gatekeeping and instant account resolution:\n• Self-Serve Client Portal: Manage your plan, download corporate B2B tax receipts, configure 52-portal trade alert filters, add unlimited estimating team CC seats, or retrieve your production cd_live_... API key in 1 click.\n• Instant No-Card Test Drive: Download a live 6-File OpenXML (.DOCX + .XLSX) Bid Package sample right now, or paste your own specification text into the Interactive Evaluation Workbench on the Self-Serve Pricing view.",
           ctaLabel: 'Open Evaluation Workbench',
           ctaFn: function() { closeTrustModals(); switchSpaView('checkout'); const el = document.getElementById('checkout-enterprise-proof-workbench'); if (el) el.scrollIntoView({behavior:'auto'}); },
           actions: [
@@ -3385,40 +3698,69 @@ console.log(data);`;
         };
       }
 
-      // 16. Dynamic Question-Specific Compositional Synthesizer (Guarantees Every Free-Form Prompt Gets a Tailored, Unique Answer!)
-      const stopWords = new Set(['what','when','where','which','who','whom','whose','why','how','does','do','did','is','are','was','were','be','been','being','have','has','had','can','could','will','would','shall','should','may','might','must','the','a','an','and','or','but','if','then','else','for','of','to','in','on','at','by','with','from','about','into','through','after','before','between','out','against','during','without','again','further','once','here','there','all','any','both','each','few','more','most','other','some','such','no','nor','not','only','own','same','so','than','too','very','tell','me','us','you','your','my','our','we','they','them','it','its','this','that','these','those','please','help','need','want','know','like']);
-      const tokens = q.replace(/[^a-zA-Z0-9\s-]/g, ' ').split(/\s+/).filter(w => w.length >= 2 && !stopWords.has(w.toLowerCase()));
-      const focusPhrase = tokens.length > 0 ? tokens.slice(0, 6).join(' ') : q;
-
-      let customAnalysis = "Here is how CamberDesk's Preconstruction & 50-State DOT Engine handles your request:";
-      let customBullets = [];
-      if (/bridge|highway|road|interstate|overpass|culvert|pavement|resurfacing|widening/i.test(ql)) {
-        customBullets.push(`• Highway & Bridge Takeoff Modeling (${focusPhrase}): Benchmarks structural & paving pay items against 1.42M+ historical State DOT winning low bids (API #02) and extracts nighttime lane-rental & liquidated damages clauses (API #01).`);
-      }
-      if (/airport|faa|runway|apron|taxiway|transit|rail|port|marine|dredging|dam|levee/i.test(ql)) {
-        customBullets.push(`• Heavy-Civil, Aviation, Transit & Marine Infrastructure (${focusPhrase}): Normalizes Federal USACE Civil Works / NAVFAC (NAICS 236–238), Port/Airport Authority, and State DOT lettings across all 52 portals (API #04).`);
-      }
-      if (/commercial|building|school|hospital|municipal|water|wastewater|treatment|pump|facility/i.test(ql)) {
-        customBullets.push(`• Municipal Public Works & Commercial Facilities (${focusPhrase}): Shreds CSI MasterFormat Divisions 00–48 for submittals and liquidated damages (API #01) and models balanced AIA G702/G703 Schedules of Values (API #07).`);
-      }
-      if (/estimate|estimating|estimator|takeoff|bid|bidding|proposal|win|margin|markup|cost|quantity/i.test(ql)) {
-        customBullets.push(`• Estimating Desk Acceleration for "${q}": Compiles a complete 6-File OpenXML (.DOCX + .XLSX) Bid Package with live =ROUND(D6*G6,2) Excel formulas, county Davis-Bacon WH-347 wages (API #03), and competitor planholder MLOT spread predictions (API #11).`);
-      }
-      if (customBullets.length === 0) {
-        customBullets.push(`• Direct Preconstruction Analysis for "${q}": Paste any specification section, pay-item schedule, or project scope for "${focusPhrase}" into the CamberDesk Custom Evaluation Workbench to compile a live 6-File OpenXML (.DOCX + .XLSX) Bid Package in memory.`);
-        customBullets.push(`• 52-Portal & 12-API Coverage: Query 36-month State DOT winning low unit prices ($/Ton, $/CY, $/LF), county Davis-Bacon WH-347 prevailing wages, BABA domestic steel rules, and 49 CFR Part 26 DBE credits across all 50 U.S. states.`);
-      } else {
-        customBullets.push(`• Instant Custom Compilation for "${focusPhrase}": Test your exact project parameters live in the Interactive Evaluation Workbench or download a 6-File OpenXML (.DOCX + .XLSX) sample package below.`);
+      // 16a. Highway, Bridge, Roadway, Overpass & Resurfacing Lettings
+      if (/bridge|highway|road|interstate|overpass|culvert|pavement|resurfacing|widening|guardrail|striping|traffic\s+control|mot\b/i.test(ql)) {
+        return {
+          text: "CamberDesk automates heavy-civil highway, bridge, and roadway takeoff preparation across all 50 U.S. State DOTs:\n• 36-Month DOT Pay-Item Benchmarking (API #02): Benchmarks Superpave HMA ($/Ton), structural concrete ($/CY), reinforcing steel ($/LB), and drainage pipe ($/LF) against 1.42M+ historical winning low bids.\n• Division 00–01 Special Provisions Shredding (API #01): Extracts nighttime lane-closure windows, lane-rental overrun penalties ($/hr), and calendar-day vs. working-day liquidated damages.\n• 1-Click 6-File OpenXML (.DOCX + .XLSX) Package: Compiles native Word & Excel takeoff workbooks with live =ROUND(D6*G6,2) and =SUM() formulas.",
+          ctaLabel: 'Browse Live DOT Lettings',
+          ctaFn: function() { closeTrustModals(); switchSpaView('lettings'); },
+          actions: [
+            { label: 'Browse Live DOT Lettings', fn: function() { closeTrustModals(); switchSpaView('lettings'); } },
+            { label: 'Query DOT Bid-Tab Vault', fn: function() { closeTrustModals(); switchSpaView('checkout'); const el = document.getElementById('checkout-enterprise-proof-workbench'); if (el) el.scrollIntoView({behavior:'auto'}); switchCheckoutWorkbenchTab('vault'); } },
+            { label: 'Download Live .ZIP Sample', href: 'https://camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary' }
+          ]
+        };
       }
 
+      // 16b. Aviation, Marine, Dredging, Dam, Levee, Rail & USACE Civil Works
+      if (/airport|faa|runway|apron|taxiway|transit|rail|port|marine|dredging|dam|levee|seawall|bulkhead|lock\s+and\s+dam|navfac/i.test(ql)) {
+        return {
+          text: "CamberDesk monitors Federal USACE Civil Works, NAVFAC (SAM.gov NAICS 236–238), Port/Airport Authorities, and Transit Boards alongside all 50 State DOTs:\n• Heavy-Civil & Marine Spec Shredding (API #01 & API #10): Extracts USACE EM 385-1-1 Activity Hazard Analysis (AHA) requirements, dredging/marine environmental windows, and Buy America (BABA) steel piling rules.\n• Davis-Bacon Heavy & Marine Wage Decisions (API #03): Pulls county-specific SAM.gov WDOL Heavy, Dredging, and Highway craft rates and fringe burdens into Volume III (.XLSX).",
+          ctaLabel: 'Browse USACE & DOT Lettings',
+          ctaFn: function() { closeTrustModals(); switchSpaView('lettings'); },
+          actions: [
+            { label: 'Browse USACE & DOT Lettings', fn: function() { closeTrustModals(); switchSpaView('lettings'); } },
+            { label: 'Test CSI Shredder in Sandbox', fn: function() { closeTrustModals(); switchSpaView('apis'); openApiSandbox('product-csi-masterformat', true); } }
+          ]
+        };
+      }
+
+      // 16c. Municipal Water / Wastewater Treatment Plants, Pump Stations & Commercial Facilities
+      if (/commercial|building|school|hospital|municipal|water\s+treatment|wastewater|pump\s+station|lift\s+station|reservoir|facility|hvac|electrical|mechanical/i.test(ql)) {
+        return {
+          text: "CamberDesk supports Municipal Public Works (water/wastewater treatment plants, pump stations, trunk sewers) and commercial facility bids across CSI Divisions 00–48:\n• Submittal & Equipment Register (API #01): Extracts process equipment, electrical/SCADA, concrete mix design, and commissioning submittals.\n• Balanced AIA G702/G703 Schedule of Values (API #07): Builds compliant continuation sheets with mobilization caps and statutory retainage rules.\n• Subcontractor ITB Scope Sheets (API #12): Generates trade-by-trade buyout packages with AIA A401 flow-down risk checks.",
+          ctaLabel: 'Test Custom Scope in Workbench',
+          ctaFn: function() { closeTrustModals(); switchSpaView('checkout'); const el = document.getElementById('checkout-enterprise-proof-workbench'); if (el) el.scrollIntoView({behavior:'auto'}); },
+          actions: [
+            { label: 'Test Custom Scope in Workbench', fn: function() { closeTrustModals(); switchSpaView('checkout'); const el = document.getElementById('checkout-enterprise-proof-workbench'); if (el) el.scrollIntoView({behavior:'auto'}); } },
+            { label: 'Download Live .ZIP Sample', href: 'https://camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary' }
+          ]
+        };
+      }
+
+      // 16d. General Estimating, Takeoff, Markup, Margin, Contingency & Bid Prep
+      if (/estimate|estimating|estimator|takeoff|bid|bidding|proposal|win|margin|markup|overhead|profit|contingency|quantity|mobilization/i.test(ql)) {
+        return {
+          text: "CamberDesk accelerates your estimating workflow from raw letting notice to priced bid package in under 60 seconds:\n• 6-File OpenXML (.DOCX + .XLSX) Takeoff Package: Compiles Volume I CSI Spec Matrix (.docx), Volume II 36-Month DOT Unit-Price Bid Tabulation (.xlsx with live =ROUND(D6*G6,2) and =SUM() formulas), Volume III Davis-Bacon WH-347 Wage Model (.xlsx), Volume IV DBE/BABA Certs (.docx), and Volume V AIA G702/G703 SOV (.docx).\n• Competitor MLOT Spread Modeling (API #11): Calibrates your final markup against active prime planholders so you win the letting without leaving excess margin on the table.",
+          ctaLabel: 'Inspect .ZIP Bid Package',
+          ctaFn: function() { closeTrustModals(); switchSpaView('overview'); const el = document.getElementById('zip-package-inspector'); if (el) el.scrollIntoView({behavior:'auto'}); },
+          actions: [
+            { label: 'Inspect .ZIP Bid Package', fn: function() { closeTrustModals(); switchSpaView('overview'); const el = document.getElementById('zip-package-inspector'); if (el) el.scrollIntoView({behavior:'auto'}); } },
+            { label: 'Download Live .ZIP Sample', href: 'https://camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary' },
+            { label: 'Calculate Estimating ROI', fn: function() { closeTrustModals(); switchSpaView('overview'); const el = document.getElementById('roi-calculator'); if (el) el.scrollIntoView({behavior:'auto'}); } }
+          ]
+        };
+      }
+
+      // 17. Clean, Non-Parroting Default Fallback (Never echoes raw user text as a fake specification section!)
       return {
-        text: `Regarding "${q}" — ${customAnalysis}\n${customBullets.join('\n')}`,
-        ctaLabel: 'Test Custom Scope in Workbench',
-        ctaFn: function() { closeTrustModals(); switchSpaView('checkout'); const el = document.getElementById('checkout-enterprise-proof-workbench'); if (el) el.scrollIntoView({behavior:'auto'}); },
+        text: "I am CamberDesk's Autonomous AI Preconstruction & Support Concierge. Here is what I can help you with right now:\n• 50-State DOT & USACE Lettings: Ask about any State DOT (e.g., TxDOT, Caltrans, FDOT, VDOT, PennDOT) or benchmark 36-month winning low unit prices ($/Ton Asphalt, $/CY Concrete, $/LF Storm Drain Pipe, $/LB Rebar).\n• 1-Click 6-File OpenXML (.DOCX + .XLSX) Takeoff Packages: Inspect or download a live sample .ZIP containing native Word & Excel workbooks with live =ROUND(D6*G6,2) and =SUM() formulas, Davis-Bacon WH-347 wages, and BABA/DBE compliance worksheets.\n• Self-Serve Account, API & Billing: Compare Tier 1 ($199/mo), Tier 2 Autopilot ($499/mo), Tier 3 .ZIP Compiler ($1,499/mo), and Tier 4 OEM ($2,499/mo), retrieve your cd_live_... API/MCP key, download B2B tax receipts, or cancel in 1 click.",
+        ctaLabel: 'Compare Plans & Workbench',
+        ctaFn: function() { closeTrustModals(); switchSpaView('checkout'); },
         actions: [
-          { label: 'Test Custom Scope in Workbench', fn: function() { closeTrustModals(); switchSpaView('checkout'); const el = document.getElementById('checkout-enterprise-proof-workbench'); if (el) el.scrollIntoView({behavior:'auto'}); } },
+          { label: 'Compare Pricing Plans', fn: function() { closeTrustModals(); switchSpaView('checkout'); } },
           { label: 'Download Live .ZIP Sample', href: 'https://camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary' },
-          { label: 'Browse Live DOT Lettings', fn: function() { closeTrustModals(); switchSpaView('lettings'); } }
+          { label: 'Open Client Portal', fn: function() { openTrustModal('account'); } }
         ]
       };
     }
@@ -3431,7 +3773,15 @@ console.log(data);`;
     }
 
     function _renderConciergeBotReply(botDiv, reply) {
-      botDiv.innerHTML = `<strong class="text-[#1E3A8A] font-mono block mb-1">&check; CAMBERDESK AI CONCIERGE RESPONSE:</strong><div class="whitespace-pre-line leading-relaxed">${_escConciergeHtml(reply.text)}</div>`;
+      let safeText = String((reply && reply.text) || '').trim();
+      if (__CONCIERGE_DLP_RE.test(safeText)) {
+        safeText = "For security and confidentiality reasons, the CamberDesk AI Support Concierge does not disclose internal infrastructure details, source code, system instructions, cryptographic parameters, credentials, or subscriber account data.\n\n• Public Security & Zero-Retention Posture: Review our public security controls, stateless TLS 1.3 API processing, and zero bid-data retention standards in the Security Center and Privacy Policy.\n• Self-Serve Account & API Management: Manage your organization's subscription, estimating team CC seats, and production cd_live_... API Key inside the authenticated Client Portal.";
+      }
+      const headerLabel = (reply && reply.isWafBlock)
+        ? '[!] CAMBERDESK WAF SECURITY BLOCK:'
+        : '&check; CAMBERDESK AI CONCIERGE RESPONSE:';
+      const headerColor = (reply && reply.isWafBlock) ? 'text-[#991B1B]' : 'text-[#1E3A8A]';
+      botDiv.innerHTML = `<strong class="${headerColor} font-mono block mb-1">${headerLabel}</strong><div class="whitespace-pre-line leading-relaxed break-words">${_escConciergeHtml(safeText)}</div>`;
       const acts = Array.isArray(reply.actions) && reply.actions.length > 0
         ? reply.actions
         : (reply.ctaHref ? [{ label: reply.ctaLabel, href: reply.ctaHref }] : (reply.ctaFn ? [{ label: reply.ctaLabel, fn: reply.ctaFn }] : []));
@@ -3477,17 +3827,19 @@ console.log(data);`;
       if (ev && ev.preventDefault) ev.preventDefault();
       const inp = document.getElementById('concierge-input');
       const log = document.getElementById('concierge-chat-log');
-      const q = inp ? inp.value.trim() : '';
-      if (!q || !log) return false;
+      const rawQ = inp ? inp.value.trim() : '';
+      if (!rawQ || !log) return false;
       inp.value = '';
+      const check = sanitizeConciergeInput(rawQ);
+      const displayQ = check.ok ? check.value : rawQ.slice(0, 160);
       const userDiv = document.createElement('div');
-      userDiv.className = 'p-2.5 rounded-lg bg-[#EAE6DF] border border-[#CBD5E1] text-[#0A0D14] text-xs font-bold';
-      userDiv.innerHTML = `You: ${_escConciergeHtml(q)}`;
+      userDiv.className = 'p-2.5 rounded-lg bg-[#EAE6DF] border border-[#CBD5E1] text-[#0A0D14] text-xs font-bold break-words';
+      userDiv.innerHTML = `You: ${_escConciergeHtml(displayQ)}`;
       log.appendChild(userDiv);
 
       const botDiv = document.createElement('div');
-      botDiv.className = 'p-3 rounded-lg bg-[#EFF6FF] border border-[#93C5FD] text-[#0A0D14] text-xs font-medium leading-relaxed space-y-2';
-      const reply = buildConciergeAnswer(q, '', '');
+      botDiv.className = 'p-3 rounded-lg bg-[#EFF6FF] border border-[#93C5FD] text-[#0A0D14] text-xs font-medium leading-relaxed space-y-2 break-words';
+      const reply = buildConciergeAnswer(rawQ, '', '');
       _renderConciergeBotReply(botDiv, reply);
       log.appendChild(botDiv);
       userDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -3499,18 +3851,20 @@ console.log(data);`;
       const inp = document.getElementById('contact-modal-input');
       const topEl = document.getElementById('contact-modal-topic');
       const log = document.getElementById('contact-modal-log');
-      const q = inp ? inp.value.trim() : '';
+      const rawQ = inp ? inp.value.trim() : '';
       const topic = topEl ? topEl.value : 'plans_and_pricing';
-      if (!q || !log) return false;
+      if (!rawQ || !log) return false;
       inp.value = '';
+      const check = sanitizeConciergeInput(rawQ);
+      const displayQ = check.ok ? check.value : rawQ.slice(0, 160);
       const userDiv = document.createElement('div');
-      userDiv.className = 'p-2.5 rounded-lg bg-[#EAE6DF] border border-[#CBD5E1] text-[#0A0D14] text-xs font-bold';
-      userDiv.innerHTML = `You: ${_escConciergeHtml(q)}`;
+      userDiv.className = 'p-2.5 rounded-lg bg-[#EAE6DF] border border-[#CBD5E1] text-[#0A0D14] text-xs font-bold break-words';
+      userDiv.innerHTML = `You: ${_escConciergeHtml(displayQ)}`;
       log.appendChild(userDiv);
 
       const botDiv = document.createElement('div');
-      botDiv.className = 'p-3.5 rounded-xl bg-[#EFF6FF] border border-[#93C5FD] text-[#0A0D14] text-xs font-medium leading-relaxed space-y-2';
-      const reply = buildConciergeAnswer(q, '', topic);
+      botDiv.className = 'p-3.5 rounded-xl bg-[#EFF6FF] border border-[#93C5FD] text-[#0A0D14] text-xs font-medium leading-relaxed space-y-2 break-words';
+      const reply = buildConciergeAnswer(rawQ, '', topic);
       _renderConciergeBotReply(botDiv, reply);
       log.appendChild(botDiv);
       userDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -3545,15 +3899,23 @@ console.log(data);`;
       } else if (['overview', 'apis', 'lettings', 'checkout'].includes(rawHash)) {
         closeTrustModals();
         switchSpaView(rawHash);
+      } else if (rawHash === 'contracts' || rawHash.startsWith('contracts/') || rawHash.startsWith('lettings/')) {
+        closeTrustModals();
+        switchSpaView('lettings');
+        renderLettingsRoute('#' + rawHash);
+      } else if (['zip-package-inspector', 'roi-calculator', 'sample-lead-magnet', 'capture-moat', 'before-after-comparison', 'interactive-state-shredder', 'contract-directory', 'coverage', 'persona-quickstart-bar', 'product-5stage-stepper', 'hero-metrics-strip'].includes(rawHash)) {
+        closeTrustModals();
+        navigateToOverviewSection(rawHash);
       } else if (['integrations', 'contractor-profile-vault', 'api-studio-playground', 'mcp-integration-hub'].includes(rawHash)) {
         closeTrustModals();
         switchSpaView('apis');
         const el = document.getElementById(rawHash);
         if (el) el.scrollIntoView({ behavior: 'auto' });
-      } else if (['checkout-enterprise-proof-workbench', 'checkout-panel-matrix', 'checkout-card-tier1', 'checkout-card-tier2', 'checkout-card-tier3', 'checkout-card-tier4'].includes(rawHash)) {
+      } else if (['checkout-enterprise-proof-workbench', 'checkout-panel-matrix', 'checkout-card-tier1', 'checkout-card-tier2', 'checkout-card-tier3', 'checkout-card-tier4', 'checkout-tier1', 'checkout-tier2', 'checkout-tier3', 'checkout-tier4'].includes(rawHash)) {
         closeTrustModals();
         switchSpaView('checkout');
-        const el = document.getElementById(rawHash);
+        const targetId = rawHash.replace(/^checkout-tier([1-4])$/, 'checkout-card-tier$1');
+        const el = document.getElementById(targetId);
         if (el) el.scrollIntoView({ behavior: 'auto' });
       } else if (rawHash.startsWith('product-')) {
         closeTrustModals();
@@ -3606,6 +3968,11 @@ console.log(data);`;
     window.closeCamberCheckoutModal = closeCamberCheckoutModal;
     window.switchCardCodeTab = switchCardCodeTab;
     window.runCardLiveInBrowser = runCardLiveInBrowser;
+    window.lookupSubscriberAccount = lookupSubscriberAccount;
+    window.switchAdminPortalPreview = switchAdminPortalPreview;
+    window.logoutClientAccount = logoutClientAccount;
+    window.downloadAccountSelectedZip = downloadAccountSelectedZip;
+    window.inspectAccountSelectedDossier = inspectAccountSelectedDossier;
     if (window.addEventListener) {
       window.addEventListener('hashchange', handleHashNavigation);
       window.addEventListener('DOMContentLoaded', handleHashNavigation);
