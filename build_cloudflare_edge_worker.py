@@ -1353,7 +1353,7 @@ export default {{
         "price_id": "price_1UWoFGCGhMI1IjipPYSJM0RR",
         "payment_link_id": "plink_1UWoFHCGhMI1IjipWLGhSFzc",
         "base_checkout_url": "https://buy.stripe.com/5kQ00i9uW5BpgNq6Is7wA0c",
-        "checkout_url": "https://buy.stripe.com/5kQ00i9uW5BpgNq6Is7wA0c?client_reference_id=camberdesk_tier2_monthly",
+        "checkout_url": "https://buy.stripe.com/5kQ00i9uW5BpgNq6Is7wA0c",
         "links": {
             "tier1_monthly": "https://buy.stripe.com/00wbJ08qS0h5cxa2sc7wA0a",
             "tier1_annual": "https://buy.stripe.com/8x2eVcgXo2pd2WAfeY7wA0b",
@@ -1408,7 +1408,7 @@ export default {{
       const billKey = (rawBill.includes('ann') || rawBill.includes('yr')) ? 'annual' : 'monthly';
       const base = links[tierKey + '_' + billKey] || links.tier2_monthly;
       const email = (qs.get('email') || qs.get('prefilled_email') || '').trim();
-      const target = base + '?client_reference_id=camberdesk_' + tierKey + '_' + billKey + (email ? '&prefilled_email=' + encodeURIComponent(email) : '');
+      const target = base.startsWith('https://checkout.stripe.com/') ? base : (base + '?client_reference_id=camberdesk_' + tierKey + '_' + billKey + (email ? '&prefilled_email=' + encodeURIComponent(email) : ''));
       const btn = document.getElementById('direct-stripe-btn');
       if (btn) btn.setAttribute('href', target);
       window.location.replace(target);

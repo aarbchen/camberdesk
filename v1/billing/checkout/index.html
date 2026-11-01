@@ -34,7 +34,7 @@
       const billKey = (rawBill.includes('ann') || rawBill.includes('yr')) ? 'annual' : 'monthly';
       const base = links[tierKey + '_' + billKey] || links.tier2_monthly;
       const email = (qs.get('email') || qs.get('prefilled_email') || '').trim();
-      const target = base + '?client_reference_id=camberdesk_' + tierKey + '_' + billKey + (email ? '&prefilled_email=' + encodeURIComponent(email) : '');
+      const target = base.startsWith('https://checkout.stripe.com/') ? base : (base + '?client_reference_id=camberdesk_' + tierKey + '_' + billKey + (email ? '&prefilled_email=' + encodeURIComponent(email) : ''));
       const btn = document.getElementById('direct-stripe-btn');
       if (btn) btn.setAttribute('href', target);
       window.location.replace(target);
