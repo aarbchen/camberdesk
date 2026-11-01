@@ -12,6 +12,7 @@ configure_utf8_stdio()
 
 import html
 import os
+import urllib.parse
 from datetime import datetime, timezone
 from typing import Any, Dict
 
@@ -167,7 +168,7 @@ def generate_pseo_pages() -> Dict[str, Any]:
       <h2 class="text-lg font-extrabold text-[#0A0D14] font-mono">// ACTIVE DOT PLANHOLDERS &amp; HEAD-TO-HEAD COMPETITORS</h2>
       <p class="text-sm font-semibold text-[#111827]">{planholders_esc}</p>
       <div class="pt-3 flex flex-wrap gap-3">
-        <a href="https://api.camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-sm transition">Download 6-File OpenXML Bid-Tab .ZIP</a>
+        <a href="https://camberdesk.com/v1/camber-autopilot/compile-bid-package?project_id={urllib.parse.quote(pid)}&amp;state_code={urllib.parse.quote(str(d.get('state_code') or 'TX'))}&amp;format=binary" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-sm transition">Download 6-File OpenXML Bid-Tab .ZIP</a>
         <a href="../../index.html#checkout" class="px-4 py-2.5 rounded-lg bg-[#1E3A8A] hover:bg-[#0A0D14] text-white font-bold text-sm transition">Activate CamberDesk Autopilot ($499/mo)</a>
         <a href="{html.escape(d.get('source_url', '#'))}" target="_blank" rel="noopener" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-sm font-bold transition">Official DOT Letting Notice</a>
       </div>
@@ -201,7 +202,7 @@ def generate_pseo_pages() -> Dict[str, Any]:
             f"<p class='text-xs font-semibold text-[#111827] mt-1.5'>{agency_esc} &bull; Est: {est_fmt}</p></div>"
             f"<div class='flex items-center justify-between pt-2.5 border-t border-[#CBD5E1] text-xs font-mono'>"
             f"<span class='text-[#065F46] font-extrabold'>Rec Bid: {rec_fmt}</span>"
-            f"<div class='flex items-center gap-3'><a href='https://api.camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary' class='text-[#0A0D14] font-bold hover:underline'>6-File .ZIP</a><a href='project/{slug}.html' class='text-[#1E3A8A] font-bold hover:underline'>Open Dossier &rarr;</a></div></div></div>"
+            f"<div class='flex items-center gap-3'><a href='https://camberdesk.com/v1/camber-autopilot/compile-bid-package?project_id={urllib.parse.quote(pid)}&amp;state_code={urllib.parse.quote(str(d.get('state_code') or 'TX'))}&amp;format=binary' class='text-[#0A0D14] font-bold hover:underline'>6-File .ZIP</a><a href='project/{slug}.html' class='text-[#1E3A8A] font-bold hover:underline'>Open Dossier &rarr;</a></div></div></div>"
         )
 
     hub_title = "50-State DOT, USACE &amp; Public Works Letting Directory | CamberDesk"

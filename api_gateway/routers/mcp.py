@@ -610,6 +610,89 @@ MCP_TOOLS: List[Dict[str, Any]] = [
 ]
 
 
+TOOL_ROUTE_MAP: Dict[str, str] = {
+    "shred_csi_masterformat": "/v1/shred/csi-masterformat",
+    "model_dot_unit_bid_tabs": "/v1/model/dot-unit-bid-tabs",
+    "calculate_davis_bacon_prevailing_wage": "/v1/calculate/davis-bacon-prevailing-wage",
+    "get_live_dot_lettings": "/v1/lettings/live",
+    "audit_baba_buy_america": "/v1/audit/baba-buy-america",
+    "generate_dbe_good_faith_effort": "/v1/generate/dbe-good-faith-effort",
+    "generate_aia_g702_g703_pay_app": "/v1/generate/aia-g702-g703-pay-app",
+    "audit_surety_miller_act_bond": "/v1/audit/surety-miller-act-bond",
+    "generate_rfi_change_order_claim": "/v1/generate/rfi-change-order-claim",
+    "audit_osha_emr_site_safety": "/v1/audit/osha-emr-site-safety",
+    "analyze_planholder_competitor_spread": "/v1/analyze/planholder-competitor-spread",
+    "generate_subcontractor_scope_itb": "/v1/generate/subcontractor-scope-itb",
+}
+
+
+async def _execute_mcp_tool(tool_name: str, args: Dict[str, Any]) -> Dict[str, Any]:
+    import json as _json
+    from api_gateway.routers.precon_endpoints import (
+        AiaPayAppRequest,
+        BabaComplianceRequest,
+        CsiSpecShredRequest,
+        DbeGoodFaithRequest,
+        DotBidTabRequest,
+        OshaEmrAuditRequest,
+        PlanholderSpreadRequest,
+        PrevailingWageRequest,
+        RfiChangeOrderRequest,
+        SubcontractorItbRequest,
+        SuretyBondAuditRequest,
+        analyze_planholder_spread,
+        audit_baba_compliance,
+        audit_osha_emr,
+        audit_surety_bond,
+        calculate_prevailing_wage,
+        generate_aia_pay_app,
+        generate_dbe_good_faith,
+        generate_rfi_change_order,
+        generate_subcontractor_itb,
+        get_live_lettings,
+        model_dot_bid_tabs,
+        shred_csi_masterformat,
+    )
+
+    clean_args = dict(args or {})
+    if tool_name == "shred_csi_masterformat":
+        structured = await shred_csi_masterformat(CsiSpecShredRequest(**clean_args))
+    elif tool_name == "model_dot_unit_bid_tabs":
+        structured = await model_dot_bid_tabs(DotBidTabRequest(**clean_args))
+    elif tool_name == "calculate_davis_bacon_prevailing_wage":
+        structured = await calculate_prevailing_wage(PrevailingWageRequest(**clean_args))
+    elif tool_name == "get_live_dot_lettings":
+        structured = await get_live_lettings(
+            state=clean_args.get("state"),
+            naics=clean_args.get("naics"),
+            limit=int(clean_args.get("limit", 10)),
+        )
+    elif tool_name == "audit_baba_buy_america":
+        structured = await audit_baba_compliance(BabaComplianceRequest(**clean_args))
+    elif tool_name == "generate_dbe_good_faith_effort":
+        structured = await generate_dbe_good_faith(DbeGoodFaithRequest(**clean_args))
+    elif tool_name == "generate_aia_g702_g703_pay_app":
+        structured = await generate_aia_pay_app(AiaPayAppRequest(**clean_args))
+    elif tool_name == "audit_surety_miller_act_bond":
+        structured = await audit_surety_bond(SuretyBondAuditRequest(**clean_args))
+    elif tool_name == "generate_rfi_change_order_claim":
+        structured = await generate_rfi_change_order(RfiChangeOrderRequest(**clean_args))
+    elif tool_name == "audit_osha_emr_site_safety":
+        structured = await audit_osha_emr(OshaEmrAuditRequest(**clean_args))
+    elif tool_name == "analyze_planholder_competitor_spread":
+        structured = await analyze_planholder_spread(PlanholderSpreadRequest(**clean_args))
+    elif tool_name == "generate_subcontractor_scope_itb":
+        structured = await generate_subcontractor_itb(SubcontractorItbRequest(**clean_args))
+    else:
+        structured = {"status": "error", "message": f"Unknown tool: {tool_name}"}
+
+    return {
+        "content": [{"type": "text", "text": _json.dumps(structured, indent=2)}],
+        "structuredContent": structured,
+        "isError": structured.get("status") == "error",
+    }
+
+
 @router.get("/mcp")
 @router.get("/v1/mcp")
 async def mcp_info() -> Dict[str, Any]:
@@ -620,6 +703,7 @@ async def mcp_info() -> Dict[str, Any]:
         "tdqs_score": "5/5",
         "tools_count": len(MCP_TOOLS),
         "tools": [t["name"] for t in MCP_TOOLS],
+        "routes": TOOL_ROUTE_MAP,
     }
 
 
@@ -652,19 +736,11 @@ async def mcp_jsonrpc(request: Request) -> JSONResponse:
         params = body.get("params") or {}
         tool_name = params.get("name", "")
         args = params.get("arguments") or {}
-        structured = {
-            "status": "success",
-            "tool_executed": tool_name,
-            "arguments_received": args,
-        }
+        res_payload = await _execute_mcp_tool(tool_name, args)
         return JSONResponse({
             "jsonrpc": "2.0",
             "id": rpc_id,
-            "result": {
-                "content": [{"type": "text", "text": str(structured)}],
-                "structuredContent": structured,
-                "isError": False,
-            },
+            "result": res_payload,
         })
 
     return JSONResponse({

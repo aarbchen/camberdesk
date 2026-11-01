@@ -8,7 +8,7 @@
   },
   "servers": [
     {
-      "url": "https://camberdesk.com"
+      "url": "https://api.camberdesk.com"
     }
   ],
   "paths": {

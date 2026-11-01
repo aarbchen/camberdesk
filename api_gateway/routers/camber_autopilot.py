@@ -334,6 +334,22 @@ def _build_prevailing_wage_xlsx_bytes(
     return buf.getvalue()
 
 
+STATE_OPEN_RECORDS_AUTHORITIES: Dict[str, str] = {
+    "TX": "Texas Public Information Act (Tex. Gov't Code Ch. 552 — § 552.022(a)(3) Public Contract & Bid Tabulation Terms)",
+    "CA": "California Public Records Act (Cal. Gov't Code § 7920.000 et seq. — CPRA Electronic Bid Tabulation Inspection)",
+    "FL": "Florida Public Records Law (Fla. Stat. Ch. 119 & Art. I, § 24, Fla. Const. — Electronic Letting Records)",
+    "VA": "Virginia Freedom of Information Act (Va. Code § 2.2-3700 et seq. — VFOIA Public Procurement Records)",
+    "PA": "Pennsylvania Right-to-Know Law (65 P.S. § 67.101 et seq. — § 708(b)(26) As-Read Bid Tabulations & Awarded Contracts)",
+    "NY": "New York Freedom of Information Law (N.Y. Pub. Off. Law Art. 6, §§ 84–90 — FOIL Electronic Letting Records)",
+    "IL": "Illinois Freedom of Information Act (5 ILCS 140/1 et seq. — § 2.5 Public Funds & Procurement Records)",
+    "GA": "Georgia Open Records Act (O.C.G.A. § 50-18-70 et seq. — Public Letting & Unit Bid Tabulation Disclosure)",
+    "NC": "North Carolina Public Records Law (N.C.G.S. Ch. 132 — Electronic Bid Tabulation Inspection)",
+    "OH": "Ohio Public Records Act (Ohio Rev. Code § 149.43 — Public Works Letting & Engineer's Estimate Records)",
+    "US": "Federal Freedom of Information Act (5 U.S.C. § 552 — USACE / Federal Civil Works Abstract of Offers & § 552(a)(4)(A) Fee Waiver)",
+    "MU": "Applicable State & Municipal Open Records / Sunshine Act (Public Works Bid Tabulation & Engineer's Estimate Disclosure)",
+}
+
+
 @router.post(
     "/compile-bid-package",
     status_code=status.HTTP_200_OK,
@@ -344,23 +360,82 @@ async def compile_full_bid_package(
     format: str = Query(default="json", description="Response format: 'json' (returns zip_base64) or 'binary' (returns application/zip)."),
 ) -> Any:
     seed = load_seed_data()
+    lettings = seed.get("lettings", [])
+    hist_tabs = seed.get("historical_bid_tabs", [])
+    verified_contractors = seed.get("verified_contractors", [])
+
+    req_pid = str(req.project_id or "").strip()
+    req_st = str(req.state_code or "TX").strip().upper()
+
     matched_letting: Optional[Dict[str, Any]] = None
-    for let_row in seed.get("lettings", []):
-        if str(let_row.get("project_id", "")).lower() == req.project_id.strip().lower():
+    # 1. Exact project_id match
+    for let_row in lettings:
+        if str(let_row.get("project_id", "")).strip().lower() == req_pid.lower():
             matched_letting = let_row
             break
-    if not matched_letting and seed.get("lettings"):
-        matched_letting = seed["lettings"][0]
+    # 2. If default TxDOT project_id was left untouched but caller specified a different state_code, match by state_code
+    if (not matched_letting or (req_pid == "TXDOT-CSJ-0015-13-412" and req_st not in ("TX", ""))) and lettings:
+        for let_row in lettings:
+            if str(let_row.get("state_code", "")).strip().upper() == req_st:
+                matched_letting = let_row
+                break
+    if not matched_letting and lettings:
+        matched_letting = lettings[0]
 
-    pay_items = (matched_letting or {}).get("pay_items") or [
+    let_obj = matched_letting or {}
+    default_tx_pid = "TXDOT-CSJ-0015-13-412"
+    eff_pid = (
+        req_pid
+        if (req_pid and req_pid != default_tx_pid)
+        else str(let_obj.get("project_id") or default_tx_pid).strip()
+    )
+    raw_let_title = re.sub(r"^\[[^\]]+\]\s*", "", str(let_obj.get("title") or req.project_title)).strip()
+    default_tx_title = "IH-35 Corridor Bridge Deck Replacement, Superpave HMA Overlay & ITS Fiber Duct Bank"
+    eff_title = raw_let_title if (req.project_title == default_tx_title or not req.project_title.strip()) else req.project_title.strip()
+    default_tx_agency = "Texas Department of Transportation (TxDOT) — Austin District"
+    eff_agency = str(let_obj.get("agency") or req.agency) if (req.agency == default_tx_agency or not req.agency.strip()) else req.agency.strip()
+    eff_state = str(let_obj.get("state_code") or req_st or "TX").strip().upper()
+    default_tx_county = "Travis County, TX"
+    eff_county = str(let_obj.get("county") or req.county) if (req.county == default_tx_county or not req.county.strip()) else req.county.strip()
+    eff_letting_date = str(let_obj.get("letting_date") or "2026-11-18").strip()
+    eff_est_usd = float(let_obj.get("engineers_estimate_usd") or 18450000.0)
+    eff_dbe_pct = float(let_obj.get("dbe_goal_pct") or 11.5)
+    eff_ld_usd = int(let_obj.get("liquidated_damages_per_day_usd") or 4200)
+    eff_wage_id = str(let_obj.get("wage_determination_id") or f"{eff_state}20260028 (Heavy & Highway)").strip()
+    eff_csi_divs: List[str] = list(let_obj.get("csi_divisions") or [
+        "Div 01 General Requirements",
+        "Div 03 Concrete",
+        "Div 05 Metals",
+        "Div 26 Electrical / ITS",
+        "Div 31 Earthwork",
+        "Div 32 Exterior Improvements / Paving",
+    ])
+    eff_scope = str(req.spec_text or let_obj.get("scope_summary") or eff_title).strip()
+    eff_planholders: List[str] = list(let_obj.get("planholders") or [])
+
+    # Resolve real contractor name (avoid generic default if planholders/verified contractors exist for state)
+    default_co = "Apex Civil & Utility Constructors LLC"
+    eff_contractor = req.contractor_name.strip()
+    if eff_contractor in ("", default_co) and eff_planholders:
+        eff_contractor = eff_planholders[0]
+    eff_dot_id = req.license_or_dot_id.strip()
+    if eff_dot_id == "TXDOT-PREQUAL-88412" and eff_state != "TX":
+        eff_dot_id = f"{eff_state}DOT-PREQUAL-88412"
+    eff_dbe_status = (
+        f"DOT Pre-Qualified Prime Contractor ({eff_dbe_pct:.2f}% Mandatory 49 CFR Part 26 DBE Goal Committed)"
+        if req.dbe_status == "DOT Certified Prime / 11.5% DBE Participation Committed"
+        else req.dbe_status
+    )
+
+    pay_items = let_obj.get("pay_items") or [
         {"item_code": "341-6008", "description": "Dense-Graded Hot-Mix Asphalt (Superpave SP-C PG 76-22)", "unit": "TON", "quantity": 68000, "hist_low_unit_usd": 129.50, "hist_median_unit_usd": 138.75, "recommended_unit_usd": 134.20},
         {"item_code": "420-6013", "description": "HPC Structural Concrete Class S (Bridge Deck & Approach Slabs)", "unit": "CY", "quantity": 4850, "hist_low_unit_usd": 910.00, "hist_median_unit_usd": 985.00, "recommended_unit_usd": 948.00},
         {"item_code": "464-6008", "description": "Reinforced Concrete Pipe (Class III 36-Inch Storm Sewer)", "unit": "LF", "quantity": 14200, "hist_low_unit_usd": 152.00, "hist_median_unit_usd": 168.50, "recommended_unit_usd": 159.00},
     ]
 
     wage_data = compute_prevailing_wage_schedule(
-        state_code=req.state_code,
-        county=req.county,
+        state_code=eff_state if eff_state not in ("US", "MU") else "TX",
+        county=eff_county,
         construction_type="Highway & Heavy Civil",
         crew_classifications=[
             "Operating Engineer (Group 1 — Paver / Heavy Crane)",
@@ -371,91 +446,167 @@ async def compile_full_bid_package(
         ],
         estimated_crew_hours=14500,
     )
+    wage_data["wage_determination_reference"] = eff_wage_id
+
+    # Build project-specific CSI MasterFormat Submittal Log in Volume I from actual csi_divisions + pay_items
+    csi_log_lines: List[str] = [
+        f"[DIV-01] Section 01 32 16 — Baseline Primavera P6 CPM Schedule, Submittal Register & Quality Control Plan for {eff_pid} (Due: 15 Calendar Days Post-NTP).",
+    ]
+    for div_str in eff_csi_divs:
+        if "Div 01" in div_str:
+            continue
+        csi_log_lines.append(
+            f"[{div_str.upper()[:6].replace(' ', '-')}] {div_str} — Shop Drawings, Mix Designs, Certified Mill Test Reports (MTRs) & Field QA/QC Testing per {eff_agency} Standard Specifications."
+        )
+    for pi in pay_items:
+        csi_log_lines.append(
+            f"[PAY-ITEM {pi.get('item_code')}] {pi.get('description')} — Quantity: {float(pi.get('quantity') or 1):,.0f} {pi.get('unit', 'UNIT')} | "
+            f"36-Mo Low: ${float(pi.get('hist_low_unit_usd') or 0):,.2f} | 36-Mo Median: ${float(pi.get('hist_median_unit_usd') or 0):,.2f} | "
+            f"Target Unit Bid: ${float(pi.get('recommended_unit_usd') or 0):,.2f}/{pi.get('unit', 'UNIT')}."
+        )
 
     vol1_bytes = _build_openxml_docx_bytes(
-        title=f"VOLUME I // CSI MASTERFORMAT DIVISIONS 00–48 SPEC & SUBMITTAL MATRIX — {req.project_id}",
-        subtitle=f"Project: {req.project_title} | Owner: {req.agency} | Bidder: {req.contractor_name} ({req.license_or_dot_id})",
+        title=f"VOLUME I // CSI MASTERFORMAT DIVISIONS 00–48 SPEC & SUBMITTAL MATRIX — {eff_pid}",
+        subtitle=f"Project: {eff_title} | Owner: {eff_agency} | Bidder: {eff_contractor} ({eff_dot_id})",
         sections=[
             ("1.0 EXECUTIVE PRECONSTRUCTION & LETTING SUMMARY", [
-                f"Project Identifier: {req.project_id} ({req.project_title})",
-                f"Issuing Authority: {req.agency} | Location: {req.county} ({req.state_code})",
-                f"Bidding Contractor: {req.contractor_name} ({req.license_or_dot_id}) | DBE Posture: {req.dbe_status}",
-                "Scope Synopsis: Full CSI MasterFormat Divisions 00–48 compliance matrix, critical path submittal register, and liquidated damages mitigation plan.",
+                f"Project Identifier: {eff_pid} — {eff_title}",
+                f"Issuing Authority: {eff_agency} | Location: {eff_county} ({eff_state}) | Letting Date: {eff_letting_date}",
+                f"Official Engineer's Estimate: ${eff_est_usd:,.2f} | Mandatory 49 CFR Part 26 DBE Goal: {eff_dbe_pct:.2f}%",
+                f"Bidding Contractor: {eff_contractor} ({eff_dot_id}) | DBE Posture: {eff_dbe_status}",
+                f"Verified Engineering Scope Summary: {eff_scope}",
             ]),
-            ("2.0 SHREDDED CSI MASTERFORMAT SPECIFICATION & SUBMITTAL LOG", [
-                "[DIV-01] Section 01 32 16 — Baseline Primavera P6 CPM Schedule & Weekly 3-Week Lookahead (Due: 15 Days Post-NTP).",
-                "[DIV-03] Section 03 30 00 — HPC Class S Structural Concrete Mix Design, Trial Batch & 28-Day Compressive Strength Logs.",
-                "[DIV-05] Section 05 12 00 — AISC Bridge Fabrication Shop Drawings, AWS D1.5 Welding Procedures & BABA Mill Test Reports.",
-                "[DIV-26] Section 26 05 43 — Underground HDPE ITS Fiber Optic Duct Bank, Mandrel Proofing & OTDR Attenuation Test.",
-                "[DIV-32] Section 32 12 16 — Superpave PG 76-22 Hot-Mix Asphalt Job Mix Formula (JMF) & Nuclear Density Compaction QA.",
-                "[DIV-33] Section 33 41 00 — Class III Reinforced Concrete Storm Drain Pipe & Exfiltration Testing.",
-            ]),
-            ("3.0 LIQUIDATED DAMAGES, LANE RENTAL & UNBALANCED BID GUARDRAILS", [
-                "Liquidated Damages Exposure: $4,200 / Calendar Day — Mitigated via dual-shift nighttime paving and early utility potholing.",
-                "Mathematically & Materially Balanced Bid Verification (23 CFR § 635.102): All pay items priced within historical DOT spread bands.",
+            ("2.0 SHREDDED CSI MASTERFORMAT SPECIFICATION, PAY-ITEM & SUBMITTAL LOG", csi_log_lines),
+            ("3.0 LIQUIDATED DAMAGES, PLANHOLDER SPREAD & UNBALANCED BID GUARDRAILS", [
+                f"Liquidated Damages Exposure ({eff_pid}): ${eff_ld_usd:,} / Calendar Day — Mitigated via resource-loaded Primavera P6 critical-path float protection and early material procurement.",
+                f"Confirmed Letting Planholders ({len(eff_planholders)} Tracked): {', '.join(eff_planholders) if eff_planholders else 'Official State DOT Planholder Registry'}.",
+                "Mathematically & Materially Balanced Bid Verification (23 CFR § 635.102): All unit pay items priced within historical State DOT spread bands.",
             ]),
         ],
     )
 
     vol2_bytes, bid_totals = _build_dot_bid_tab_xlsx_bytes(
-        project_id=req.project_id,
-        project_title=req.project_title,
-        agency=req.agency,
-        contractor_name=req.contractor_name,
+        project_id=eff_pid,
+        project_title=eff_title,
+        agency=eff_agency,
+        contractor_name=eff_contractor,
         pay_items=pay_items,
         markup_pct=req.target_markup_pct,
     )
 
     vol3_bytes = _build_prevailing_wage_xlsx_bytes(
-        project_id=req.project_id,
-        state_code=req.state_code,
-        county=req.county,
+        project_id=eff_pid,
+        state_code=eff_state,
+        county=eff_county,
         wage_data=wage_data,
     )
 
+    # Build Volume IV using real DBE goal math, real project divisions/pay items, and real verified contractors (zero fake company names)
+    tot_bid_usd = float(bid_totals["total_recommended_bid_usd"] or eff_est_usd)
+    dbe_target_usd = round(tot_bid_usd * (eff_dbe_pct / 100.0), 2)
+    dbe_pkg_1_usd = round(dbe_target_usd * 0.62, 2)
+    dbe_pkg_2_usd = round(dbe_target_usd - dbe_pkg_1_usd, 2)
+    sub_div_1 = eff_csi_divs[-1] if eff_csi_divs else "Specialty Civil & Utility Work"
+    sub_div_2 = eff_csi_divs[-2] if len(eff_csi_divs) >= 2 else "Electrical / Traffic Control / Structures"
+
+    # Match real verified contractors from seed
+    state_contractors = [c for c in verified_contractors if str(c.get("state", "")).upper() == eff_state]
+    if not state_contractors:
+        state_contractors = verified_contractors
+    real_partner_names = [str(c.get("company_name")) for c in state_contractors if c.get("company_name")] + [
+        p for p in eff_planholders if p.lower() != eff_contractor.lower()
+    ]
+    partner_1_label = real_partner_names[0] if len(real_partner_names) > 0 else "State DOT Certified DBE Subcontractor Pool"
+    partner_2_label = real_partner_names[1] if len(real_partner_names) > 1 else "State DOT Certified Specialty Trade Pool"
+
+    baba_item_lines: List[str] = [
+        f"Governing Mandate: Build America, Buy America Act (BABA — IIJA Pub. L. 117-58 § 70914) & 23 CFR § 635.410 ({eff_agency}).",
+        "Iron & Steel Mandate: 100% of structural steel, reinforcing bar, sheet piling, and ferrous castings incorporated into permanent work are melted and poured in the United States.",
+        "Construction Materials & Manufactured Products: Exceeds the >55% domestic component cost threshold with traceable Mill Test Reports (MTRs).",
+    ]
+    for pi in pay_items:
+        pi_ext = round(float(pi.get("quantity") or 1.0) * float(pi.get("recommended_unit_usd") or 0.0), 2)
+        baba_item_lines.append(
+            f"• BABA Material Audit — Pay Item {pi.get('item_code')} ({pi.get('description')}): Extended Value ${pi_ext:,.2f} — 100% Domestic U.S. Origin / MTR Required Prior to Payment."
+        )
+
     vol4_bytes = _build_openxml_docx_bytes(
-        title=f"VOLUME IV // DOT DBE (49 CFR PART 26) GOOD FAITH EFFORT & BABA BUY AMERICA PACKAGE — {req.project_id}",
-        subtitle=f"Bidder: {req.contractor_name} | Total Evaluated Bid: ${bid_totals['total_recommended_bid_usd']:,.2f}",
+        title=f"VOLUME IV // DOT DBE (49 CFR PART 26) GOOD FAITH EFFORT & BABA BUY AMERICA PACKAGE — {eff_pid}",
+        subtitle=f"Bidder: {eff_contractor} | Total Evaluated Bid: ${tot_bid_usd:,.2f} | Mandatory DBE Goal: {eff_dbe_pct:.2f}% (${dbe_target_usd:,.2f})",
         sections=[
-            ("1.0 DISADVANTAGED BUSINESS ENTERPRISE (49 CFR PART 26) PARTICIPATION PLAN", [
-                "Committed DBE Subcontractor #1: Apex Civil & Utility Constructors LLC (100% Credit Subcontractor — Div 31/33 Storm Drain).",
-                "Committed DBE Subcontractor #2: Vanguard Traffic Signal, ITS & Electrical Inc. (100% Credit Subcontractor — Div 26 ITS & Lighting).",
-                "Commercially Useful Function (CUF) Attestation: Both DBE firms manage their own workforce, equipment, and material ordering under 49 CFR § 26.55(c).",
+            ("1.0 DISADVANTAGED BUSINESS ENTERPRISE (49 CFR PART 26) PARTICIPATION & GOOD FAITH EFFORT PLAN", [
+                f"Mandatory Contract DBE Goal ({eff_pid} — {eff_agency}): {eff_dbe_pct:.2f}% of Total Evaluated Bid = ${dbe_target_usd:,.2f} Committed DBE Participation.",
+                f"DBE Subcontract Package #1 ({sub_div_1}): ${dbe_pkg_1_usd:,.2f} ({eff_dbe_pct * 0.62:.2f}% of Total Bid — 100% Subcontractor Credit under 49 CFR § 26.55(a); Benchmark Solicitation Pool: {partner_1_label}).",
+                f"DBE Subcontract Package #2 ({sub_div_2}): ${dbe_pkg_2_usd:,.2f} ({eff_dbe_pct * 0.38:.2f}% of Total Bid — 100% Subcontractor / 60% Regular Dealer Credit under 49 CFR § 26.55(e); Benchmark Pool: {partner_2_label}).",
+                "Commercially Useful Function (CUF) Attestation: Committed DBE subcontractors perform distinct elements of work with their own workforce, supervision, and equipment under 49 CFR § 26.55(c).",
             ]),
-            ("2.0 BUILD AMERICA, BUY AMERICA (BABA / 23 CFR § 635.410) DOMESTIC MATERIAL CERTIFICATION", [
-                "Iron & Steel Mandate: 100% of structural steel (A709 Gr 50), sheet piling, and reinforcing bar (ASTM A615/A775) is melted and poured in the United States.",
-                "Construction Materials & Manufactured Products: Exceeds the >55% domestic component cost threshold under IIJA Pub. L. 117-58 § 70914.",
-            ]),
+            ("2.0 BUILD AMERICA, BUY AMERICA (BABA / 23 CFR § 635.410) DOMESTIC MATERIAL CERTIFICATION", baba_item_lines),
         ],
     )
 
+    # Build Volume V dynamically from actual pay_items (so AIA G702/G703 SOV matches Volume II to the penny) + exact State Open-Records Statute
+    sov_lines: List[str] = [
+        f"Total Contract Sum Baseline (Matches Volume II Evaluated Bid): ${tot_bid_usd:,.2f} (5.0% Statutory Public Works Retainage = ${round(tot_bid_usd * 0.05, 2):,.2f}).",
+    ]
+    for idx, pi in enumerate(pay_items, start=1):
+        pi_ext = round(float(pi.get("quantity") or 1.0) * float(pi.get("recommended_unit_usd") or 0.0), 2)
+        pi_pct = (pi_ext / tot_bid_usd * 100.0) if tot_bid_usd > 0 else 0.0
+        sov_lines.append(
+            f"SOV Line 0{idx} — Pay Item {pi.get('item_code')} ({pi.get('description')}): ${pi_ext:,.2f} ({pi_pct:.1f}% of Contract Sum | {float(pi.get('quantity') or 1):,.0f} {pi.get('unit', 'UNIT')} @ ${float(pi.get('recommended_unit_usd') or 0):,.2f})."
+        )
+    ohp_usd = float(bid_totals.get("overhead_profit_bond_usd") or 0.0)
+    ohp_pct = (ohp_usd / tot_bid_usd * 100.0) if tot_bid_usd > 0 else 0.0
+    sov_lines.append(
+        f"SOV Line 0{len(pay_items) + 1} — Project Overhead, Profit & Miller Act Performance/Payment Bonds ({req.target_markup_pct:.1f}% Markup): ${ohp_usd:,.2f} ({ohp_pct:.1f}% of Contract Sum)."
+    )
+
+    matched_hist = next(
+        (h for h in hist_tabs if str(h.get("jurisdiction", "")).lower() == str(let_obj.get("jurisdiction", "")).lower()),
+        None,
+    )
+    statute_cite = STATE_OPEN_RECORDS_AUTHORITIES.get(
+        eff_state,
+        (matched_hist or {}).get("open_records_statute") or STATE_OPEN_RECORDS_AUTHORITIES["MU"],
+    )
+    hist_benchmark_line = (
+        f"Comparable Historical Letting Benchmark ({matched_hist.get('award_id')} — {matched_hist.get('project_title')}): "
+        f"Winning Low Bidder #1: {matched_hist.get('winning_low_bidder')} (${float(matched_hist.get('winning_bid_usd') or 0):,.2f}) vs. "
+        f"Runner-Up #2: {matched_hist.get('second_bidder')} (${float(matched_hist.get('second_bid_usd') or 0):,.2f}) | "
+        f"Margin Left on Table (MLOT): {float(matched_hist.get('mlot_pct') or 0):.2f}% | Verified Unit Rates: {matched_hist.get('key_unit_rates')}."
+        if matched_hist
+        else f"Historical 36-Month Unit-Price Benchmark Active for {eff_agency} ({eff_county}) across {', '.join(eff_planholders[:3]) or 'verified DOT planholders'}."
+    )
+
     vol5_bytes = _build_openxml_docx_bytes(
-        title=f"VOLUME V // AIA G702/G703 SCHEDULE OF VALUES & STATUTORY OPEN-RECORDS BID-TAB DEMAND — {req.project_id}",
-        subtitle=f"Owner: {req.agency} | Jurisdiction: {req.county} ({req.state_code})",
+        title=f"VOLUME V // AIA G702/G703 SCHEDULE OF VALUES & STATUTORY OPEN-RECORDS BID-TAB DEMAND — {eff_pid}",
+        subtitle=f"Owner: {eff_agency} | Jurisdiction: {eff_county} ({eff_state}) | Statute: {statute_cite}",
         sections=[
-            ("1.0 BALANCED AIA G702 / G703 SCHEDULE OF VALUES (SOV) BASELINE", [
-                f"Total Contract Sum Baseline: ${bid_totals['total_recommended_bid_usd']:,.2f} (5.0% Statutory Public Works Retainage).",
-                "Line 01: Mobilization, Performance/Payment Bonds (SF-25/25A) & Traffic Control Phasing (8.0%).",
-                "Line 02: Structural Concrete Bridge Deck, Drilled Shafts & Precast Girders (32.0%).",
-                "Line 03: Storm Drainage Trunk, Excavation & Utility Relocations (22.0%).",
-                "Line 04: Superpave HMA Milling, Overlay & Pavement Markings (26.0%).",
-                "Line 05: Roadway ITS Fiber Conduit, Signals & High-Mast Illumination (12.0%).",
-            ]),
+            ("1.0 BALANCED AIA G702 / G703 SCHEDULE OF VALUES (SOV) BASELINE", sov_lines),
             ("2.0 STATUTORY PUBLIC-RECORDS DEMAND FOR HISTORICAL ITEM BID TABULATIONS & ENGINEER'S ESTIMATE", [
-                f"To: Public Information / Open Records Officer — {req.agency}",
-                f"Pursuant to State Open Records / Public Information statutes and 5 U.S.C. § 552, {req.contractor_name} requests electronic copies ($0 fee electronic delivery) of the itemized Engineer's Estimate, as-read unit-price bid tabulations, and approved DBE commitment sheets for Comparable Corridor Lettings in {req.county}.",
+                f"To: Public Information / Open Records Officer — {eff_agency}",
+                f"Statutory Authority: {statute_cite} ($0.00 Electronic Delivery Fee Cap).",
+                f"Pursuant to {statute_cite}, {eff_contractor} ({eff_dot_id}) formally requests electronic copies of the itemized Engineer's Estimate, as-read unit-price bid tabulations, and approved 49 CFR Part 26 DBE commitment sheets for {eff_pid} ({eff_title}) and comparable corridor lettings in {eff_county}.",
+                hist_benchmark_line,
             ]),
         ],
     )
 
     manifest = {
-        "package_version": "CamberDesk-6File-OpenXML-v1.0",
+        "package_version": "CamberDesk-6File-OpenXML-v2.0",
         "compiled_at_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "project_id": req.project_id,
-        "project_title": req.project_title,
-        "agency": req.agency,
-        "contractor_name": req.contractor_name,
-        "license_or_dot_id": req.license_or_dot_id,
+        "project_id": eff_pid,
+        "project_title": eff_title,
+        "agency": eff_agency,
+        "state_code": eff_state,
+        "county": eff_county,
+        "letting_date": eff_letting_date,
+        "engineers_estimate_usd": eff_est_usd,
+        "dbe_goal_pct": eff_dbe_pct,
+        "liquidated_damages_per_day_usd": eff_ld_usd,
+        "wage_determination_id": eff_wage_id,
+        "open_records_statute": statute_cite,
+        "contractor_name": eff_contractor,
+        "license_or_dot_id": eff_dot_id,
         "bid_summary": bid_totals,
         "files_included": [
             "Volume_I_CSI_MasterFormat_Divisions_00_48_Spec_and_Submittal_Matrix.docx",
@@ -477,7 +628,7 @@ async def compile_full_bid_package(
         zf.writestr("00_CamberDesk_Letting_Readiness_Manifest.json", json.dumps(manifest, indent=2))
 
     raw_zip = zip_buf.getvalue()
-    safe_slug = re.sub(r"[^a-zA-Z0-9_-]+", "_", req.project_id).strip("_") or "Letting_Package"
+    safe_slug = re.sub(r"[^a-zA-Z0-9_-]+", "_", eff_pid).strip("_") or "Letting_Package"
     filename = f"CamberDesk_{safe_slug}_6File_Bid_Package.zip"
 
     if format.lower() == "binary":
@@ -490,13 +641,35 @@ async def compile_full_bid_package(
     return {
         "status": "compiled",
         "filename": filename,
-        "project_id": req.project_id,
-        "contractor_name": req.contractor_name,
+        "project_id": eff_pid,
+        "project_title": eff_title,
+        "agency": eff_agency,
+        "state_code": eff_state,
+        "contractor_name": eff_contractor,
         "zip_size_bytes": len(raw_zip),
         "bid_summary": bid_totals,
         "files_included": manifest["files_included"],
         "zip_base64": base64.b64encode(raw_zip).decode("ascii"),
     }
+
+
+@router.get(
+    "/compile-bid-package",
+    status_code=status.HTTP_200_OK,
+    summary="Download a project-specific 6-File OpenXML (.DOCX + .XLSX) Bid-Tab & Takeoff Package (.ZIP) via GET link",
+)
+async def compile_full_bid_package_get(
+    project_id: str = Query(default="TXDOT-CSJ-0015-13-412", description="Target DOT CSJ, USACE Solicitation ID, or Project Number."),
+    state_code: str = Query(default="TX", description="Two-letter U.S. state code."),
+    contractor_name: str = Query(default="", description="Bidding Prime or Subcontractor legal name."),
+    format: str = Query(default="binary", description="Response format: 'binary' (default for GET download links) or 'json'."),
+) -> Any:
+    req_obj = CompileBidPackageRequest(
+        project_id=project_id,
+        state_code=state_code,
+        contractor_name=contractor_name or "Apex Civil & Utility Constructors LLC",
+    )
+    return await compile_full_bid_package(req_obj, format=format)
 
 
 @router.get(
@@ -565,7 +738,7 @@ async def capture_sample_lead_magnet(payload: Dict[str, Any]) -> Dict[str, Any]:
         "zip_size_bytes": pkg["zip_size_bytes"],
         "files_included": pkg["files_included"],
         "bid_summary": pkg["bid_summary"],
-        "download_url": "/v1/camber-autopilot/compile-bid-package?format=binary",
+        "download_url": "https://api.camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary",
         "zip_base64": pkg["zip_base64"],
         "message": f"Compiled & dispatched 6-File OpenXML Bid Package ({pkg['zip_size_bytes']:,} bytes) for {state_dot} ({trade_focus}) to {email}.",
     }
@@ -638,14 +811,14 @@ async def ask_camberdesk_concierge(payload: Dict[str, Any]) -> Dict[str, Any]:
             "API #02 (/v1/model/dot-unit-bid-tabs) and API #11 (/v1/analyze/planholder-competitor-spread) benchmark every pay item against 36 months of historical State DOT "
             "winning low bids ($/Ton Superpave HMA $108.50–$124.00/Ton, $/CY Structural Concrete $890–$1,140/CY, $/LF RCP Storm Drain $134–$142/LF) and calculate Money Left on the Table (MLOT) against active planholders."
         )
-        action_hash = "#product-dot-bid-tab-unit-prices"
+        action_hash = "#product-dot-unit-bid-tabs"
     elif any(k in q_low for k in ("wage", "davis", "wh-347", "baba", "buy america", "dbe")):
         answer = (
             "API #03 (/v1/calculate/davis-bacon-prevailing-wage) matches SAM.gov Wage Determinations by state, county, and construction type "
             "(Highway, Heavy, Building, Residential) under 29 CFR Part 5, calculating base rates, fringe benefits, overtime multipliers, and loaded crew hourly burden. "
-            "API #05 (/v1/audit/baba-buy-america) and API #06 (/v1/generate/dot-dbe-good-faith-effort) audit 23 CFR 635.410 BABA domestic thresholds and 49 CFR Part 26 DBE 60% regular-dealer rules."
+            "API #05 (/v1/audit/baba-buy-america) and API #06 (/v1/generate/dbe-good-faith-effort) audit 23 CFR 635.410 BABA domestic thresholds and 49 CFR Part 26 DBE 60% regular-dealer rules."
         )
-        action_hash = "#product-davis-bacon-wages"
+        action_hash = "#product-davis-bacon-wage"
     elif any(k in q_low for k in ("price", "pricing", "tier", "cost", "plan", "checkout", "billing", "key", "compare")):
         answer = (
             "CamberDesk offers 4 self-serve tiers with zero annual lock-in:\n"

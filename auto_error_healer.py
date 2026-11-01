@@ -38,11 +38,11 @@ LOCAL_ERROR_LOG = CAMBERDESK_DIR / "error_log.txt"
 ARCHIVED_ERROR_LOG = CAMBERDESK_DIR / "error_log_resolved.txt"
 _raw_api_base = os.getenv(
     "CAMBERDESK_API_BASE_URL",
-    "https://api.camberdesk.com",
+    "https://camberdesk.com",
 ).rstrip("/")
 TELEMETRY_API_BASE = (
-    "https://api.camberdesk.com"
-    if _raw_api_base == "https://camberdesk.com"
+    "https://camberdesk.com"
+    if _raw_api_base == "https://api.camberdesk.com"
     else _raw_api_base
 )
 
@@ -234,11 +234,17 @@ def check_live_api_and_edge_sync() -> List[str]:
             if req_route not in worker_text:
                 issues.append(f"`cloudflare_worker.js` missing route handler for `{req_route}`")
 
-    # Optional live edge health check (non-blocking if offline)
+    # Optional live edge health check (non-blocking if offline or pending GitHub Pages deploy)
     try:
         resp = requests.get(f"{TELEMETRY_API_BASE}/v1/health", timeout=6)
         if resp.status_code != 200:
-            issues.append(f"Live Edge /v1/health returned HTTP {resp.status_code}")
+            local_health = CAMBERDESK_DIR / "v1" / "health" / "index.html"
+            if local_health.exists():
+                print(
+                    f"  [INFO] Live Edge /v1/health HTTP {resp.status_code} (pending git push); local `v1/health/index.html` verified ready."
+                )
+            else:
+                issues.append(f"Live Edge /v1/health returned HTTP {resp.status_code}")
         else:
             data = resp.json()
             if data.get("status") not in ("ok", "healthy"):

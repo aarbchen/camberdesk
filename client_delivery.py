@@ -22,7 +22,7 @@ ROOT_DIR = Path(__file__).resolve().parent
 load_dotenv(dotenv_path=str(ROOT_DIR / ".env"))
 
 SITE_BASE_URL = os.getenv("CAMBERDESK_SITE_URL", "https://camberdesk.com").rstrip("/")
-API_BASE_URL = os.getenv("CAMBERDESK_API_BASE_URL", "https://api.camberdesk.com").rstrip("/")
+API_BASE_URL = os.getenv("CAMBERDESK_API_BASE_URL", "https://camberdesk.com").rstrip("/")
 DOSSIERS_PATH = ROOT_DIR / "camberdesk_dossiers.json"
 
 
@@ -32,6 +32,7 @@ def format_dossier_dispatch(dossier: Dict[str, Any]) -> str:
     clean_title = re.sub(r"^\[[^\]]+\]\s*", "", raw_title)
     agency = str(dossier.get("agency") or "TxDOT")
     county = str(dossier.get("county") or "Travis County, TX")
+    state_code = str(dossier.get("state_code") or "TX")
     est_usd = float(dossier.get("engineers_estimate_usd") or 18450000.0)
     letting_date = str(dossier.get("letting_date") or "2026-11-18")
     dbe_pct = float(dossier.get("dbe_goal_pct") or 11.5)
@@ -39,7 +40,7 @@ def format_dossier_dispatch(dossier: Dict[str, Any]) -> str:
     slug = str(dossier.get("slug") or slugify(clean_title))
 
     dossier_url = f"{SITE_BASE_URL}/lettings/project/{slug}.html"
-    zip_url = f"{API_BASE_URL}/v1/camber-autopilot/compile-bid-package?format=binary"
+    zip_url = f"{API_BASE_URL}/v1/camber-autopilot/compile-bid-package?project_id={pid}&state_code={state_code}&format=binary"
     source_url = str(dossier.get("url") or dossier_url)
 
     footer = (

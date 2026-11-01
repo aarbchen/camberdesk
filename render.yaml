@@ -5,6 +5,25 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn api_gateway.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /v1/health
+    buildFilter:
+      paths:
+        - requirements.txt
+        - render.yaml
+        - api_gateway/**
+      ignoredPaths:
+        - "*.html"
+        - "*.md"
+        - "*.json"
+        - "*.csv"
+        - "*.txt"
+        - "*.xml"
+        - "*.js"
+        - "*.svg"
+        - "*.png"
+        - "*.ico"
+        - "lettings/**"
+        - "rapidapi_assets/**"
+        - "mcp-server/**"
     envVars:
       - key: ANTHROPIC_MODEL
         value: claude-sonnet-5-5

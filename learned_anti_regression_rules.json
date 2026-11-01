@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-31T16:28:33.022111+00:00",
-  "total_rules": 10,
+  "updated_at": "2026-10-31T21:00:00.000000+00:00",
+  "total_rules": 15,
   "policy": "Silent detection -> Autonomous diagnosis & repair -> Rule codification -> Resolved-only Discord notification",
   "rules": [
     {
@@ -111,6 +111,61 @@
       "invariant_check": "check_zero_signaltender_overlap",
       "created_at": "2026-10-31T16:28:33.022111+00:00",
       "last_enforced_at": "2026-10-31T16:28:33.022111+00:00",
+      "times_triggered": 1
+    },
+    {
+      "rule_id": "RULE-021-QUOTED-THREAD-AND-WARMUP-GUARD",
+      "pillar": "Pillar 2: Outbound Deliverability",
+      "root_cause": "Quoted email history containing our own 'reply stop or unsubscribe' footer can trigger false-positive unsubscribes on positive replies, and allowing warmup `score == 0` can send from cold mailboxes.",
+      "fix_applied": "Added `_strip_quoted_thread()` in `outbound_reply_responder.py` before opt-out/reply classification and enforced strict `score >= min_score` in `outbound_mailer.py`.",
+      "rule_statement": "Strip quoted email history (`_strip_quoted_thread()`) before opt-out/reply classification in `outbound_reply_responder.py`, and strictly require `score >= min_score` (never `score == 0`) in `outbound_mailer.py`.",
+      "invariant_check": "check_conversion_and_distribution_surfaces",
+      "created_at": "2026-10-31T21:00:00.000000+00:00",
+      "last_enforced_at": "2026-10-31T21:00:00.000000+00:00",
+      "times_triggered": 1
+    },
+    {
+      "rule_id": "RULE-022-IN-FLIGHT-SEQUENCE-PROTECTION",
+      "pillar": "Pillar 2: Campaign Sync",
+      "root_cause": "Deleting existing leads during `sync_instantly_campaign.py` resets in-flight sequence progression (`status in (1, 2)` or `email_open_count > 0`).",
+      "fix_applied": "Protected in-flight Instantly leads from deletion during campaign sync unless they violate cross-brand isolation or contain forbidden `$`/`http`.",
+      "rule_statement": "Never delete active in-flight Instantly leads (`status in (1, 2)` or `email_open_count > 0`) during `sync_instantly_campaign.py` runs unless they violate cross-brand isolation or contain `$`/`http`.",
+      "invariant_check": "check_conversion_and_distribution_surfaces",
+      "created_at": "2026-10-31T21:00:00.000000+00:00",
+      "last_enforced_at": "2026-10-31T21:00:00.000000+00:00",
+      "times_triggered": 1
+    },
+    {
+      "rule_id": "RULE-023-MULTI-STATE-ZIP-ANTI-HALLUCINATION",
+      "pillar": "Pillar 1: 6-File .ZIP Compiler",
+      "root_cause": "Hardcoding Texas Government Code Chapter 552 or overwriting custom `project_id` values in `compile_full_bid_package` causes cross-state statutory mismatches.",
+      "fix_applied": "Added `STATE_OPEN_RECORDS_AUTHORITIES` across all jurisdictions in `camber_autopilot.py`, preserved custom `req.project_id`, and pre-compiled all 12 project `.ZIP` archives in `build_cloudflare_edge_worker.py`.",
+      "rule_statement": "Preserve custom `project_id` and dynamically populate jurisdiction-matched Open Records statutes (`STATE_OPEN_RECORDS_AUTHORITIES`), DOT pay items, Davis-Bacon wages, and real planholders across all states with zero fake contractor names (`Apex Civil`, `Granite State Paving`).",
+      "invariant_check": "check_product_output_quality_controls",
+      "created_at": "2026-10-31T21:00:00.000000+00:00",
+      "last_enforced_at": "2026-10-31T21:00:00.000000+00:00",
+      "times_triggered": 1
+    },
+    {
+      "rule_id": "RULE-024-ROOT-DOMAIN-EDGE-AND-50-STATE-WORKBENCH",
+      "pillar": "Pillar 3: Website & Edge Gateway",
+      "root_cause": "Pointing browser fetches or `.ZIP` links to unresolvable `api.camberdesk.com` or limiting workbench state dropdowns to 10 states breaks live evaluation.",
+      "fix_applied": "Standardized all API, MCP, `.ZIP`, and telemetry URLs on `https://camberdesk.com` and populated all 50 U.S. State DOT options in `#lead-magnet-state`, `#wb-vault-state`, and `#wb-dbe-state`.",
+      "rule_statement": "Route all API, MCP, `.ZIP`, and telemetry endpoints through `https://camberdesk.com` (never `api.camberdesk.com`), and populate all 50 U.S. State DOT options in `#lead-magnet-state`, `#wb-vault-state`, and `#wb-dbe-state`.",
+      "invariant_check": "check_portal_parity_and_telemetry",
+      "created_at": "2026-10-31T21:00:00.000000+00:00",
+      "last_enforced_at": "2026-10-31T21:00:00.000000+00:00",
+      "times_triggered": 1
+    },
+    {
+      "rule_id": "RULE-025-CUSTOMER-FACING-COPY-DISCIPLINE",
+      "pillar": "Pillar 3: Visual & Brand Standards",
+      "root_cause": "Internal backend framework names (`FastAPI`, `Supabase`, `Render`) or unescaped JS quotes inside f-strings degrade enterprise buyer trust and cause syntax errors.",
+      "fix_applied": "Replaced `FastAPI` in visible copy with `Preconstruction` / `Pydantic V2` and escaped `\\\"` and `\\\\b` inside `common_js` in `build_camberdesk_site.py`.",
+      "rule_statement": "Never leak internal backend framework names (`FastAPI`, `Supabase`, `Render`) or raw JS escape artefacts into customer-facing HTML text.",
+      "invariant_check": "check_html_file",
+      "created_at": "2026-10-31T21:00:00.000000+00:00",
+      "last_enforced_at": "2026-10-31T21:00:00.000000+00:00",
       "times_triggered": 1
     }
   ]

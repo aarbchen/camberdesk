@@ -138,7 +138,7 @@ async def get_live_lettings(
 ) -> Dict[str, Any]:
     seed = load_seed_data()
     items = list(seed.get("lettings", []))
-    if state:
+    if state and state.strip().upper() != "ALL":
         st_up = state.strip().upper()
         items = [
             x for x in items

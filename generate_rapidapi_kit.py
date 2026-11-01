@@ -417,7 +417,7 @@ def _render_symbol07_png(path: Path, accent_rgb: Tuple[int, int, int], badge_num
     path.write_bytes(png_bytes)
 
 
-def build_openapi_spec(api: Dict[str, Any], base_url: str = "https://camberdesk-api-gateway.onrender.com") -> Dict[str, Any]:
+def build_openapi_spec(api: Dict[str, Any], base_url: str = "https://api.camberdesk.com") -> Dict[str, Any]:
     """Builds a RapidAPI-compliant OpenAPI 3.0.3 JSON specification for a CamberDesk microservice."""
     route = api["route"]
     method = api["method"].lower()
@@ -534,7 +534,7 @@ def build_readme(api: Dict[str, Any]) -> str:
 """
 
 
-def generate_all_kits(base_url: str = "https://camberdesk-api-gateway.onrender.com") -> int:
+def generate_all_kits(base_url: str = "https://api.camberdesk.com") -> int:
     ASSETS_DIR.mkdir(parents=True, exist_ok=True)
     for api in CAMBERDESK_RAPIDAPI_CATALOG:
         num = api["num"]

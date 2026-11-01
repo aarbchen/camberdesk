@@ -146,11 +146,16 @@ class CreateCheckoutSessionRequest(BaseModel):
     plan: str = Field(default="tier2", description="Plan identifier: 'tier1', 'tier2', 'tier3', or 'tier4'.")
     billing: str = Field(default="monthly", description="Billing cycle: 'monthly' or 'annual'.")
     email: Optional[str] = Field(default="", description="Optional buyer email to prefill at Stripe Checkout.")
+    tier: Optional[str] = Field(default="", description="Optional alias for plan_billing (e.g., 'tier2_monthly').")
+    customer_email: Optional[str] = Field(default="", description="Optional alias for buyer email.")
+    company_name: Optional[str] = Field(default="", description="Optional contractor firm name.")
+    state_dots: Optional[str] = Field(default="", description="Optional primary State DOTs monitored.")
 
 
 @router.post("/billing/create-checkout-session", status_code=status.HTTP_200_OK)
 async def create_checkout_session(payload: CreateCheckoutSessionRequest) -> Dict[str, Any]:
-    raw_plan = str(payload.plan or "tier2").strip().lower().replace("_", "").replace("-", "").replace(" ", "")
+    combined_tier = str(payload.tier or payload.plan or "tier2").strip().lower()
+    raw_plan = combined_tier.replace("_", "").replace("-", "").replace(" ", "")
     if "4" in raw_plan or "oem" in raw_plan:
         norm_plan = "tier4"
     elif "3" in raw_plan or "compiler" in raw_plan or "zip" in raw_plan:
@@ -160,19 +165,27 @@ async def create_checkout_session(payload: CreateCheckoutSessionRequest) -> Dict
     else:
         norm_plan = "tier2"
 
-    raw_billing = str(payload.billing or "monthly").strip().lower()
+    raw_billing = str(payload.billing or ("annual" if "annual" in combined_tier else "monthly")).strip().lower()
     norm_billing = "annual" if raw_billing in ("annual", "yearly", "year", "yr") else "monthly"
 
     entry = CAMBERDESK_STRIPE_CATALOG[(norm_plan, norm_billing)]
     base_url = str(entry["checkout_url"])
-    clean_email = str(payload.email or "").strip().lower()
+    clean_email = str(payload.email or payload.customer_email or "").strip().lower()
     params: Dict[str, str] = {"client_reference_id": f"camberdesk_{norm_plan}_{norm_billing}"}
     if clean_email and "@" in clean_email:
         params["prefilled_email"] = clean_email
 
+    if "#" in base_url:
+        pre_hash, frag = base_url.split("#", 1)
+        sep = "&" if "?" in pre_hash else "?"
+        full_checkout_url = f"{pre_hash}{sep}{urlencode(params)}#{frag}"
+    else:
+        sep = "&" if "?" in base_url else "?"
+        full_checkout_url = f"{base_url}{sep}{urlencode(params)}"
+
     return {
         "status": "ok",
-        "checkout_url": f"{base_url}?{urlencode(params)}",
+        "checkout_url": full_checkout_url,
         "base_checkout_url": base_url,
         "plan": entry["plan"],
         "tier_name": entry["tier_name"],

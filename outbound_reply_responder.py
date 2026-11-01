@@ -48,19 +48,41 @@ def lookup_prospect_context(from_email: str) -> Dict[str, str]:
                         break
         except Exception:
             pass
+    res_state = matched.get("state") or "TX"
+    res_pid = matched.get("project_id") or "TXDOT-CSJ-0015-13-412"
+    raw_compiler = matched.get("compiler_url") or ""
+    if not raw_compiler or "project_id=" not in raw_compiler or "api.camberdesk.com" in raw_compiler:
+        raw_compiler = f"https://camberdesk.com/v1/camber-autopilot/compile-bid-package?project_id={res_pid}&state_code={res_state}&format=binary"
     return {
         "first_name": matched.get("first_name") or "Chief Estimator",
         "company_name": matched.get("company_name") or "your estimating team",
-        "state": matched.get("state") or "TX",
-        "project_id": matched.get("project_id") or "TXDOT-CSJ-0015-13-412",
+        "state": res_state,
+        "project_id": res_pid,
         "project_title": matched.get("project_title") or "IH-35 Bridge Deck Replacement & Superpave Overlay",
         "dossier_url": matched.get("dossier_url") or f"{SITE_BASE_URL}/lettings/index.html",
-        "compiler_url": matched.get("compiler_url") or "https://api.camberdesk.com/v1/camber-autopilot/compile-bid-package?format=binary",
+        "compiler_url": raw_compiler,
     }
 
 
+def _strip_quoted_thread(raw_text: str) -> str:
+    """Strip quoted email history ('On ... wrote:', '> ...', '-----Original Message-----') before classifying."""
+    lines: List[str] = []
+    for ln in str(raw_text or "").splitlines():
+        s = ln.strip()
+        if s.startswith(">"):
+            continue
+        if s.lower().startswith("on ") and s.lower().endswith("wrote:"):
+            break
+        if s.startswith("-----Original Message-----") or s.startswith("From: "):
+            break
+        lines.append(ln)
+    cleaned = "\n".join(lines).strip()
+    return cleaned if cleaned else str(raw_text or "").strip()
+
+
 def classify_estimator_reply(reply_text: str) -> str:
-    txt = str(reply_text or "").strip().lower()
+    stripped = _strip_quoted_thread(reply_text)
+    txt = stripped.lower()
     if any(u in txt for u in ("unsubscribe", "remove me", "stop emailing", "not interested", "take me off")):
         return "UNSUBSCRIBE"
     if any(p in txt for p in ("send zip", "send it", "yes", "sure", "send over", "interested", "bid tab", "spreadsheet")):
@@ -84,7 +106,7 @@ def classify_estimator_reply(reply_text: str) -> str:
                             "content": (
                                 "Classify this construction estimator email reply into exactly one label: "
                                 "POSITIVE_INTEREST, QUESTION, or UNSUBSCRIBE.\n\n"
-                                f"Reply: {reply_text[:500]}"
+                                f"Reply: {stripped[:500]}"
                             ),
                         }
                     ],

@@ -210,12 +210,14 @@ console.log(JSON.stringify({ ok: errs.length === 0, errors: errs }));
         if marker not in content:
             errors.append(f"[{rel}] Missing required mobile favicon / OpenGraph head tag: `{marker}`")
 
-    # 7. Zero leaked internal LLM model IDs or prompt-echoing copy in rendered HTML
-    forbidden_leaks = ["claude-sonnet", "claude-3", "claude-haiku", "gpt-4o", "here is the extracted"]
+    # 7. Zero leaked internal LLM model IDs, backend framework names, unresolvable api.camberdesk.com, or prompt-echoing copy in rendered HTML
+    forbidden_leaks = ["claude-sonnet", "claude-3", "claude-haiku", "gpt-4o", "here is the extracted", "api.camberdesk.com"]
     low_content = content.lower()
     for leak in forbidden_leaks:
         if leak in low_content:
-            errors.append(f"[{rel}] Leaked internal LLM identifier or prompt echo in public HTML: '{leak}'")
+            errors.append(f"[{rel}] Leaked internal identifier, unresolvable host, or prompt echo in public HTML: '{leak}'")
+    if "fastapi" in stripped.lower():
+        errors.append(f"[{rel}] Leaked internal backend framework name 'FastAPI' in visible HTML copy")
 
     return errors
 
@@ -372,6 +374,16 @@ def check_portal_parity_and_telemetry() -> List[str]:
     if stale_portal_re.search(idx_html) or stale_portal_re.search(api_html):
         errors.append("Found stale `< 52` portal count in `index.html` or `apis.html`")
 
+    # Ensure all 50 State DOTs are populated in interactive state dropdowns (`#lead-magnet-state`, `#wb-vault-state`, `#wb-dbe-state`)
+    for sel_id in ("lead-magnet-state", "wb-vault-state", "wb-dbe-state"):
+        sel_match = re.search(rf'<select[^>]*id="{sel_id}"[^>]*>(.*?)</select>', idx_html, flags=re.S | re.I)
+        if not sel_match:
+            errors.append(f"[index.html] Missing interactive state dropdown `<select id=\"{sel_id}\">`")
+        else:
+            opt_count = len(re.findall(r"<option\b", sel_match.group(1), flags=re.I))
+            if opt_count < 50:
+                errors.append(f"[index.html] `<select id=\"{sel_id}\">` has only {opt_count} options (expected >= 50 U.S. State DOTs)")
+
     return errors
 
 
@@ -520,15 +532,31 @@ def check_conversion_and_distribution_surfaces() -> List[str]:
     except Exception as exc:
         errors.append(f"MCP 5/5 Glama TDQS verification failed: {exc}")
 
+    # 4. Verify Quoted-Thread Stripping & Strict Warmup Guard in Outbound Scripts
+    resp_path = os.path.join(BASE_DIR, "outbound_reply_responder.py")
+    if os.path.exists(resp_path):
+        with open(resp_path, "r", encoding="utf-8") as fh:
+            resp_src = fh.read()
+        if "_strip_quoted_thread" not in resp_src:
+            errors.append("`outbound_reply_responder.py` missing `_strip_quoted_thread` (RULE-021)")
+    mailer_path = os.path.join(BASE_DIR, "outbound_mailer.py")
+    if os.path.exists(mailer_path):
+        with open(mailer_path, "r", encoding="utf-8") as fh:
+            mailer_src = fh.read()
+        if "score == 0" in mailer_src:
+            errors.append("`outbound_mailer.py` contains forbidden `score == 0` warmup bypass (RULE-021)")
+
     return errors
 
 
 def check_product_output_quality_controls() -> List[str]:
     """
-    Verify Tier 3 6-File OpenXML (`.DOCX` + `.XLSX` + `.JSON`) Bid Package `.ZIP` Compiler in memory:
+    Verify Tier 3 6-File OpenXML (`.DOCX` + `.XLSX` + `.JSON`) Bid Package `.ZIP` Compiler in memory across jurisdictions:
     - All 6 expected files present and non-empty
     - Every `.docx` and `.xlsx` is a valid OpenXML ZIP containing well-formed XML
     - Both `.xlsx` workbooks contain live Excel `=SUM(...)` and `=D6*G6` formulas
+    - Preserves custom `project_id`, matches each state's Open Records statute (`TX, CA, FL, VA, PA, NY, IL, GA, NC, OH, US, MU`),
+      never leaks Texas Government Code Chapter 552 into non-Texas states, and contains zero fake contractor names (`Apex Civil`, `Granite State Paving`).
     """
     errors: List[str] = []
     try:
@@ -539,25 +567,64 @@ def check_product_output_quality_controls() -> List[str]:
             compile_full_bid_package,
         )
 
-        pkg = asyncio.run(compile_full_bid_package(CompileBidPackageRequest(), format="json"))
-        zip_bytes = base64.b64decode(pkg["zip_base64"])
-        with zipfile.ZipFile(io.BytesIO(zip_bytes), "r") as zf:
-            names = zf.namelist()
-            if len(names) != 6:
-                errors.append(f"Expected 6 files inside Bid Package .ZIP, found {len(names)}: {names}")
-            for name in names:
-                data = zf.read(name)
-                if len(data) < 100:
-                    errors.append(f"File `{name}` inside Bid Package .ZIP is unexpectedly small ({len(data)} bytes)")
-                if name.endswith((".docx", ".xlsx")):
-                    with zipfile.ZipFile(io.BytesIO(data), "r") as inner_zf:
-                        for xml_name in inner_zf.namelist():
-                            if xml_name.endswith(".xml") or xml_name.endswith(".rels"):
-                                ET.fromstring(inner_zf.read(xml_name))
-                        if name.endswith(".xlsx"):
-                            sheet_xml = inner_zf.read("xl/worksheets/sheet1.xml").decode("utf-8")
-                            if "<f>SUM(" not in sheet_xml and "<f>D6*G6</f>" not in sheet_xml:
-                                errors.append(f"Workbook `{name}` missing live OpenXML `<f>` formulas")
+        expected_statutes = {
+            "TX": "Texas Public Information Act",
+            "CA": "California Public Records Act",
+            "FL": "Florida Public Records Law",
+            "VA": "Virginia Freedom of Information Act",
+            "PA": "Pennsylvania Right-to-Know Law",
+            "NY": "New York Freedom of Information Law",
+            "IL": "Illinois Freedom of Information Act",
+            "GA": "Georgia Open Records Act",
+            "NC": "North Carolina Public Records Law",
+            "OH": "Ohio Public Records Act",
+            "US": "5 U.S.C. § 552",
+            "MU": "Municipal Open Records",
+        }
+        forbidden_fake_names = ("Apex Civil", "Granite State Paving", "Acme Corp", "Sample LLC")
+
+        for state_code, expected_statute in expected_statutes.items():
+            custom_pid = f"{state_code}-DOT-2026-TEST"
+            req = CompileBidPackageRequest(project_id=custom_pid, state_code=state_code)
+            pkg = asyncio.run(compile_full_bid_package(req, format="json"))
+            if pkg.get("project_id") != custom_pid:
+                errors.append(f"[{state_code}] `compile_full_bid_package` failed to preserve custom `project_id`: got {pkg.get('project_id')}")
+            zip_bytes = base64.b64decode(pkg["zip_base64"])
+            with zipfile.ZipFile(io.BytesIO(zip_bytes), "r") as zf:
+                names = zf.namelist()
+                if len(names) != 6:
+                    errors.append(f"[{state_code}] Expected 6 files inside Bid Package .ZIP, found {len(names)}: {names}")
+                combined_text = ""
+                for name in names:
+                    data = zf.read(name)
+                    if len(data) < 100:
+                        errors.append(f"[{state_code}] File `{name}` inside Bid Package .ZIP is unexpectedly small ({len(data)} bytes)")
+                    if name.endswith((".docx", ".xlsx")):
+                        with zipfile.ZipFile(io.BytesIO(data), "r") as inner_zf:
+                            for xml_name in inner_zf.namelist():
+                                if xml_name.endswith(".xml") or xml_name.endswith(".rels"):
+                                    xml_bytes = inner_zf.read(xml_name)
+                                    ET.fromstring(xml_bytes)
+                                    combined_text += xml_bytes.decode("utf-8", errors="ignore") + "\n"
+                            if name.endswith(".xlsx"):
+                                sheet_xml = inner_zf.read("xl/worksheets/sheet1.xml").decode("utf-8")
+                                if "<f>SUM(" not in sheet_xml and "<f>D6*G6</f>" not in sheet_xml:
+                                    errors.append(f"[{state_code}] Workbook `{name}` missing live OpenXML `<f>` formulas")
+                    else:
+                        combined_text += data.decode("utf-8", errors="ignore") + "\n"
+                if expected_statute not in combined_text:
+                    errors.append(f"[{state_code}] Expected open-records statute `{expected_statute}` missing in `.ZIP`")
+                if state_code != "TX" and "Texas Government Code Chapter 552" in combined_text:
+                    errors.append(f"[{state_code}] Leaked `Texas Government Code Chapter 552` into non-TX `.ZIP`")
+                for fake_name in forbidden_fake_names:
+                    if fake_name.lower() in combined_text.lower():
+                        errors.append(f"[{state_code}] Found forbidden fake contractor name `{fake_name}` in `.ZIP`")
+
+        worker_js_path = os.path.join(BASE_DIR, "cloudflare_worker.js")
+        if os.path.exists(worker_js_path):
+            with open(worker_js_path, "r", encoding="utf-8") as wfh:
+                if "PRECOMPILED_ZIPS_BY_PROJECT" not in wfh.read():
+                    errors.append("`cloudflare_worker.js` missing `PRECOMPILED_ZIPS_BY_PROJECT` multi-project `.ZIP` map")
     except Exception as exc:
         errors.append(f"6-File OpenXML .ZIP Compiler quality check failed: {exc}")
     return errors
@@ -602,6 +669,7 @@ function makeEl(id) {
     },
     getAttribute(attr) { return this[attr] || ''; },
     setAttribute(attr, val) { this[attr] = val; },
+    getBoundingClientRect() { return { top: 0 }; },
     scrollIntoView() {}
   };
 }

@@ -24,7 +24,7 @@ from camberdesk_autopilot import slugify
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SITE_BASE_URL = os.getenv("CAMBERDESK_SITE_URL", "https://camberdesk.com").rstrip("/")
-API_BASE_URL = os.getenv("CAMBERDESK_API_BASE_URL", "https://api.camberdesk.com").rstrip("/")
+API_BASE_URL = os.getenv("CAMBERDESK_API_BASE_URL", "https://camberdesk.com").rstrip("/")
 VERIFIED_DOT_CONTACTS_PATH = os.path.join(BASE_DIR, "verified_public_dot_contacts.json")
 
 # Real historical letting spread benchmarks (Zero $ signs — all figures formatted as USD)
@@ -159,7 +159,7 @@ def build_mlot_and_runner_up_leads(verified_contacts: List[Dict[str, str]] | Non
         clean_title = str(bench["project_title"])
         slug = slugify(str(matched_let.get("title") or clean_title))
         dossier_url = f"{SITE_BASE_URL}/lettings/project/{slug}.html"
-        compiler_url = f"{API_BASE_URL}/v1/camber-autopilot/compile-bid-package?format=binary"
+        compiler_url = f"{API_BASE_URL}/v1/camber-autopilot/compile-bid-package?project_id={active_pid}&state_code={st}&format=binary"
         delta_usd = bench["runner_up_bid_usd"] - bench["winning_bid_usd"]
         raw_fn = str(contact.get("first_name") or "Estimating").strip()
         company = str(contact.get("company_name") or "your estimating team").strip()

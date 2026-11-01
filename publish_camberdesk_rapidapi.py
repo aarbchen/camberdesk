@@ -22,7 +22,7 @@ SESSION_FILE = ROOT_DIR / "rapidapi_session.json"
 PUBLISHED_OUT = ROOT_DIR / "rapidapi_published_catalog.json"
 ENV_FILE = ROOT_DIR / ".env"
 GQL_URL = "https://rapidapi.com/gateway/graphql"
-BACKEND_URL = "https://camberdesk.com"
+BACKEND_URL = "https://api.camberdesk.com"
 ENTITY_ID = "12422060"
 PROVIDER_NAME = "CamberDeskSystems"
 
@@ -63,11 +63,18 @@ def gql(s: requests.Session, query: str, variables: Dict[str, Any] = None, op_na
     payload: Dict[str, Any] = {"query": query, "variables": variables or {}}
     if op_name:
         payload["operationName"] = op_name
-    r = s.post(GQL_URL, json=payload, timeout=45)
-    try:
-        return r.json()
-    except Exception:
-        return {"status_code": r.status_code, "raw": r.text[:400]}
+    for attempt in range(3):
+        try:
+            r = s.post(GQL_URL, json=payload, timeout=30)
+            try:
+                return r.json()
+            except Exception:
+                return {"status_code": r.status_code, "raw": r.text[:400]}
+        except requests.exceptions.RequestException as exc:
+            if attempt == 2:
+                return {"error": str(exc)}
+            time.sleep(2.0 * (attempt + 1))
+    return {}
 
 
 def publish_all_12_apis() -> List[Dict[str, Any]]:
@@ -242,7 +249,37 @@ def publish_all_12_apis() -> List[Dict[str, Any]]:
         upd_node = (upd_resp.get("data") or {}).get("updateApi") or {}
         final_vis = upd_node.get("visibility") or "PUBLIC"
 
-        # Configure Health Check URL
+        # Configure 4 Pricing Plans (BASIC $0, PRO $49, ULTRA $149 recommended, MEGA $399)
+        ver_id = (info.get("currentVersion") or {}).get("id")
+        ver_name = (info.get("currentVersion") or {}).get("name") or "1.0.0"
+
+        if ver_id:
+            update_oas_ops = json.dumps(
+                {
+                    "operationName": "updateApisFromRapidOas",
+                    "variables": {"updates": [{"apiVersionId": ver_id, "spec": None}]},
+                    "query": """
+                    mutation updateApisFromRapidOas($updates: [ApiUpdateFromRapidOasInput!]!) {
+                      updateApisFromRapidOas(updates: $updates) {
+                        apiId
+                        trackingId
+                      }
+                    }
+                    """,
+                }
+            )
+            with open(clean_oas_path, "rb") as spec_f:
+                s.post(
+                    GQL_URL,
+                    data={
+                        "operations": update_oas_ops,
+                        "map": json.dumps({"0": ["variables.updates.0.spec"]}),
+                    },
+                    files={"0": (clean_oas_path.name, spec_f, "application/json")},
+                    timeout=45,
+                )
+
+        # Configure Health Check URL (must run after updateApisFromRapidOas)
         gql(
             s,
             """
@@ -252,10 +289,6 @@ def publish_all_12_apis() -> List[Dict[str, Any]]:
             """,
             {"apiId": api_id, "healthCheckUrl": f"{BACKEND_URL}/v1/health"},
         )
-
-        # Configure 4 Pricing Plans (BASIC $0, PRO $49, ULTRA $149 recommended, MEGA $399)
-        ver_id = (info.get("currentVersion") or {}).get("id")
-        ver_name = (info.get("currentVersion") or {}).get("name") or "1.0.0"
         bplans = info.get("billingPlans") or []
         if ver_id and bplans:
             item_id = bplans[0]["version"]["billinglimits"][0]["billingitem"]["id"]
