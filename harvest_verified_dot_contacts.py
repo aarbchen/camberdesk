@@ -732,7 +732,7 @@ async def _async_crawl_one(client: "httpx.AsyncClient", sem: "asyncio.Semaphore"
             return None
 
         if not found:
-            for path in ("/contact", "/contact-us", "/about", "/about-us", "/privacy-policy", "/privacy"):
+            for path in ("/contact", "/contact-us", "/about", "/about-us", "/estimating", "/bids", "/projects", "/privacy-policy", "/privacy"):
                 try:
                     r = await asyncio.wait_for(client.get(f"{base_url}{path}"), timeout=2.2)
                     if r.status_code == 200 and r.text and len(r.text) > 300:
@@ -798,7 +798,7 @@ def harvest_and_save_verified_dot_contacts() -> List[Dict[str, str]]:
         client = httpx.AsyncClient(headers=HEADERS, timeout=2.5, follow_redirects=True, verify=False, limits=limits)
         try:
             tasks = [asyncio.create_task(_async_crawl_one(client, sem, item, "Estimating")) for item in seeds_to_crawl]
-            done, pending = await asyncio.wait(tasks, timeout=32.0)
+            done, pending = await asyncio.wait(tasks, timeout=85.0)
             for p_task in pending:
                 p_task.cancel()
             for d_task in done:
