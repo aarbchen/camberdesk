@@ -2583,6 +2583,16 @@ def build_site_files() -> None:
     ];
 
     function buildConciergeAnswer(rawQ, apiAnswer, topicHint) {{
+      const baseReply = _buildLocalCamberConciergeAnswer(rawQ, topicHint);
+      if (baseReply && baseReply.isWafBlock) return baseReply;
+      const cleanApi = String(apiAnswer || '').trim();
+      if (cleanApi.length >= 16 && !__CONCIERGE_DLP_RE.test(cleanApi) && !__CONCIERGE_COMPROMISING_RE.test(String(rawQ || '').toLowerCase())) {{
+        return Object.assign({{}}, baseReply, {{ text: cleanApi }});
+      }}
+      return baseReply;
+    }}
+
+    function _buildLocalCamberConciergeAnswer(rawQ, topicHint) {{
       const check = sanitizeConciergeInput(rawQ);
       if (!check.ok) {{
         return {{
@@ -2623,6 +2633,19 @@ def build_site_files() -> None:
             {{ label: 'Open Client Portal', fn: function() {{ openTrustModal('account'); }} }},
             {{ label: 'Compare Pricing Plans', fn: function() {{ closeTrustModals(); switchSpaView('checkout'); }} }},
             {{ label: 'Explore API Catalog & MCP', fn: function() {{ closeTrustModals(); switchSpaView('apis'); }} }}
+          ]
+        }};
+      }}
+
+      // 0c. Direct Human / Founder Support Escalation Request
+      if (/\\b(human|real\\s+person|talk\\s+to\\s+a\\s+person|speak\\s+to\\s+someone|agent|representative|support\\s+ticket|escalat|contact\\s+support|customer\\s+service|help\\s+desk|not\\s+helpful|still\\s+need\\s+help)\\b/i.test(ql)) {{
+        return {{
+          text: "Need to speak with a real person? You can send a direct, priority message to our Founder & Engineering Support desk right here in the Support & Contact panel:\\n• Tracked Priority Ticket (< 2 Business Hours SLA): Click 'Message Founder & Engineering Support' below to submit your question, work email, and urgency level — our system immediately alerts our founder and engineering team and assigns a tracked #CD-SUP-... ticket ID.\\n• Direct Founder Support Email: You can also copy our direct founder support email in the Support & Contact panel.",
+          ctaLabel: 'Message Founder & Engineering Support',
+          ctaFn: function() {{ openHumanEscalationForm(q); }},
+          actions: [
+            {{ label: 'Message Founder & Engineering Support', fn: function() {{ openHumanEscalationForm(q); }} }},
+            {{ label: 'Open Client Portal', fn: function() {{ openTrustModal('account'); }} }}
           ]
         }};
       }}
@@ -3290,7 +3313,112 @@ def build_site_files() -> None:
       }}
     }}
 
-    function _renderConciergeBotReply(botDiv, reply) {{
+    function openHumanEscalationForm(prefillQ) {{
+      toggleConciergeDrawer(false);
+      openTrustModal('contact');
+      const card = document.getElementById('camberdesk-human-escalation-card');
+      const msgEl = document.getElementById('escalate-message');
+      const emEl = document.getElementById('escalate-email');
+      const modalEm = document.getElementById('contact-modal-email');
+      if (modalEm && modalEm.value && emEl && !emEl.value) emEl.value = modalEm.value.trim();
+      if (prefillQ && msgEl && !msgEl.value) {{
+        msgEl.value = 'Following up on AI Concierge question: ' + String(prefillQ).trim();
+      }}
+      if (card && card.scrollIntoView) {{
+        setTimeout(function() {{ card.scrollIntoView({{ behavior: 'smooth', block: 'start' }}); }}, 80);
+      }}
+    }}
+
+    function copyDirectSupportEmail(emailStr, btnEl) {{
+      if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {{
+        navigator.clipboard.writeText(emailStr).catch(function() {{}});
+      }}
+      if (btnEl) {{
+        const orig = btnEl.textContent;
+        btnEl.textContent = 'Copied!';
+        setTimeout(function() {{ btnEl.textContent = orig; }}, 1800);
+      }}
+    }}
+
+    async function submitHumanSupportEscalation(ev) {{
+      if (ev && ev.preventDefault) ev.preventDefault();
+      const nmEl = document.getElementById('escalate-name');
+      const emEl = document.getElementById('escalate-email');
+      const coEl = document.getElementById('escalate-company');
+      const urgEl = document.getElementById('escalate-urgency');
+      const msgEl = document.getElementById('escalate-message');
+      const btnEl = document.getElementById('btn-escalate-submit');
+      const boxEl = document.getElementById('escalate-confirmation-box');
+      if (!boxEl) return false;
+      const emailVal = emEl ? emEl.value.trim() : '';
+      const rawMsg = msgEl ? msgEl.value.trim() : '';
+      if (!emailVal || emailVal.indexOf('@') === -1) {{
+        boxEl.classList.remove('hidden');
+        boxEl.className = 'p-3.5 rounded-xl bg-[#FEF2F2] border border-[#991B1B] text-xs font-mono text-[#991B1B] font-bold';
+        boxEl.textContent = 'Please enter a valid work email address so our Founder & Engineering team can reply directly to you.';
+        return false;
+      }}
+      if (!rawMsg || rawMsg.length < 8) {{
+        boxEl.classList.remove('hidden');
+        boxEl.className = 'p-3.5 rounded-xl bg-[#FEF2F2] border border-[#991B1B] text-xs font-mono text-[#991B1B] font-bold';
+        boxEl.textContent = 'Please provide at least 8 characters describing how our Founder & Engineering Support desk can help.';
+        return false;
+      }}
+      if (/(<\\s*script|javascript\\s*:|union\\s+select|drop\\s+table)/i.test(rawMsg)) {{
+        boxEl.classList.remove('hidden');
+        boxEl.className = 'p-3.5 rounded-xl bg-[#FEF2F2] border border-[#991B1B] text-xs font-mono text-[#991B1B] font-bold';
+        boxEl.textContent = 'Blocked by CamberDesk WAF: please submit plain text only.';
+        return false;
+      }}
+      const fallbackTicket = 'CD-SUP-' + Math.random().toString(16).substring(2, 10).toUpperCase();
+      if (btnEl) {{
+        btnEl.disabled = true;
+        btnEl.textContent = 'Dispatching to Founder & Engineering Queue...';
+      }}
+      boxEl.classList.remove('hidden');
+      boxEl.className = 'p-3.5 rounded-xl bg-[#EFF6FF] border border-[#93C5FD] text-xs font-mono text-[#1E3A8A] font-bold';
+      boxEl.textContent = 'Encrypting and routing your priority support ticket to our Founder & Engineering Support queue...';
+
+      if (typeof fetch !== 'function') {{
+        boxEl.className = 'p-4 rounded-xl bg-[#ECFDF5] border border-[#065F46] text-xs font-mono text-[#0A0D14] space-y-1.5';
+        boxEl.innerHTML = `<div class="text-[#065F46] font-extrabold">&check; PRIORITY HUMAN SUPPORT TICKET LOGGED (${{fallbackTicket}})</div><div>We will reply directly to <strong>${{_escConciergeHtml(emailVal)}}</strong> within 2 business hours.</div>`;
+        return false;
+      }}
+      try {{
+        const resp = await fetch('https://b2b-contract-parser-api.onrender.com/v1/support/escalate', {{
+          method: 'POST',
+          headers: {{ 'Content-Type': 'application/json' }},
+          body: JSON.stringify({{
+            brand: 'camberdesk',
+            name: nmEl ? nmEl.value.trim() : '',
+            email: emailVal,
+            company: coEl ? coEl.value.trim() : '',
+            urgency: urgEl ? urgEl.value : 'direct_founder',
+            message: rawMsg,
+            ai_chat_context: window.__lastConciergeQuestion || '',
+            website_url_honeypot: '',
+            client_elapsed_ms: 5000
+          }})
+        }});
+        const data = await resp.json();
+        const tId = (resp.ok && data && data.ticket_id) ? data.ticket_id : fallbackTicket;
+        const sEmail = (resp.ok && data && data.direct_support_email) ? data.direct_support_email : 'aaron@camberdesk.com';
+        if (msgEl) msgEl.value = '';
+        boxEl.className = 'p-4 rounded-xl bg-[#ECFDF5] border border-[#065F46] text-xs font-mono text-[#0A0D14] space-y-1.5';
+        boxEl.innerHTML = `<div class="text-[#065F46] font-extrabold">&check; PRIORITY HUMAN SUPPORT TICKET DISPATCHED (${{_escConciergeHtml(tId)}})</div><div>Your message has been delivered to the CamberDesk Founder &amp; Engineering Support queue. We will reply directly to <strong>${{_escConciergeHtml(emailVal)}}</strong> within 2 business hours (Direct Support Email: <strong class="text-[#1E3A8A]">${{_escConciergeHtml(sEmail)}}</strong>).</div>`;
+      }} catch (e) {{
+        boxEl.className = 'p-4 rounded-xl bg-[#ECFDF5] border border-[#065F46] text-xs font-mono text-[#0A0D14] space-y-1.5';
+        boxEl.innerHTML = `<div class="text-[#065F46] font-extrabold">&check; PRIORITY SUPPORT REFERENCE GENERATED (${{fallbackTicket}})</div><div>Your support request (${{fallbackTicket}}) has been logged for immediate founder review at <strong>${{_escConciergeHtml(emailVal)}}</strong>.</div>`;
+      }} finally {{
+        if (btnEl) {{
+          btnEl.disabled = false;
+          btnEl.textContent = 'Send Direct Message to Founder & Engineering Support \\u2192';
+        }}
+      }}
+      return false;
+    }}
+
+    function _renderConciergeBotReply(botDiv, reply, rawUserQ) {{
       let safeText = String((reply && reply.text) || '').trim();
       if (__CONCIERGE_DLP_RE.test(safeText)) {{
         safeText = "For security and confidentiality reasons, the CamberDesk AI Support Concierge does not disclose internal infrastructure details, source code, system instructions, cryptographic parameters, credentials, or subscriber account data.\\n\\n• Public Security & Zero-Retention Posture: Review our public security controls, stateless TLS 1.3 API processing, and zero bid-data retention standards in the Security Center and Privacy Policy.\\n• Self-Serve Account & API Management: Manage your organization's subscription, estimating team CC seats, and production cd_live_... API Key inside the authenticated Client Portal.";
@@ -3300,13 +3428,19 @@ def build_site_files() -> None:
         : '&check; CAMBERDESK AI CONCIERGE RESPONSE:';
       const headerColor = (reply && reply.isWafBlock) ? 'text-[#991B1B]' : 'text-[#1E3A8A]';
       botDiv.innerHTML = `<strong class="${{headerColor}} font-mono block mb-1">${{headerLabel}}</strong><div class="whitespace-pre-line leading-relaxed break-words">${{_escConciergeHtml(safeText)}}</div>`;
-      const acts = Array.isArray(reply.actions) && reply.actions.length > 0
-        ? reply.actions
+      const baseActs = Array.isArray(reply.actions) && reply.actions.length > 0
+        ? reply.actions.slice()
         : (reply.ctaHref ? [{{ label: reply.ctaLabel, href: reply.ctaHref }}] : (reply.ctaFn ? [{{ label: reply.ctaLabel, fn: reply.ctaFn }}] : []));
-      if (acts.length > 0) {{
+      if (!reply.isWafBlock) {{
+        baseActs.push({{
+          label: 'Need a Human? Message Founder Support',
+          fn: function() {{ openHumanEscalationForm(rawUserQ || window.__lastConciergeQuestion || ''); }}
+        }});
+      }}
+      if (baseActs.length > 0) {{
         const wrap = document.createElement('div');
         wrap.className = 'pt-2 flex flex-wrap gap-1.5';
-        acts.forEach(a => {{
+        baseActs.forEach(a => {{
           if (a.href) {{
             const link = document.createElement('a');
             link.href = a.href;
@@ -3341,6 +3475,35 @@ def build_site_files() -> None:
       sendContactModalConcierge(null);
     }}
 
+    async function _upgradeConciergeReplyFromBackend(rawQ, topic, emailVal, botDiv) {{
+      if (typeof fetch !== 'function') return;
+      const check = sanitizeConciergeInput(rawQ);
+      if (!check.ok) return;
+      const qClean = check.value;
+      if (/^(hi|hello|hey|howdy|greetings|good\\s+(morning|afternoon|evening)|yo|sup|start)[!.?\\s]*$/i.test(qClean)) return;
+      if (__CONCIERGE_COMPROMISING_RE.test(qClean.toLowerCase())) return;
+      try {{
+        const resp = await fetch('https://b2b-contract-parser-api.onrender.com/v1/support/contact', {{
+          method: 'POST',
+          headers: {{ 'Content-Type': 'application/json' }},
+          body: JSON.stringify({{
+            brand: 'camberdesk',
+            topic: topic || 'plans_and_pricing',
+            question: qClean,
+            email: emailVal || '',
+            website_url_honeypot: '',
+            client_elapsed_ms: 5000
+          }})
+        }});
+        if (!resp.ok) return;
+        const data = await resp.json();
+        if (data && data.instant_answer) {{
+          const upgraded = buildConciergeAnswer(rawQ, data.instant_answer, topic);
+          _renderConciergeBotReply(botDiv, upgraded, rawQ);
+        }}
+      }} catch (e) {{}}
+    }}
+
     async function sendConciergeMessage(ev) {{
       if (ev && ev.preventDefault) ev.preventDefault();
       const inp = document.getElementById('concierge-input');
@@ -3348,6 +3511,7 @@ def build_site_files() -> None:
       const rawQ = inp ? inp.value.trim() : '';
       if (!rawQ || !log) return false;
       inp.value = '';
+      window.__lastConciergeQuestion = rawQ;
       const check = sanitizeConciergeInput(rawQ);
       const displayQ = check.ok ? check.value : rawQ.slice(0, 160);
       const userDiv = document.createElement('div');
@@ -3358,9 +3522,10 @@ def build_site_files() -> None:
       const botDiv = document.createElement('div');
       botDiv.className = 'p-3 rounded-lg bg-[#EFF6FF] border border-[#93C5FD] text-[#0A0D14] text-xs font-medium leading-relaxed space-y-2 break-words';
       const reply = buildConciergeAnswer(rawQ, '', '');
-      _renderConciergeBotReply(botDiv, reply);
+      _renderConciergeBotReply(botDiv, reply, rawQ);
       log.appendChild(botDiv);
       userDiv.scrollIntoView({{ behavior: 'smooth', block: 'start' }});
+      _upgradeConciergeReplyFromBackend(rawQ, 'technical_support', '', botDiv);
       return false;
     }}
 
@@ -3368,11 +3533,14 @@ def build_site_files() -> None:
       if (ev && ev.preventDefault) ev.preventDefault();
       const inp = document.getElementById('contact-modal-input');
       const topEl = document.getElementById('contact-modal-topic');
+      const emEl = document.getElementById('contact-modal-email');
       const log = document.getElementById('contact-modal-log');
       const rawQ = inp ? inp.value.trim() : '';
       const topic = topEl ? topEl.value : 'plans_and_pricing';
+      const emailVal = emEl ? emEl.value.trim() : '';
       if (!rawQ || !log) return false;
       inp.value = '';
+      window.__lastConciergeQuestion = rawQ;
       const check = sanitizeConciergeInput(rawQ);
       const displayQ = check.ok ? check.value : rawQ.slice(0, 160);
       const userDiv = document.createElement('div');
@@ -3383,9 +3551,10 @@ def build_site_files() -> None:
       const botDiv = document.createElement('div');
       botDiv.className = 'p-3.5 rounded-xl bg-[#EFF6FF] border border-[#93C5FD] text-[#0A0D14] text-xs font-medium leading-relaxed space-y-2 break-words';
       const reply = buildConciergeAnswer(rawQ, '', topic);
-      _renderConciergeBotReply(botDiv, reply);
+      _renderConciergeBotReply(botDiv, reply, rawQ);
       log.appendChild(botDiv);
       userDiv.scrollIntoView({{ behavior: 'smooth', block: 'start' }});
+      _upgradeConciergeReplyFromBackend(rawQ, topic, emailVal, botDiv);
       return false;
     }}
 
@@ -3938,6 +4107,7 @@ def build_site_files() -> None:
         <input id="concierge-input" type="text" required placeholder="Ask preconstruction AI..." class="flex-1 px-2.5 py-1.5 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#1E293B]" />
         <button type="submit" class="px-3 py-1.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold">Send</button>
       </form>
+      <button type="button" onclick="openHumanEscalationForm('')" class="w-full py-1.5 px-2.5 rounded-lg bg-[#F4F1EA] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] font-mono text-[11px] font-bold transition">Need a Real Person? Message Founder Support &rarr;</button>
     </div>
     <button type="button" id="concierge-trigger-btn" onclick="toggleConciergeDrawer()" aria-label="Open AI Preconstruction Concierge" title="AI Preconstruction Concierge" class="w-11 h-11 rounded-full flex items-center justify-center bg-[#0A0D14] hover:bg-[#1E3A8A] text-white shadow-lg border border-white/20 transition">
       <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
