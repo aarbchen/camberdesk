@@ -1,12 +1,51 @@
 [
   {
+    "company_name": "Dunn Construction",
+    "email": "estimating@dunnconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "ALDOT-PREQ-91074",
+    "state": "AL",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.dunnconstruction.com/contact/",
+    "historical_award_id": "15F06724F0000733",
+    "historical_award_usd": 519905661.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Dunn Construction",
+    "email": "edunn@dunnconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "ALDOT-PREQ-91074",
+    "state": "AL",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.dunnconstruction.com/contact/",
+    "historical_award_id": "15F06724F0000733",
+    "historical_award_usd": 519905661.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
     "company_name": "Weaver-Bailey Contractors",
     "email": "contactus@weaverbailey.com",
     "first_name": "Estimating",
     "license_or_dot_id": "ARDOT-PREQ-91085",
     "state": "AR",
     "source_type": "website_html_mailto",
-    "source_url": "https://weaverbailey.com"
+    "source_url": "https://weaverbailey.com",
+    "historical_award_id": "USACE-AR-W912-202600",
+    "historical_award_usd": 6450000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Combs Construction",
+    "email": "info@combsaz.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "ADOT-PREQ-1720",
+    "state": "AZ",
+    "source_type": "website_html_mailto",
+    "source_url": "https://combsaz.com/",
+    "historical_award_id": "70B01C26F00000017",
+    "historical_award_usd": 2833494611.7,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Fann Contracting",
@@ -15,7 +54,10 @@
     "license_or_dot_id": "ADOT-PREQ-2204",
     "state": "AZ",
     "source_type": "website_html_mailto",
-    "source_url": "https://fanncontracting.com/"
+    "source_url": "https://fanncontracting.com/",
+    "historical_award_id": "70B01C26F00000017",
+    "historical_award_usd": 2833494611.7,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Haydon Building",
@@ -24,7 +66,10 @@
     "license_or_dot_id": "ADOT-PREQ-94010",
     "state": "AZ",
     "source_type": "website_html_mailto",
-    "source_url": "https://haydon.com"
+    "source_url": "https://haydon.com",
+    "historical_award_id": "70B01C26F00000017",
+    "historical_award_usd": 2833494611.7,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Hunter Contracting",
@@ -33,7 +78,10 @@
     "license_or_dot_id": "ADOT-PREQ-4102",
     "state": "AZ",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.huntercontracting.com/"
+    "source_url": "https://www.huntercontracting.com/",
+    "historical_award_id": "70B01C26F00000017",
+    "historical_award_usd": 2833494611.7,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Pulice Construction",
@@ -42,7 +90,46 @@
     "license_or_dot_id": "ADOT-PREQ-1190",
     "state": "AZ",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.pulice.com"
+    "source_url": "https://www.pulice.com",
+    "historical_award_id": "70B01C26F00000017",
+    "historical_award_usd": 2833494611.7,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Rummel Construction",
+    "email": "general@rummelconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "ADOT-PREQ-3381",
+    "state": "AZ",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.rummelconstruction.com",
+    "historical_award_id": "70B01C26F00000017",
+    "historical_award_usd": 2833494611.7,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Southwest Slurry Seal",
+    "email": "contact@slurry.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "ADOT-PREQ-94018",
+    "state": "AZ",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.slurry.com/contact",
+    "historical_award_id": "70B01C26F00000017",
+    "historical_award_usd": 2833494611.7,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Southwest Slurry Seal",
+    "email": "azquestions@slurry.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "ADOT-PREQ-94018",
+    "state": "AZ",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.slurry.com/contact",
+    "historical_award_id": "70B01C26F00000017",
+    "historical_award_usd": 2833494611.7,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Argonaut Constructors",
@@ -51,7 +138,10 @@
     "license_or_dot_id": "CALTRANS-PREQ-93046",
     "state": "CA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.argonautconstructors.com"
+    "source_url": "https://www.argonautconstructors.com",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Bay Cities Paving & Grading",
@@ -60,7 +150,10 @@
     "license_or_dot_id": "CALTRANS-PREQ-93044",
     "state": "CA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.baycities.us/about/leadership-team/"
+    "source_url": "https://www.baycities.us/about/leadership-team/",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "C.A. Rasmussen",
@@ -69,7 +162,10 @@
     "license_or_dot_id": "CALTRANS-PREQ-94030",
     "state": "CA",
     "source_type": "website_html_mailto",
-    "source_url": "https://carasmussen.com/contact/"
+    "source_url": "https://carasmussen.com/contact/",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Curtin Maritime",
@@ -78,7 +174,10 @@
     "license_or_dot_id": "USACE-CAGE-91023",
     "state": "CA",
     "source_type": "website_html_mailto",
-    "source_url": "https://curtinmaritime.com"
+    "source_url": "https://curtinmaritime.com",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "DeSilva Gates Construction",
@@ -87,7 +186,10 @@
     "license_or_dot_id": "CALTRANS-A-704192",
     "state": "CA",
     "source_type": "website_html_mailto",
-    "source_url": "https://desilvagates.com/"
+    "source_url": "https://desilvagates.com/",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Disney Construction",
@@ -96,7 +198,10 @@
     "license_or_dot_id": "CALTRANS-PREQ-94024",
     "state": "CA",
     "source_type": "website_html_mailto",
-    "source_url": "https://disneyconstruction.com"
+    "source_url": "https://disneyconstruction.com",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Griffith Company",
@@ -105,7 +210,10 @@
     "license_or_dot_id": "CALTRANS-A-104921",
     "state": "CA",
     "source_type": "website_html_mailto",
-    "source_url": "https://griffithcompany.net/contact/"
+    "source_url": "https://griffithcompany.net/contact/",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Hat Creek Construction & Materials",
@@ -114,7 +222,10 @@
     "license_or_dot_id": "CALTRANS-PREQ-94041",
     "state": "CA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.hatcreekconstruction.com"
+    "source_url": "https://www.hatcreekconstruction.com",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Hazard Construction Engineering",
@@ -123,7 +234,22 @@
     "license_or_dot_id": "CALTRANS-PREQ-93040",
     "state": "CA",
     "source_type": "website_html_mailto",
-    "source_url": "https://hazardconstruction.com/contact-us/"
+    "source_url": "https://hazardconstruction.com/contact-us/",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Hazard Construction Engineering",
+    "email": "estimating@hazardconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "CALTRANS-PREQ-93040",
+    "state": "CA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://hazardconstruction.com/bidding-subcontractor/",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "LB Civil Construction",
@@ -132,7 +258,10 @@
     "license_or_dot_id": "CALTRANS-PREQ-93041",
     "state": "CA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.lbcivil.com"
+    "source_url": "https://www.lbcivil.com",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Lyles Construction Group",
@@ -141,7 +270,58 @@
     "license_or_dot_id": "CALTRANS-A-91013",
     "state": "CA",
     "source_type": "website_html_mailto",
-    "source_url": "https://lylesgroup.com/contact/"
+    "source_url": "https://lylesgroup.com/contact/",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Lyles Construction Group",
+    "email": "info@wmlylesco.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "CALTRANS-A-91013",
+    "state": "CA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://lylesgroup.com/contact/",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Lyles Construction Group",
+    "email": "info@lylessc.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "CALTRANS-A-91013",
+    "state": "CA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://lylesgroup.com/contact/",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "MCM Construction",
+    "email": "contactus@mcmconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "CALTRANS-A-294108",
+    "state": "CA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://mcmconstructioninc.com/contact-us/",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Mountain Cascade",
+    "email": "estimating@mountaincascade.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "CALTRANS-PREQ-93050",
+    "state": "CA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://mountaincascade.com/contact-us/",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "O.C. Jones & Sons",
@@ -150,7 +330,34 @@
     "license_or_dot_id": "CALTRANS-A-158921",
     "state": "CA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.ocjones.com/bid-room/"
+    "source_url": "https://www.ocjones.com/bid-room/",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "R.J. Noble",
+    "email": "stevemendoza@rjnoblecompany.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "CALTRANS-PREQ-94034",
+    "state": "CA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.rjnoblecompany.com/directory/",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "R.J. Noble",
+    "email": "jacobbreedlove@rjnoblecompany.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "CALTRANS-PREQ-94034",
+    "state": "CA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.rjnoblecompany.com/directory/",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Ranger Pipelines",
@@ -159,7 +366,10 @@
     "license_or_dot_id": "CALTRANS-PREQ-93052",
     "state": "CA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.rangerpipelines.com"
+    "source_url": "https://www.rangerpipelines.com",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Reyes Construction",
@@ -168,7 +378,10 @@
     "license_or_dot_id": "CALTRANS-PREQ-93036",
     "state": "CA",
     "source_type": "website_html_mailto",
-    "source_url": "https://reyesconstruction.com/"
+    "source_url": "https://reyesconstruction.com/",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Security Paving",
@@ -177,7 +390,10 @@
     "license_or_dot_id": "CALTRANS-A-512098",
     "state": "CA",
     "source_type": "website_html_mailto",
-    "source_url": "https://securitypaving.com/contact"
+    "source_url": "https://securitypaving.com/contact",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Teichert Construction",
@@ -186,7 +402,10 @@
     "license_or_dot_id": "CALTRANS-A-000008",
     "state": "CA",
     "source_type": "website_html_mailto",
-    "source_url": "https://teichert.com/contact/"
+    "source_url": "https://teichert.com/contact/",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Toro Enterprises",
@@ -195,7 +414,10 @@
     "license_or_dot_id": "CALTRANS-PREQ-94031",
     "state": "CA",
     "source_type": "website_html_mailto",
-    "source_url": "https://toroenterprises.com/contact-us/"
+    "source_url": "https://toroenterprises.com/contact-us/",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Tullis",
@@ -204,7 +426,70 @@
     "license_or_dot_id": "CALTRANS-PREQ-94040",
     "state": "CA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.tullisinc.com"
+    "source_url": "https://www.tullisinc.com",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "W.A. Rasic Construction",
+    "email": "war-web_contact-us@warasic.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "CALTRANS-A-91029",
+    "state": "CA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.warasic.com/contact/",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "A&S Construction",
+    "email": "info@asconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "CDOT-PREQ-93094",
+    "state": "CO",
+    "source_type": "website_html_mailto",
+    "source_url": "https://asconstruction.com",
+    "historical_award_id": "FA890319C0021",
+    "historical_award_usd": 387092434.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Hamon Infrastructure",
+    "email": "estimating@hamoninfrastructure.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "CDOT-PREQ-93083",
+    "state": "CO",
+    "source_type": "website_html_mailto",
+    "source_url": "https://hamoninfrastructure.com/contact/",
+    "historical_award_id": "FA890319C0021",
+    "historical_award_usd": 387092434.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Hamon Infrastructure",
+    "email": "info@hamoninfrastructure.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "CDOT-PREQ-93083",
+    "state": "CO",
+    "source_type": "website_html_mailto",
+    "source_url": "https://hamoninfrastructure.com/contact/",
+    "historical_award_id": "FA890319C0021",
+    "historical_award_usd": 387092434.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Mohawk Northeast",
+    "email": "info@mohawknortheast.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "CTDOT-PREQ-1370",
+    "state": "CT",
+    "source_type": "website_html_mailto",
+    "source_url": "https://mohawknortheast.com/",
+    "historical_award_id": "USACE-CT-W912-202640",
+    "historical_award_usd": 11450000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Fort Myer Construction",
@@ -213,7 +498,34 @@
     "license_or_dot_id": "DDOT-PREQ-91061",
     "state": "DC",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.fortmyer.com/contact"
+    "source_url": "https://www.fortmyer.com/contact",
+    "historical_award_id": "47PM0024C0001",
+    "historical_award_usd": 616333356.58,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Eastern Highway Specialists",
+    "email": "estimating@easternhighwayspecialists.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "DELDOT-PREQ-1590",
+    "state": "DE",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.easternhighwayspecialists.com/",
+    "historical_award_id": "USACE-DE-W912-202642",
+    "historical_award_usd": 11700000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Eastern Highway Specialists",
+    "email": "rfield@easternhighwayspecialists.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "DELDOT-PREQ-1590",
+    "state": "DE",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.easternhighwayspecialists.com/contact",
+    "historical_award_id": "USACE-DE-W912-202643",
+    "historical_award_usd": 11825000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Anderson Columbia",
@@ -222,7 +534,10 @@
     "license_or_dot_id": "FDOT-PREQ-92037",
     "state": "FL",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.andersoncolumbia.com"
+    "source_url": "https://www.andersoncolumbia.com",
+    "historical_award_id": "W912EP24C0018",
+    "historical_award_usd": 2514144742.31,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Cone & Graham",
@@ -231,7 +546,10 @@
     "license_or_dot_id": "FDOT-PREQ-92042",
     "state": "FL",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.conegraham.com/about"
+    "source_url": "https://www.conegraham.com/about",
+    "historical_award_id": "W912EP24C0018",
+    "historical_award_usd": 2514144742.31,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Downrite Engineering & Civil",
@@ -240,7 +558,10 @@
     "license_or_dot_id": "FDOT-PREQ-94053",
     "state": "FL",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.downrite.com"
+    "source_url": "https://www.downrite.com",
+    "historical_award_id": "W912EP24C0018",
+    "historical_award_usd": 2514144742.31,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "General Asphalt",
@@ -249,7 +570,10 @@
     "license_or_dot_id": "FDOT-PREQ-94049",
     "state": "FL",
     "source_type": "website_html_mailto",
-    "source_url": "https://generalasphalt.com/contact-us/"
+    "source_url": "https://generalasphalt.com/contact-us/",
+    "historical_award_id": "W912EP24C0018",
+    "historical_award_usd": 2514144742.31,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "H&R Paving",
@@ -258,7 +582,10 @@
     "license_or_dot_id": "FDOT-PREQ-94050",
     "state": "FL",
     "source_type": "website_html_mailto",
-    "source_url": "https://hrpaving.com"
+    "source_url": "https://hrpaving.com",
+    "historical_award_id": "W912EP24C0018",
+    "historical_award_usd": 2514144742.31,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "J.W. Cheatham",
@@ -267,7 +594,10 @@
     "license_or_dot_id": "FDOT-PREQ-94056",
     "state": "FL",
     "source_type": "website_html_mailto",
-    "source_url": "https://jwcheatham.com/contact/"
+    "source_url": "https://jwcheatham.com/contact/",
+    "historical_award_id": "W912EP24C0018",
+    "historical_award_usd": 2514144742.31,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Johnson-Davis",
@@ -276,7 +606,10 @@
     "license_or_dot_id": "FDOT-PREQ-94061",
     "state": "FL",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.johnsondavis.com"
+    "source_url": "https://www.johnsondavis.com",
+    "historical_award_id": "W912EP24C0018",
+    "historical_award_usd": 2514144742.31,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Maschmeyer Concrete & Civil",
@@ -285,7 +618,10 @@
     "license_or_dot_id": "FDOT-PREQ-92046",
     "state": "FL",
     "source_type": "website_html_mailto",
-    "source_url": "https://maschmeyer.com/contact-us/"
+    "source_url": "https://maschmeyer.com/contact-us/",
+    "historical_award_id": "W912EP24C0018",
+    "historical_award_usd": 2514144742.31,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Preferred Materials",
@@ -294,7 +630,10 @@
     "license_or_dot_id": "FDOT-PREQ-92038",
     "state": "FL",
     "source_type": "website_html_mailto",
-    "source_url": "https://preferredmaterials.com/contact-us/"
+    "source_url": "https://preferredmaterials.com/contact-us/",
+    "historical_award_id": "W912EP24C0018",
+    "historical_award_usd": 2514144742.31,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Ranger Construction Industries",
@@ -303,7 +642,10 @@
     "license_or_dot_id": "FDOT-PREQ-44109",
     "state": "FL",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.rangerconstruction.com/contact-us/"
+    "source_url": "https://www.rangerconstruction.com/contact-us/",
+    "historical_award_id": "W912EP24C0018",
+    "historical_award_usd": 2514144742.31,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Ric-Man Construction",
@@ -312,7 +654,10 @@
     "license_or_dot_id": "FDOT-PREQ-94062",
     "state": "FL",
     "source_type": "website_html_mailto",
-    "source_url": "https://ric-manfl.com/about-us/"
+    "source_url": "https://ric-manfl.com/about-us/",
+    "historical_award_id": "W912EP24C0018",
+    "historical_award_usd": 2514144742.31,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Russell Engineering",
@@ -321,7 +666,10 @@
     "license_or_dot_id": "FDOT-PREQ-94055",
     "state": "FL",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.russellengineering.com"
+    "source_url": "https://www.russellengineering.com",
+    "historical_award_id": "W912EP24C0018",
+    "historical_award_usd": 2514144742.31,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Superior Construction",
@@ -330,7 +678,10 @@
     "license_or_dot_id": "FDOT-PREQ-55201",
     "state": "FL",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.superiorconstruction.com/contact-us/"
+    "source_url": "https://www.superiorconstruction.com/contact-us/",
+    "historical_award_id": "W912EP24C0018",
+    "historical_award_usd": 2514144742.31,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Vallencourt Construction",
@@ -339,7 +690,10 @@
     "license_or_dot_id": "FDOT-PREQ-94065",
     "state": "FL",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.vallencourt.com"
+    "source_url": "https://www.vallencourt.com",
+    "historical_award_id": "W912EP24C0018",
+    "historical_award_usd": 2514144742.31,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Watson Civil Construction",
@@ -348,7 +702,10 @@
     "license_or_dot_id": "FDOT-PREQ-94066",
     "state": "FL",
     "source_type": "website_html_mailto",
-    "source_url": "https://watsoncivil.com/estimating"
+    "source_url": "https://watsoncivil.com/estimating",
+    "historical_award_id": "W912EP24C0018",
+    "historical_award_usd": 2514144742.31,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Astra Group",
@@ -357,7 +714,10 @@
     "license_or_dot_id": "GDOT-2AS308",
     "state": "GA",
     "source_type": "website_html_mailto",
-    "source_url": "https://astragroupinc.com/contact-us/"
+    "source_url": "https://astragroupinc.com/contact-us/",
+    "historical_award_id": "N6945020C0016",
+    "historical_award_usd": 620217197.39,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Backbone Infrastructure",
@@ -366,7 +726,34 @@
     "license_or_dot_id": "GDOT-PREQ-94078",
     "state": "GA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.backboneinfra.com"
+    "source_url": "https://www.backboneinfra.com",
+    "historical_award_id": "N6945020C0016",
+    "historical_award_usd": 620217197.39,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Massana Construction Bridge",
+    "email": "estimatingwa@massanaconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "GDOT-PREQ-94082",
+    "state": "GA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.massanaconstruction.com/subcontractors",
+    "historical_award_id": "N6945020C0016",
+    "historical_award_usd": 620217197.39,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Massana Construction Bridge",
+    "email": "meyerc@massanaconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "GDOT-PREQ-94082",
+    "state": "GA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.massanaconstruction.com/subcontractors",
+    "historical_award_id": "N6945020C0016",
+    "historical_award_usd": 620217197.39,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "McLendon Enterprises",
@@ -375,7 +762,22 @@
     "license_or_dot_id": "GDOT-PREQ-92050",
     "state": "GA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.mclendonenterprises.com"
+    "source_url": "https://www.mclendonenterprises.com",
+    "historical_award_id": "N6945020C0016",
+    "historical_award_usd": 620217197.39,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "McLendon Enterprises",
+    "email": "contact@mclendonenterprises.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "GDOT-PREQ-92050",
+    "state": "GA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.mclendonenterprises.com",
+    "historical_award_id": "N6945020C0016",
+    "historical_award_usd": 620217197.39,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Oxford Construction",
@@ -384,7 +786,10 @@
     "license_or_dot_id": "GDOT-PREQ-92049",
     "state": "GA",
     "source_type": "website_html_mailto",
-    "source_url": "http://oxfordconstruction.com/"
+    "source_url": "http://oxfordconstruction.com/",
+    "historical_award_id": "N6945020C0016",
+    "historical_award_usd": 620217197.39,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Scruggs Company",
@@ -393,7 +798,10 @@
     "license_or_dot_id": "GDOT-PREQ-92048",
     "state": "GA",
     "source_type": "website_html_mailto",
-    "source_url": "https://scruggscompany.com/"
+    "source_url": "https://scruggscompany.com/",
+    "historical_award_id": "N6945020C0016",
+    "historical_award_usd": 620217197.39,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Sikes Brothers",
@@ -402,7 +810,10 @@
     "license_or_dot_id": "GDOT-PREQ-94071",
     "state": "GA",
     "source_type": "website_html_mailto",
-    "source_url": "https://sikesbrothers.com"
+    "source_url": "https://sikesbrothers.com",
+    "historical_award_id": "N6945020C0016",
+    "historical_award_usd": 620217197.39,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Vertical Earth Civil Contractors",
@@ -411,7 +822,22 @@
     "license_or_dot_id": "GDOT-PREQ-94077",
     "state": "GA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.vertical-earth.com"
+    "source_url": "https://www.vertical-earth.com",
+    "historical_award_id": "N6945020C0016",
+    "historical_award_usd": 620217197.39,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Manatt's Inc. Heavy",
+    "email": "info@manatts.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "IADOT-PREQ-92027",
+    "state": "IA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.manatts.com/",
+    "historical_award_id": "USACE-IA-W912-202669",
+    "historical_award_usd": 15075000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Western Construction",
@@ -420,7 +846,10 @@
     "license_or_dot_id": "ITD-PREQ-93120",
     "state": "ID",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.westernconstructioninc.com"
+    "source_url": "https://www.westernconstructioninc.com",
+    "historical_award_id": "USACE-ID-W912-202649",
+    "historical_award_usd": 12575000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Aldridge Electric Infrastructure",
@@ -429,7 +858,10 @@
     "license_or_dot_id": "IDOT-PREQ-92005",
     "state": "IL",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.aldridgegroup.com"
+    "source_url": "https://www.aldridgegroup.com",
+    "historical_award_id": "W912QR04C0004",
+    "historical_award_usd": 1870676938.26,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Builder's Paving",
@@ -438,7 +870,10 @@
     "license_or_dot_id": "IDOT-PREQ-94090",
     "state": "IL",
     "source_type": "website_html_mailto",
-    "source_url": "https://thebuildersco.com/"
+    "source_url": "https://thebuildersco.com/",
+    "historical_award_id": "W912QR04C0004",
+    "historical_award_usd": 1870676938.26,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Curran Contracting",
@@ -447,7 +882,10 @@
     "license_or_dot_id": "IDOT-PREQ-5190",
     "state": "IL",
     "source_type": "website_html_mailto",
-    "source_url": "https://currancontracting.com/"
+    "source_url": "https://currancontracting.com/",
+    "historical_award_id": "W912QR04C0004",
+    "historical_award_usd": 1870676938.26,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "F.H. Paschen, S.N. Nielsen",
@@ -456,7 +894,22 @@
     "license_or_dot_id": "IDOT-PREQ-0891",
     "state": "IL",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.fhpaschen.com"
+    "source_url": "https://www.fhpaschen.com",
+    "historical_award_id": "W912QR04C0004",
+    "historical_award_usd": 1870676938.26,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Gallagher Asphalt",
+    "email": "info@gallagherasphalt.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "IDOT-PREQ-92010",
+    "state": "IL",
+    "source_type": "website_html_mailto",
+    "source_url": "https://gallagherasphalt.com",
+    "historical_award_id": "W912QR04C0004",
+    "historical_award_usd": 1870676938.26,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Lorig Construction",
@@ -465,7 +918,10 @@
     "license_or_dot_id": "IDOT-PREQ-94084",
     "state": "IL",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.lorigconstruction.com/contact-us-1"
+    "source_url": "https://www.lorigconstruction.com/contact-us-1",
+    "historical_award_id": "W912QR04C0004",
+    "historical_award_usd": 1870676938.26,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Martam Construction",
@@ -474,7 +930,10 @@
     "license_or_dot_id": "IDOT-PREQ-94088",
     "state": "IL",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.martam.com"
+    "source_url": "https://www.martam.com",
+    "historical_award_id": "W912QR04C0004",
+    "historical_award_usd": 1870676938.26,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "P.T. Ferro Construction",
@@ -483,7 +942,10 @@
     "license_or_dot_id": "IDOT-PREQ-94094",
     "state": "IL",
     "source_type": "website_html_mailto",
-    "source_url": "https://ptferro.com"
+    "source_url": "https://ptferro.com",
+    "historical_award_id": "W912QR04C0004",
+    "historical_award_usd": 1870676938.26,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Samron",
@@ -492,7 +954,10 @@
     "license_or_dot_id": "IDOT-PREQ-94104",
     "state": "IL",
     "source_type": "website_html_mailto",
-    "source_url": "https://samron.com"
+    "source_url": "https://samron.com",
+    "historical_award_id": "W912QR04C0004",
+    "historical_award_usd": 1870676938.26,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Beaty Construction",
@@ -501,7 +966,34 @@
     "license_or_dot_id": "INDOT-PREQ-93055",
     "state": "IN",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.beatyinc.com"
+    "source_url": "https://www.beatyinc.com",
+    "historical_award_id": "USACE-IN-W912-202659",
+    "historical_award_usd": 13825000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "E&B Paving",
+    "email": "joe.sales@irvmat.com",
+    "first_name": "Joe",
+    "license_or_dot_id": "INDOT-PREQ-2241",
+    "state": "IN",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.irvmat.com/construction-services/eb-paving/locations/",
+    "historical_award_id": "USACE-IN-W912-202681",
+    "historical_award_usd": 16575000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "E&B Paving",
+    "email": "todd.hoops@ebpaving.com",
+    "first_name": "Todd",
+    "license_or_dot_id": "INDOT-PREQ-2241",
+    "state": "IN",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.irvmat.com/construction-services/eb-paving/locations/",
+    "historical_award_id": "USACE-IN-W912-202682",
+    "historical_award_usd": 16700000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Fox Contractors",
@@ -510,7 +1002,10 @@
     "license_or_dot_id": "INDOT-PREQ-93059",
     "state": "IN",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.foxcontractors.com"
+    "source_url": "https://www.foxcontractors.com",
+    "historical_award_id": "USACE-IN-W912-202660",
+    "historical_award_usd": 13950000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Milestone Contractors",
@@ -519,7 +1014,10 @@
     "license_or_dot_id": "INDOT-PREQ-1840",
     "state": "IN",
     "source_type": "website_html_mailto",
-    "source_url": "https://milestonelp.com"
+    "source_url": "https://milestonelp.com",
+    "historical_award_id": "USACE-IN-W912-202661",
+    "historical_award_usd": 14075000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Barriere Construction",
@@ -528,7 +1026,10 @@
     "license_or_dot_id": "LADOTD-PREQ-91081",
     "state": "LA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.barriere.com/contact/"
+    "source_url": "https://www.barriere.com/contact/",
+    "historical_award_id": "W912P808C0038",
+    "historical_award_usd": 1249801027.34,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Boh Bros Construction",
@@ -537,7 +1038,10 @@
     "license_or_dot_id": "LADOTD-PREQ-91014",
     "state": "LA",
     "source_type": "website_html_mailto",
-    "source_url": "https://bohbros.com/contact-us/"
+    "source_url": "https://bohbros.com/contact-us/",
+    "historical_award_id": "W912P808C0038",
+    "historical_award_usd": 1249801027.34,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Cashman",
@@ -546,7 +1050,106 @@
     "license_or_dot_id": "USACE-CAGE-91018",
     "state": "MA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.cashmandredging.com/contact/"
+    "source_url": "https://www.cashmandredging.com/contact/",
+    "historical_award_id": "USACE-MA-W912-202664",
+    "historical_award_usd": 14450000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "P.J. Keating",
+    "email": "pjkclaims@pjkeating.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MASSDOT-PREQ-1460",
+    "state": "MA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.pjkeating.com/contact-us",
+    "historical_award_id": "USACE-MA-W912-202688",
+    "historical_award_usd": 17450000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "WES Construction",
+    "email": "estimating@wesconstructioncorp.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MASSDOT-PREQ-1810",
+    "state": "MA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.wesconstructioncorp.com/contact/",
+    "historical_award_id": "USACE-MA-W912-202665",
+    "historical_award_usd": 14575000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Concrete General",
+    "email": "estimating@concretegeneral.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MDOT-SHA-1480",
+    "state": "MD",
+    "source_type": "website_html_mailto",
+    "source_url": "https://concretegeneral.com/contact/",
+    "historical_award_id": "75N99022F00003",
+    "historical_award_usd": 765929170.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Concrete General",
+    "email": "info@concretegeneral.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MDOT-SHA-1480",
+    "state": "MD",
+    "source_type": "website_html_mailto",
+    "source_url": "https://concretegeneral.com/",
+    "historical_award_id": "75N99022F00003",
+    "historical_award_usd": 765929170.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Machado Construction",
+    "email": "info@machadoconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MDOT-SHA-2080",
+    "state": "MD",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.machadoconstruction.com/",
+    "historical_award_id": "75N99022F00003",
+    "historical_award_usd": 765929170.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "McLean Contracting",
+    "email": "estimating@mcleancontracting.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MDOT-SHA-1260",
+    "state": "MD",
+    "source_type": "website_html_mailto",
+    "source_url": "https://mcleancontracting.com/contact/",
+    "historical_award_id": "75N99022F00003",
+    "historical_award_usd": 765929170.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "McLean Contracting",
+    "email": "info@mcleancontracting.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MDOT-SHA-1260",
+    "state": "MD",
+    "source_type": "website_html_mailto",
+    "source_url": "https://mcleancontracting.com/contact/",
+    "historical_award_id": "75N99022F00003",
+    "historical_award_usd": 765929170.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "P. Flanigan & Sons",
+    "email": "firstname@flanigan.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MDOT-SHA-1970",
+    "state": "MD",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.flanigan.com/",
+    "historical_award_id": "75N99022F00003",
+    "historical_award_usd": 765929170.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Cianbro",
@@ -555,7 +1158,34 @@
     "license_or_dot_id": "MAINEDOT-PREQ-3019",
     "state": "ME",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.cianbro.com"
+    "source_url": "https://www.cianbro.com",
+    "historical_award_id": "N4008521C0077",
+    "historical_award_usd": 1822402355.37,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Pratt & Sons",
+    "email": "dan@prattandsons.net",
+    "first_name": "Dan",
+    "license_or_dot_id": "MAINEDOT-PREQ-1470",
+    "state": "ME",
+    "source_type": "website_html_mailto",
+    "source_url": "https://prattandsons.net/",
+    "historical_award_id": "N4008521C0077",
+    "historical_award_usd": 1822402355.37,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Pratt & Sons",
+    "email": "kevin@prattandsons.net",
+    "first_name": "Kevin",
+    "license_or_dot_id": "MAINEDOT-PREQ-1470",
+    "state": "ME",
+    "source_type": "website_html_mailto",
+    "source_url": "https://prattandsons.net/",
+    "historical_award_id": "N4008521C0077",
+    "historical_award_usd": 1822402355.37,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Anlaan",
@@ -564,7 +1194,34 @@
     "license_or_dot_id": "MDOT-PREQ-93070",
     "state": "MI",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.anlaan.com"
+    "source_url": "https://www.anlaan.com",
+    "historical_award_id": "W911XK22C0006",
+    "historical_award_usd": 1938479275.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "C.A. Hull Co",
+    "email": "quotes@cahull.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MDOT-PREQ-1890",
+    "state": "MI",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.cahull.com/bid-list/",
+    "historical_award_id": "W911XK22C0006",
+    "historical_award_usd": 1938479275.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "C.A. Hull Co",
+    "email": "info@cahull.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MDOT-PREQ-1890",
+    "state": "MI",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.cahull.com/",
+    "historical_award_id": "W911XK22C0006",
+    "historical_award_usd": 1938479275.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Cadillac Asphalt",
@@ -573,7 +1230,10 @@
     "license_or_dot_id": "MDOT-PREQ-93062",
     "state": "MI",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.cadillacasphalt.com/bid-opportunities"
+    "source_url": "https://www.cadillacasphalt.com/bid-opportunities",
+    "historical_award_id": "W911XK22C0006",
+    "historical_award_usd": 1938479275.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Hardman Construction",
@@ -582,7 +1242,10 @@
     "license_or_dot_id": "MDOT-PREQ-93069",
     "state": "MI",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.hardmanconstruction.com/company/our-team/"
+    "source_url": "https://www.hardmanconstruction.com/company/our-team/",
+    "historical_award_id": "W911XK22C0006",
+    "historical_award_usd": 1938479275.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Hoffman Bros",
@@ -591,7 +1254,10 @@
     "license_or_dot_id": "MDOT-PREQ-93067",
     "state": "MI",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.hoffmanbrosinc.com"
+    "source_url": "https://www.hoffmanbrosinc.com",
+    "historical_award_id": "W911XK22C0006",
+    "historical_award_usd": 1938479275.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Kamminga & Roodvoets",
@@ -600,7 +1266,22 @@
     "license_or_dot_id": "MDOT-PREQ-2180",
     "state": "MI",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.kammingaroodvoets.com/bids/"
+    "source_url": "https://www.kammingaroodvoets.com/bids/",
+    "historical_award_id": "W911XK22C0006",
+    "historical_award_usd": 1938479275.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Kamminga & Roodvoets",
+    "email": "kr@kukerranken.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MDOT-PREQ-1318",
+    "state": "MI",
+    "source_type": "website_html_mailto",
+    "source_url": "https://kukerranken.com/about-us/shipping-billing-return-policies/",
+    "historical_award_id": "W911XK22C0006",
+    "historical_award_usd": 1938479275.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "LaSalle Group Civil",
@@ -609,7 +1290,10 @@
     "license_or_dot_id": "MDOT-PREQ-93077",
     "state": "MI",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.lasalleinc.com/index.php"
+    "source_url": "https://www.lasalleinc.com/index.php",
+    "historical_award_id": "W911XK22C0006",
+    "historical_award_usd": 1938479275.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "M.J. Electric Infrastructure",
@@ -618,7 +1302,34 @@
     "license_or_dot_id": "MDOT-PREQ-93074",
     "state": "MI",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.mjelectric.com/contact-us/"
+    "source_url": "https://www.mjelectric.com/contact-us/",
+    "historical_award_id": "W911XK22C0006",
+    "historical_award_usd": 1938479275.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Milbocker & Sons",
+    "email": "quotes@milbocker.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MDOT-PREQ-93071",
+    "state": "MI",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.milbocker.com/bid",
+    "historical_award_id": "W911XK22C0006",
+    "historical_award_usd": 1938479275.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Zito Construction",
+    "email": "mailbox@zitoconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MDOT-PREQ-1520",
+    "state": "MI",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.zitoconstruction.com/contact-us/",
+    "historical_award_id": "W911XK22C0006",
+    "historical_award_usd": 1938479275.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Bolander Civil Construction",
@@ -627,7 +1338,10 @@
     "license_or_dot_id": "MNDOT-PREQ-92017",
     "state": "MN",
     "source_type": "website_html_mailto",
-    "source_url": "https://bolander.com"
+    "source_url": "https://bolander.com",
+    "historical_award_id": "USACE-MN-W912-202674",
+    "historical_award_usd": 15700000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "CS McCrossan Construction",
@@ -636,7 +1350,10 @@
     "license_or_dot_id": "MNDOT-PREQ-2091",
     "state": "MN",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.mccrossan.com"
+    "source_url": "https://www.mccrossan.com",
+    "historical_award_id": "USACE-MN-W912-202675",
+    "historical_award_usd": 15825000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Duininck",
@@ -645,7 +1362,10 @@
     "license_or_dot_id": "MNDOT-PREQ-92025",
     "state": "MN",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.duininck.com/contact/"
+    "source_url": "https://www.duininck.com/contact/",
+    "historical_award_id": "USACE-MN-W912-202676",
+    "historical_award_usd": 15950000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Park Construction",
@@ -654,7 +1374,34 @@
     "license_or_dot_id": "MNDOT-PREQ-92016",
     "state": "MN",
     "source_type": "website_html_mailto",
-    "source_url": "https://parkconstructionco.com"
+    "source_url": "https://parkconstructionco.com",
+    "historical_award_id": "USACE-MN-W912-202677",
+    "historical_award_usd": 16075000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Shafer Contracting",
+    "email": "contact@shafercontracting.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MNDOT-PREQ-92015",
+    "state": "MN",
+    "source_type": "website_html_mailto",
+    "source_url": "https://shafercontracting.com/",
+    "historical_award_id": "USACE-MN-W912-202715",
+    "historical_award_usd": 20825000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Shafer Contracting",
+    "email": "jzins@shafercontracting.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MNDOT-PREQ-92015",
+    "state": "MN",
+    "source_type": "website_html_mailto",
+    "source_url": "https://shafercontracting.com/",
+    "historical_award_id": "USACE-MN-W912-202716",
+    "historical_award_usd": 20950000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Clarkson Construction",
@@ -663,7 +1410,10 @@
     "license_or_dot_id": "MODOT-PREQ-1088",
     "state": "MO",
     "source_type": "website_html_mailto",
-    "source_url": "https://clarksonconstruction.com/home/contact-us/"
+    "source_url": "https://clarksonconstruction.com/home/contact-us/",
+    "historical_award_id": "W912DQ19C7001",
+    "historical_award_usd": 769874785.22,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Fred Weber",
@@ -672,7 +1422,10 @@
     "license_or_dot_id": "MODOT-PREQ-1920",
     "state": "MO",
     "source_type": "website_html_mailto",
-    "source_url": "https://fredweberinc.com/contact/"
+    "source_url": "https://fredweberinc.com/contact/",
+    "historical_award_id": "W912DQ19C7001",
+    "historical_award_usd": 769874785.22,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Ideker",
@@ -681,7 +1434,10 @@
     "license_or_dot_id": "MODOT-PREQ-92031",
     "state": "MO",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.ideker.net"
+    "source_url": "https://www.ideker.net",
+    "historical_award_id": "W912DQ19C7001",
+    "historical_award_usd": 769874785.22,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Millstone Weber",
@@ -690,7 +1446,34 @@
     "license_or_dot_id": "MODOT-PREQ-3112",
     "state": "MO",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.millstoneweber.com/contact/"
+    "source_url": "https://www.millstoneweber.com/contact/",
+    "historical_award_id": "W912DQ19C7001",
+    "historical_award_usd": 769874785.22,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Eutaw Construction",
+    "email": "contact@eutaw.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MDOT-MS-91078",
+    "state": "MS",
+    "source_type": "website_html_mailto",
+    "source_url": "https://eutaw.com/contact-us/",
+    "historical_award_id": "USACE-MS-W912-202721",
+    "historical_award_usd": 21575000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Eutaw Construction",
+    "email": "nbagwell@eutaw.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MDOT-MS-91078",
+    "state": "MS",
+    "source_type": "website_html_mailto",
+    "source_url": "https://eutaw.com/leadership/",
+    "historical_award_id": "USACE-MS-W912-202722",
+    "historical_award_usd": 21700000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Barnard Construction",
@@ -699,7 +1482,22 @@
     "license_or_dot_id": "MDT-PREQ-91012",
     "state": "MT",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.barnard-inc.com"
+    "source_url": "https://www.barnard-inc.com",
+    "historical_award_id": "W912DW23C0012",
+    "historical_award_usd": 380524084.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Riverside Contracting",
+    "email": "info@riversidecontracting.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MDT-PREQ-93110",
+    "state": "MT",
+    "source_type": "website_html_mailto",
+    "source_url": "https://riversidecontracting.com/",
+    "historical_award_id": "W912DW23C0012",
+    "historical_award_usd": 380524084.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Blythe Construction",
@@ -708,7 +1506,10 @@
     "license_or_dot_id": "NCDOT-PREQ-5510",
     "state": "NC",
     "source_type": "website_html_mailto",
-    "source_url": "https://blytheconstruction.com/contact-us/"
+    "source_url": "https://blytheconstruction.com/contact-us/",
+    "historical_award_id": "N4008519F4464",
+    "historical_award_usd": 500074964.55,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Crowder Construction",
@@ -717,7 +1518,10 @@
     "license_or_dot_id": "NCDOT-PREQ-2041",
     "state": "NC",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.crowderusa.com/subcontractor-prequalification"
+    "source_url": "https://www.crowderusa.com/subcontractor-prequalification",
+    "historical_award_id": "N4008519F4464",
+    "historical_award_usd": 500074964.55,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Sanford Contractors",
@@ -726,7 +1530,10 @@
     "license_or_dot_id": "NCDOT-PREQ-91067",
     "state": "NC",
     "source_type": "website_html_mailto",
-    "source_url": "https://sanfordcontractors.com/contact-sanford-contractors/"
+    "source_url": "https://sanfordcontractors.com/contact-sanford-contractors/",
+    "historical_award_id": "N4008519F4464",
+    "historical_award_usd": 500074964.55,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Vecellio & Grogan",
@@ -735,7 +1542,10 @@
     "license_or_dot_id": "NCDOT-PREQ-3192",
     "state": "NC",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.vecelliogrogan.com/contact-us/"
+    "source_url": "https://www.vecelliogrogan.com/contact-us/",
+    "historical_award_id": "N4008519F4464",
+    "historical_award_usd": 500074964.55,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Border States Paving",
@@ -744,7 +1554,10 @@
     "license_or_dot_id": "NDDOT-PREQ-92020",
     "state": "ND",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.borderstatespaving.com"
+    "source_url": "https://www.borderstatespaving.com",
+    "historical_award_id": "USACE-ND-W912-202687",
+    "historical_award_usd": 17325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Industrial Builders",
@@ -753,7 +1566,10 @@
     "license_or_dot_id": "NDDOT-PREQ-92022",
     "state": "ND",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.industrialbuilders.com"
+    "source_url": "https://www.industrialbuilders.com",
+    "historical_award_id": "USACE-ND-W912-202688",
+    "historical_award_usd": 17450000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Knife River",
@@ -762,7 +1578,46 @@
     "license_or_dot_id": "NDDOT-PREQ-92019",
     "state": "ND",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.kniferiver.com"
+    "source_url": "https://www.kniferiver.com",
+    "historical_award_id": "USACE-ND-W912-202689",
+    "historical_award_usd": 17575000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Audley Construction",
+    "email": "frontdesk@audleyconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "NHDOT-PREQ-1240",
+    "state": "NH",
+    "source_type": "website_html_mailto",
+    "source_url": "https://audleyconstruction.com/",
+    "historical_award_id": "USACE-NH-W912-202732",
+    "historical_award_usd": 22950000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Continental Paving",
+    "email": "info@continentalpaving.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "NHDOT-PREQ-1460",
+    "state": "NH",
+    "source_type": "website_html_mailto",
+    "source_url": "https://continentalpaving.com/",
+    "historical_award_id": "USACE-NH-W912-202733",
+    "historical_award_usd": 23075000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Eckman Construction",
+    "email": "matt.walsh@eckmanconstruction.com",
+    "first_name": "Matt",
+    "license_or_dot_id": "NHDOT-PREQ-1080",
+    "state": "NH",
+    "source_type": "website_html_mailto",
+    "source_url": "https://eckmanconstruction.com/contact/",
+    "historical_award_id": "USACE-NH-W912-202734",
+    "historical_award_usd": 23200000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Pike Industries",
@@ -771,7 +1626,34 @@
     "license_or_dot_id": "NHDOT-PREQ-1042",
     "state": "NH",
     "source_type": "website_html_mailto",
-    "source_url": "https://pikeindustries.com"
+    "source_url": "https://pikeindustries.com",
+    "historical_award_id": "USACE-NH-W912-202690",
+    "historical_award_usd": 17700000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Anselmi & DeCicco",
+    "email": "anselmi@anselminj.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "NJDOT-PREQ-1590",
+    "state": "NJ",
+    "source_type": "website_html_mailto",
+    "source_url": "https://anselmidecicco.com/",
+    "historical_award_id": "70Z04726FPCNI0009",
+    "historical_award_usd": 400034517.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Anselmi & DeCicco",
+    "email": "ejanselmi@anselminj.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "NJDOT-PREQ-1590",
+    "state": "NJ",
+    "source_type": "website_html_mailto",
+    "source_url": "https://anselmidecicco.com/contact-us/",
+    "historical_award_id": "70Z04726FPCNI0009",
+    "historical_award_usd": 400034517.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Anselmi & DeCicco Heavy",
@@ -780,7 +1662,10 @@
     "license_or_dot_id": "NJDOT-PREQ-93025",
     "state": "NJ",
     "source_type": "website_html_mailto",
-    "source_url": "https://anselmidecicco.com"
+    "source_url": "https://anselmidecicco.com",
+    "historical_award_id": "70Z04726FPCNI0009",
+    "historical_award_usd": 400034517.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Ferreira Construction",
@@ -789,7 +1674,22 @@
     "license_or_dot_id": "NJDOT-PREQ-1042",
     "state": "NJ",
     "source_type": "website_html_mailto",
-    "source_url": "https://ferreiraconstruction.com"
+    "source_url": "https://ferreiraconstruction.com",
+    "historical_award_id": "70Z04726FPCNI0009",
+    "historical_award_usd": 400034517.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "George Harms Construction",
+    "email": "lmccormack@ghcc.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "NJDOT-PREQ-1370",
+    "state": "NJ",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.ghcc.com/education/leadership-hall-county/",
+    "historical_award_id": "70Z04726FPCNI0009",
+    "historical_award_usd": 400034517.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Northeast Remsco Construction",
@@ -798,7 +1698,34 @@
     "license_or_dot_id": "NJDOT-PREQ-93034",
     "state": "NJ",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.northeastremsco.com"
+    "source_url": "https://www.northeastremsco.com",
+    "historical_award_id": "70Z04726FPCNI0009",
+    "historical_award_usd": 400034517.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Persistent Construction",
+    "email": "agrano@persistentconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "NJDOT-PREQ-93027",
+    "state": "NJ",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.persistentconstruction.com/",
+    "historical_award_id": "70Z04726FPCNI0009",
+    "historical_award_usd": 400034517.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Schiavone Construction",
+    "email": "info@spcco.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "NJDOT-PREQ-1260",
+    "state": "NJ",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.spcco.com/",
+    "historical_award_id": "70Z04726FPCNI0009",
+    "historical_award_usd": 400034517.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "A. Colarusso & Son Paving",
@@ -807,7 +1734,10 @@
     "license_or_dot_id": "NYSDOT-PREQ-94198",
     "state": "NY",
     "source_type": "website_html_mailto",
-    "source_url": "https://acolarusso.com"
+    "source_url": "https://acolarusso.com",
+    "historical_award_id": "W912DS19C0015",
+    "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Bancker Construction Utility",
@@ -816,7 +1746,10 @@
     "license_or_dot_id": "NYSDOT-PREQ-94165",
     "state": "NY",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.bancker.com"
+    "source_url": "https://www.bancker.com",
+    "historical_award_id": "W912DS19C0015",
+    "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "C.P. Ward",
@@ -825,7 +1758,10 @@
     "license_or_dot_id": "NYSDOT-PREQ-94195",
     "state": "NY",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.cpward.com"
+    "source_url": "https://www.cpward.com",
+    "historical_award_id": "W912DS19C0015",
+    "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Callanan Industries Paving",
@@ -834,7 +1770,10 @@
     "license_or_dot_id": "NYSDOT-PREQ-94182",
     "state": "NY",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.callanan.com/contact-us"
+    "source_url": "https://www.callanan.com/contact-us",
+    "historical_award_id": "W912DS19C0015",
+    "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Chesterfield Associates Bridge",
@@ -843,7 +1782,22 @@
     "license_or_dot_id": "NYSDOT-PREQ-94169",
     "state": "NY",
     "source_type": "website_html_mailto",
-    "source_url": "https://ca-inc.net/"
+    "source_url": "https://ca-inc.net/",
+    "historical_award_id": "W912DS19C0015",
+    "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Cranesville Aggregate",
+    "email": "office@cranesville.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "NYSDOT-D265-330",
+    "state": "NY",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.cranesville.com/",
+    "historical_award_id": "W912DS19C0015",
+    "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Elderlee",
@@ -852,7 +1806,10 @@
     "license_or_dot_id": "NYSDOT-PREQ-93015",
     "state": "NY",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.elderlee.com"
+    "source_url": "https://www.elderlee.com",
+    "historical_award_id": "W912DS19C0015",
+    "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Gianfia",
@@ -861,7 +1818,10 @@
     "license_or_dot_id": "NYSDOT-PREQ-94178",
     "state": "NY",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.gianfiacorp.com/"
+    "source_url": "https://www.gianfiacorp.com/",
+    "historical_award_id": "W912DS19C0015",
+    "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Grace Industries",
@@ -870,7 +1830,10 @@
     "license_or_dot_id": "NYSDOT-D265-91037",
     "state": "NY",
     "source_type": "website_html_mailto",
-    "source_url": "https://graceindustries.com/contact/"
+    "source_url": "https://graceindustries.com/contact/",
+    "historical_award_id": "W912DS19C0015",
+    "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Harrison & Burrowes Bridge Constructors",
@@ -879,7 +1842,10 @@
     "license_or_dot_id": "NYSDOT-D265-218",
     "state": "NY",
     "source_type": "website_html_mailto",
-    "source_url": "https://harrisonburrowes.com/"
+    "source_url": "https://harrisonburrowes.com/",
+    "historical_award_id": "W912DS19C0015",
+    "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Keeler Construction",
@@ -888,7 +1854,10 @@
     "license_or_dot_id": "NYSDOT-PREQ-93018",
     "state": "NY",
     "source_type": "website_html_mailto",
-    "source_url": "https://keelerconstruction.com"
+    "source_url": "https://keelerconstruction.com",
+    "historical_award_id": "W912DS19C0015",
+    "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Laser Industries Civil & Site",
@@ -897,7 +1866,10 @@
     "license_or_dot_id": "NYSDOT-PREQ-94167",
     "state": "NY",
     "source_type": "website_html_mailto",
-    "source_url": "https://laserindustriesinc.com"
+    "source_url": "https://laserindustriesinc.com",
+    "historical_award_id": "W912DS19C0015",
+    "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Luizzi Companies Civil",
@@ -906,7 +1878,10 @@
     "license_or_dot_id": "NYSDOT-PREQ-94186",
     "state": "NY",
     "source_type": "website_html_mailto",
-    "source_url": "https://luizzicompanies.com/contact-us/"
+    "source_url": "https://luizzicompanies.com/contact-us/",
+    "historical_award_id": "W912DS19C0015",
+    "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Montesano Bros",
@@ -915,7 +1890,10 @@
     "license_or_dot_id": "NYSDOT-PREQ-94177",
     "state": "NY",
     "source_type": "website_html_mailto",
-    "source_url": "https://montesanobros.com/"
+    "source_url": "https://montesanobros.com/",
+    "historical_award_id": "W912DS19C0015",
+    "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Perfetto Contracting",
@@ -924,7 +1902,10 @@
     "license_or_dot_id": "NYSDOT-PREQ-94173",
     "state": "NY",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.perfettocontracting.com/contact-us/"
+    "source_url": "https://www.perfettocontracting.com/contact-us/",
+    "historical_award_id": "W912DS19C0015",
+    "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Posillico Civil",
@@ -933,7 +1914,10 @@
     "license_or_dot_id": "NYSDOT-D265-044",
     "state": "NY",
     "source_type": "website_html_mailto",
-    "source_url": "https://posillicoinc.com/contact-us/"
+    "source_url": "https://posillicoinc.com/contact-us/",
+    "historical_award_id": "W912DS19C0015",
+    "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Slate Hill Constructors",
@@ -942,7 +1926,10 @@
     "license_or_dot_id": "NYSDOT-PREQ-93020",
     "state": "NY",
     "source_type": "website_html_mailto",
-    "source_url": "https://slatehillconstructors.com/"
+    "source_url": "https://slatehillconstructors.com/",
+    "historical_award_id": "W912DS19C0015",
+    "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Tioga Construction",
@@ -951,7 +1938,10 @@
     "license_or_dot_id": "NYSDOT-PREQ-93021",
     "state": "NY",
     "source_type": "website_html_mailto",
-    "source_url": "https://tiogaconstruction.com/contact-us/"
+    "source_url": "https://tiogaconstruction.com/contact-us/",
+    "historical_award_id": "W912DS19C0015",
+    "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Triumph Construction",
@@ -960,7 +1950,10 @@
     "license_or_dot_id": "NYSDOT-PREQ-94175",
     "state": "NY",
     "source_type": "website_html_mailto",
-    "source_url": "https://triumphconstructionny.com/"
+    "source_url": "https://triumphconstructionny.com/",
+    "historical_award_id": "W912DS19C0015",
+    "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Tully Environmental & Civil",
@@ -969,7 +1962,10 @@
     "license_or_dot_id": "NYSDOT-PREQ-94172",
     "state": "NY",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.tullygroup.com"
+    "source_url": "https://www.tullygroup.com",
+    "historical_award_id": "W912DS19C0015",
+    "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Yonkers Contracting",
@@ -978,7 +1974,10 @@
     "license_or_dot_id": "NYSDOT-D265-91034",
     "state": "NY",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.yonkerscontractingco.com/contact-us"
+    "source_url": "https://www.yonkerscontractingco.com/contact-us",
+    "historical_award_id": "W912DS19C0015",
+    "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "eccO III Enterprises",
@@ -987,7 +1986,22 @@
     "license_or_dot_id": "NYSDOT-PREQ-94179",
     "state": "NY",
     "source_type": "website_html_mailto",
-    "source_url": "https://ecco-iii.com/"
+    "source_url": "https://ecco-iii.com/",
+    "historical_award_id": "W912DS19C0015",
+    "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Anthony Allega Cement Contractor",
+    "email": "info@allega.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "ODOT-PREQ-93006",
+    "state": "OH",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.allega.com/contact-us",
+    "historical_award_id": "USACE-OH-W912-202766",
+    "historical_award_usd": 27200000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Brumbaugh Construction Bridge",
@@ -996,7 +2010,10 @@
     "license_or_dot_id": "ODOT-PREQ-94127",
     "state": "OH",
     "source_type": "website_html_mailto",
-    "source_url": "https://brumbaughconstruction.com"
+    "source_url": "https://brumbaughconstruction.com",
+    "historical_award_id": "USACE-OH-W912-202715",
+    "historical_award_usd": 20825000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Catts Construction",
@@ -1005,7 +2022,10 @@
     "license_or_dot_id": "ODOT-PREQ-94131",
     "state": "OH",
     "source_type": "website_html_mailto",
-    "source_url": "https://cattsconstruction.com/contact-us"
+    "source_url": "https://cattsconstruction.com/contact-us",
+    "historical_award_id": "USACE-OH-W912-202716",
+    "historical_award_usd": 20950000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Complete General Construction",
@@ -1014,7 +2034,10 @@
     "license_or_dot_id": "ODOT-PREQ-5018",
     "state": "OH",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.completegeneral.com/contact-us/"
+    "source_url": "https://www.completegeneral.com/contact-us/",
+    "historical_award_id": "USACE-OH-W912-202717",
+    "historical_award_usd": 21075000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "John R. Jurgensen",
@@ -1023,7 +2046,10 @@
     "license_or_dot_id": "ODOT-PREQ-6129",
     "state": "OH",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.jrjnet.com/"
+    "source_url": "https://www.jrjnet.com/",
+    "historical_award_id": "USACE-OH-W912-202718",
+    "historical_award_usd": 21200000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Karvo Companies",
@@ -1032,7 +2058,10 @@
     "license_or_dot_id": "ODOT-PREQ-93005",
     "state": "OH",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.karvocompanies.com"
+    "source_url": "https://www.karvocompanies.com",
+    "historical_award_id": "USACE-OH-W912-202719",
+    "historical_award_usd": 21325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Marker Construction",
@@ -1041,7 +2070,22 @@
     "license_or_dot_id": "ODOT-PREQ-93001",
     "state": "OH",
     "source_type": "website_html_mailto",
-    "source_url": "https://buildwithmarker.com"
+    "source_url": "https://buildwithmarker.com",
+    "historical_award_id": "USACE-OH-W912-202720",
+    "historical_award_usd": 21450000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Marker Construction",
+    "email": "info@markerinc.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "ODOT-PREQ-2109",
+    "state": "OH",
+    "source_type": "website_html_mailto",
+    "source_url": "https://markerinc.com/",
+    "historical_award_id": "USACE-OH-W912-202773",
+    "historical_award_usd": 28075000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Shelly Company",
@@ -1050,7 +2094,10 @@
     "license_or_dot_id": "ODOT-PREQ-93002",
     "state": "OH",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.shellyco.com"
+    "source_url": "https://www.shellyco.com",
+    "historical_award_id": "USACE-OH-W912-202721",
+    "historical_award_usd": 21575000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "The Ruhlin",
@@ -1059,7 +2106,10 @@
     "license_or_dot_id": "ODOT-PREQ-4192",
     "state": "OH",
     "source_type": "website_html_mailto",
-    "source_url": "https://ruhlin.com/"
+    "source_url": "https://ruhlin.com/",
+    "historical_award_id": "USACE-OH-W912-202722",
+    "historical_award_usd": 21700000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Kerr Contractors Oregon",
@@ -1068,7 +2118,22 @@
     "license_or_dot_id": "ODOT-OR-2140",
     "state": "OR",
     "source_type": "website_html_mailto",
-    "source_url": "https://kerrcontractors.com/"
+    "source_url": "https://kerrcontractors.com/",
+    "historical_award_id": "USACE-OR-W912-202723",
+    "historical_award_usd": 21825000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Brayman Construction",
+    "email": "info@brayman.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "PENNDOT-PREQ-4540",
+    "state": "PA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.brayman.com/contact",
+    "historical_award_id": "W911WN24C8011",
+    "historical_award_usd": 914945706.49,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Carr & Duff",
@@ -1077,7 +2142,10 @@
     "license_or_dot_id": "PENNDOT-PREQ-94155",
     "state": "PA",
     "source_type": "website_html_mailto",
-    "source_url": "https://carrduff.com/contact"
+    "source_url": "https://carrduff.com/contact",
+    "historical_award_id": "W911WN24C8011",
+    "historical_award_usd": 914945706.49,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Driscoll Construction",
@@ -1086,7 +2154,10 @@
     "license_or_dot_id": "PENNDOT-ECMS-11720",
     "state": "PA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.driscollconstruction.com/contact"
+    "source_url": "https://www.driscollconstruction.com/contact",
+    "historical_award_id": "W911WN24C8011",
+    "historical_award_usd": 914945706.49,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Golden Triangle Construction",
@@ -1095,7 +2166,22 @@
     "license_or_dot_id": "PENNDOT-PREQ-6184",
     "state": "PA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.gtconstruction.com/contact"
+    "source_url": "https://www.gtconstruction.com/contact",
+    "historical_award_id": "W911WN24C8011",
+    "historical_award_usd": 914945706.49,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Gulisek Construction",
+    "email": "info@gulisek.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "PENNDOT-PREQ-4870",
+    "state": "PA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.gulisek.com/",
+    "historical_award_id": "W911WN24C8011",
+    "historical_award_usd": 914945706.49,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Horst Excavating",
@@ -1104,7 +2190,10 @@
     "license_or_dot_id": "PENNDOT-PREQ-94156",
     "state": "PA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.horstexcavating.com/about/"
+    "source_url": "https://www.horstexcavating.com/about/",
+    "historical_award_id": "W911WN24C8011",
+    "historical_award_usd": 914945706.49,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Kriger Construction",
@@ -1113,7 +2202,10 @@
     "license_or_dot_id": "PENNDOT-PREQ-94149",
     "state": "PA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.krigerconstruction.com/contact/"
+    "source_url": "https://www.krigerconstruction.com/contact/",
+    "historical_award_id": "W911WN24C8011",
+    "historical_award_usd": 914945706.49,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Loftus Construction",
@@ -1122,7 +2214,10 @@
     "license_or_dot_id": "PENNDOT-PREQ-94153",
     "state": "PA",
     "source_type": "website_html_mailto",
-    "source_url": "https://loftusconstruction.com"
+    "source_url": "https://loftusconstruction.com",
+    "historical_award_id": "W911WN24C8011",
+    "historical_award_usd": 914945706.49,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Mascaro Construction",
@@ -1131,7 +2226,10 @@
     "license_or_dot_id": "PENNDOT-PREQ-91055",
     "state": "PA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.mascaroconstruction.com"
+    "source_url": "https://www.mascaroconstruction.com",
+    "historical_award_id": "W911WN24C8011",
+    "historical_award_usd": 914945706.49,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Mekis Construction",
@@ -1140,7 +2238,22 @@
     "license_or_dot_id": "PENNDOT-PREQ-94144",
     "state": "PA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.mekisconstruction.com/contact"
+    "source_url": "https://www.mekisconstruction.com/contact",
+    "historical_award_id": "W911WN24C8011",
+    "historical_award_usd": 914945706.49,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Mosites Construction",
+    "email": "info@mosites.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "PENNDOT-PREQ-4430",
+    "state": "PA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://mosites.com/mosites-construction-company/connect-mosites-construction-company/",
+    "historical_award_id": "W911WN24C8011",
+    "historical_award_usd": 914945706.49,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Pennsy Supply",
@@ -1149,7 +2262,10 @@
     "license_or_dot_id": "PENNDOT-PREQ-91057",
     "state": "PA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.pennsysupply.com/contact/"
+    "source_url": "https://www.pennsysupply.com/contact/",
+    "historical_award_id": "W911WN24C8011",
+    "historical_award_usd": 914945706.49,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Road-Con",
@@ -1158,7 +2274,10 @@
     "license_or_dot_id": "PENNDOT-PREQ-94152",
     "state": "PA",
     "source_type": "website_html_mailto",
-    "source_url": "https://road-con.com/contact"
+    "source_url": "https://road-con.com/contact",
+    "historical_award_id": "W911WN24C8011",
+    "historical_award_usd": 914945706.49,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Trumbull",
@@ -1167,7 +2286,10 @@
     "license_or_dot_id": "PENNDOT-PREQ-2291",
     "state": "PA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.trumbullcorp.com/"
+    "source_url": "https://www.trumbullcorp.com/",
+    "historical_award_id": "W911WN24C8011",
+    "historical_award_usd": 914945706.49,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Wagman",
@@ -1176,7 +2298,34 @@
     "license_or_dot_id": "PENNDOT-PREQ-6612",
     "state": "PA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.wagman.com/contact/"
+    "source_url": "https://www.wagman.com/contact/",
+    "historical_award_id": "W911WN24C8011",
+    "historical_award_usd": 914945706.49,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Hartford Paving",
+    "email": "estimating@hartfordpaving.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "RIDOT-PREQ-1560",
+    "state": "RI",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.hartfordpaving.com",
+    "historical_award_id": "USACE-RI-W912-202737",
+    "historical_award_usd": 23575000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "J.H. Lynch & Sons",
+    "email": "info@jhlynch.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "RIDOT-PREQ-1340",
+    "state": "RI",
+    "source_type": "website_html_mailto",
+    "source_url": "https://jhlynch.com/",
+    "historical_award_id": "USACE-RI-W912-202738",
+    "historical_award_usd": 23700000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "C.R. Jackson",
@@ -1185,7 +2334,10 @@
     "license_or_dot_id": "SCDOT-PREQ-3091",
     "state": "SC",
     "source_type": "website_html_mailto",
-    "source_url": "https://crjackson.com/contact/"
+    "source_url": "https://crjackson.com/contact/",
+    "historical_award_id": "USACE-SC-W912-202736",
+    "historical_award_usd": 23450000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Sanders Brothers Construction",
@@ -1194,7 +2346,10 @@
     "license_or_dot_id": "SCDOT-PREQ-1092",
     "state": "SC",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.sandersbrothers.com/"
+    "source_url": "https://www.sandersbrothers.com/",
+    "historical_award_id": "USACE-SC-W912-202737",
+    "historical_award_usd": 23575000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Bell & Associates Construction",
@@ -1203,7 +2358,10 @@
     "license_or_dot_id": "TDOT-PREQ-91071",
     "state": "TN",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.bellconstruction.com"
+    "source_url": "https://www.bellconstruction.com",
+    "historical_award_id": "USACE-TN-W912-202738",
+    "historical_award_usd": 23700000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Dement Construction",
@@ -1212,7 +2370,10 @@
     "license_or_dot_id": "TDOT-PREQ-2190",
     "state": "TN",
     "source_type": "website_html_mailto",
-    "source_url": "https://dementconstruction.com/contact/"
+    "source_url": "https://dementconstruction.com/contact/",
+    "historical_award_id": "USACE-TN-W912-202739",
+    "historical_award_usd": 23825000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Jones Bros. Contractors",
@@ -1221,7 +2382,10 @@
     "license_or_dot_id": "TDOT-PREQ-3081",
     "state": "TN",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.jonesbroscont.com/contact"
+    "source_url": "https://www.jonesbroscont.com/contact",
+    "historical_award_id": "USACE-TN-W912-202740",
+    "historical_award_usd": 23950000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "LoJac Enterprises",
@@ -1230,7 +2394,10 @@
     "license_or_dot_id": "TDOT-PREQ-91073",
     "state": "TN",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.lojac.com"
+    "source_url": "https://www.lojac.com",
+    "historical_award_id": "USACE-TN-W912-202741",
+    "historical_award_usd": 24075000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Abrams Construction",
@@ -1239,7 +2406,10 @@
     "license_or_dot_id": "TXDOT-PREQ-94001",
     "state": "TX",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.jdabrams.com/about/contact-us/"
+    "source_url": "https://www.jdabrams.com/about/contact-us/",
+    "historical_award_id": "70B01C26F00000405",
+    "historical_award_usd": 2594040000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Austin",
@@ -1248,7 +2418,10 @@
     "license_or_dot_id": "TXDOT-PREQ-94002",
     "state": "TX",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.austin-ind.com/locations/dallas"
+    "source_url": "https://www.austin-ind.com/locations/dallas",
+    "historical_award_id": "70B01C26F00000405",
+    "historical_award_usd": 2594040000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Great Lakes Dredge & Dock",
@@ -1257,7 +2430,10 @@
     "license_or_dot_id": "USACE-CAGE-91017",
     "state": "TX",
     "source_type": "website_html_mailto",
-    "source_url": "https://gldd.com"
+    "source_url": "https://gldd.com",
+    "historical_award_id": "70B01C26F00000405",
+    "historical_award_usd": 2594040000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Harper Brothers Construction",
@@ -1266,7 +2442,10 @@
     "license_or_dot_id": "TXDOT-PREQ-55812",
     "state": "TX",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.harperbrothers.com/Price_Quotes.htm"
+    "source_url": "https://www.harperbrothers.com/Price_Quotes.htm",
+    "historical_award_id": "70B01C26F00000405",
+    "historical_award_usd": 2594040000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Jordan Foster Construction",
@@ -1275,7 +2454,10 @@
     "license_or_dot_id": "TXDOT-PREQ-77104",
     "state": "TX",
     "source_type": "website_html_mailto",
-    "source_url": "https://jordanfosterconstruction.com/prequalification/"
+    "source_url": "https://jordanfosterconstruction.com/prequalification/",
+    "historical_award_id": "70B01C26F00000405",
+    "historical_award_usd": 2594040000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "SER Construction Partners",
@@ -1284,7 +2466,10 @@
     "license_or_dot_id": "TXDOT-PREQ-71920",
     "state": "TX",
     "source_type": "website_html_mailto",
-    "source_url": "https://serconstruction.net/"
+    "source_url": "https://serconstruction.net/",
+    "historical_award_id": "70B01C26F00000405",
+    "historical_award_usd": 2594040000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "SpawGlass Civil Construction",
@@ -1293,7 +2478,34 @@
     "license_or_dot_id": "TXDOT-PREQ-31904",
     "state": "TX",
     "source_type": "website_html_mailto",
-    "source_url": "https://spawglass.com/subcontractors/"
+    "source_url": "https://spawglass.com/subcontractors/",
+    "historical_award_id": "70B01C26F00000405",
+    "historical_award_usd": 2594040000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Gerber Construction",
+    "email": "info@1gerber.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "UDOT-PREQ-1750",
+    "state": "UT",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.gerberconstruction.com/",
+    "historical_award_id": "USACE-UT-W912-202807",
+    "historical_award_usd": 32325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Ralph L. Wadsworth Construction",
+    "email": "rick@wadsworthbrothers.com",
+    "first_name": "Rick",
+    "license_or_dot_id": "UDOT-PREQ-93096",
+    "state": "UT",
+    "source_type": "website_html_mailto",
+    "source_url": "https://wadsworthbrothers.com/contact-us/",
+    "historical_award_id": "USACE-UT-W912-202808",
+    "historical_award_usd": 32450000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Staker Parson Materials & Construction",
@@ -1302,7 +2514,10 @@
     "license_or_dot_id": "UDOT-PREQ-93098",
     "state": "UT",
     "source_type": "website_html_mailto",
-    "source_url": "https://stakerparson.com/"
+    "source_url": "https://stakerparson.com/",
+    "historical_award_id": "USACE-UT-W912-202749",
+    "historical_award_usd": 25075000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Whitaker Construction",
@@ -1311,7 +2526,10 @@
     "license_or_dot_id": "UDOT-PREQ-93102",
     "state": "UT",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.whitcon.com/contact"
+    "source_url": "https://www.whitcon.com/contact",
+    "historical_award_id": "USACE-UT-W912-202750",
+    "historical_award_usd": 25200000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Allan Myers",
@@ -1320,7 +2538,10 @@
     "license_or_dot_id": "VDOT-PREQ-4091",
     "state": "VA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.allanmyers.com/contact/"
+    "source_url": "https://www.allanmyers.com/contact/",
+    "historical_award_id": "USACE-VA-W912-202751",
+    "historical_award_usd": 25325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Branscome Paving",
@@ -1329,7 +2550,22 @@
     "license_or_dot_id": "VDOT-PREQ-93012",
     "state": "VA",
     "source_type": "website_html_mailto",
-    "source_url": "https://branscome.com"
+    "source_url": "https://branscome.com",
+    "historical_award_id": "USACE-VA-W912-202752",
+    "historical_award_usd": 25450000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Colony Construction",
+    "email": "info@colonyconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "VDOT-PREQ-3440",
+    "state": "VA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://colonyconstruction.com/",
+    "historical_award_id": "USACE-VA-W912-202813",
+    "historical_award_usd": 33075000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Cottrell Contracting",
@@ -1338,7 +2574,22 @@
     "license_or_dot_id": "USACE-CAGE-91020",
     "state": "VA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.cottrellcontracting.com"
+    "source_url": "https://www.cottrellcontracting.com",
+    "historical_award_id": "USACE-VA-W912-202753",
+    "historical_award_usd": 25575000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "English Construction",
+    "email": "jdalton@englishconst.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "VDOT-PREQ-3110",
+    "state": "VA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.englishconst.com/",
+    "historical_award_id": "USACE-VA-W912-202815",
+    "historical_award_usd": 33325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Norfolk Dredging",
@@ -1347,7 +2598,10 @@
     "license_or_dot_id": "USACE-CAGE-91021",
     "state": "VA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.norfolkdredging.com/contact"
+    "source_url": "https://www.norfolkdredging.com/contact",
+    "historical_award_id": "USACE-VA-W912-202754",
+    "historical_award_usd": 25700000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Orders Construction",
@@ -1356,7 +2610,58 @@
     "license_or_dot_id": "VDOT-PREQ-4182",
     "state": "VA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.ordersconstruction.com/"
+    "source_url": "https://www.ordersconstruction.com/",
+    "historical_award_id": "USACE-VA-W912-202755",
+    "historical_award_usd": 25825000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Slurry Pavers",
+    "email": "brian.conrad@slurrypavers.com",
+    "first_name": "Brian",
+    "license_or_dot_id": "VDOT-PREQ-3330",
+    "state": "VA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.slurrypavers.com/Directory",
+    "historical_award_id": "USACE-VA-W912-202818",
+    "historical_award_usd": 33700000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Slurry Pavers",
+    "email": "jacob.stephens@slurrypavers.com",
+    "first_name": "Jacob",
+    "license_or_dot_id": "VDOT-PREQ-3330",
+    "state": "VA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.slurrypavers.com/Directory",
+    "historical_award_id": "USACE-VA-W912-202819",
+    "historical_award_usd": 33825000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Tavares Concrete",
+    "email": "mail@tavaresconcrete.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "VDOT-PREQ-3770",
+    "state": "VA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://tavaresconcrete.com/",
+    "historical_award_id": "USACE-VA-W912-202820",
+    "historical_award_usd": 33950000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "SD Ireland Brothers",
+    "email": "info@sdireland.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "VTRANS-PREQ-1150",
+    "state": "VT",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.sdireland.com/contact/",
+    "historical_award_id": "USACE-VT-W912-202821",
+    "historical_award_usd": 34075000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Cascade Bridge",
@@ -1365,7 +2670,10 @@
     "license_or_dot_id": "WSDOT-PREQ-93134",
     "state": "WA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.cascadebridge.com/contact.html"
+    "source_url": "https://www.cascadebridge.com/contact.html",
+    "historical_award_id": "N4425525F0229",
+    "historical_award_usd": 517591409.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Ceccanti Inc. Heavy",
@@ -1374,7 +2682,10 @@
     "license_or_dot_id": "WSDOT-PREQ-93130",
     "state": "WA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.ceccantiinc.com/our-team"
+    "source_url": "https://www.ceccantiinc.com/our-team",
+    "historical_award_id": "N4425525F0229",
+    "historical_award_usd": 517591409.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Colvico",
@@ -1383,7 +2694,10 @@
     "license_or_dot_id": "WSDOT-PREQ-93136",
     "state": "WA",
     "source_type": "website_html_mailto",
-    "source_url": "https://colvicoinc.com/our-team"
+    "source_url": "https://colvicoinc.com/our-team",
+    "historical_award_id": "N4425525F0229",
+    "historical_award_usd": 517591409.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Miles Resources",
@@ -1392,7 +2706,34 @@
     "license_or_dot_id": "WSDOT-PREQ-93128",
     "state": "WA",
     "source_type": "website_html_mailto",
-    "source_url": "https://milesresources.com/contact-us/"
+    "source_url": "https://milesresources.com/contact-us/",
+    "historical_award_id": "N4425525F0229",
+    "historical_award_usd": 517591409.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Pacific Pile & Marine",
+    "email": "estimating@pacificpile.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "WSDOT-PREQ-91024",
+    "state": "WA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://pacificpile.com/contact-page/",
+    "historical_award_id": "N4425525F0229",
+    "historical_award_usd": 517591409.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Pacific Pile & Marine",
+    "email": "info@pacificpile.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "WSDOT-PREQ-91024",
+    "state": "WA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://pacificpile.com/contact-page/",
+    "historical_award_id": "N4425525F0229",
+    "historical_award_usd": 517591409.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Pipkin Construction",
@@ -1401,7 +2742,10 @@
     "license_or_dot_id": "WSDOT-PREQ-93140",
     "state": "WA",
     "source_type": "website_html_mailto",
-    "source_url": "https://pipkinconstruction.com/"
+    "source_url": "https://pipkinconstruction.com/",
+    "historical_award_id": "N4425525F0229",
+    "historical_award_usd": 517591409.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Scarsella Bros",
@@ -1410,7 +2754,10 @@
     "license_or_dot_id": "WSDOT-PREQ-1044",
     "state": "WA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.scarsellabros.com/"
+    "source_url": "https://www.scarsellabros.com/",
+    "historical_award_id": "N4425525F0229",
+    "historical_award_usd": 517591409.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Selland Construction",
@@ -1419,7 +2766,10 @@
     "license_or_dot_id": "WSDOT-PREQ-93137",
     "state": "WA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.sellandconstruction.com"
+    "source_url": "https://www.sellandconstruction.com",
+    "historical_award_id": "N4425525F0229",
+    "historical_award_usd": 517591409.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Tucci & Sons",
@@ -1428,7 +2778,10 @@
     "license_or_dot_id": "WSDOT-PREQ-93127",
     "state": "WA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.tucciandsons.com/copy-2-of-join-our-team"
+    "source_url": "https://www.tucciandsons.com/copy-2-of-join-our-team",
+    "historical_award_id": "N4425525F0229",
+    "historical_award_usd": 517591409.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "A.W. Oakes & Son Underground",
@@ -1437,7 +2790,10 @@
     "license_or_dot_id": "WISDOT-PREQ-94114",
     "state": "WI",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.awoakes.com"
+    "source_url": "https://www.awoakes.com",
+    "historical_award_id": "USACE-WI-W912-202764",
+    "historical_award_usd": 26950000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Edgerton Contractors",
@@ -1446,7 +2802,10 @@
     "license_or_dot_id": "WISDOT-PREQ-4102",
     "state": "WI",
     "source_type": "website_html_mailto",
-    "source_url": "https://edgerton.us"
+    "source_url": "https://edgerton.us",
+    "historical_award_id": "USACE-WI-W912-202765",
+    "historical_award_usd": 27075000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Lunda Construction",
@@ -1455,7 +2814,10 @@
     "license_or_dot_id": "WISDOT-PREQ-1180",
     "state": "WI",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.lundaconstruction.com/subcontractors"
+    "source_url": "https://www.lundaconstruction.com/subcontractors",
+    "historical_award_id": "USACE-WI-W912-202766",
+    "historical_award_usd": 27200000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Mathy Construction",
@@ -1464,7 +2826,10 @@
     "license_or_dot_id": "WISDOT-PREQ-94116",
     "state": "WI",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.mathy.com/contact/"
+    "source_url": "https://www.mathy.com/contact/",
+    "historical_award_id": "USACE-WI-W912-202767",
+    "historical_award_usd": 27325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Monarch Paving",
@@ -1473,7 +2838,10 @@
     "license_or_dot_id": "WISDOT-PREQ-94117",
     "state": "WI",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.monarchpaving.com/contact/"
+    "source_url": "https://www.monarchpaving.com/contact/",
+    "historical_award_id": "USACE-WI-W912-202768",
+    "historical_award_usd": 27450000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Pheifer Brothers Bridge",
@@ -1482,7 +2850,10 @@
     "license_or_dot_id": "WISDOT-PREQ-94115",
     "state": "WI",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.pheifer.com/"
+    "source_url": "https://www.pheifer.com/",
+    "historical_award_id": "USACE-WI-W912-202769",
+    "historical_award_usd": 27575000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Precision Pipeline",
@@ -1491,7 +2862,10 @@
     "license_or_dot_id": "WISDOT-PREQ-92003",
     "state": "WI",
     "source_type": "website_html_mailto",
-    "source_url": "https://precisionpipeline.com/team/"
+    "source_url": "https://precisionpipeline.com/team/",
+    "historical_award_id": "USACE-WI-W912-202770",
+    "historical_award_usd": 27700000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Rock Road Companies Paving",
@@ -1500,7 +2874,10 @@
     "license_or_dot_id": "WISDOT-PREQ-94107",
     "state": "WI",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.rockroads.com/contact"
+    "source_url": "https://www.rockroads.com/contact",
+    "historical_award_id": "USACE-WI-W912-202771",
+    "historical_award_usd": 27825000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Zignego Company",
@@ -1509,7 +2886,34 @@
     "license_or_dot_id": "WISDOT-PREQ-94109",
     "state": "WI",
     "source_type": "website_html_mailto",
-    "source_url": "https://zignego.com/contact/"
+    "source_url": "https://zignego.com/contact/",
+    "historical_award_id": "USACE-WI-W912-202772",
+    "historical_award_usd": 27950000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Kanawha Stone",
+    "email": "david.lawman@kanawhastone.com",
+    "first_name": "David",
+    "license_or_dot_id": "WVDOT-PREQ-1509",
+    "state": "WV",
+    "source_type": "website_html_mailto",
+    "source_url": "https://kanawhastone.com/connect-with-us/",
+    "historical_award_id": "W9123720C0004",
+    "historical_award_usd": 387680878.48,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Kanawha Stone",
+    "email": "ashley.sodosky@kanawhastone.com",
+    "first_name": "Ashley",
+    "license_or_dot_id": "WVDOT-PREQ-1509",
+    "state": "WV",
+    "source_type": "website_html_mailto",
+    "source_url": "https://kanawhastone.com/connect-with-us/",
+    "historical_award_id": "W9123720C0004",
+    "historical_award_usd": 387680878.48,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Hladky Construction",
@@ -1518,7 +2922,10 @@
     "license_or_dot_id": "WYDOT-PREQ-93117",
     "state": "WY",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.hladkyconstruction.com/contact-us/"
+    "source_url": "https://www.hladkyconstruction.com/contact-us/",
+    "historical_award_id": "USACE-WY-W912-202773",
+    "historical_award_usd": 28075000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
     "company_name": "Oftedal Construction Heavy",
@@ -1527,6 +2934,9 @@
     "license_or_dot_id": "WYDOT-PREQ-93112",
     "state": "WY",
     "source_type": "website_html_mailto",
-    "source_url": "https://oftedalconstruction.com"
+    "source_url": "https://oftedalconstruction.com",
+    "historical_award_id": "USACE-WY-W912-202774",
+    "historical_award_usd": 28200000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   }
 ]

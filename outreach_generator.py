@@ -173,7 +173,7 @@ def generate_outreach_queue() -> List[Dict[str, Any]]:
         )
         step1_body = _sanitize_zero_dollar_zero_link(
             f"{greeting_line}\n\n"
-            f"Noticed {company}'s heavy-civil work in {state} while indexing {agency_short} letting {pid} "
+            f"Noticed {company}'s heavy-civil profile ({dot_id}) in {state} while indexing {agency_short} letting {pid} "
             f"(USD {est_usd:,.0f} Engineer's Estimate opening {letting_date}).\n\n"
             f"We already compiled the 36-month {agency_short} unit-price bid tabulations ({top_item_str}) "
             f"and {wage_id} prevailing wage fringes into a 6-file Word/Excel takeoff package.\n\n"

@@ -40,7 +40,7 @@
       "domain": "trycamberdesk.com",
       "first_name": "Aaron",
       "last_name": "Chen | CamberDesk",
-      "avatar_logo_path": "d:\\CamberDesk\\camberdesk_mailbox_avatar_500.png",
+      "avatar_logo_path": "D:\\CamberDesk\\camberdesk_mailbox_avatar_500.png",
       "bimi_svg_url": "https://camberdesk.com/bimi-logo.svg",
       "avatar_applied": true,
       "created_in_workspace": true,
@@ -52,7 +52,7 @@
       "domain": "trycamberdesk.com",
       "first_name": "Aaron",
       "last_name": "CamberDesk Estimating",
-      "avatar_logo_path": "d:\\CamberDesk\\camberdesk_mailbox_avatar_500.png",
+      "avatar_logo_path": "D:\\CamberDesk\\camberdesk_mailbox_avatar_500.png",
       "bimi_svg_url": "https://camberdesk.com/bimi-logo.svg",
       "avatar_applied": true,
       "created_in_workspace": true,
@@ -64,7 +64,7 @@
       "domain": "trycamberdesk.com",
       "first_name": "Aaron Chen",
       "last_name": "CamberDesk Precon Desk",
-      "avatar_logo_path": "d:\\CamberDesk\\camberdesk_mailbox_avatar_500.png",
+      "avatar_logo_path": "D:\\CamberDesk\\camberdesk_mailbox_avatar_500.png",
       "bimi_svg_url": "https://camberdesk.com/bimi-logo.svg",
       "avatar_applied": true,
       "created_in_workspace": true,
@@ -73,6 +73,6 @@
     }
   ],
   "staged_provisioning_queue": [],
-  "updated_at": "2026-11-02T19:06:34Z",
+  "updated_at": "2026-11-02T21:37:13Z",
   "reinvestment_stage": "Stage 1: Ignition (80% Reinvestment \u2014 3 to 36 Mailboxes)"
 }

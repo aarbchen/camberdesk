@@ -156,7 +156,7 @@ def load_verified_dot_contacts() -> List[Dict[str, str]]:
                         existing_valid.append(r)
         except Exception:
             pass
-    if len(existing_valid) >= target_leads or os.getenv("OUTREACH_SKIP_HARVESTER") == "1":
+    if len(existing_valid) >= min(200, target_leads) or os.getenv("OUTREACH_SKIP_HARVESTER") == "1":
         return existing_valid
     return harvest_and_save_verified_dot_contacts(target_count=target_leads)
 

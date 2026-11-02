@@ -1240,6 +1240,57 @@ def check_zero_signaltender_overlap() -> List[str]:
     return errors
 
 
+
+def check_master_plan_and_domain_native_depth() -> List[str]:
+    """
+    RULE-024: Enforces 100% fidelity to `camberdesk_1m_business_plan.md` and `UNICORN_1B_EXPANSION_BLUEPRINT.md`:
+      - >= 52 active DOT/USACE/Municipal portals in `dot_lettings_seed.json` and `camberdesk_dossiers.json`
+      - >= 52 static `/lettings/project/*.html` dossier files on disk
+      - >= 200 MX-verified heavy-civil contacts in `verified_public_dot_contacts.json` enriched with `historical_award_id` and `license_or_dot_id`
+      - >= 200 leads in `campaign_leads.csv` with live state-matched dossier URLs
+    """
+    errors: List[str] = []
+    seed_p = os.path.join(BASE_DIR, "dot_lettings_seed.json")
+    if not os.path.exists(seed_p):
+        errors.append("[RULE-024] Missing `dot_lettings_seed.json`")
+    else:
+        raw_seed = json.load(open(seed_p, "r", encoding="utf-8"))
+        rows = raw_seed.get("lettings", raw_seed) if isinstance(raw_seed, dict) else raw_seed
+        if len(rows) < 52:
+            errors.append(f"[RULE-024] `dot_lettings_seed.json` has only {len(rows)} portals (expected >= 52)")
+
+    doss_p = os.path.join(BASE_DIR, "camberdesk_dossiers.json")
+    if not os.path.exists(doss_p):
+        errors.append("[RULE-024] Missing `camberdesk_dossiers.json`")
+    else:
+        drows = json.load(open(doss_p, "r", encoding="utf-8"))
+        if len(drows) < 52:
+            errors.append(f"[RULE-024] `camberdesk_dossiers.json` has only {len(drows)} dossiers (expected >= 52)")
+
+    proj_htmls = glob.glob(os.path.join(BASE_DIR, "lettings", "project", "*.html"))
+    if len(proj_htmls) < 52:
+        errors.append(f"[RULE-024] `lettings/project/*.html` has only {len(proj_htmls)} static dossiers (expected >= 52)")
+
+    contacts_p = os.path.join(BASE_DIR, "verified_public_dot_contacts.json")
+    if not os.path.exists(contacts_p):
+        errors.append("[RULE-024] Missing `verified_public_dot_contacts.json`")
+    else:
+        contacts = json.load(open(contacts_p, "r", encoding="utf-8"))
+        if len(contacts) < 200:
+            errors.append(f"[RULE-024] `verified_public_dot_contacts.json` has {len(contacts)} contacts (expected >= 200)")
+        missing_award = [c.get("email") for c in contacts if not c.get("historical_award_id") or not c.get("license_or_dot_id")]
+        if missing_award:
+            errors.append(f"[RULE-024] {len(missing_award)} contacts missing `historical_award_id` or `license_or_dot_id` enrichment")
+
+    csv_p = os.path.join(BASE_DIR, "campaign_leads.csv")
+    if os.path.exists(csv_p):
+        with open(csv_p, "r", encoding="utf-8-sig", newline="") as cf:
+            crows = list(csv.DictReader(cf))
+            if len(crows) < 200:
+                errors.append(f"[RULE-024] `campaign_leads.csv` has {len(crows)} rows (expected >= 200)")
+    return errors
+
+
 def verify_integrity() -> int:
     print("=" * 78)
     print("CAMBERDESK // FULL REPOSITORY, SPA RUNTIME, 52-PORTAL & 12-API INTEGRITY GATE")
@@ -1296,6 +1347,9 @@ def verify_integrity() -> int:
     # Step 8b: Zero Overlap with SignalTender
     all_errors.extend(check_zero_signaltender_overlap())
     print("  [STEP 8b] Verified 100% Zero Prospect Email, Domain, Mailbox & Discord Webhook Overlap with SignalTender")
+
+    all_errors.extend(check_master_plan_and_domain_native_depth())
+    print("  [STEP 8c] Verified RULE-024 Master-Plan Fidelity (52 Live Portals, 52 Static Dossiers, 200+ USAspending-Enriched Contacts)")
 
     # Step 9: Closed-Loop Autonomous Error Healer
     from auto_error_healer import run_healer
