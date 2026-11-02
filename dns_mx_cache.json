@@ -201,13 +201,12 @@
   "rockroads.com": true,
   "zignego.com": true,
   "hladkyconstruction.com": true,
-  "dev.peckham.com": false,
   "dementconstruction.com": true,
   "graceindustries.com": true,
-  "www.www.hunterind.com": false,
   "lylescg.com": true,
   "martam.com": true,
   "toroenterprises.com": true,
   "ceccantiinc.com": true,
-  "barriere.com": true
+  "barriere.com": true,
+  "dev.peckham.com": false
 }

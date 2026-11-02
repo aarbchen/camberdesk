@@ -207,15 +207,6 @@
     "source_url": "https://www.tullisinc.com"
   },
   {
-    "company_name": "A&S Construction",
-    "email": "info@asconstruction.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "CDOT-PREQ-93094",
-    "state": "CO",
-    "source_type": "website_html_mailto",
-    "source_url": "https://asconstruction.com/"
-  },
-  {
     "company_name": "Fort Myer Construction",
     "email": "estimating@fortmyer.com",
     "first_name": "Estimating",
@@ -466,15 +457,6 @@
     "state": "IL",
     "source_type": "website_html_mailto",
     "source_url": "https://www.fhpaschen.com"
-  },
-  {
-    "company_name": "Gallagher Asphalt",
-    "email": "info@gallagherasphalt.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "IDOT-PREQ-92010",
-    "state": "IL",
-    "source_type": "website_html_mailto",
-    "source_url": "https://gallagherasphalt.com"
   },
   {
     "company_name": "Lorig Construction",
