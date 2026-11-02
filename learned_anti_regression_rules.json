@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-02T03:22:41.530038+00:00",
+  "updated_at": "2026-11-02T05:18:06.709699+00:00",
   "total_rules": 19,
   "policy": "Silent detection -> Autonomous diagnosis & repair -> Rule codification -> Resolved-only Discord notification",
   "rules": [
@@ -99,8 +99,8 @@
       "rule_statement": "Maintain 100% count and card parity across `index.html`, `apis.html`, `pseo_generator.py`, MCP servers, and Cloudflare Edge Worker (`52 Portals / 50 State DOTs` and `12 APIs`).",
       "invariant_check": "check_portal_and_catalog_parity",
       "created_at": "2026-10-31T15:25:57.791099+00:00",
-      "last_enforced_at": "2026-11-02T03:22:41.530038+00:00",
-      "times_triggered": 110
+      "last_enforced_at": "2026-11-02T05:18:06.709699+00:00",
+      "times_triggered": 122
     },
     {
       "rule_id": "RULE-008-ZERO-SIGNALTENDER-OVERLAP",

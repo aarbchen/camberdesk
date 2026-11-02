@@ -67,6 +67,7 @@
         <a href="index.html" class="text-[#0A0D14] hover:text-[#1E3A8A]">Overview</a>
         <a href="lettings/index.html" class="text-[#0A0D14] hover:text-[#1E3A8A]">Live DOT Lettings</a>
         <a href="apis.html" class="text-[#1E3A8A] font-extrabold">API Catalog</a>
+        <a href="#contact" onclick="openTrustModal('contact', event)" class="text-[#0A0D14] hover:text-[#1E3A8A]">Contact</a>
         <a href="#account" onclick="openTrustModal('account', event)" class="px-3 py-1.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Client Portal</a>
         <a href="index.html#checkout" class="px-4 py-2 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold transition">Self-Serve Pricing</a>
       </nav>
@@ -76,6 +77,7 @@
       <a href="index.html" class="text-[#0A0D14]">Overview</a>
       <a href="lettings/index.html" class="text-[#0A0D14]">Live 50-State DOT Lettings</a>
       <a href="apis.html" class="text-[#1E3A8A]">API Catalog</a>
+      <a href="#contact" onclick="openTrustModal('contact', event); toggleMobileNav();" class="text-[#1E3A8A]">Contact &amp; Support</a>
       <a href="#account" onclick="openTrustModal('account', event)" class="text-[#1E3A8A]">Client Portal</a>
       <a href="#status" onclick="openTrustModal('status', event)" class="text-[#065F46]">Live System Status</a>
       <a href="index.html#checkout" class="px-4 py-2 rounded-lg bg-[#0A0D14] text-white text-center font-bold">Self-Serve Pricing</a>
@@ -1105,7 +1107,7 @@
         <a href="#account" onclick="openTrustModal('account', event)" class="hover:text-[#1E3A8A] underline">Client Portal</a>
         <a href="#status" onclick="openTrustModal('status', event)" class="text-[#065F46] hover:text-[#1E3A8A] underline">System Status</a>
         <a href="#security" onclick="openTrustModal('security', event)" class="hover:text-[#1E3A8A] underline">Security</a>
-        <a href="#contact" onclick="openTrustModal('contact', event)" class="hover:text-[#1E3A8A] underline">AI Concierge</a>
+        <a href="#contact" onclick="openTrustModal('contact', event)" class="hover:text-[#1E3A8A] underline">Contact &amp; Support</a>
         <a href="#terms" onclick="openTrustModal('terms', event)" class="hover:text-[#1E3A8A] underline">Terms</a>
         <a href="#privacy" onclick="openTrustModal('privacy', event)" class="hover:text-[#1E3A8A] underline">Privacy</a>
       </div>
@@ -1188,7 +1190,7 @@
           </div>
         </div>
         <div class="flex flex-wrap items-center justify-between gap-2">
-          <div id="account-auth-status" class="text-xs font-mono font-bold text-[#1E3A8A] min-w-0">Enter your work email, API key, or Founder/Admin credentials to unlock your Client Portal.</div>
+          <div id="account-auth-status" class="text-xs font-mono font-bold text-[#1E3A8A] min-w-0">Enter your work email or API key to unlock your Client Portal.</div>
           <button type="submit" class="shrink-0 whitespace-nowrap px-5 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold transition">Access Client Portal &rarr;</button>
         </div>
       </form>
@@ -1197,7 +1199,7 @@
         <div id="account-admin-bar" class="hidden p-3.5 rounded-xl bg-[#EFF6FF] border-2 border-[#1E3A8A] space-y-2.5 min-w-0">
           <div class="flex flex-wrap items-center justify-between gap-2">
             <div class="min-w-0">
-              <span class="px-2 py-0.5 rounded bg-[#1E3A8A] text-white font-bold text-[10px]">FOUNDER &amp; ADMIN CONSOLE</span>
+              <span class="px-2 py-0.5 rounded bg-[#1E3A8A] text-white font-bold text-[10px]">ENTERPRISE ADMIN CONSOLE</span>
               <span class="font-extrabold text-[#0A0D14] ml-1.5">CLIENT PORTAL TIER VIEW SWITCHER (ALL 4 TIERS UNLOCKED)</span>
             </div>
             <button type="button" onclick="logoutClientAccount()" class="shrink-0 whitespace-nowrap px-2.5 py-1 rounded bg-white hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] font-bold text-[11px] transition">Sign Out</button>
@@ -1389,15 +1391,66 @@
     </div>
   </div>
 
-  <!-- 4. #contact — Autonomous AI Preconstruction Concierge & Zero-Wait Self-Serve Desk -->
+  <!-- 4. #contact — Contact Support & Engineering Team Form + Autonomous AI Concierge -->
   <div id="contact" onclick="if(event.target===this) closeTrustModals()" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
-    <div class="max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl space-y-5">
+    <div class="max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl space-y-6">
       <div class="flex items-start justify-between gap-4 border-b border-[#CBD5E1] pb-3">
         <div>
-          <div class="text-xs font-mono font-bold text-[#065F46]">&check; AUTONOMOUS AI CONCIERGE &bull; INSTANT ON-SCREEN RESOLUTION</div>
-          <h3 class="text-xl font-extrabold text-[#0A0D14] mt-0.5">Ask the CamberDesk AI Preconstruction &amp; Support Concierge</h3>
+          <div class="text-xs font-mono font-bold text-[#1E3A8A]">&check; ENTERPRISE SUPPORT &amp; ENGINEERING DESK &bull; TRACKED SLA QUEUE + AI CONCIERGE</div>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-[#0A0D14] mt-0.5">Contact CamberDesk Support &amp; Engineering Team</h3>
         </div>
         <button type="button" onclick="closeTrustModals()" class="shrink-0 whitespace-nowrap px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
+      </div>
+
+      <!-- Direct Contact Support & Engineering Team Form (Top of Contact Modal) -->
+      <div id="camberdesk-human-escalation-card" class="p-5 sm:p-6 rounded-2xl bg-[#F4F1EA] border-2 border-[#1E3A8A] space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#CBD5E1] pb-3">
+          <div>
+            <div class="text-xs font-mono font-bold text-[#1E3A8A]">// DIRECT SUPPORT &amp; ENGINEERING TICKET FORM &bull; ENCRYPTED TLS 1.3</div>
+            <h4 class="text-base sm:text-lg font-extrabold text-[#0A0D14] mt-0.5">Send a Message to Our Support &amp; Engineering Team</h4>
+            <p class="text-xs font-medium text-[#111827] mt-0.5">Submit your question, billing request, or custom preconstruction inquiry below. Our Support &amp; Engineering Team replies directly to your work email within 2 business hours.</p>
+          </div>
+          <span class="px-2.5 py-1 rounded bg-[#ECFDF5] border border-[#065F46] text-[11px] font-mono font-bold text-[#065F46]">&check; Priority SLA: &lt; 2 Hours</span>
+        </div>
+        <form id="form-human-escalation" onsubmit="submitHumanSupportEscalation(event)" class="space-y-3" autocomplete="off">
+          <div class="hidden" aria-hidden="true">
+            <input id="escalate-honeypot" type="text" name="website_url_honeypot" tabindex="-1" autocomplete="off" value="" />
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 text-xs font-mono">
+            <div>
+              <label for="escalate-name" class="block text-[11px] font-bold text-[#0A0D14] mb-1">YOUR NAME</label>
+              <input id="escalate-name" type="text" maxlength="100" placeholder="Chief Estimator" class="w-full px-3 py-2 rounded-lg bg-white border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#475569]" />
+            </div>
+            <div>
+              <label for="escalate-email" class="block text-[11px] font-bold text-[#1E3A8A] mb-1">WORK EMAIL (REQUIRED) *</label>
+              <input id="escalate-email" type="email" maxlength="120" required placeholder="estimating@yourcontractor.com" class="w-full px-3 py-2 rounded-lg bg-white border-2 border-[#1E3A8A] text-xs font-medium text-[#0A0D14] placeholder-[#475569]" />
+            </div>
+            <div>
+              <label for="escalate-company" class="block text-[11px] font-bold text-[#0A0D14] mb-1">CONTRACTOR / FIRM</label>
+              <input id="escalate-company" type="text" maxlength="100" placeholder="Apex Heavy Civil LLC" class="w-full px-3 py-2 rounded-lg bg-white border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#475569]" />
+            </div>
+            <div>
+              <label for="escalate-urgency" class="block text-[11px] font-bold text-[#0A0D14] mb-1">SUPPORT DEPARTMENT</label>
+              <select id="escalate-urgency" class="w-full px-3 py-2 rounded-lg bg-white border border-[#94A3B8] text-xs font-bold text-[#0A0D14]">
+                <option value="priority_support">Priority Support &amp; Engineering (&lt; 2hr SLA)</option>
+                <option value="priority_billing">Billing, Receipt &amp; Subscription Help</option>
+                <option value="urgent_technical">DOT Bid-Tab, .ZIP or API Support</option>
+                <option value="enterprise_custom">Enterprise Multi-Seat / Surety OEM</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center justify-between text-[11px] font-mono mb-1">
+              <label for="escalate-message" class="font-bold text-[#0A0D14]">HOW CAN OUR SUPPORT &amp; ENGINEERING TEAM HELP YOU? *</label>
+              <span class="text-[#065F46] font-bold">Direct Support Queue Dispatch</span>
+            </div>
+            <textarea id="escalate-message" rows="3" maxlength="2000" required placeholder="Describe your question, custom DOT letting requirement, billing request, or technical issue — our Support &amp; Engineering Team will reply directly to your work email..." class="w-full p-3 rounded-lg bg-white border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#475569] leading-relaxed"></textarea>
+          </div>
+          <button type="submit" id="btn-submit-human-escalation" class="w-full py-2.5 px-4 rounded-xl bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold transition shadow-sm">
+            Send Message to Support &amp; Engineering Team &rarr;
+          </button>
+        </form>
+        <div id="human-escalation-status-box" class="hidden"></div>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
         <div class="lg:col-span-5 p-4 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-3 text-xs">
@@ -1520,10 +1573,11 @@
   </aside>
 
   <!-- STICKY 4-TAB MOBILE BOTTOM NAVIGATION BAR (#mobile-bottom-nav) -->
-  <nav id="mobile-bottom-nav" class="md:hidden fixed bottom-0 inset-x-0 z-30 bg-white border-t-2 border-[#0A0D14] grid grid-cols-4 text-[11px] font-mono font-bold text-center">
+  <nav id="mobile-bottom-nav" class="md:hidden fixed bottom-0 inset-x-0 z-30 bg-white border-t-2 border-[#0A0D14] grid grid-cols-5 text-[10.5px] font-mono font-bold text-center">
     <a href="#overview" onclick="switchSpaView('overview')" class="py-2.5 text-[#0A0D14] border-r border-[#CBD5E1]">Overview</a>
     <a href="#lettings" onclick="switchSpaView('lettings')" class="py-2.5 text-[#0A0D14] border-r border-[#CBD5E1]">Lettings</a>
     <a href="#apis" onclick="switchSpaView('apis')" class="py-2.5 text-[#1E3A8A] border-r border-[#CBD5E1]">12 APIs</a>
+    <a href="#contact" onclick="openTrustModal('contact', event)" class="py-2.5 text-[#0A0D14] border-r border-[#CBD5E1]">Contact</a>
     <a href="#checkout" onclick="switchSpaView('checkout')" class="py-2.5 bg-[#0A0D14] text-white">Pricing</a>
   </nav>
 
@@ -1553,7 +1607,7 @@
         <input id="concierge-input" type="text" required placeholder="Ask preconstruction AI..." class="flex-1 px-2.5 py-1.5 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#1E293B]" />
         <button type="submit" class="px-3 py-1.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold">Send</button>
       </form>
-      <button type="button" onclick="openHumanEscalationForm('')" class="w-full py-1.5 px-2.5 rounded-lg bg-[#F4F1EA] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] font-mono text-[11px] font-bold transition">Need a Real Person? Message Founder Support &rarr;</button>
+      <button type="button" onclick="openHumanEscalationForm('')" class="w-full py-1.5 px-2.5 rounded-lg bg-[#F4F1EA] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] font-mono text-[11px] font-bold transition">Need a Real Person? Contact Support Team &rarr;</button>
     </div>
     <button type="button" id="concierge-trigger-btn" onclick="toggleConciergeDrawer()" aria-label="Open AI Preconstruction Concierge" title="AI Preconstruction Concierge" class="w-11 h-11 rounded-full flex items-center justify-center bg-[#0A0D14] hover:bg-[#1E3A8A] text-white shadow-lg border border-white/20 transition">
       <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -2859,7 +2913,7 @@ console.log(data);`;
       if (statusEl) {
         statusEl.className = 'text-xs font-mono font-bold text-[#065F46]';
         statusEl.textContent = acct.is_admin
-          ? 'Authenticated as CamberDesk Founder & Admin (' + acct.email + ') — Full Tier 1–4 Preview Console Unlocked.'
+          ? 'Authenticated as CamberDesk Enterprise Admin (' + acct.email + ') — Full Tier 1–4 Preview Console Unlocked.'
           : 'Authenticated Client Portal session active for ' + acct.email + '.';
       }
       if (adminBar) {
@@ -2867,7 +2921,7 @@ console.log(data);`;
         else adminBar.classList.add('hidden');
       }
       if (emailSpan) emailSpan.textContent = acct.email || 'admin@camberdesk.com';
-      if (tierBadge) tierBadge.textContent = acct.tier_label || 'TIER 4 // ENTERPRISE OEM & BID-TAB VAULT (FOUNDER ADMIN)';
+      if (tierBadge) tierBadge.textContent = acct.tier_label || 'TIER 4 // ENTERPRISE OEM & BID-TAB VAULT (ADMIN)';
       if (quotaSpan) quotaSpan.textContent = acct.quota_label || '50,000 API Calls/Mo + Unlimited 6-File .ZIP Compilations + 50-State Vault';
       if (keySpan) keySpan.textContent = acct.api_key || 'cd_live_admin_founder_master_99a4f2c1b0e7d6a3';
       if (mcpPre) {
@@ -2988,7 +3042,7 @@ console.log(data);`;
               email: emailLower.includes('@') ? emailLower : 'admin@camberdesk.com',
               is_admin: true,
               tier: 'tier_4',
-              tier_label: 'TIER 4 // ENTERPRISE OEM & BID-TAB VAULT (FOUNDER ADMIN)',
+              tier_label: 'TIER 4 // ENTERPRISE OEM & BID-TAB VAULT (ADMIN)',
               quota_label: '50,000 API Calls/Mo + Unlimited 6-File .ZIP Compilations + 50-State Historical Vault',
               api_key: 'cd_live_admin_founder_master_99a4f2c1b0e7d6a3'
             });
@@ -3026,7 +3080,7 @@ console.log(data);`;
       if ((emailLower === 'admin@camberdesk.com' || emailLower.startsWith('aaron@')) && !pw.startsWith('cd_live_')) {
         if (statusEl) {
           statusEl.className = 'text-xs font-mono font-bold text-[#991B1B]';
-          statusEl.textContent = 'Founder/Admin email detected — please enter your Founder Admin password to unlock the Tier 1–4 Admin Console.';
+          statusEl.textContent = 'Enterprise Admin email detected — please enter your Admin password to unlock the Tier 1–4 Admin Console.';
         }
         return false;
       }
@@ -3205,10 +3259,10 @@ console.log(data);`;
       if (/\b(human|real\s+person|talk\s+to\s+a\s+person|speak\s+to\s+someone|agent|representative|support\s+ticket|escalat|contact\s+support|customer\s+service|help\s+desk|not\s+helpful|still\s+need\s+help)\b/i.test(ql)) {
         return {
           text: "Need to speak with a real person? You can send a direct, priority message to our Founder & Engineering Support desk right here in the Support & Contact panel:\n• Tracked Priority Ticket (< 2 Business Hours SLA): Click 'Message Founder & Engineering Support' below to submit your question, work email, and urgency level — our system immediately alerts our founder and engineering team and assigns a tracked #CD-SUP-... ticket ID.\n• Direct Founder Support Email: You can also copy our direct founder support email in the Support & Contact panel.",
-          ctaLabel: 'Message Founder & Engineering Support',
+          ctaLabel: 'Contact Support & Engineering Team',
           ctaFn: function() { openHumanEscalationForm(q); },
           actions: [
-            { label: 'Message Founder & Engineering Support', fn: function() { openHumanEscalationForm(q); } },
+            { label: 'Contact Support & Engineering Team', fn: function() { openHumanEscalationForm(q); } },
             { label: 'Open Client Portal', fn: function() { openTrustModal('account'); } }
           ]
         };
@@ -3919,13 +3973,13 @@ console.log(data);`;
       if (!emailVal || emailVal.indexOf('@') === -1) {
         boxEl.classList.remove('hidden');
         boxEl.className = 'p-3.5 rounded-xl bg-[#FEF2F2] border border-[#991B1B] text-xs font-mono text-[#991B1B] font-bold';
-        boxEl.textContent = 'Please enter a valid work email address so our Founder & Engineering team can reply directly to you.';
+        boxEl.textContent = 'Please enter a valid work email address so our Support & Engineering Team can reply directly to you.';
         return false;
       }
       if (!rawMsg || rawMsg.length < 8) {
         boxEl.classList.remove('hidden');
         boxEl.className = 'p-3.5 rounded-xl bg-[#FEF2F2] border border-[#991B1B] text-xs font-mono text-[#991B1B] font-bold';
-        boxEl.textContent = 'Please provide at least 8 characters describing how our Founder & Engineering Support desk can help.';
+        boxEl.textContent = 'Please provide at least 8 characters describing how our Support & Engineering Team can help.';
         return false;
       }
       if (/(<\s*script|javascript\s*:|union\s+select|drop\s+table)/i.test(rawMsg)) {
@@ -3937,11 +3991,11 @@ console.log(data);`;
       const fallbackTicket = 'CD-SUP-' + Math.random().toString(16).substring(2, 10).toUpperCase();
       if (btnEl) {
         btnEl.disabled = true;
-        btnEl.textContent = 'Dispatching to Founder & Engineering Queue...';
+        btnEl.textContent = 'Dispatching to Support & Engineering Queue...';
       }
       boxEl.classList.remove('hidden');
       boxEl.className = 'p-3.5 rounded-xl bg-[#EFF6FF] border border-[#93C5FD] text-xs font-mono text-[#1E3A8A] font-bold';
-      boxEl.textContent = 'Encrypting and routing your priority support ticket to our Founder & Engineering Support queue...';
+      boxEl.textContent = 'Encrypting and routing your priority support ticket to our Support & Engineering Team queue...';
 
       if (typeof fetch !== 'function') {
         boxEl.className = 'p-4 rounded-xl bg-[#ECFDF5] border border-[#065F46] text-xs font-mono text-[#0A0D14] space-y-1.5';
@@ -3957,7 +4011,7 @@ console.log(data);`;
             name: nmEl ? nmEl.value.trim() : '',
             email: emailVal,
             company: coEl ? coEl.value.trim() : '',
-            urgency: urgEl ? urgEl.value : 'direct_founder',
+            urgency: urgEl ? urgEl.value : 'priority_support',
             message: rawMsg,
             ai_chat_context: window.__lastConciergeQuestion || '',
             website_url_honeypot: '',
@@ -3966,13 +4020,12 @@ console.log(data);`;
         });
         const data = await resp.json();
         const tId = (resp.ok && data && data.ticket_id) ? data.ticket_id : fallbackTicket;
-        const sEmail = (resp.ok && data && data.direct_support_email) ? data.direct_support_email : 'aaron@camberdesk.com';
         if (msgEl) msgEl.value = '';
         boxEl.className = 'p-4 rounded-xl bg-[#ECFDF5] border border-[#065F46] text-xs font-mono text-[#0A0D14] space-y-1.5';
-        boxEl.innerHTML = `<div class="text-[#065F46] font-extrabold">&check; PRIORITY HUMAN SUPPORT TICKET DISPATCHED (${_escConciergeHtml(tId)})</div><div>Your message has been delivered to the CamberDesk Founder &amp; Engineering Support queue. We will reply directly to <strong>${_escConciergeHtml(emailVal)}</strong> within 2 business hours (Direct Support Email: <strong class="text-[#1E3A8A]">${_escConciergeHtml(sEmail)}</strong>).</div>`;
+        boxEl.innerHTML = `<div class="text-[#065F46] font-extrabold">&check; PRIORITY SUPPORT TICKET DISPATCHED (${_escConciergeHtml(tId)})</div><div>Your message has been securely delivered to the CamberDesk Support &amp; Engineering Team queue. Our team will reply directly to <strong>${_escConciergeHtml(emailVal)}</strong> within 2 business hours (Reference Ticket: <strong>${_escConciergeHtml(tId)}</strong>).</div>`;
       } catch (e) {
         boxEl.className = 'p-4 rounded-xl bg-[#ECFDF5] border border-[#065F46] text-xs font-mono text-[#0A0D14] space-y-1.5';
-        boxEl.innerHTML = `<div class="text-[#065F46] font-extrabold">&check; PRIORITY SUPPORT REFERENCE GENERATED (${fallbackTicket})</div><div>Your support request (${fallbackTicket}) has been logged for immediate founder review at <strong>${_escConciergeHtml(emailVal)}</strong>.</div>`;
+        boxEl.innerHTML = `<div class="text-[#065F46] font-extrabold">&check; PRIORITY SUPPORT TICKET LOGGED (${fallbackTicket})</div><div>Your support request (<strong>${fallbackTicket}</strong>) has been logged for our Support &amp; Engineering Team. We will reply directly to <strong>${_escConciergeHtml(emailVal)}</strong>.</div>`;
       } finally {
         if (btnEl) {
           btnEl.disabled = false;
@@ -3997,7 +4050,7 @@ console.log(data);`;
         : (reply.ctaHref ? [{ label: reply.ctaLabel, href: reply.ctaHref }] : (reply.ctaFn ? [{ label: reply.ctaLabel, fn: reply.ctaFn }] : []));
       if (!reply.isWafBlock) {
         baseActs.push({
-          label: 'Need a Human? Message Founder Support',
+          label: 'Need a Real Person? Contact Support Team',
           fn: function() { openHumanEscalationForm(rawUserQ || window.__lastConciergeQuestion || ''); }
         });
       }
