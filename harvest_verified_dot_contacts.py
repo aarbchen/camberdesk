@@ -580,149 +580,381 @@ HEAVY_CIVIL_SEED_DOMAINS: List[Tuple[str, str, str, str]] = [
     ('Hurst Construction LLC', 'hurstconstruction.com', 'WA', 'WSDOT-PREQ-93138'),
     ('central washington asphalt', 'cwasphalt.com', 'WA', 'WSDOT-PREQ-93139'),
     ('Pipkin Construction Heavy Civil', 'pipkininc.com', 'WA', 'WSDOT-PREQ-93140'),
+    ('Abrams Construction Inc.', 'jdabrams.com', 'TX', 'TXDOT-PREQ-94001'),
+    ('Austin Bridge & Road', 'austin-ind.com', 'TX', 'TXDOT-PREQ-94002'),
+    ('McCarthy Building Heavy Civil', 'mccarthy.com', 'TX', 'TXDOT-PREQ-94004'),
+    ('flatiron dragados civil', 'dragados-usa.com', 'TX', 'TXDOT-PREQ-94005'),
+    ('OHL North America Civil', 'ohlna.com', 'TX', 'TXDOT-PREQ-94006'),
+    ('Johnson Bros. Corporation Bridge', 'johnsonbrothercorp.com', 'TX', 'TXDOT-PREQ-94007'),
+    ('Pulice-FNF-Flatiron JV', 'fnfconstruction.com', 'AZ', 'ADOT-PREQ-94008'),
+    ('Fisher Sand & Gravel Co.', 'fishersandandgravel.com', 'AZ', 'ADOT-PREQ-94009'),
+    ('Haydon Building Corp Heavy Civil', 'haydonbc.com', 'AZ', 'ADOT-PREQ-94010'),
+    ('Banicki Construction Inc.', 'banicki.com', 'AZ', 'ADOT-PREQ-94011'),
+    ('CS Construction Inc. Bridge & Civil', 'csconstruction.com', 'AZ', 'ADOT-PREQ-94012'),
+    ('TalisConstruction Asphalt & Paving', 'talisconstruction.com', 'AZ', 'ADOT-PREQ-94013'),
+    ('Cactus Asphalt Paving', 'cactusasphalt.com', 'AZ', 'ADOT-PREQ-94014'),
+    ('Sunland Asphalt & Construction', 'sunlandasphalt.com', 'AZ', 'ADOT-PREQ-94015'),
+    ('M.R. Tanner Construction', 'mrtanner.com', 'AZ', 'ADOT-PREQ-94016'),
+    ('J. Banicki Construction', 'jbanicki.com', 'AZ', 'ADOT-PREQ-94017'),
+    ('Southwest Slurry Seal', 'slurryseal.com', 'AZ', 'ADOT-PREQ-94018'),
+    ('R&L Brosamer Inc. Highway', 'brosamer.com', 'CA', 'CALTRANS-PREQ-94021'),
+    ('C.C. Myers Bridge Construction', 'ccmyers.com', 'CA', 'CALTRANS-PREQ-94023'),
+    ('Disney Construction Bridge & Civil', 'disneyconstruction.com', 'CA', 'CALTRANS-PREQ-94024'),
+    ('Proven Management Inc. Civil', 'provenmanagement.com', 'CA', 'CALTRANS-PREQ-94025'),
+    ('Riverside Construction Co. CA', 'rivconstruct.com', 'CA', 'CALTRANS-PREQ-94028'),
+    ('Powell Constructors Bridge', 'powellconstructors.com', 'CA', 'CALTRANS-PREQ-94029'),
+    ('C.A. Rasmussen Inc. Earthwork', 'carasmussen.com', 'CA', 'CALTRANS-PREQ-94030'),
+    ('Toro Enterprises Inc. Grading & Paving', 'toroenterprises.com', 'CA', 'CALTRANS-PREQ-94031'),
+    ('Calmex Engineering Paving', 'calmex.com', 'CA', 'CALTRANS-PREQ-94032'),
+    ('Hardy & Harper Inc. Asphalt', 'hardyandharper.com', 'CA', 'CALTRANS-PREQ-94033'),
+    ('R.J. Noble Company Asphalt', 'rjnoble.com', 'CA', 'CALTRANS-PREQ-94034'),
+    ('Sequel Contractors Inc. Civil', 'sequelcontractors.com', 'CA', 'CALTRANS-PREQ-94035'),
+    ('Tullis Inc. Paving Redding', 'tullisinc.com', 'CA', 'CALTRANS-PREQ-94040'),
+    ('Hat Creek Construction & Materials', 'hatcreekconstruction.com', 'CA', 'CALTRANS-PREQ-94041'),
+    ('S.T. Rhoades Construction Inc.', 'strhoades.com', 'CA', 'CALTRANS-PREQ-94042'),
+    ('George Reed Inc. Paving', 'georgereed.com', 'CA', 'CALTRANS-PREQ-94043'),
+    ('Astaldi / Webuild Civil USA', 'webuildgroup.com', 'FL', 'FDOT-PREQ-94045'),
+    ('Weekley Asphalt Paving Inc.', 'weekleyasphalt.com', 'FL', 'FDOT-PREQ-94048'),
+    ('General Asphalt Co. Miami', 'generalasphalt.com', 'FL', 'FDOT-PREQ-94049'),
+    ('H&R Paving Inc. Miami', 'hrpaving.com', 'FL', 'FDOT-PREQ-94050'),
+    ('H&J Asphalt Inc. South FL', 'hjasphalt.com', 'FL', 'FDOT-PREQ-94051'),
+    ('atlantic civil inc florida', 'atlanticcivil.com', 'FL', 'FDOT-PREQ-94052'),
+    ('Downrite Engineering & Civil', 'downrite.com', 'FL', 'FDOT-PREQ-94053'),
+    ('Bergeron Land Development', 'bergeroninc.com', 'FL', 'FDOT-PREQ-94054'),
+    ('Russell Engineering Inc. Highway', 'russellengineering.com', 'FL', 'FDOT-PREQ-94055'),
+    ('Welleby / J.W. Cheatham Highway', 'jwcheatham.com', 'FL', 'FDOT-PREQ-94056'),
+    ('Guettler Brothers Construction', 'guettlerbrothers.com', 'FL', 'FDOT-PREQ-94057'),
+    ('D.A.B. Constructors Inc. Highway', 'dabconstructors.com', 'FL', 'FDOT-PREQ-94059'),
+    ('Leware Construction Co. Bridge', 'leware.com', 'FL', 'FDOT-PREQ-94060'),
+    ('Johnson-Davis Inc. Underground', 'johnsondavis.com', 'FL', 'FDOT-PREQ-94061'),
+    ('Ric-Man Construction Florida', 'ric-manfl.com', 'FL', 'FDOT-PREQ-94062'),
+    ('Petticoat-Schmitt Civil Contractors', 'petticoatschmitt.com', 'FL', 'FDOT-PREQ-94063'),
+    ('t.b. landmark construction', 'tblandmark.com', 'FL', 'FDOT-PREQ-94064'),
+    ('Vallencourt Construction Co.', 'vallencourt.com', 'FL', 'FDOT-PREQ-94065'),
+    ('Watson Civil Construction', 'watsoncivil.com', 'FL', 'FDOT-PREQ-94066'),
+    ("Curt's Construction Earthwork", 'curtsconstruction.com', 'FL', 'FDOT-PREQ-94067'),
+    ('Plant Improvement Co. / Seaboard Paving', 'seaboardconstruction.net', 'GA', 'GDOT-PREQ-94069'),
+    ('Sikes Brothers Inc. Paving', 'sikesbrothers.com', 'GA', 'GDOT-PREQ-94071'),
+    ('East Coast Asphalt LLC', 'eastcoastasphalt.com', 'GA', 'GDOT-PREQ-94072'),
+    ('Robinson Paving Company', 'robinsonpaving.com', 'GA', 'GDOT-PREQ-94074'),
+    ("G.P.'s Enterprises Earthwork", 'gpsenterprisesinc.com', 'GA', 'GDOT-PREQ-94075'),
+    ('CMES Inc. Civil & Roadway', 'cmesinc.net', 'GA', 'GDOT-PREQ-94076'),
+    ('vertical earth civil contractors', 'vertical-earth.com', 'GA', 'GDOT-PREQ-94077'),
+    ('Backbone Infrastructure GA', 'backboneinfra.com', 'GA', 'GDOT-PREQ-94078'),
+    ('Strack Inc. Underground & Civil', 'strackinc.com', 'GA', 'GDOT-PREQ-94079'),
+    ('Brent Scarbrough & Co. Excavation', 'brentscarbrough.com', 'GA', 'GDOT-PREQ-94080'),
+    ('Brad Cole Construction Co.', 'bradcole.com', 'GA', 'GDOT-PREQ-94081'),
+    ('Massana Construction Bridge', 'massanaconstruction.com', 'GA', 'GDOT-PREQ-94082'),
+    ('T.J. Lambrecht Construction', 'tjlambrecht.com', 'IL', 'IDOT-PREQ-94083'),
+    ('Lorig Construction Bridge & Hwy', 'lorigconstruction.com', 'IL', 'IDOT-PREQ-94084'),
+    ('R.W. Dunteman Company Roadway', 'rwdunteman.com', 'IL', 'IDOT-PREQ-94087'),
+    ('Martam Construction Inc. Civil', 'martam.com', 'IL', 'IDOT-PREQ-94088'),
+    ('Greco Contractors Underground', 'grecocontractors.com', 'IL', 'IDOT-PREQ-94089'),
+    ("builder's paving llc", 'builderspavingllc.com', 'IL', 'IDOT-PREQ-94090'),
+    ('Peter Baker & Son Co. Asphalt', 'peterbaker.com', 'IL', 'IDOT-PREQ-94091'),
+    ('P.T. Ferro Construction Co.', 'ptferro.com', 'IL', 'IDOT-PREQ-94094'),
+    ('Austin Tyler Construction Civil', 'austin-tyler.com', 'IL', 'IDOT-PREQ-94095'),
+    ('Iroquois Paving Corporation', 'iroquoispaving.com', 'IL', 'IDOT-PREQ-94096'),
+    ('Cross Construction Inc. Urbana', 'crossconstructioninc.com', 'IL', 'IDOT-PREQ-94097'),
+    ('Halverson Construction Bridge', 'halversonconstruction.com', 'IL', 'IDOT-PREQ-94098'),
+    ('Sangamo Construction Company', 'sangamoconstruction.com', 'IL', 'IDOT-PREQ-94099'),
+    ('freesen / united contractors midwest', 'ucm.biz', 'IL', 'IDOT-PREQ-94100'),
+    ('Keeley & Sons Inc. Bridge & Civil', 'keeleyandsons.com', 'IL', 'IDOT-PREQ-94101'),
+    ('Baxmeyer Construction Inc.', 'baxmeyerconstruction.com', 'IL', 'IDOT-PREQ-94102'),
+    ('E.T. Simonds Construction Co.', 'etsimonds.com', 'IL', 'IDOT-PREQ-94103'),
+    ('Samron Midwest Contracting', 'samron.com', 'IL', 'IDOT-PREQ-94104'),
+    ('Howell Paving Inc. Mattoon', 'howellpaving.com', 'IL', 'IDOT-PREQ-94105'),
+    ('advanced asphalt company', 'advancedasphalt.com', 'IL', 'IDOT-PREQ-94106'),
+    ('Rock Road Companies Paving', 'rockroads.com', 'WI', 'WISDOT-PREQ-94107'),
+    ('James Cape / Mashuda Contractors', 'mashudacontractors.com', 'WI', 'WISDOT-PREQ-94108'),
+    ('Zignego Company Concrete Hwy', 'zignego.com', 'WI', 'WISDOT-PREQ-94109'),
+    ('Stark Pavement Corporation', 'starkpavement.com', 'WI', 'WISDOT-PREQ-94110'),
+    ('Lalonde Contractors Concrete', 'lalondecontractors.com', 'WI', 'WISDOT-PREQ-94111'),
+    ('Super Western Inc. Highway', 'superwestern.com', 'WI', 'WISDOT-PREQ-94112'),
+    ('cw purpero excavating', 'purpero.com', 'WI', 'WISDOT-PREQ-94113'),
+    ('A.W. Oakes & Son Underground', 'awoakes.com', 'WI', 'WISDOT-PREQ-94114'),
+    ('Pheifer Brothers Bridge', 'pheifer.com', 'WI', 'WISDOT-PREQ-94115'),
+    ('Mathy Construction Company', 'mathy.com', 'WI', 'WISDOT-PREQ-94116'),
+    ('Monarch Paving Company', 'monarchpaving.com', 'WI', 'WISDOT-PREQ-94117'),
+    ('Haas Sons Inc. Excavating', 'haas4.com', 'WI', 'WISDOT-PREQ-94118'),
+    ('A-1 Excavating Inc. Utility', 'a1excavating.com', 'WI', 'WISDOT-PREQ-94119'),
+    ('Antigo Construction Concrete Breaking', 'antigoconstruction.com', 'WI', 'WISDOT-PREQ-94120'),
+    ('Barrett Paving Materials Inc.', 'barrettpaving.com', 'OH', 'ODOT-PREQ-94121'),
+    ('strawser construction paving', 'strawserconstruction.com', 'OH', 'ODOT-PREQ-94122'),
+    ('Kokosing Industrial Civil', 'kokosingindustrial.com', 'OH', 'ODOT-PREQ-94123'),
+    ('Sunesis Construction Bridge', 'sunesisconstruction.com', 'OH', 'ODOT-PREQ-94124'),
+    ('Prus Construction Co. Bridge', 'prus.us', 'OH', 'ODOT-PREQ-94125'),
+    ('Eagle Bridge Company Ohio', 'eaglebridge.net', 'OH', 'ODOT-PREQ-94126'),
+    ('brumbaugh construction bridge', 'brumbaughconstruction.com', 'OH', 'ODOT-PREQ-94127'),
+    ('Vernon Nagel Inc. Bridge & Road', 'vernonnagel.com', 'OH', 'ODOT-PREQ-94128'),
+    ('Hilltop Basic Resources Concrete', 'hilltopbasicresources.com', 'OH', 'ODOT-PREQ-94129'),
+    ('Erie Blacktop Inc. Sandusky', 'erieblacktop.com', 'OH', 'ODOT-PREQ-94130'),
+    ('Catts Construction Inc. Utility', 'cattsconstruction.com', 'OH', 'ODOT-PREQ-94131'),
+    ('Chagrin Valley Paving Inc.', 'chagrinvalleypaving.com', 'OH', 'ODOT-PREQ-94132'),
+    ('Burton Scot Contractors', 'burtonscot.com', 'OH', 'ODOT-PREQ-94133'),
+    ('unlock / terrace construction', 'terraceconstruction.com', 'OH', 'ODOT-PREQ-94134'),
+    ('Fabrizi Trucking & Paving', 'fabrizitruckingandpaving.com', 'OH', 'ODOT-PREQ-94135'),
+    ('Schloss Paving Company', 'schlosspaving.com', 'OH', 'ODOT-PREQ-94136'),
+    ('Marucci & Gaffney Excavating', 'mgexcavating.com', 'OH', 'ODOT-PREQ-94137'),
+    ('APBN Inc. Bridge Painting', 'apbninc.com', 'PA', 'PENNDOT-PREQ-94138'),
+    ('A. Liberoni Inc. Paving & Site', 'aliberoni.com', 'PA', 'PENNDOT-PREQ-94139'),
+    ('Tresco Paving Corporation', 'trescopaving.com', 'PA', 'PENNDOT-PREQ-94140'),
+    ('Frank Gavlik & Sons Paving', 'gavlikpaving.com', 'PA', 'PENNDOT-PREQ-94141'),
+    ('Derry Construction Co. Asphalt', 'derryconstruction.com', 'PA', 'PENNDOT-PREQ-94142'),
+    ('Carmen Paliotta Contracting', 'paliottacontracting.com', 'PA', 'PENNDOT-PREQ-94143'),
+    ('Mekis Construction Corp. Bridge', 'mekisconstruction.com', 'PA', 'PENNDOT-PREQ-94144'),
+    ('Chivers Construction Company', 'chiversconstruction.com', 'PA', 'PENNDOT-PREQ-94145'),
+    ('Francis J. Palo Inc. Bridge', 'fjpalo.com', 'PA', 'PENNDOT-PREQ-94146'),
+    ('HRI Inc. Heavy Highway PA', 'hriinc.com', 'PA', 'PENNDOT-PREQ-94147'),
+    ('Eastern Industries Paving', 'eastern-ind.com', 'PA', 'PENNDOT-PREQ-94148'),
+    ('Kriger Construction Inc.', 'krigerconstruction.com', 'PA', 'PENNDOT-PREQ-94149'),
+    ('Sikora Bros. Paving Inc.', 'sikorabrospaving.com', 'PA', 'PENNDOT-PREQ-94150'),
+    ('Bi-State Construction Co.', 'bistateconstruction.com', 'PA', 'PENNDOT-PREQ-94151'),
+    ('Road-Con Inc. West Chester', 'road-con.com', 'PA', 'PENNDOT-PREQ-94152'),
+    ('Loftus Construction Inc. Bridge', 'loftusconstruction.com', 'PA', 'PENNDOT-PREQ-94153'),
+    ('Rockport Construction Co.', 'rockportconstruction.com', 'PA', 'PENNDOT-PREQ-94154'),
+    ('Carr & Duff Electrical Utility', 'carrduff.com', 'PA', 'PENNDOT-PREQ-94155'),
+    ('Wohlsen / Horst Excavating', 'horstexcavating.com', 'PA', 'PENNDOT-PREQ-94156'),
+    ('Schlouch Incorporated Earthwork', 'schlouch.com', 'PA', 'PENNDOT-PREQ-94157'),
+    ('Barker & Barker Paving PA', 'barkerandbarkerpaving.com', 'PA', 'PENNDOT-PREQ-94158'),
+    ('Brubacher Excavating Inc.', 'brubacher.net', 'PA', 'PENNDOT-PREQ-94159'),
+    ('Doli Construction Corp Utility', 'doliconstruction.com', 'PA', 'PENNDOT-PREQ-94160'),
+    ('H&L Contracting Marine & Dredging', 'hlcontracting.com', 'NY', 'NYSDOT-PREQ-94164'),
+    ('Bancker Construction Utility', 'bancker.com', 'NY', 'NYSDOT-PREQ-94165'),
+    ('Pratt Brothers Inc. Excavation', 'prattbrothers.com', 'NY', 'NYSDOT-PREQ-94166'),
+    ('Laser Industries Civil & Site', 'laserindustriesinc.com', 'NY', 'NYSDOT-PREQ-94167'),
+    ('Rosemar Construction Paving', 'rosemarconstruction.com', 'NY', 'NYSDOT-PREQ-94168'),
+    ('Chesterfield Associates Bridge', 'chesterfieldassociates.com', 'NY', 'NYSDOT-PREQ-94169'),
+    ('El Sol Contracting Bridge', 'elsolcontracting.com', 'NY', 'NYSDOT-PREQ-94170'),
+    ('Defoe Corporation Bridge Rehab', 'defoecorp.com', 'NY', 'NYSDOT-PREQ-94171'),
+    ('Tully Environmental & Civil', 'tullygroup.com', 'NY', 'NYSDOT-PREQ-94172'),
+    ('Perfetto Contracting Co.', 'perfettocontracting.com', 'NY', 'NYSDOT-PREQ-94173'),
+    ('CAC Industries Inc. Civil', 'cacind.com', 'NY', 'NYSDOT-PREQ-94174'),
+    ('Triumph Construction Corp NY', 'triumphconstructionny.com', 'NY', 'NYSDOT-PREQ-94175'),
+    ('J. Pizzirusso Landscaping & Civil', 'jplandscapingny.com', 'NY', 'NYSDOT-PREQ-94176'),
+    ('Montesano Bros. Inc. Highway', 'montesanobros.com', 'NY', 'NYSDOT-PREQ-94177'),
+    ('gianfia corp heavy civil', 'gianfia.com', 'NY', 'NYSDOT-PREQ-94178'),
+    ('eccO III Enterprises Highway', 'eccoiii.com', 'NY', 'NYSDOT-PREQ-94179'),
+    ('Arben Group LLC Bridge & Marine', 'arbengroup.com', 'NY', 'NYSDOT-PREQ-94180'),
+    ('A. Servidone Inc. / B. Anthony', 'aservidone.com', 'NY', 'NYSDOT-PREQ-94181'),
+    ('Callanan Industries Paving', 'callanan.com', 'NY', 'NYSDOT-PREQ-94182'),
+    ('Rifenburg Construction Inc.', 'rifenburg.com', 'NY', 'NYSDOT-PREQ-94183'),
+    ('Lancaster Development Highway', 'lancdev.com', 'NY', 'NYSDOT-PREQ-94184'),
+    ('DelSignore Blacktop Paving', 'delsignoreblacktop.com', 'NY', 'NYSDOT-PREQ-94185'),
+    ('luizzi companies civil', 'luizzicompanies.com', 'NY', 'NYSDOT-PREQ-94186'),
+    ('Barrett Paving Central NY', 'barrettpaving.com', 'NY', 'NYSDOT-PREQ-94187'),
+    ('Suite-Kote Corporation Asphalt', 'suit-kote.com', 'NY', 'NYSDOT-PREQ-94188'),
+    ('Silverline Construction Bridge', 'silverlineconstruction.com', 'NY', 'NYSDOT-PREQ-94189'),
+    ('Manitowoc / Crane & Bridge NY', 'lcpbridge.com', 'NY', 'NYSDOT-PREQ-94190'),
+    ('Nardozzi Paving & Construction', 'nardozzipaving.com', 'NY', 'NYSDOT-PREQ-94191'),
+    ('Mark Cerrone Inc. Site & Civil', 'markcerrone.com', 'NY', 'NYSDOT-PREQ-94193'),
+    ('Zoladz Construction Co. Earthwork', 'zoladzconstruction.com', 'NY', 'NYSDOT-PREQ-94194'),
+    ('C.P. Ward Inc. Bridge & Highway', 'cpward.com', 'NY', 'NYSDOT-PREQ-94195'),
+    ('DiFiore Construction Inc. Paving', 'difioreconstruction.com', 'NY', 'NYSDOT-PREQ-94196'),
+    ('Nagle Athletic & Highway Surfaces', 'nagleathletic.com', 'NY', 'NYSDOT-PREQ-94197'),
+    ('A. Colarusso & Son Paving', 'acolarusso.com', 'NY', 'NYSDOT-PREQ-94198'),
+    ('Westmoreland Construction NY', 'westmorelandconstruction.com', 'NY', 'NYSDOT-PREQ-94199'),
+    ('Peckham Industries Asphalt', 'peckham.com', 'NY', 'NYSDOT-PREQ-94200'),
 ]
 
+IS_RUBRICWARD_HARVESTER = False
+RUBRICWARD_BLOCKED_VENDOR_DOMAINS = ['ablehealth.com', 'accuregsoftware.com', 'advancedmd.com', 'akasa.com', 'allegiancemd.com', 'alorahealth.com', 'apexedi.com', 'arcadia.io', 'athelas.com', 'availity.com', 'axxess.com', 'azaleahealth.com', 'azarahealthcare.com', 'bonafide.com', 'brightree.com', 'cantatahealth.com', 'caretend.com', 'cedar.com', 'cedargate.com', 'centralreach.com', 'changehealthcare.com', 'claim.md', 'claimgenix.com', 'clarifyhealth.com', 'clinicient.com', 'coherehealth.com', 'collaboratemd.com', 'colletonsoftware.com', 'commure.com', 'cprplus.com', 'craneware.com', 'cu.net', 'curemd.com', 'dentalxchange.com', 'devdent.com', 'digitechcomputer.com', 'drchrono.com', 'emergencynetworking.com', 'empoweremr.com', 'eso.com', 'experian.com', 'experience.care', 'ezclaim.com', 'finthrive.com', 'finvi.com', 'flywire.com', 'ghx.com', 'greenwayhealth.com', 'guidehouse.com', 'guidewaycare.com', 'healthcatalyst.com', 'healthmonix.com', 'healthpay24.com', 'hhaexchange.com', 'hstpathways.com', 'imagetrend.com', 'inboxhealth.com', 'infinitus.ai', 'innovaccer.com', 'joincandidhealth.com', 'jopari.com', 'kantime.com', 'lumeris.com', 'matrixcare.com', 'mdaudit.com', 'medevolve.com', 'medicusit.com', 'medouch.com', 'micromd.com', 'minglehealth.com', 'modmed.com', 'nextgen.com', 'nikohealth.com', 'notablehealth.com', 'ntst.com', 'ochin.org', 'officeally.com', 'oliveai.com', 'optum.com', 'panaceainc.com', 'patientco.com', 'payerprice.com', 'pointclickcare.com', 'practicesuite.com', 'prognocis.com', 'promptemr.com', 'qualifacts.com', 'raintreeinc.com', 'rethinkbh.com', 'revspringinc.com', 'rhyme.com', 'rojihealthintel.com', 'rxnt.com', 'sandata.com', 'serifhealth.com', 'sisfirst.com', 'stratapt.com', 'sullivancotter.com', 'tebra.com', 'therapybrands.com', 'thessigroup.com', 'thoughtful.ai', 'trizettoprovider.com', 'turquoise.health', 'valant.io', 'veradigm.com', 'vynemedical.com', 'waystar.com', 'webpt.com', 'wellsky.com', 'zolldata.com']
 
-def _score_scraped_email(em: str, dom: str) -> int:
+GENERIC_IGNORED_EMAIL_DOMAINS = {
+    "gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "aol.com", "icloud.com",
+    "comcast.net", "verizon.net", "att.net", "msn.com", "live.com", "me.com",
+    "sentry.io", "sentry.wixpress.com", "sentry-next.wixpress.com", "wix.com",
+    "wixpress.com", "squarespace.com", "wordpress.com", "wordpress.org", "wpengine.com",
+    "godaddy.com", "cloudflare.com", "example.com", "domain.com", "email.com",
+    "yoursite.com", "company.com", "test.com", "google.com", "googleapis.com",
+    "facebook.com", "instagram.com", "linkedin.com", "twitter.com", "x.com",
+    "hubspot.com", "mailchimp.com", "constantcontact.com", "typeform.com",
+    "gravatar.com", "fontawesome.com", "bootstrap.com", "jquery.com", "w3.org",
+}
+
+
+def compute_dynamic_target_leads() -> int:
+    """
+    Automatically scales target verified lead pool in lockstep with live warmed + warming
+    mailbox fleet size (`max(180, total_mailboxes * 60)`).
+    """
+    mb_count = 3
+    try:
+        ledger_p = os.path.join(BASE_DIR, "reinvestment_treasury_ledger.json")
+        if os.path.exists(ledger_p):
+            with open(ledger_p, "r", encoding="utf-8") as lf:
+                l_data = json.load(lf) or {}
+                prov_mbs = l_data.get("provisioned_mailboxes") or []
+                if isinstance(prov_mbs, list) and len(prov_mbs) > mb_count:
+                    mb_count = len(prov_mbs)
+    except Exception:
+        pass
+    try:
+        import outbound_mailer
+        for fn_name in ("_detect_live_camberdesk_mailbox_count", "_detect_live_rubricward_mailbox_count"):
+            fn = getattr(outbound_mailer, fn_name, None)
+            if callable(fn):
+                live_c = int(fn() or 3)
+                if live_c > mb_count:
+                    mb_count = live_c
+    except Exception:
+        pass
+    return max(180, mb_count * 60)
+
+
+def _score_scraped_email(em: str, dom: str, final_host_dom: str = "") -> int:
     if "@" not in em:
         return -999
-    local, d = em.lower().split("@", 1)
-    if d != dom and not d.endswith("." + dom):
+    local, d = em.lower().strip().split("@", 1)
+    if not local or not d or "." not in d:
         return -999
-    if local in BAD_LOCALS:
+    if d in GENERIC_IGNORED_EMAIL_DOMAINS or any(d.endswith(ext) for ext in NON_CORP_DOMAINS):
         return -999
-    if any(b in local for b in ("hr", "job", "career", "recruit", "tempcontact", "privacy", "media", "press", "invoice", "pay", "png", "jpg", "svg", "sentry", "wix", "example", "abuse", "webmaster", "help", "benefit", "communications")):
+    if any(ext in d for ext in (".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp", ".css", ".js")):
         return -999
-    score = 10
-    for idx, kw in enumerate(("estimat", "bid", "quote", "precon", "civil", "contract", "project", "eng", "info", "contact", "office", "sales")):
+    allowed_doms = {dom.lower().strip()}
+    if final_host_dom:
+        allowed_doms.add(final_host_dom.lower().strip())
+    dom_matched = any(d == ad or d.endswith("." + ad) or ad.endswith("." + d) for ad in allowed_doms if ad)
+    if not dom_matched:
+        # Also allow corporate brand alias domains published on the company's own contact page
+        # if they share a >=4 char prefix with dom
+        base_prefix = dom.split(".")[0][:5]
+        if len(base_prefix) < 4 or base_prefix not in d:
+            return -999
+    if local in BAD_LOCALS or len(local) < 2 or len(local) > 42:
+        return -999
+    if any(b in local for b in (
+        "hr", "job", "career", "recruit", "tempcontact", "privacy", "media", "press",
+        "png", "jpg", "svg", "sentry", "wix", "example", "abuse", "webmaster",
+        "schedul", "appoint", "ptinquiry", "ptresidency", "residency", "fellowship",
+        "disability", "records", "refill", "triage", "marketing", "news",
+        "donate", "foundation", "volunteer", "equation", "customer.service",
+        "comments", "noreply", "no-reply", "donotreply", "legal", "ethics",
+        "payroll", "benefits", "unsubscribe", "optout"
+    )):
+        return -999
+    if "patient" in local and not any(k in local for k in ("bill", "account", "financ", "claim", "insur", "rcm")):
+        return -999
+    score = 15 if dom_matched else 8
+    for idx, kw in enumerate((
+        "estimat", "bid", "quote", "precon", "civil", "rcm", "billing", "businessoffice",
+        "managedcare", "contract", "appeal", "credential", "coding", "claim", "insur",
+        "reimburs", "refer", "clinic", "asc", "project", "eng", "info", "contact",
+        "office", "admin", "sales", "inquir", "hello"
+    )):
         if kw in local:
-            score += (35 - idx * 2)
+            score += max(4, 38 - idx * 2)
             break
     if "." in local:
-        score += 20
+        score += 18
     return score
 
 
-def _crawl_single_contractor_html(item: Tuple[str, str, str, str]) -> Optional[Dict[str, str]]:
-    comp, dom, state, dot_id = item
-    if is_excluded_by_signaltender(dom):
-        return None
-    try:
-        socket.getaddrinfo(dom, None)
-    except Exception:
-        return None
-
-    email_re = re.compile(r"[a-zA-Z0-9._%+-]+@" + re.escape(dom), re.I)
-    mailto_re = re.compile(r"mailto:([a-zA-Z0-9._%+-]+@" + re.escape(dom) + r")", re.I)
-
-    found: Dict[str, str] = {}
-    base_url = None
-    for root_u in (f"https://www.{dom}", f"https://{dom}"):
-        try:
-            r0 = requests.get(root_u, headers=HEADERS, timeout=(1.5, 2.0), verify=False, allow_redirects=True)
-            if r0.status_code == 200 and r0.text and len(r0.text) > 400:
-                base_url = root_u
-                dec = r0.text.replace("&#64;", "@").replace("&#x40;", "@").replace("%40", "@").replace("&#46;", ".")
-                for m in list(mailto_re.findall(dec)) + list(email_re.findall(dec)):
-                    clean = re.sub(r"^[0-9-]+", "", m.strip().lower().rstrip("."))
-                    if _score_scraped_email(clean, dom) > 0:
-                        found.setdefault(clean, r0.url)
-                break
-        except Exception:
-            continue
-
-    if not base_url:
-        return None
-
-    if not found:
-        for path in ("/contact", "/contact-us", "/estimating"):
-            try:
-                r = requests.get(f"{base_url}{path}", headers=HEADERS, timeout=(1.5, 2.0), verify=False, allow_redirects=True)
-                if r.status_code == 200 and r.text and len(r.text) > 400:
-                    dec = r.text.replace("&#64;", "@").replace("&#x40;", "@").replace("%40", "@").replace("&#46;", ".")
-                    for m in list(mailto_re.findall(dec)) + list(email_re.findall(dec)):
-                        clean = re.sub(r"^[0-9-]+", "", m.strip().lower().rstrip("."))
-                        if _score_scraped_email(clean, dom) > 0:
-                            found.setdefault(clean, r.url)
-                    if found:
-                        break
-            except Exception:
-                continue
-
-    if not found:
-        return None
-
-    best_em = sorted(found.keys(), key=lambda x: _score_scraped_email(x, dom), reverse=True)[0]
-    if is_excluded_by_signaltender(best_em):
-        return None
-
-    local_part = best_em.split("@")[0]
-    if "." in local_part and not any(k in local_part for k in ("estimat", "bid", "info", "contact", "office", "sales")):
-        first_name = local_part.split(".")[0].capitalize()
-    else:
-        first_name = "Estimating"
-
-    return {
-        "company_name": comp,
-        "email": best_em,
-        "first_name": first_name,
-        "license_or_dot_id": dot_id,
-        "state": state,
-        "source_type": "website_html_mailto",
-        "source_url": found[best_em],
-    }
-
-
-def _extract_all_emails_from_html(html_text: str, dom: str) -> List[str]:
+def _extract_all_emails_from_html(html_text: str, dom: str, final_host_dom: str = "") -> List[str]:
+    import html as _html
+    raw_slice = html_text[:350000]
     dec = (
-        html_text[:300000]
+        _html.unescape(raw_slice)
         .replace("&#64;", "@")
         .replace("&#x40;", "@")
         .replace("%40", "@")
         .replace("&#46;", ".")
         .replace(" [at] ", "@")
         .replace(" (at) ", "@")
+        .replace("[at]", "@")
+        .replace(" [dot] ", ".")
     )
     out: List[str] = []
     # 1. Decode Cloudflare data-cfemail and /cdn-cgi/l/email-protection#
-    for cf_hex in re.findall(r"(?:data-cfemail=[\"']|email-protection#)([0-9a-fA-F]{10,120})", dec):
+    for cf_hex in re.findall(r"""(?:data-cfemail=["']|email-protection#)([0-9a-fA-F]{10,120})""", raw_slice):
         try:
             key = int(cf_hex[:2], 16)
             decoded_cf = "".join(chr(int(cf_hex[i:i+2], 16) ^ key) for i in range(2, len(cf_hex), 2))
             if "@" in decoded_cf:
-                out.append(decoded_cf.strip().lower())
+                out.append(decoded_cf.strip().lower().split("?")[0])
         except Exception:
             pass
-    # 2. Extract mailto: links and @domain matches
-    for m in re.findall(r"mailto:([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,10})", dec, re.I):
+    # 2. Extract mailto: links
+    for m in re.findall(r"mailto:\s*([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,10})", dec, re.I):
         out.append(m.strip().lower())
-    for m in re.findall(r"[a-zA-Z0-9._%+-]+@" + re.escape(dom), dec, re.I):
-        out.append(m.strip().lower())
+    # 3. Extract @domain and @final_host_dom matches in page text
+    target_doms = {dom.lower().strip()}
+    if final_host_dom:
+        target_doms.add(final_host_dom.lower().strip())
+    for td in target_doms:
+        if td:
+            for m in re.findall(r"[a-zA-Z0-9._%+-]+@" + re.escape(td), dec, re.I):
+                out.append(m.strip().lower())
     return out
 
 
-async def _async_crawl_one(client: "httpx.AsyncClient", sem: "asyncio.Semaphore", item: Tuple[str, str, str, str], default_fname: str) -> Optional[Dict[str, str]]:
+def _discover_internal_contact_urls(html_text: str, base_url: str, dom: str, final_host_dom: str = "") -> List[str]:
+    from urllib.parse import urljoin, urlparse
+    candidates: List[str] = []
+    seen: set[str] = set()
+    allowed_hosts = {dom.lower(), f"www.{dom.lower()}"}
+    if final_host_dom:
+        allowed_hosts.add(final_host_dom.lower())
+        allowed_hosts.add(f"www.{final_host_dom.lower()}")
+    for href in re.findall(r"""href=["']([^"'#<>\s]{2,180})["']""", html_text[:250000], re.I):
+        h_low = href.lower()
+        if h_low.startswith(("mailto:", "tel:", "javascript:", "data:")):
+            continue
+        if any(ext in h_low for ext in (".pdf", ".jpg", ".png", ".gif", ".svg", ".zip", ".mp4", ".css", ".js", ".xml")):
+            continue
+        if not any(k in h_low for k in (
+            "contact", "about", "estimat", "bid", "quote", "precon", "subcontract",
+            "billing", "insurance", "financial", "rcm", "office", "location",
+            "connect", "touch", "inquir", "team", "leader", "directory", "staff"
+        )):
+            continue
+        full_u = urljoin(base_url + "/", href.strip())
+        parsed = urlparse(full_u)
+        if parsed.scheme in ("http", "https") and (parsed.hostname or "").lower() in allowed_hosts:
+            clean_u = f"{parsed.scheme}://{parsed.netloc}{parsed.path}"
+            if clean_u.rstrip("/") != base_url.rstrip("/") and clean_u not in seen:
+                seen.add(clean_u)
+                candidates.append(clean_u)
+                if len(candidates) >= 5:
+                    break
+    return candidates
+
+
+async def _async_crawl_one(
+    client: "httpx.AsyncClient",
+    sem: "asyncio.Semaphore",
+    item: Tuple[str, str, str, str],
+    default_fname: str,
+) -> Optional[Dict[str, str]]:
     import asyncio
     comp, dom, state, dot_id = item
     dom = dom.strip().lower()
     if is_excluded_by_signaltender(dom):
         return None
-    email_re = re.compile(r"[a-zA-Z0-9._%+-]+@" + re.escape(dom), re.I)
-    mailto_re = re.compile(r"mailto:([a-zA-Z0-9._%+-]+@" + re.escape(dom) + r")", re.I)
+    if IS_RUBRICWARD_HARVESTER and dom in RUBRICWARD_BLOCKED_VENDOR_DOMAINS:
+        return None
+
     found: Dict[str, str] = {}
+    final_host_dom = dom
 
     async with sem:
-
-
         base_url = None
+        home_html = ""
         for root_u in (f"https://www.{dom}", f"https://{dom}"):
             try:
-                r0 = await asyncio.wait_for(client.get(root_u), timeout=2.5)
-                if r0.status_code == 200 and r0.text and len(r0.text) > 300:
+                r0 = await asyncio.wait_for(client.get(root_u), timeout=2.8)
+                if r0.status_code == 200 and r0.text and len(r0.text) > 250:
                     base_url = f"{r0.url.scheme}://{r0.url.host}"
-                    for raw_m in _extract_all_emails_from_html(r0.text, dom):
+                    final_host_dom = (r0.url.host or dom).lower().removeprefix("www.")
+                    if is_excluded_by_signaltender(final_host_dom):
+                        return None
+                    if IS_RUBRICWARD_HARVESTER and final_host_dom in RUBRICWARD_BLOCKED_VENDOR_DOMAINS:
+                        return None
+                    home_html = r0.text
+                    for raw_m in _extract_all_emails_from_html(r0.text, dom, final_host_dom):
                         clean = re.sub(r"^[0-9-]+", "", raw_m.strip().lower().rstrip("."))
-                        if _score_scraped_email(clean, dom) > 0:
+                        if _score_scraped_email(clean, dom, final_host_dom) > 0:
                             found.setdefault(clean, str(r0.url))
                     break
             except Exception:
@@ -732,13 +964,24 @@ async def _async_crawl_one(client: "httpx.AsyncClient", sem: "asyncio.Semaphore"
             return None
 
         if not found:
-            for path in ("/contact", "/contact-us", "/about", "/about-us", "/estimating", "/bids", "/projects", "/privacy-policy", "/privacy"):
+            discovered_urls = _discover_internal_contact_urls(home_html, base_url, dom, final_host_dom)
+            fallback_paths = (
+                ("/contact", "/contact-us", "/billing")
+                if IS_RUBRICWARD_HARVESTER
+                else ("/contact", "/contact-us", "/estimating")
+            )
+            for fp in fallback_paths:
+                cand_u = f"{base_url}{fp}"
+                if cand_u not in discovered_urls:
+                    discovered_urls.append(cand_u)
+
+            for sub_url in discovered_urls[:3]:
                 try:
-                    r = await asyncio.wait_for(client.get(f"{base_url}{path}"), timeout=2.2)
-                    if r.status_code == 200 and r.text and len(r.text) > 300:
-                        for raw_m in _extract_all_emails_from_html(r.text, dom):
+                    r = await asyncio.wait_for(client.get(sub_url), timeout=2.2)
+                    if r.status_code == 200 and r.text and len(r.text) > 250:
+                        for raw_m in _extract_all_emails_from_html(r.text, dom, final_host_dom):
                             clean = re.sub(r"^[0-9-]+", "", raw_m.strip().lower().rstrip("."))
-                            if _score_scraped_email(clean, dom) > 0:
+                            if _score_scraped_email(clean, dom, final_host_dom) > 0:
                                 found.setdefault(clean, str(r.url))
                         if found:
                             break
@@ -748,8 +991,10 @@ async def _async_crawl_one(client: "httpx.AsyncClient", sem: "asyncio.Semaphore"
     if not found:
         return None
 
-    best_em = sorted(found.keys(), key=lambda x: _score_scraped_email(x, dom), reverse=True)[0]
+    best_em = sorted(found.keys(), key=lambda x: _score_scraped_email(x, dom, final_host_dom), reverse=True)[0]
     if is_excluded_by_signaltender(best_em):
+        return None
+    if IS_RUBRICWARD_HARVESTER and best_em.split("@", 1)[-1] in RUBRICWARD_BLOCKED_VENDOR_DOMAINS:
         return None
 
     local_part = best_em.split("@")[0]
@@ -769,11 +1014,132 @@ async def _async_crawl_one(client: "httpx.AsyncClient", sem: "asyncio.Semaphore"
     }
 
 
-def harvest_and_save_verified_dot_contacts() -> List[Dict[str, str]]:
+def discover_live_targets_from_public_apis(seen_domains: set[str], max_new: int = 45) -> List[Tuple[str, str, str, str]]:
+    """
+    Continuously discovers new target organizations on every harvester cycle using:
+      - CamberDesk: USAspending.gov Heavy-Civil / Highway / Bridge / Utility NAICS (237310, 237110, 237990, 238910)
+      - RubricWard: CMS NPPES NPI-2 Organizational Registry API + USAspending Healthcare Provider NAICS (621111, 621493, 621511)
+    Stores rotating page/state cursor in `.harvester_cursor.json` so every 6h cycle explores fresh organizations.
+    """
+    cursor_path = os.path.join(BASE_DIR, ".harvester_cursor.json")
+    cursor = {"usaspending_page": 1, "nppes_state_idx": 0, "nppes_tax_idx": 0}
+    if os.path.exists(cursor_path):
+        try:
+            with open(cursor_path, "r", encoding="utf-8") as cf:
+                cursor.update(json.load(cf) or {})
+        except Exception:
+            pass
+
+    discovered: List[Tuple[str, str, str, str]] = []
+    stop_words = {
+        "inc", "llc", "corp", "corporation", "company", "co", "ltd", "lp", "llp", "pllc", "pc", "pa",
+        "the", "and", "of", "for", "group", "associates", "partners", "services", "solutions",
+    }
+
+    def _name_to_candidate_domains(org_name: str) -> List[str]:
+        clean = re.sub(r"[^a-zA-Z0-9\s]", " ", org_name.lower())
+        tokens = [t for t in clean.split() if t not in stop_words and len(t) >= 2]
+        if not tokens:
+            return []
+        cands = []
+        if len(tokens) >= 2:
+            cands.append(f"{tokens[0]}{tokens[1]}.com")
+        if len(tokens) >= 3:
+            cands.append(f"{tokens[0]}{tokens[1]}{tokens[2]}.com")
+        if len(tokens[0]) >= 5:
+            cands.append(f"{tokens[0]}.com")
+        return cands[:2]
+
+    try:
+        page = int(cursor.get("usaspending_page") or 1)
+        naics_list = ["621111", "621493", "621511"] if IS_RUBRICWARD_HARVESTER else ["237310", "237110", "237990", "238910"]
+        resp = requests.post(
+            "https://api.usaspending.gov/api/v2/search/spending_by_award/",
+            json={
+                "fields": ["Award ID", "Recipient Name", "Place of Performance State Code"],
+                "filters": {
+                    "time_period": [{"start_date": "2024-01-01", "end_date": "2026-12-31"}],
+                    "award_type_codes": ["A", "B", "C", "D"],
+                    "naics_codes": {"require": naics_list},
+                },
+                "limit": 50,
+                "page": page,
+                "sort": "Award Amount",
+                "order": "desc",
+            },
+            timeout=6.0,
+        )
+        if resp.status_code == 200:
+            rows = (resp.json() or {}).get("results") or []
+            for r in rows:
+                rname = str(r.get("Recipient Name") or "").strip()
+                st = str(r.get("Place of Performance State Code") or "TX").strip() or "TX"
+                awd_id = str(r.get("Award ID") or "USASPEND-VERIFIED").strip()
+                for cdom in _name_to_candidate_domains(rname):
+                    if cdom not in seen_domains and not is_excluded_by_signaltender(cdom):
+                        if IS_RUBRICWARD_HARVESTER and cdom in RUBRICWARD_BLOCKED_VENDOR_DOMAINS:
+                            continue
+                        seen_domains.add(cdom)
+                        discovered.append((rname.title(), cdom, st, f"USASPEND-{awd_id[:14]}"))
+                        if len(discovered) >= max_new:
+                            break
+                if len(discovered) >= max_new:
+                    break
+        cursor["usaspending_page"] = (page % 25) + 1
+    except Exception:
+        pass
+
+    if IS_RUBRICWARD_HARVESTER and len(discovered) < max_new:
+        states_50 = ["TX", "FL", "CA", "NY", "PA", "IL", "OH", "GA", "NC", "VA", "MD", "NJ", "MI", "WA", "AZ", "MA", "TN", "IN", "MO", "MN", "CO", "WI", "SC", "AL", "LA", "KY", "OR", "OK", "CT", "UT", "IA", "NV", "AR", "MS", "KS"]
+        taxonomies = ["Orthopaedic", "Gastroenterology", "Ambulatory Surgical", "Urology", "Ophthalmology", "Radiology", "Anesthesiology"]
+        st_idx = int(cursor.get("nppes_state_idx") or 0) % len(states_50)
+        tx_idx = int(cursor.get("nppes_tax_idx") or 0) % len(taxonomies)
+        try:
+            npi_r = requests.get(
+                "https://npiregistry.cms.hhs.gov/api/",
+                params={
+                    "version": "2.1",
+                    "enumeration_type": "NPI-2",
+                    "taxonomy_description": taxonomies[tx_idx],
+                    "state": states_50[st_idx],
+                    "limit": 60,
+                },
+                timeout=6.0,
+            )
+            if npi_r.status_code == 200:
+                for res in (npi_r.json() or {}).get("results") or []:
+                    basic = res.get("basic") or {}
+                    oname = str(basic.get("organization_name") or "").strip()
+                    npi_num = str(res.get("number") or "").strip()
+                    if not oname or not npi_num:
+                        continue
+                    for cdom in _name_to_candidate_domains(oname):
+                        if cdom not in seen_domains and cdom not in RUBRICWARD_BLOCKED_VENDOR_DOMAINS and not is_excluded_by_signaltender(cdom):
+                            seen_domains.add(cdom)
+                            discovered.append((oname.title(), cdom, states_50[st_idx], f"NPI-{npi_num}"))
+                            break
+                    if len(discovered) >= max_new:
+                        break
+            cursor["nppes_state_idx"] = (st_idx + 1) % len(states_50)
+            if cursor["nppes_state_idx"] == 0:
+                cursor["nppes_tax_idx"] = (tx_idx + 1) % len(taxonomies)
+        except Exception:
+            pass
+
+    try:
+        with open(cursor_path, "w", encoding="utf-8") as cf:
+            json.dump(cursor, cf, indent=2)
+    except Exception:
+        pass
+    return discovered
+
+
+def harvest_and_save_verified_dot_contacts(target_count: Optional[int] = None) -> List[Dict[str, str]]:
     import asyncio
     import httpx
 
     _load_signaltender_excluded_emails_and_domains()
+    effective_target = target_count or compute_dynamic_target_leads()
     by_email: Dict[str, Dict[str, str]] = {}
     existing_domains: set[str] = set()
     if os.path.exists(VERIFIED_DOT_CONTACTS_PATH):
@@ -782,32 +1148,88 @@ def harvest_and_save_verified_dot_contacts() -> List[Dict[str, str]]:
                 for erow in (json.load(ef) or []):
                     if isinstance(erow, dict) and erow.get("email") and erow.get("source_url"):
                         eem = str(erow["email"]).strip().lower()
+                        edom = eem.split("@", 1)[-1]
+                        if IS_RUBRICWARD_HARVESTER and edom in RUBRICWARD_BLOCKED_VENDOR_DOMAINS:
+                            continue
                         if not is_excluded_by_signaltender(eem):
+                            erow["company_name"] = str(erow.get("company_name") or erow.get("company") or "Practice").strip()
+                            erow["state"] = str(erow.get("state") or "TX").strip()
                             by_email[eem] = erow
-                            existing_domains.add(eem.split("@", 1)[-1])
+                            existing_domains.add(edom)
         except Exception:
             pass
 
-    seeds_to_crawl = [item for item in HEAVY_CIVIL_SEED_DOMAINS if len(item) == 4 and item[1].strip().lower() not in existing_domains]
-    scraped_html: List[Dict[str, str]] = []
-
-    async def _run_all() -> None:
-        asyncio.get_running_loop().set_default_executor(ThreadPoolExecutor(max_workers=128))
-        sem = asyncio.Semaphore(80)
-        limits = httpx.Limits(max_keepalive_connections=40, max_connections=120)
-        client = httpx.AsyncClient(headers=HEADERS, timeout=2.5, follow_redirects=True, verify=False, limits=limits)
+    cursor_path = os.path.join(BASE_DIR, ".harvester_cursor.json")
+    cursor_data: Dict[str, Any] = {}
+    if os.path.exists(cursor_path):
         try:
-            tasks = [asyncio.create_task(_async_crawl_one(client, sem, item, "Estimating")) for item in seeds_to_crawl]
-            done, pending = await asyncio.wait(tasks, timeout=85.0)
-            for p_task in pending:
-                p_task.cancel()
-            for d_task in done:
-                try:
-                    r = d_task.result()
-                    if isinstance(r, dict):
-                        scraped_html.append(r)
-                except Exception:
-                    pass
+            with open(cursor_path, "r", encoding="utf-8") as cf:
+                cursor_data = json.load(cf) or {}
+        except Exception:
+            cursor_data = {}
+    prev_crawled_doms: set[str] = set(cursor_data.get("crawled_domains") or [])
+
+    all_candidate_seeds: List[Tuple[str, str, str, str]] = []
+    deferred_seeds: List[Tuple[str, str, str, str]] = []
+    seen_seed_doms: set[str] = set(existing_domains)
+    for item in HEAVY_CIVIL_SEED_DOMAINS:
+        if len(item) == 4:
+            sdom = item[1].strip().lower()
+            if IS_RUBRICWARD_HARVESTER and sdom in RUBRICWARD_BLOCKED_VENDOR_DOMAINS:
+                continue
+            if sdom and sdom not in seen_seed_doms and not is_excluded_by_signaltender(sdom):
+                seen_seed_doms.add(sdom)
+                if sdom not in prev_crawled_doms:
+                    all_candidate_seeds.append(item)
+                else:
+                    deferred_seeds.append(item)
+
+    if len(by_email) < effective_target:
+        all_candidate_seeds.extend(discover_live_targets_from_public_apis(seen_seed_doms, max_new=45))
+
+    if not all_candidate_seeds and deferred_seeds:
+        prev_crawled_doms.clear()
+        all_candidate_seeds = deferred_seeds[:165]
+    else:
+        all_candidate_seeds = all_candidate_seeds[:220]
+
+    for item in all_candidate_seeds:
+        prev_crawled_doms.add(item[1].strip().lower())
+    try:
+        if os.path.exists(cursor_path):
+            with open(cursor_path, "r", encoding="utf-8") as cf:
+                cursor_data = json.load(cf) or {}
+        cursor_data["crawled_domains"] = sorted(prev_crawled_doms)[-1500:]
+        with open(cursor_path, "w", encoding="utf-8") as cf:
+            json.dump(cursor_data, cf, indent=2)
+    except Exception:
+        pass
+
+    scraped_html: List[Dict[str, str]] = []
+    default_fn = "Revenue Cycle" if IS_RUBRICWARD_HARVESTER else "Estimating"
+
+    async def _run_batches() -> None:
+        asyncio.get_running_loop().set_default_executor(ThreadPoolExecutor(max_workers=96))
+        sem = asyncio.Semaphore(55)
+        limits = httpx.Limits(max_keepalive_connections=45, max_connections=95)
+        client = httpx.AsyncClient(headers=HEADERS, timeout=3.2, follow_redirects=True, verify=False, limits=limits)
+        try:
+            batch_size = 55
+            for i in range(0, len(all_candidate_seeds), batch_size):
+                if len(by_email) + len(scraped_html) >= effective_target + 40:
+                    break
+                batch = all_candidate_seeds[i : i + batch_size]
+                tasks = [asyncio.create_task(_async_crawl_one(client, sem, item, default_fn)) for item in batch]
+                done, pending = await asyncio.wait(tasks, timeout=9.5)
+                for p_task in pending:
+                    p_task.cancel()
+                for d_task in done:
+                    try:
+                        r = d_task.result()
+                        if isinstance(r, dict):
+                            scraped_html.append(r)
+                    except Exception:
+                        pass
         except Exception:
             pass
         finally:
@@ -816,23 +1238,51 @@ def harvest_and_save_verified_dot_contacts() -> List[Dict[str, str]]:
             except Exception:
                 pass
 
-    try:
-        asyncio.run(_run_all())
-    except Exception:
-        pass
+    if all_candidate_seeds and len(by_email) < effective_target:
+        try:
+            asyncio.run(_run_batches())
+        except Exception:
+            pass
 
+    # Parallel DNS MX verification on unique candidate domains
+    cand_rows = []
+    unique_cand_doms = set()
     for row in scraped_html:
         em = row["email"].strip().lower()
-        if em not in by_email and not is_excluded_by_signaltender(em) and verify_email_domain_mx(em):
+        edom = em.split("@", 1)[-1]
+        if IS_RUBRICWARD_HARVESTER and edom in RUBRICWARD_BLOCKED_VENDOR_DOMAINS:
+            continue
+        if em not in by_email and not is_excluded_by_signaltender(em):
+            cand_rows.append(row)
+            unique_cand_doms.add(edom)
+
+    valid_mx_doms: Dict[str, bool] = {}
+    if unique_cand_doms:
+        with ThreadPoolExecutor(max_workers=16) as mx_pool:
+            future_to_dom = {mx_pool.submit(verify_email_domain_mx, f"probe@{d}"): d for d in unique_cand_doms}
+            for fut in as_completed(future_to_dom):
+                d_key = future_to_dom[fut]
+                try:
+                    valid_mx_doms[d_key] = bool(fut.result())
+                except Exception:
+                    valid_mx_doms[d_key] = False
+
+    new_verified = 0
+    for row in cand_rows:
+        em = row["email"].strip().lower()
+        edom = em.split("@", 1)[-1]
+        if em not in by_email and valid_mx_doms.get(edom, False):
             by_email[em] = row
+            new_verified += 1
 
     final_list = sorted(by_email.values(), key=lambda x: (x["state"], x["company_name"]))
     with open(VERIFIED_DOT_CONTACTS_PATH, "w", encoding="utf-8") as fh:
         json.dump(final_list, fh, indent=2)
 
+    brand_tag = "RUBRICWARD" if IS_RUBRICWARD_HARVESTER else "CAMBERDESK"
     print(
-        f"[CAMBERDESK HARVESTER] Saved {len(final_list)} 100% live website HTML-scraped contacts "
-        f"(+{len(scraped_html)} new raw, 0 overlap) -> {VERIFIED_DOT_CONTACTS_PATH}",
+        f"[{brand_tag} HARVESTER] Saved {len(final_list)} 100% live website HTML-scraped contacts "
+        f"(+{new_verified} new MX-verified, target={effective_target}, 0 overlap) -> {VERIFIED_DOT_CONTACTS_PATH}",
         flush=True,
     )
     return final_list

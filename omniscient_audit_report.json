@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-11-01T11:09:11.845475+00:00",
+  "timestamp": "2026-11-02T10:09:48.024935+00:00",
   "mode": "fast",
-  "elapsed_seconds": 26.72,
+  "elapsed_seconds": 43.56,
   "status": "healthy",
-  "total_learned_rules": 18,
+  "total_learned_rules": 19,
   "pillars": {
     "pillar_1_products": {
       "ok": true,
