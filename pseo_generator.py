@@ -110,7 +110,6 @@ def generate_pseo_pages() -> Dict[str, Any]:
       <div class="flex flex-wrap items-center gap-3 sm:gap-5 text-sm font-bold">
         <a href="../index.html" class="text-[#0A0D14] hover:text-[#1E3A8A]">All Lettings</a>
         <a href="../../apis.html" class="text-[#0A0D14] hover:text-[#1E3A8A]">API Catalog</a>
-        <a href="../../index.html#contact" class="text-[#0A0D14] hover:text-[#1E3A8A]">Contact</a>
         <a href="../../index.html#account" class="text-[#0A0D14] hover:text-[#1E3A8A]">Client Portal</a>
         <a href="../../index.html#checkout" class="px-3.5 py-1.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold transition">Unlock 6-File .ZIP Takeoff</a>
       </div>
@@ -182,7 +181,7 @@ def generate_pseo_pages() -> Dict[str, Any]:
         <a href="../../index.html#account" class="hover:text-[#1E3A8A] underline">Client Portal</a>
         <a href="../../index.html#status" class="text-[#065F46] hover:text-[#1E3A8A] underline">System Status</a>
         <a href="../../index.html#security" class="hover:text-[#1E3A8A] underline">Security</a>
-        <a href="../../index.html#contact" class="hover:text-[#1E3A8A] underline">Contact &amp; Support</a>
+        <a href="../../index.html#contact" class="hover:text-[#1E3A8A] underline">Contact</a>
         <a href="../../index.html#terms" class="hover:text-[#1E3A8A] underline">Terms</a>
         <a href="../../index.html#privacy" class="hover:text-[#1E3A8A] underline">Privacy</a>
       </div>
@@ -241,7 +240,6 @@ def generate_pseo_pages() -> Dict[str, Any]:
         <a href="../index.html" class="text-[#0A0D14] hover:text-[#1E3A8A]">Overview</a>
         <a href="index.html" class="text-[#1E3A8A] font-extrabold">Live DOT Lettings</a>
         <a href="../apis.html" class="text-[#0A0D14] hover:text-[#1E3A8A]">API Catalog</a>
-        <a href="../index.html#contact" class="text-[#0A0D14] hover:text-[#1E3A8A]">Contact</a>
         <a href="../index.html#account" class="text-[#0A0D14] hover:text-[#1E3A8A]">Client Portal</a>
         <a href="../index.html#checkout" class="px-3.5 py-1.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold transition">Self-Serve Pricing</a>
       </nav>
@@ -270,7 +268,7 @@ def generate_pseo_pages() -> Dict[str, Any]:
         <a href="../index.html#account" class="hover:text-[#1E3A8A] underline">Client Portal</a>
         <a href="../index.html#status" class="text-[#065F46] hover:text-[#1E3A8A] underline">System Status</a>
         <a href="../index.html#security" class="hover:text-[#1E3A8A] underline">Security</a>
-        <a href="../index.html#contact" class="hover:text-[#1E3A8A] underline">Contact &amp; Support</a>
+        <a href="../index.html#contact" class="hover:text-[#1E3A8A] underline">Contact</a>
         <a href="../index.html#terms" class="hover:text-[#1E3A8A] underline">Terms</a>
         <a href="../index.html#privacy" class="hover:text-[#1E3A8A] underline">Privacy</a>
       </div>

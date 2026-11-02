@@ -137,10 +137,55 @@ def _strip_quoted_thread(raw_text: str) -> str:
     return cleaned if cleaned else str(raw_text or "").strip()
 
 
-def classify_estimator_reply(reply_text: str) -> str:
+def classify_estimator_reply(reply_text: str, subject: str = "", from_email: str = "") -> str:
     stripped = _strip_quoted_thread(reply_text)
     txt = stripped.lower()
-    if any(u in txt for u in ("unsubscribe", "remove me", "stop emailing", "not interested", "take me off")):
+    subj_low = str(subject or "").lower()
+    em_low = str(from_email or "").lower()
+    if (
+        em_low.startswith(("mailer-daemon@", "postmaster@", "noreply-dmarc@", "bounces@"))
+        or subj_low.startswith(("undeliverable:", "delivery status notification", "returned mail:", "mail delivery failed", "failure notice"))
+        or any(
+            b_p in txt
+            for b_p in (
+                "delivery to the following recipient failed",
+                "550 5.1.1",
+                "address not found",
+                "user unknown",
+                "mailbox unavailable",
+            )
+        )
+    ):
+        return "BOUNCE"
+    if (
+        subj_low.startswith(("automatic reply:", "auto-reply:", "out of office:", "out of the office:"))
+        or any(
+            ooo_p in txt
+            for ooo_p in (
+                "out of the office",
+                "out of office",
+                "currently away from",
+                "limited access to email",
+                "on vacation until",
+                "on parental leave",
+                "on medical leave",
+                "away from my desk",
+                "auto-reply",
+                "automatic reply",
+            )
+        )
+    ):
+        return "OUT_OF_OFFICE"
+    negated_unsub = any(
+        neg in txt
+        for neg in (
+            "don't unsubscribe", "do not unsubscribe", "dont unsubscribe",
+            "don't remove me", "do not remove me", "dont remove me",
+            "don't take me off", "do not take me off", "dont take me off",
+            "don't stop emailing", "do not stop emailing",
+        )
+    )
+    if not negated_unsub and any(u in txt for u in ("unsubscribe", "remove me", "stop emailing", "not interested", "take me off", "no thanks", "off your list")):
         return "UNSUBSCRIBE"
     if "?" in stripped and not any(p in txt for p in ("send zip", "send it", "send over")):
         return "QUESTION"
@@ -473,7 +518,8 @@ def run_reply_responder() -> Dict[str, Any]:
                 if not body_txt:
                     processed.append(msg_id)
                     continue
-                label = classify_estimator_reply(body_txt)
+                subj_in = str(item.get("subject") or "")
+                label = classify_estimator_reply(body_txt, subject=subj_in, from_email=from_em)
                 if label in ("POSITIVE_INTEREST", "QUESTION"):
                     pkg = build_zip_fulfillment_reply(from_em, reply_text=body_txt, label=label)
                     r_send = requests.post(
@@ -490,7 +536,25 @@ def run_reply_responder() -> Dict[str, Any]:
                     if 200 <= r_send.status_code < 300:
                         summary["replied"] += 1
                         _record_warm_zip_delivery(from_em, str(item.get("eaccount") or ""), msg_id, pkg["subject"], pkg.get("context") or {})
-                else:
+                        discord_url = (os.getenv("DISCORD_WEBHOOK_URL") or "").strip()
+                        if discord_url:
+                            try:
+                                requests.post(
+                                    discord_url,
+                                    json={
+                                        "content": (
+                                            f"**[CAMBERDESK HOT REPLY — AUTO-ANSWERED BY CLAUDE SONNET 5.5]**\n"
+                                            f"• **Estimator:** `{from_em}` (`{label}`)\n"
+                                            f"• **Their Reply:** {body_txt[:300]}\n"
+                                            f"• **Auto-Sent Response:** Delivered 6-File OpenXML Bid-Tab `.ZIP` + pre-filled `/#checkout` link."
+                                        ),
+                                        "flags": 4,
+                                    },
+                                    timeout=8,
+                                )
+                            except Exception:
+                                pass
+                elif label in ("UNSUBSCRIBE", "BOUNCE"):
                     summary["unsubscribed"] += 1
                     _archive_and_purge_unsubscribed_lead(from_em)
                 processed.append(msg_id)

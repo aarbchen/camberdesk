@@ -1612,14 +1612,14 @@ def build_site_files() -> None:
     window.BILLING_MODE = 'monthly';
     window.ACTIVE_CHECKOUT_TIER = 'tier2_monthly';
     window.CAMBERDESK_STRIPE_LINKS = {{
-      tier1_monthly: 'https://buy.stripe.com/00wbJ08qS0h5cxa2sc7wA0a',
-      tier1_annual: 'https://buy.stripe.com/8x2eVcgXo2pd2WAfeY7wA0b',
-      tier2_monthly: 'https://buy.stripe.com/5kQ00i9uW5BpgNq6Is7wA0c',
-      tier2_annual: 'https://buy.stripe.com/7sYaEW22u8NBdBe6Is7wA0d',
-      tier3_monthly: 'https://buy.stripe.com/cNidR8dLc2pdfJmgj27wA0e',
-      tier3_annual: 'https://buy.stripe.com/3cI28qfTkfbZdBe4Ak7wA0f',
-      tier4_monthly: 'https://buy.stripe.com/fZueVcePg5Bp2WA7Mw7wA0g',
-      tier4_annual: 'https://buy.stripe.com/3cIeVc4aC4xldBeaYI7wA0h'
+      tier1_monthly: 'https://checkout.stripe.com/c/pay/cs_live_b1kwq9BvutRg04kIScZElFAkuKRlISL3GHC4VfHJKIIIwGPPvWpxhVs3z4#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl',
+      tier1_annual: 'https://checkout.stripe.com/c/pay/cs_live_b1TSnoOyjv0dmn2ggKKRXTa17wzVrQvqW8mmVkSpL1M0eXEJi3F9UzheHh#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl',
+      tier2_monthly: 'https://checkout.stripe.com/c/pay/cs_live_b1myJyEHGBgHqaCL4REgSWbVPYIKD9enxzDwgW53XW9VRvlZ9aNxdHxnCT#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl',
+      tier2_annual: 'https://checkout.stripe.com/c/pay/cs_live_b1VVV18tzFKlEEp0ojFOtn4Lr0un2d54SifYCLZbF1aX9GdTbuKABzut9G#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl',
+      tier3_monthly: 'https://checkout.stripe.com/c/pay/cs_live_b1OmcQ12nPsykyz8JLyQUkXef81Vlog6wrQIKH2ydNAEQGdYAawNP9Vr7o#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl',
+      tier3_annual: 'https://checkout.stripe.com/c/pay/cs_live_b1w9sio2s9ngtsrQYXo6GojwnYMsn0toaqSraHJxtFLFmfu3b6UShHB1PD#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl',
+      tier4_monthly: 'https://checkout.stripe.com/c/pay/cs_live_b18by2NTm7TLTUMUMF15m18TJCTPZCGTPQbHhnZoenikfyyUYtoxccHXgT#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl',
+      tier4_annual: 'https://checkout.stripe.com/c/pay/cs_live_b1OdlSNdOVa1M5hCBerWunHsGXegQH1nYR7NRpUwCJZCEukaSew0Y69oCG#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl'
     }};
 
     function setCheckoutBilling(mode) {{
@@ -1684,14 +1684,14 @@ def build_site_files() -> None:
       closeTrustModals();
       window.ACTIVE_CHECKOUT_TIER = tierKey || 'tier2_monthly';
       const catalog = {{
-        tier1_monthly: {{ name: 'Tier 1 // CamberWire Pro (Monthly)', price: '$199 / month', desc: 'Real-time 50-State DOT, USACE & Municipal letting alerts + official planholder tracking.', stripeUrl: 'https://buy.stripe.com/00wbJ08qS0h5cxa2sc7wA0a' }},
-        tier1_annual: {{ name: 'Tier 1 // CamberWire Pro (Annual — 2 Months Free)', price: '$1,990 / year', desc: 'Real-time 50-State DOT, USACE & Municipal letting alerts + official planholder tracking.', stripeUrl: 'https://buy.stripe.com/8x2eVcgXo2pd2WAfeY7wA0b' }},
-        tier2_monthly: {{ name: 'Tier 2 // CamberDesk Autopilot (Monthly)', price: '$499 / month', desc: 'Full pre-shredded CSI Divisions 00–48 dossiers, 36-month DOT unit-price bid tabs, WH-347 wages & all 12 APIs.', stripeUrl: 'https://buy.stripe.com/5kQ00i9uW5BpgNq6Is7wA0c' }},
-        tier2_annual: {{ name: 'Tier 2 // CamberDesk Autopilot (Annual — 2 Months Free)', price: '$4,490 / year', desc: 'Full pre-shredded CSI Divisions 00–48 dossiers, 36-month DOT unit-price bid tabs, WH-347 wages & all 12 APIs.', stripeUrl: 'https://buy.stripe.com/7sYaEW22u8NBdBe6Is7wA0d' }},
-        tier3_monthly: {{ name: 'Tier 3 // 6-File .ZIP Takeoff Compiler (Monthly)', price: '$1,499 / month', desc: 'Unlimited 1-Click 6-File OpenXML (.DOCX + .XLSX with live Excel formulas) Bid Package compilations + dedicated MCP.', stripeUrl: 'https://buy.stripe.com/cNidR8dLc2pdfJmgj27wA0e' }},
-        tier3_annual: {{ name: 'Tier 3 // 6-File .ZIP Takeoff Compiler (Annual — 2 Months Free)', price: '$14,900 / year', desc: 'Unlimited 1-Click 6-File OpenXML (.DOCX + .XLSX with live Excel formulas) Bid Package compilations + dedicated MCP.', stripeUrl: 'https://buy.stripe.com/3cI28qfTkfbZdBe4Ak7wA0f' }},
-        tier4_monthly: {{ name: 'Tier 4 // Surety & ConTech OEM License (Monthly)', price: '$2,499 / month', desc: 'Multi-branch surety underwriting, HeavyBid/Procore ERP webhook pipes, custom SLA & unlimited team seats.', stripeUrl: 'https://buy.stripe.com/fZueVcePg5Bp2WA7Mw7wA0g' }},
-        tier4_annual: {{ name: 'Tier 4 // Surety & ConTech OEM License (Annual — 2 Months Free)', price: '$24,900 / year', desc: 'Multi-branch surety underwriting, HeavyBid/Procore ERP webhook pipes, custom SLA & unlimited team seats.', stripeUrl: 'https://buy.stripe.com/3cIeVc4aC4xldBeaYI7wA0h' }}
+        tier1_monthly: {{ name: 'Tier 1 // CamberWire Pro (Monthly)', price: '$199 / month', desc: 'Real-time 50-State DOT, USACE & Municipal letting alerts + official planholder tracking.', stripeUrl: 'https://checkout.stripe.com/c/pay/cs_live_b1kwq9BvutRg04kIScZElFAkuKRlISL3GHC4VfHJKIIIwGPPvWpxhVs3z4#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl' }},
+        tier1_annual: {{ name: 'Tier 1 // CamberWire Pro (Annual — 2 Months Free)', price: '$1,990 / year', desc: 'Real-time 50-State DOT, USACE & Municipal letting alerts + official planholder tracking.', stripeUrl: 'https://checkout.stripe.com/c/pay/cs_live_b1TSnoOyjv0dmn2ggKKRXTa17wzVrQvqW8mmVkSpL1M0eXEJi3F9UzheHh#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl' }},
+        tier2_monthly: {{ name: 'Tier 2 // CamberDesk Autopilot (Monthly)', price: '$499 / month', desc: 'Full pre-shredded CSI Divisions 00–48 dossiers, 36-month DOT unit-price bid tabs, WH-347 wages & all 12 APIs.', stripeUrl: 'https://checkout.stripe.com/c/pay/cs_live_b1myJyEHGBgHqaCL4REgSWbVPYIKD9enxzDwgW53XW9VRvlZ9aNxdHxnCT#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl' }},
+        tier2_annual: {{ name: 'Tier 2 // CamberDesk Autopilot (Annual — 2 Months Free)', price: '$4,490 / year', desc: 'Full pre-shredded CSI Divisions 00–48 dossiers, 36-month DOT unit-price bid tabs, WH-347 wages & all 12 APIs.', stripeUrl: 'https://checkout.stripe.com/c/pay/cs_live_b1VVV18tzFKlEEp0ojFOtn4Lr0un2d54SifYCLZbF1aX9GdTbuKABzut9G#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl' }},
+        tier3_monthly: {{ name: 'Tier 3 // 6-File .ZIP Takeoff Compiler (Monthly)', price: '$1,499 / month', desc: 'Unlimited 1-Click 6-File OpenXML (.DOCX + .XLSX with live Excel formulas) Bid Package compilations + dedicated MCP.', stripeUrl: 'https://checkout.stripe.com/c/pay/cs_live_b1OmcQ12nPsykyz8JLyQUkXef81Vlog6wrQIKH2ydNAEQGdYAawNP9Vr7o#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl' }},
+        tier3_annual: {{ name: 'Tier 3 // 6-File .ZIP Takeoff Compiler (Annual — 2 Months Free)', price: '$14,900 / year', desc: 'Unlimited 1-Click 6-File OpenXML (.DOCX + .XLSX with live Excel formulas) Bid Package compilations + dedicated MCP.', stripeUrl: 'https://checkout.stripe.com/c/pay/cs_live_b1w9sio2s9ngtsrQYXo6GojwnYMsn0toaqSraHJxtFLFmfu3b6UShHB1PD#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl' }},
+        tier4_monthly: {{ name: 'Tier 4 // Surety & ConTech OEM License (Monthly)', price: '$2,499 / month', desc: 'Multi-branch surety underwriting, HeavyBid/Procore ERP webhook pipes, custom SLA & unlimited team seats.', stripeUrl: 'https://checkout.stripe.com/c/pay/cs_live_b18by2NTm7TLTUMUMF15m18TJCTPZCGTPQbHhnZoenikfyyUYtoxccHXgT#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl' }},
+        tier4_annual: {{ name: 'Tier 4 // Surety & ConTech OEM License (Annual — 2 Months Free)', price: '$24,900 / year', desc: 'Multi-branch surety underwriting, HeavyBid/Procore ERP webhook pipes, custom SLA & unlimited team seats.', stripeUrl: 'https://checkout.stripe.com/c/pay/cs_live_b1OdlSNdOVa1M5hCBerWunHsGXegQH1nYR7NRpUwCJZCEukaSew0Y69oCG#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl' }}
       }};
       const info = catalog[window.ACTIVE_CHECKOUT_TIER] || catalog.tier2_monthly;
       const modal = document.getElementById('camberdesk-checkout-modal');
@@ -1708,6 +1708,17 @@ def build_site_files() -> None:
       if (directLinkEl) directLinkEl.setAttribute('href', _brandedHref);
       if (resBox) resBox.classList.add('hidden');
       if (modal) modal.classList.remove('hidden');
+      try {{
+        const _emEl = document.getElementById('checkout-modal-email');
+        const _emVal = _emEl ? _emEl.value.trim() : '';
+        fetch('https://b2b-contract-parser-api.onrender.com/v1/billing/create-checkout-session', {{
+          method: 'POST',
+          headers: {{ 'Content-Type': 'application/json' }},
+          body: JSON.stringify({{ brand: 'camberdesk', plan: _parts[0] || 'tier2', billing: _parts[1] || 'monthly', email: _emVal }})
+        }}).then(function(r) {{ return r && r.ok ? r.json() : null; }}).then(function(d) {{
+          if (d && d.checkout_url && directLinkEl) directLinkEl.setAttribute('href', d.checkout_url);
+        }}).catch(function() {{}});
+      }} catch (e) {{}}
       return info;
     }}
 
@@ -1733,13 +1744,13 @@ def build_site_files() -> None:
       const plan = parts[0] || 'tier2';
       const billing = parts[1] || 'monthly';
       const generatedKey = 'cd_live_' + btoa(email + ':' + tier).replace(/[^a-zA-Z0-9]/g, '').slice(0, 20).toLowerCase();
-      let resolvedCheckoutUrl = (window.CAMBERDESK_STRIPE_LINKS && window.CAMBERDESK_STRIPE_LINKS[tier]) || 'https://buy.stripe.com/5kQ00i9uW5BpgNq6Is7wA0c';
+      let resolvedCheckoutUrl = (window.CAMBERDESK_STRIPE_LINKS && window.CAMBERDESK_STRIPE_LINKS[tier]) || 'https://checkout.stripe.com/c/pay/cs_live_b1myJyEHGBgHqaCL4REgSWbVPYIKD9enxzDwgW53XW9VRvlZ9aNxdHxnCT#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl';
       if (statusEl) statusEl.textContent = 'Provisioning CamberDesk Workspace & Stripe Checkout Session via https://camberdesk.com/v1/billing/create-checkout-session...';
       try {{
         const resp = await fetch('https://b2b-contract-parser-api.onrender.com/v1/billing/create-checkout-session', {{
           method: 'POST',
           headers: {{ 'Content-Type': 'application/json' }},
-          body: JSON.stringify({{ plan, billing, email, tier, customer_email: email, company_name: company, state_dots: states }})
+          body: JSON.stringify({{ brand: 'camberdesk', plan, billing, email, tier, customer_email: email, company_name: company, state_dots: states }})
         }});
         if (resp && resp.ok) {{
           const data = await resp.json();
@@ -2233,7 +2244,7 @@ def build_site_files() -> None:
       }});
       try {{
         const h = String((window.location && window.location.hash) || '').replace(/^#/, '');
-        if (['account', 'status', 'security', 'contact', 'terms', 'privacy'].includes(h)) {{
+        if (['account', 'status', 'security', 'concierge', 'contact', 'terms', 'privacy'].includes(h)) {{
           if (window.history && window.history.replaceState) {{
             window.history.replaceState(null, '', window.location.pathname + window.location.search);
           }}
@@ -2641,10 +2652,10 @@ def build_site_files() -> None:
       if (/\\b(human|real\\s+person|talk\\s+to\\s+a\\s+person|speak\\s+to\\s+someone|agent|representative|support\\s+ticket|escalat|contact\\s+support|customer\\s+service|help\\s+desk|not\\s+helpful|still\\s+need\\s+help)\\b/i.test(ql)) {{
         return {{
           text: "Need to speak with a real person? You can send a direct, priority message to our Founder & Engineering Support desk right here in the Support & Contact panel:\\n• Tracked Priority Ticket (< 2 Business Hours SLA): Click 'Message Founder & Engineering Support' below to submit your question, work email, and urgency level — our system immediately alerts our founder and engineering team and assigns a tracked #CD-SUP-... ticket ID.\\n• Direct Founder Support Email: You can also copy our direct founder support email in the Support & Contact panel.",
-          ctaLabel: 'Contact Support & Engineering Team',
+          ctaLabel: 'Contact',
           ctaFn: function() {{ openHumanEscalationForm(q); }},
           actions: [
-            {{ label: 'Contact Support & Engineering Team', fn: function() {{ openHumanEscalationForm(q); }} }},
+            {{ label: 'Contact', fn: function() {{ openHumanEscalationForm(q); }} }},
             {{ label: 'Open Client Portal', fn: function() {{ openTrustModal('account'); }} }}
           ]
         }};
@@ -3355,13 +3366,13 @@ def build_site_files() -> None:
       if (!emailVal || emailVal.indexOf('@') === -1) {{
         boxEl.classList.remove('hidden');
         boxEl.className = 'p-3.5 rounded-xl bg-[#FEF2F2] border border-[#991B1B] text-xs font-mono text-[#991B1B] font-bold';
-        boxEl.textContent = 'Please enter a valid work email address so our Support & Engineering Team can reply directly to you.';
+        boxEl.textContent = 'Please enter a valid work email address.';
         return false;
       }}
       if (!rawMsg || rawMsg.length < 8) {{
         boxEl.classList.remove('hidden');
         boxEl.className = 'p-3.5 rounded-xl bg-[#FEF2F2] border border-[#991B1B] text-xs font-mono text-[#991B1B] font-bold';
-        boxEl.textContent = 'Please provide at least 8 characters describing how our Support & Engineering Team can help.';
+        boxEl.textContent = 'Please enter a message of at least 8 characters.';
         return false;
       }}
       if (/(<\\s*script|javascript\\s*:|union\\s+select|drop\\s+table)/i.test(rawMsg)) {{
@@ -3373,15 +3384,15 @@ def build_site_files() -> None:
       const fallbackTicket = 'CD-SUP-' + Math.random().toString(16).substring(2, 10).toUpperCase();
       if (btnEl) {{
         btnEl.disabled = true;
-        btnEl.textContent = 'Dispatching to Support & Engineering Queue...';
+        btnEl.textContent = 'Sending Message...';
       }}
       boxEl.classList.remove('hidden');
       boxEl.className = 'p-3.5 rounded-xl bg-[#EFF6FF] border border-[#93C5FD] text-xs font-mono text-[#1E3A8A] font-bold';
-      boxEl.textContent = 'Encrypting and routing your priority support ticket to our Support & Engineering Team queue...';
+      boxEl.textContent = 'Sending your message...';
 
       if (typeof fetch !== 'function') {{
         boxEl.className = 'p-4 rounded-xl bg-[#ECFDF5] border border-[#065F46] text-xs font-mono text-[#0A0D14] space-y-1.5';
-        boxEl.innerHTML = `<div class="text-[#065F46] font-extrabold">&check; PRIORITY HUMAN SUPPORT TICKET LOGGED (${{fallbackTicket}})</div><div>We will reply directly to <strong>${{_escConciergeHtml(emailVal)}}</strong> within 2 business hours.</div>`;
+        boxEl.innerHTML = `<div class="text-[#065F46] font-extrabold">&check; MESSAGE SUBMITTED (${{fallbackTicket}})</div><div>Your message has been submitted.</div>`;
         return false;
       }}
       try {{
@@ -3404,10 +3415,10 @@ def build_site_files() -> None:
         const tId = (resp.ok && data && data.ticket_id) ? data.ticket_id : fallbackTicket;
         if (msgEl) msgEl.value = '';
         boxEl.className = 'p-4 rounded-xl bg-[#ECFDF5] border border-[#065F46] text-xs font-mono text-[#0A0D14] space-y-1.5';
-        boxEl.innerHTML = `<div class="text-[#065F46] font-extrabold">&check; PRIORITY SUPPORT TICKET DISPATCHED (${{_escConciergeHtml(tId)}})</div><div>Your message has been securely delivered to the CamberDesk Support &amp; Engineering Team queue. Our team will reply directly to <strong>${{_escConciergeHtml(emailVal)}}</strong> within 2 business hours (Reference Ticket: <strong>${{_escConciergeHtml(tId)}}</strong>).</div>`;
+        boxEl.innerHTML = `<div class="text-[#065F46] font-extrabold">&check; MESSAGE SUBMITTED (${{_escConciergeHtml(tId)}})</div><div>Your message has been submitted (Reference: <strong>${{_escConciergeHtml(tId)}}</strong>).</div>`;
       }} catch (e) {{
         boxEl.className = 'p-4 rounded-xl bg-[#ECFDF5] border border-[#065F46] text-xs font-mono text-[#0A0D14] space-y-1.5';
-        boxEl.innerHTML = `<div class="text-[#065F46] font-extrabold">&check; PRIORITY SUPPORT TICKET LOGGED (${{fallbackTicket}})</div><div>Your support request (<strong>${{fallbackTicket}}</strong>) has been logged for our Support &amp; Engineering Team. We will reply directly to <strong>${{_escConciergeHtml(emailVal)}}</strong>.</div>`;
+        boxEl.innerHTML = `<div class="text-[#065F46] font-extrabold">&check; MESSAGE SUBMITTED (${{fallbackTicket}})</div><div>Your message has been submitted (Reference: <strong>${{fallbackTicket}}</strong>).</div>`;
       }} finally {{
         if (btnEl) {{
           btnEl.disabled = false;
@@ -3432,7 +3443,7 @@ def build_site_files() -> None:
         : (reply.ctaHref ? [{{ label: reply.ctaLabel, href: reply.ctaHref }}] : (reply.ctaFn ? [{{ label: reply.ctaLabel, fn: reply.ctaFn }}] : []));
       if (!reply.isWafBlock) {{
         baseActs.push({{
-          label: 'Need a Real Person? Contact Support Team',
+          label: 'Contact',
           fn: function() {{ openHumanEscalationForm(rawUserQ || window.__lastConciergeQuestion || ''); }}
         }});
       }}
@@ -3580,7 +3591,7 @@ def build_site_files() -> None:
         }}
       }} catch (e) {{}}
       if (!rawHash) return;
-      if (['account', 'status', 'security', 'contact', 'terms', 'privacy'].includes(rawHash)) {{
+      if (['account', 'status', 'security', 'concierge', 'contact', 'terms', 'privacy'].includes(rawHash)) {{
         openTrustModal(rawHash);
       }} else if (['overview', 'apis', 'lettings', 'checkout'].includes(rawHash)) {{
         closeTrustModals();
@@ -3942,71 +3953,75 @@ def build_site_files() -> None:
     </div>
   </div>
 
-  <!-- 4. #contact — Contact Support & Engineering Team Form + Autonomous AI Concierge -->
+  <!-- 4A. #contact — Standalone Contact Form -->
   <div id="contact" onclick="if(event.target===this) closeTrustModals()" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
-    <div class="max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl space-y-6">
+    <div class="max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl space-y-5">
       <div class="flex items-start justify-between gap-4 border-b border-[#CBD5E1] pb-3">
         <div>
-          <div class="text-xs font-mono font-bold text-[#1E3A8A]">&check; ENTERPRISE SUPPORT &amp; ENGINEERING DESK &bull; TRACKED SLA QUEUE + AI CONCIERGE</div>
-          <h3 class="text-xl sm:text-2xl font-extrabold text-[#0A0D14] mt-0.5">Contact CamberDesk Support &amp; Engineering Team</h3>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-[#0A0D14]">Contact</h3>
+          <p class="text-xs font-medium text-[#111827] mt-0.5">Use the form below to send a message.</p>
         </div>
         <button type="button" onclick="closeTrustModals()" class="shrink-0 whitespace-nowrap px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
       </div>
 
-      <!-- Direct Contact Support & Engineering Team Form (Top of Contact Modal) -->
-      <div id="camberdesk-human-escalation-card" class="p-5 sm:p-6 rounded-2xl bg-[#F4F1EA] border-2 border-[#1E3A8A] space-y-4">
-        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#CBD5E1] pb-3">
-          <div>
-            <div class="text-xs font-mono font-bold text-[#1E3A8A]">// DIRECT SUPPORT &amp; ENGINEERING TICKET FORM &bull; ENCRYPTED TLS 1.3</div>
-            <h4 class="text-base sm:text-lg font-extrabold text-[#0A0D14] mt-0.5">Send a Message to Our Support &amp; Engineering Team</h4>
-            <p class="text-xs font-medium text-[#111827] mt-0.5">Submit your question, billing request, or custom preconstruction inquiry below. Our Support &amp; Engineering Team replies directly to your work email within 2 business hours.</p>
-          </div>
-          <span class="px-2.5 py-1 rounded bg-[#ECFDF5] border border-[#065F46] text-[11px] font-mono font-bold text-[#065F46]">&check; Priority SLA: &lt; 2 Hours</span>
-        </div>
+      <div id="camberdesk-human-escalation-card" class="p-5 sm:p-6 rounded-2xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-4">
         <form id="form-human-escalation" onsubmit="submitHumanSupportEscalation(event)" class="space-y-3" autocomplete="off">
           <div class="hidden" aria-hidden="true">
             <input id="escalate-honeypot" type="text" name="website_url_honeypot" tabindex="-1" autocomplete="off" value="" />
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 text-xs font-mono">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-mono">
             <div>
-              <label for="escalate-name" class="block text-[11px] font-bold text-[#0A0D14] mb-1">YOUR NAME</label>
-              <input id="escalate-name" type="text" maxlength="100" placeholder="Chief Estimator" class="w-full px-3 py-2 rounded-lg bg-white border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#475569]" />
+              <label for="escalate-name" class="block text-[11px] font-bold text-[#0A0D14] mb-1">NAME</label>
+              <input id="escalate-name" type="text" maxlength="100" placeholder="Jane Doe" class="w-full px-3 py-2 rounded-lg bg-white border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#475569]" />
             </div>
             <div>
-              <label for="escalate-email" class="block text-[11px] font-bold text-[#1E3A8A] mb-1">WORK EMAIL (REQUIRED) *</label>
-              <input id="escalate-email" type="email" maxlength="120" required placeholder="estimating@yourcontractor.com" class="w-full px-3 py-2 rounded-lg bg-white border-2 border-[#1E3A8A] text-xs font-medium text-[#0A0D14] placeholder-[#475569]" />
+              <label for="escalate-email" class="block text-[11px] font-bold text-[#1E3A8A] mb-1">WORK EMAIL *</label>
+              <input id="escalate-email" type="email" maxlength="120" required placeholder="you@company.com" class="w-full px-3 py-2 rounded-lg bg-white border-2 border-[#1E3A8A] text-xs font-medium text-[#0A0D14] placeholder-[#475569]" />
             </div>
             <div>
-              <label for="escalate-company" class="block text-[11px] font-bold text-[#0A0D14] mb-1">CONTRACTOR / FIRM</label>
-              <input id="escalate-company" type="text" maxlength="100" placeholder="Apex Heavy Civil LLC" class="w-full px-3 py-2 rounded-lg bg-white border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#475569]" />
+              <label for="escalate-company" class="block text-[11px] font-bold text-[#0A0D14] mb-1">ORGANIZATION</label>
+              <input id="escalate-company" type="text" maxlength="100" placeholder="Your Firm LLC" class="w-full px-3 py-2 rounded-lg bg-white border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#475569]" />
             </div>
             <div>
-              <label for="escalate-urgency" class="block text-[11px] font-bold text-[#0A0D14] mb-1">SUPPORT DEPARTMENT</label>
+              <label for="escalate-urgency" class="block text-[11px] font-bold text-[#0A0D14] mb-1">TOPIC</label>
               <select id="escalate-urgency" class="w-full px-3 py-2 rounded-lg bg-white border border-[#94A3B8] text-xs font-bold text-[#0A0D14]">
-                <option value="priority_support">Priority Support &amp; Engineering (&lt; 2hr SLA)</option>
-                <option value="priority_billing">Billing, Receipt &amp; Subscription Help</option>
-                <option value="urgent_technical">DOT Bid-Tab, .ZIP or API Support</option>
-                <option value="enterprise_custom">Enterprise Multi-Seat / Surety OEM</option>
+                <option value="general">General Inquiry</option>
+                <option value="billing">Billing &amp; Subscription</option>
+                <option value="technical">Technical / API / .ZIP</option>
+                <option value="enterprise">Enterprise Inquiry</option>
               </select>
             </div>
           </div>
           <div>
             <div class="flex items-center justify-between text-[11px] font-mono mb-1">
-              <label for="escalate-message" class="font-bold text-[#0A0D14]">HOW CAN OUR SUPPORT &amp; ENGINEERING TEAM HELP YOU? *</label>
-              <span class="text-[#065F46] font-bold">Direct Support Queue Dispatch</span>
+              <label for="escalate-message" class="font-bold text-[#0A0D14]">MESSAGE *</label>
+              <span class="text-[#065F46] font-bold">Encrypted TLS 1.3</span>
             </div>
-            <textarea id="escalate-message" rows="3" maxlength="2000" required placeholder="Describe your question, custom DOT letting requirement, billing request, or technical issue — our Support &amp; Engineering Team will reply directly to your work email..." class="w-full p-3 rounded-lg bg-white border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#475569] leading-relaxed"></textarea>
+            <textarea id="escalate-message" rows="4" maxlength="2000" required placeholder="Enter your message..." class="w-full p-3 rounded-lg bg-white border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#475569] leading-relaxed"></textarea>
           </div>
-          <button type="submit" id="btn-submit-human-escalation" class="w-full py-2.5 px-4 rounded-xl bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold transition shadow-sm">
-            Send Message to Support &amp; Engineering Team &rarr;
+          <button type="submit" id="btn-escalate-submit" class="w-full py-2.5 px-4 rounded-xl bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold transition shadow-sm">
+            Send Message &rarr;
           </button>
         </form>
-        <div id="human-escalation-status-box" class="hidden"></div>
+        <div id="escalate-confirmation-box" class="hidden"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4B. #concierge — Autonomous AI Preconstruction Concierge & Self-Serve Desk -->
+  <div id="concierge" onclick="if(event.target===this) closeTrustModals()" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+    <div class="max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-2xl space-y-5">
+      <div class="flex items-start justify-between gap-4 border-b border-[#CBD5E1] pb-3">
+        <div>
+          <div class="text-xs font-mono font-bold text-[#065F46]">&check; AUTONOMOUS AI CONCIERGE &bull; INSTANT ON-SCREEN RESOLUTION</div>
+          <h3 class="text-xl font-extrabold text-[#0A0D14] mt-0.5">Ask the CamberDesk AI Preconstruction &amp; Support Concierge</h3>
+        </div>
+        <button type="button" onclick="closeTrustModals()" class="shrink-0 whitespace-nowrap px-3 py-1.5 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-mono text-xs font-bold">Close [X]</button>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
         <div class="lg:col-span-5 p-4 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-3 text-xs">
-          <div class="font-mono font-bold text-[#1E3A8A]">// ZERO-WAIT SELF-SERVE DESK</div>
-          <p class="font-medium text-[#111827] leading-relaxed">CamberDesk is 100% self-serve so you never wait 24–48 hours for a human support email to manage your subscription, webhooks, or API keys.</p>
+          <div class="font-mono font-bold text-[#1E3A8A]">// SELF-SERVE DESK</div>
+          <p class="font-medium text-[#111827] leading-relaxed">CamberDesk is 100% self-serve so you can manage your subscription, webhooks, and API keys immediately in-browser.</p>
           <div class="space-y-2">
             <button type="button" onclick="openTrustModal('account')" class="w-full text-left p-3 rounded-lg bg-white hover:bg-[#EAE6DF] border border-[#CBD5E1] transition">
               <div class="font-mono font-bold text-[#1E3A8A]">Manage Plan, Invoices &amp; 1-Click Cancel &rarr;</div>
@@ -4027,11 +4042,11 @@ def build_site_files() -> None:
             <div class="text-[11px] font-mono font-bold text-[#0A0D14]">CLICK A COMMON QUESTION OR TYPE YOUR OWN BELOW:</div>
             <div class="flex flex-wrap gap-1.5 text-[11px] font-mono">
               <button type="button" onclick="prefillContactConcierge('plans_and_pricing', 'What is the difference between Tier 1 ($199), Tier 2 Autopilot ($499), Tier 3 6-File .ZIP Compiler ($1,499), and Tier 4 OEM ($2,499)?')" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">Compare All 4 Tiers?</button>
-              <button type="button" onclick="prefillContactConcierge('billing_and_cancellation', 'How do I pause DOT email alerts, download a corporate receipt, or cancel in 1 click?')" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">Receipts &amp; 1-Click Cancel?</button>
-              <button type="button" onclick="prefillContactConcierge('zip_compiler', 'What is inside the 6-File OpenXML (.DOCX + .XLSX) Bid Package?')" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">6-File .ZIP Contents?</button>
-              <button type="button" onclick="prefillContactConcierge('portal_coverage', 'Which 50 State DOT and federal USACE portals are monitored?')" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">50-State DOT Coverage?</button>
+              <button type="button" onclick="prefillContactConcierge('billing_and_cancellation', 'How do I pause DOT letting email alerts, download a corporate receipt, or cancel in 1 click?')" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">Receipts &amp; 1-Click Cancel?</button>
+              <button type="button" onclick="prefillContactConcierge('zip_compiler', 'What is inside the 6-File OpenXML (.DOCX + .XLSX) DOT Bid Package?')" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">6-File .ZIP Contents?</button>
+              <button type="button" onclick="prefillContactConcierge('portal_coverage', 'Which 50 State DOT and federal construction portals are monitored?')" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">50-State DOT Coverage?</button>
               <button type="button" onclick="prefillContactConcierge('api_and_mcp', 'How do I connect all 12 Preconstruction APIs to Claude Desktop or Cursor via MCP?')" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">Claude / Cursor MCP Setup?</button>
-              <button type="button" onclick="prefillContactConcierge('security_and_compliance', 'Does CamberDesk store our bid packages or train AI models on our unit prices?')" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">Zero-Retention Security?</button>
+              <button type="button" onclick="prefillContactConcierge('security_and_compliance', 'Does CamberDesk store our bid uploads or train AI models on our unit prices?')" class="px-2.5 py-1 rounded bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white font-bold transition">Zero-Retention Security?</button>
             </div>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
@@ -4052,20 +4067,16 @@ def build_site_files() -> None:
             </div>
           </div>
           <form onsubmit="sendContactModalConcierge(event)" class="flex gap-2 min-w-0">
-            <input id="contact-modal-input" type="text" required placeholder="Ask anything about CamberDesk plans, 50-State DOT bid tabs, 6-File .ZIPs, or APIs..." class="flex-1 min-w-0 px-3.5 py-2.5 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#1E293B]" />
+            <input id="contact-modal-input" type="text" required placeholder="Ask anything about CamberDesk plans, 50-State DOT lettings, 6-File .ZIPs, or APIs..." class="flex-1 min-w-0 px-3.5 py-2.5 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#1E293B]" />
             <button type="submit" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold shrink-0 whitespace-nowrap">Get Instant Answer &rarr;</button>
           </form>
           <div id="contact-modal-log" class="p-4 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-2.5 max-h-72 overflow-y-auto text-xs">
             <div class="p-3 rounded-lg bg-white border border-[#CBD5E1] font-medium text-[#0A0D14] leading-relaxed">
-              <strong class="font-mono text-[#1E3A8A] block mb-1">&check; CAMBERDESK AI CONCIERGE (ONLINE &bull; AVG RESPONSE &lt; 1S):</strong>
+              <strong class="font-mono text-[#1E3A8A] block mb-1">&check; CAMBERDESK AI CONCIERGE (ONLINE):</strong>
               Click any question pill above or type your question in plain text for an instant, structured on-screen answer.
             </div>
           </div>
         </div>
-      </div>
-      <div class="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#CBD5E1] flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
-        <div><span class="font-bold text-[#0A0D14]">SELF-SERVE CLIENT PORTAL:</span> <a href="#account" onclick="openTrustModal('account', event)" class="text-[#1E3A8A] font-extrabold underline">1-Click Plan, Receipt &amp; API Key Management &rarr;</a></div>
-        <span class="text-[#065F46] font-bold">WAF VERIFIED &bull; ZERO BID-DATA RETENTION</span>
       </div>
     </div>
   </div>
@@ -4124,11 +4135,10 @@ def build_site_files() -> None:
   </aside>
 
   <!-- STICKY 4-TAB MOBILE BOTTOM NAVIGATION BAR (#mobile-bottom-nav) -->
-  <nav id="mobile-bottom-nav" class="md:hidden fixed bottom-0 inset-x-0 z-30 bg-white border-t-2 border-[#0A0D14] grid grid-cols-5 text-[10.5px] font-mono font-bold text-center">
+  <nav id="mobile-bottom-nav" class="md:hidden fixed bottom-0 inset-x-0 z-30 bg-white border-t-2 border-[#0A0D14] grid grid-cols-4 text-[11px] font-mono font-bold text-center">
     <a href="#overview" onclick="switchSpaView('overview')" class="py-2.5 text-[#0A0D14] border-r border-[#CBD5E1]">Overview</a>
     <a href="#lettings" onclick="switchSpaView('lettings')" class="py-2.5 text-[#0A0D14] border-r border-[#CBD5E1]">Lettings</a>
     <a href="#apis" onclick="switchSpaView('apis')" class="py-2.5 text-[#1E3A8A] border-r border-[#CBD5E1]">12 APIs</a>
-    <a href="#contact" onclick="openTrustModal('contact', event)" class="py-2.5 text-[#0A0D14] border-r border-[#CBD5E1]">Contact</a>
     <a href="#checkout" onclick="switchSpaView('checkout')" class="py-2.5 bg-[#0A0D14] text-white">Pricing</a>
   </nav>
 
@@ -4158,7 +4168,7 @@ def build_site_files() -> None:
         <input id="concierge-input" type="text" required placeholder="Ask preconstruction AI..." class="flex-1 px-2.5 py-1.5 rounded-lg bg-[#FAF8F5] border border-[#94A3B8] text-xs font-medium text-[#0A0D14] placeholder-[#1E293B]" />
         <button type="submit" class="px-3 py-1.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-mono text-xs font-bold">Send</button>
       </form>
-      <button type="button" onclick="openHumanEscalationForm('')" class="w-full py-1.5 px-2.5 rounded-lg bg-[#F4F1EA] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] font-mono text-[11px] font-bold transition">Need a Real Person? Contact Support Team &rarr;</button>
+      <button type="button" onclick="openHumanEscalationForm('')" class="w-full py-1.5 px-2.5 rounded-lg bg-[#F4F1EA] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] font-mono text-[11px] font-bold transition">Contact &rarr;</button>
     </div>
     <button type="button" id="concierge-trigger-btn" onclick="toggleConciergeDrawer()" aria-label="Open AI Preconstruction Concierge" title="AI Preconstruction Concierge" class="w-11 h-11 rounded-full flex items-center justify-center bg-[#0A0D14] hover:bg-[#1E3A8A] text-white shadow-lg border border-white/20 transition">
       <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -4213,7 +4223,6 @@ def build_site_files() -> None:
         <a href="#zip-package-inspector" onclick="navigateToOverviewSection('zip-package-inspector', event)" class="text-[#0A0D14] hover:text-[#1E3A8A]">6-File .ZIP Inspector</a>
         <a href="#lettings" onclick="switchSpaView('lettings', event)" class="text-[#0A0D14] hover:text-[#1E3A8A]">Live DOT Lettings</a>
         <a href="#apis" onclick="switchSpaView('apis', event)" class="text-[#0A0D14] hover:text-[#1E3A8A]">API Catalog</a>
-        <a href="#contact" onclick="openTrustModal('contact', event)" class="text-[#0A0D14] hover:text-[#1E3A8A]">Contact</a>
         <a href="#account" onclick="openTrustModal('account', event)" class="px-3 py-1.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Client Portal</a>
         <a href="#checkout" onclick="switchSpaView('checkout', event)" class="px-4 py-2 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold transition">Self-Serve Pricing</a>
       </nav>
@@ -4225,7 +4234,6 @@ def build_site_files() -> None:
       <a href="#roi-calculator" onclick="navigateToOverviewSection('roi-calculator', event)" class="text-[#0A0D14]">Estimating ROI Calculator</a>
       <a href="#lettings" onclick="switchSpaView('lettings', event)" class="text-[#0A0D14]">Live 50-State DOT Lettings</a>
       <a href="#apis" onclick="switchSpaView('apis', event)" class="text-[#0A0D14]">API Catalog</a>
-      <a href="#contact" onclick="openTrustModal('contact', event); toggleMobileNav();" class="text-[#1E3A8A]">Contact &amp; Support</a>
       <a href="#account" onclick="openTrustModal('account', event)" class="text-[#1E3A8A]">Client Portal</a>
       <a href="#status" onclick="openTrustModal('status', event)" class="text-[#065F46]">Live System Status</a>
       <a href="#checkout" onclick="switchSpaView('checkout', event)" class="px-4 py-2 rounded-lg bg-[#0A0D14] text-white text-center font-bold">Self-Serve Pricing</a>
@@ -4598,7 +4606,7 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
           <p class="text-xs font-medium text-[#111827] leading-relaxed">Real-time 50-State DOT, USACE Civil &amp; Municipal letting alerts + official planholder tracking.</p>
         </div>
         <div class="space-y-2">
-          <button type="button" id="btn-checkout-tier1" data-stripe-link="https://buy.stripe.com/00wbJ08qS0h5cxa2sc7wA0a" onclick="openCamberCheckoutModal('tier1_monthly')" class="w-full text-center py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] font-bold text-xs font-mono transition">Activate Tier 1</button>
+          <button type="button" id="btn-checkout-tier1" data-stripe-link="https://checkout.stripe.com/c/pay/cs_live_b1kwq9BvutRg04kIScZElFAkuKRlISL3GHC4VfHJKIIIwGPPvWpxhVs3z4#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl" onclick="openCamberCheckoutModal('tier1_monthly')" class="w-full text-center py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] font-bold text-xs font-mono transition">Activate Tier 1</button>
           <a id="stripe-link-tier1" href="https://checkout.stripe.com/c/pay/cs_live_b1kwq9BvutRg04kIScZElFAkuKRlISL3GHC4VfHJKIIIwGPPvWpxhVs3z4#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl" target="_blank" rel="noopener" class="block w-full text-center py-1.5 rounded-lg bg-[#FAF8F5] hover:bg-[#EAE6DF] text-[#1E3A8A] border border-[#CBD5E1] font-mono text-[11px] font-bold transition">Direct Stripe Checkout &rarr;</a>
         </div>
       </div>
@@ -4610,7 +4618,7 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
           <p class="text-xs font-medium text-[#111827] leading-relaxed">Full pre-shredded CSI Divisions 00–48 dossiers, 36-month DOT item bid tabulations, Davis-Bacon WH-347 rates, and API key for all 12 microservices.</p>
         </div>
         <div class="space-y-2">
-          <button type="button" id="btn-checkout-tier2" data-stripe-link="https://buy.stripe.com/5kQ00i9uW5BpgNq6Is7wA0c" onclick="openCamberCheckoutModal('tier2_monthly')" class="w-full text-center py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Activate Tier 2 Autopilot</button>
+          <button type="button" id="btn-checkout-tier2" data-stripe-link="https://checkout.stripe.com/c/pay/cs_live_b1myJyEHGBgHqaCL4REgSWbVPYIKD9enxzDwgW53XW9VRvlZ9aNxdHxnCT#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl" onclick="openCamberCheckoutModal('tier2_monthly')" class="w-full text-center py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-xs font-mono transition">Activate Tier 2 Autopilot</button>
           <a id="stripe-link-tier2" href="https://checkout.stripe.com/c/pay/cs_live_b1myJyEHGBgHqaCL4REgSWbVPYIKD9enxzDwgW53XW9VRvlZ9aNxdHxnCT#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl" target="_blank" rel="noopener" class="block w-full text-center py-1.5 rounded-lg bg-[#EFF6FF] hover:bg-[#DBEAFE] text-[#1E3A8A] border border-[#93C5FD] font-mono text-[11px] font-bold transition">Direct Stripe Checkout &rarr;</a>
         </div>
       </div>
@@ -4622,7 +4630,7 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
           <p class="text-xs font-medium text-[#111827] leading-relaxed">Unlimited 1-Click 6-File OpenXML (.DOCX + .XLSX with live formulas) Bid-Tab, Prevailing-Wage &amp; AIA G702/G703 compilations.</p>
         </div>
         <div class="space-y-2">
-          <button type="button" id="btn-checkout-tier3" data-stripe-link="https://buy.stripe.com/cNidR8dLc2pdfJmgj27wA0e" onclick="openCamberCheckoutModal('tier3_monthly')" class="w-full text-center py-2.5 rounded-lg bg-[#1E3A8A] hover:bg-[#0A0D14] text-white font-bold text-xs font-mono transition">Activate Tier 3 Compiler</button>
+          <button type="button" id="btn-checkout-tier3" data-stripe-link="https://checkout.stripe.com/c/pay/cs_live_b1OmcQ12nPsykyz8JLyQUkXef81Vlog6wrQIKH2ydNAEQGdYAawNP9Vr7o#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl" onclick="openCamberCheckoutModal('tier3_monthly')" class="w-full text-center py-2.5 rounded-lg bg-[#1E3A8A] hover:bg-[#0A0D14] text-white font-bold text-xs font-mono transition">Activate Tier 3 Compiler</button>
           <a id="stripe-link-tier3" href="https://checkout.stripe.com/c/pay/cs_live_b1OmcQ12nPsykyz8JLyQUkXef81Vlog6wrQIKH2ydNAEQGdYAawNP9Vr7o#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl" target="_blank" rel="noopener" class="block w-full text-center py-1.5 rounded-lg bg-[#FAF8F5] hover:bg-[#EAE6DF] text-[#1E3A8A] border border-[#CBD5E1] font-mono text-[11px] font-bold transition">Direct Stripe Checkout &rarr;</a>
         </div>
       </div>
@@ -4634,7 +4642,7 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
           <p class="text-xs font-medium text-[#111827] leading-relaxed">Multi-branch surety underwriting, HeavyBid/Procore ERP webhook pipes, custom SLA &amp; unlimited estimating seats.</p>
         </div>
         <div class="space-y-2">
-          <button type="button" id="btn-checkout-tier4" data-stripe-link="https://buy.stripe.com/fZueVcePg5Bp2WA7Mw7wA0g" onclick="openCamberCheckoutModal('tier4_monthly')" class="w-full text-center py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] font-bold text-xs font-mono transition">Activate Tier 4 OEM</button>
+          <button type="button" id="btn-checkout-tier4" data-stripe-link="https://checkout.stripe.com/c/pay/cs_live_b18by2NTm7TLTUMUMF15m18TJCTPZCGTPQbHhnZoenikfyyUYtoxccHXgT#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl" onclick="openCamberCheckoutModal('tier4_monthly')" class="w-full text-center py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#0A0D14] text-[#0A0D14] hover:text-white border border-[#94A3B8] font-bold text-xs font-mono transition">Activate Tier 4 OEM</button>
           <a id="stripe-link-tier4" href="https://checkout.stripe.com/c/pay/cs_live_b18by2NTm7TLTUMUMF15m18TJCTPZCGTPQbHhnZoenikfyyUYtoxccHXgT#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl" target="_blank" rel="noopener" class="block w-full text-center py-1.5 rounded-lg bg-[#FAF8F5] hover:bg-[#EAE6DF] text-[#1E3A8A] border border-[#CBD5E1] font-mono text-[11px] font-bold transition">Direct Stripe Checkout &rarr;</a>
         </div>
       </div>
@@ -4822,14 +4830,14 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
           <a href="#account" onclick="openTrustModal('account', event)" class="hover:text-[#1E3A8A] underline">Client Portal</a>
           <a href="#status" onclick="openTrustModal('status', event)" class="text-[#065F46] hover:text-[#1E3A8A] underline">System Status</a>
           <a href="#security" onclick="openTrustModal('security', event)" class="hover:text-[#1E3A8A] underline">Security</a>
-          <a href="#contact" onclick="openTrustModal('contact', event)" class="hover:text-[#1E3A8A] underline">Contact &amp; Support</a>
+          <a href="#contact" onclick="openTrustModal('contact', event)" class="hover:text-[#1E3A8A] underline">Contact</a>
           <a href="#terms" onclick="openTrustModal('terms', event)" class="hover:text-[#1E3A8A] underline">Terms</a>
           <a href="#privacy" onclick="openTrustModal('privacy', event)" class="hover:text-[#1E3A8A] underline">Privacy</a>
         </div>
       </div>
       <div class="text-xs font-mono font-semibold text-[#111827] flex flex-wrap items-center justify-between gap-2 border-t border-[#CBD5E1] pt-3">
         <div>&copy; 2026 CamberDesk Inc. &bull; Stateless Preconstruction, 50-State DOT Bid-Tab &amp; Prevailing-Wage DaaS</div>
-        <div>24/7 Support: <a href="#contact" onclick="openTrustModal('contact', event)" class="text-[#1E3A8A] font-bold hover:underline">Instant AI Support Concierge</a> &bull; <a href="#account" onclick="openTrustModal('account', event)" class="text-[#0A0D14] font-bold hover:underline">Client Portal</a></div>
+        <div>24/7 Self-Serve: <a href="#concierge" onclick="openTrustModal('concierge', event)" class="text-[#1E3A8A] font-bold hover:underline">Instant AI Support Concierge</a> &bull; <a href="#contact" onclick="openTrustModal('contact', event)" class="text-[#0A0D14] font-bold hover:underline">Contact</a> &bull; <a href="#account" onclick="openTrustModal('account', event)" class="text-[#0A0D14] font-bold hover:underline">Client Portal</a></div>
       </div>
     </div>
   </footer>
@@ -4867,7 +4875,6 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
         <a href="index.html" class="text-[#0A0D14] hover:text-[#1E3A8A]">Overview</a>
         <a href="lettings/index.html" class="text-[#0A0D14] hover:text-[#1E3A8A]">Live DOT Lettings</a>
         <a href="apis.html" class="text-[#1E3A8A] font-extrabold">API Catalog</a>
-        <a href="#contact" onclick="openTrustModal('contact', event)" class="text-[#0A0D14] hover:text-[#1E3A8A]">Contact</a>
         <a href="#account" onclick="openTrustModal('account', event)" class="px-3 py-1.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-xs font-mono font-bold transition">Client Portal</a>
         <a href="index.html#checkout" class="px-4 py-2 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold transition">Self-Serve Pricing</a>
       </nav>
@@ -4877,7 +4884,6 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
       <a href="index.html" class="text-[#0A0D14]">Overview</a>
       <a href="lettings/index.html" class="text-[#0A0D14]">Live 50-State DOT Lettings</a>
       <a href="apis.html" class="text-[#1E3A8A]">API Catalog</a>
-      <a href="#contact" onclick="openTrustModal('contact', event); toggleMobileNav();" class="text-[#1E3A8A]">Contact &amp; Support</a>
       <a href="#account" onclick="openTrustModal('account', event)" class="text-[#1E3A8A]">Client Portal</a>
       <a href="#status" onclick="openTrustModal('status', event)" class="text-[#065F46]">Live System Status</a>
       <a href="index.html#checkout" class="px-4 py-2 rounded-lg bg-[#0A0D14] text-white text-center font-bold">Self-Serve Pricing</a>
@@ -4893,7 +4899,7 @@ CSI SUBMITTAL REGISTER (EXTRACTED):
         <a href="#account" onclick="openTrustModal('account', event)" class="hover:text-[#1E3A8A] underline">Client Portal</a>
         <a href="#status" onclick="openTrustModal('status', event)" class="text-[#065F46] hover:text-[#1E3A8A] underline">System Status</a>
         <a href="#security" onclick="openTrustModal('security', event)" class="hover:text-[#1E3A8A] underline">Security</a>
-        <a href="#contact" onclick="openTrustModal('contact', event)" class="hover:text-[#1E3A8A] underline">Contact &amp; Support</a>
+        <a href="#contact" onclick="openTrustModal('contact', event)" class="hover:text-[#1E3A8A] underline">Contact</a>
         <a href="#terms" onclick="openTrustModal('terms', event)" class="hover:text-[#1E3A8A] underline">Terms</a>
         <a href="#privacy" onclick="openTrustModal('privacy', event)" class="hover:text-[#1E3A8A] underline">Privacy</a>
       </div>
