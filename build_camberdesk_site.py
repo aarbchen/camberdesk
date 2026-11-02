@@ -104,7 +104,7 @@ APIS_CATALOG: List[Dict[str, Any]] = [
         "res_sample": {
             "status": "success",
             "portals_monitored": 52,
-            "count": 12,
+            "count": 52,
             "lettings": [
                 {
                     "project_id": "TXDOT-CSJ-0015-13-412",
@@ -1782,7 +1782,7 @@ def build_site_files() -> None:
       const webhookUrl = urlInp ? urlInp.value.trim() : '';
       const platform = platSel ? platSel.value : 'slack';
       const email = (__activeClientAccount && __activeClientAccount.email) || (document.getElementById('account-lookup-input') && document.getElementById('account-lookup-input').value.trim()) || 'estimating@contractor.com';
-      if (!webhookUrl || !/^https?:\/\//i.test(webhookUrl)) {{
+      if (!webhookUrl || !/^https?:\\/\\//i.test(webhookUrl)) {{
         if (stEl) {{
           stEl.className = 'font-mono font-bold text-[#991B1B]';
           stEl.textContent = 'Enter a valid HTTPS webhook URL (Slack, Microsoft Teams, Procore, HeavyBid, Sage 300, or Discord).';
@@ -3592,7 +3592,7 @@ def build_site_files() -> None:
         closeTrustModals();
         switchSpaView('lettings');
         renderLettingsRoute('#' + rawHash);
-      }} else if (['zip-package-inspector', 'roi-calculator', 'sample-lead-magnet', 'capture-moat', 'before-after-comparison', 'interactive-state-shredder', 'contract-directory', 'coverage', 'persona-quickstart-bar', 'product-5stage-stepper', 'hero-metrics-strip'].includes(rawHash)) {{
+      }} else if (['zip-package-inspector', 'roi-calculator', 'sample-lead-magnet', 'capture-moat', 'master-plan-roadmap', 'before-after-comparison', 'interactive-state-shredder', 'contract-directory', 'coverage', 'persona-quickstart-bar', 'product-5stage-stepper', 'hero-metrics-strip'].includes(rawHash)) {{
         closeTrustModals();
         navigateToOverviewSection(rawHash);
       }} else if (['integrations', 'contractor-profile-vault', 'api-studio-playground', 'mcp-integration-hub'].includes(rawHash)) {{
@@ -4402,6 +4402,61 @@ def build_site_files() -> None:
             <tr><td class="py-2.5 px-3 font-bold text-[#0A0D14]">Pricing &amp; Contract Terms</td><td class="py-2.5 px-3">$12,000–$18,000/yr mandatory annual seat lock-in</td><td class="py-2.5 px-3 font-bold text-[#0A0D14]">$199–$499/mo self-serve, REST + MCP API included, cancel anytime</td></tr>
           </tbody>
         </table>
+      </div>
+    </section>
+
+    <!-- Section: Master Plan Execution Phase & 4-Phase Unicorn Stage-Gate Architecture (#master-plan-roadmap) -->
+    <section id="master-plan-roadmap" class="p-6 sm:p-8 rounded-2xl bg-white border-2 border-[#0A0D14] shadow-sm space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#CBD5E1] pb-4">
+        <div>
+          <div class="text-xs font-mono font-bold text-[#065F46]">// CAMBERDESK MASTER PLAN ARCHITECTURE &bull; PHASE 1 LIVE SEED ENGINE ACTIVE</div>
+          <h2 class="text-2xl font-extrabold text-[#0A0D14] mt-0.5">From 50-State DOT Takeoff Autopilot to the Autonomous Heavy-Civil Preconstruction &amp; Surety Exchange</h2>
+        </div>
+        <span class="px-3 py-1.5 rounded-lg bg-[#ECFDF5] border border-[#065F46] text-xs font-mono font-extrabold text-[#065F46]">CURRENT POSTURE: PHASE 1 LIVE (52 PORTALS &bull; 12 APIS)</span>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center font-mono">
+        <div class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1]">
+          <div class="text-[11px] font-bold text-[#1E3A8A]">ACTIVE DOT &amp; USACE PORTALS</div>
+          <div class="text-xl font-extrabold text-[#0A0D14] mt-1">52 Portals Live</div>
+          <div class="text-[11px] font-semibold text-[#065F46] mt-0.5">50 State DOTs + USACE + Muni</div>
+        </div>
+        <div class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1]">
+          <div class="text-[11px] font-bold text-[#1E3A8A]">STATIC BID-TAB DOSSIERS</div>
+          <div class="text-xl font-extrabold text-[#0A0D14] mt-1">52 Live Lettings</div>
+          <div class="text-[11px] font-semibold text-[#065F46] mt-0.5">36-Mo $/Ton, $/CY &amp; $/LF Tabs</div>
+        </div>
+        <div class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1]">
+          <div class="text-[11px] font-bold text-[#1E3A8A]">OPENXML TAKEOFF COMPILER</div>
+          <div class="text-xl font-extrabold text-[#0A0D14] mt-1">6-File .ZIP Suite</div>
+          <div class="text-[11px] font-semibold text-[#065F46] mt-0.5">Live =ROUND(D6*G6,2) &amp; =SUM()</div>
+        </div>
+        <div class="p-3.5 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1]">
+          <div class="text-[11px] font-bold text-[#1E3A8A]">PRECON MICROSERVICES</div>
+          <div class="text-xl font-extrabold text-[#0A0D14] mt-1">12 REST &amp; MCP APIs</div>
+          <div class="text-[11px] font-semibold text-[#065F46] mt-0.5">CSI 00-48, WH-347, BABA &amp; DBE</div>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+        <div class="p-4 rounded-xl bg-[#ECFDF5] border-2 border-[#065F46] space-y-2">
+          <div class="flex items-center justify-between font-mono font-extrabold text-[#065F46]"><span>PHASE 01 // SEED ENGINE</span><span class="px-2 py-0.5 rounded bg-[#065F46] text-white text-[10px]">LIVE NOW</span></div>
+          <h3 class="text-sm font-extrabold text-[#0A0D14]">52-Portal DOT Bid-Tab &amp; 6-File OpenXML Takeoff Autopilot</h3>
+          <p class="text-[#111827] font-medium leading-relaxed">Automated 6-hour ingestion across all 50 State DOTs, USACE Civil Works &amp; Municipal portals, 36-month unit-price bid tabulations, Davis-Bacon WH-347 wage models, and 1-click 6-File (.DOCX + .XLSX) bid packages.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-2">
+          <div class="flex items-center justify-between font-mono font-bold text-[#1E3A8A]"><span>PHASE 02 // SCALE ENGINE</span><span class="px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] text-[10px]">STAGE-GATE 2</span></div>
+          <h3 class="text-sm font-extrabold text-[#0A0D14]">24&quot;&times;36&quot; Civil Plan-Sheet Vision OCR &amp; Quantity Vectorizer</h3>
+          <p class="text-[#111827] font-medium leading-relaxed">Automated vector geometry extraction from 300-sheet State DOT roadway profiles, bridge bent elevations, drainage cross-sections, and TxDOT/Caltrans/FDOT Bid Express historical SQLite lakehouse.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-2">
+          <div class="flex items-center justify-between font-mono font-bold text-[#1E3A8A]"><span>PHASE 03 // NETWORK MOAT</span><span class="px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] text-[10px]">STAGE-GATE 3</span></div>
+          <h3 class="text-sm font-extrabold text-[#0A0D14]">Two-Sided Asphalt, Ready-Mix &amp; 49 CFR 26 DBE Quote Exchange</h3>
+          <p class="text-[#111827] font-medium leading-relaxed">Automated CSI Division 02–48 subcontractor ITB dispatch to state-certified DBE/MBE/WBE trades, hot-mix asphalt plants, and precast suppliers with instant quote leveling and 60%/100% CUF credit verification.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-[#F4F1EA] border border-[#CBD5E1] space-y-2">
+          <div class="flex items-center justify-between font-mono font-bold text-[#1E3A8A]"><span>PHASE 04 // FINTECH UNICORN</span><span class="px-2 py-0.5 rounded bg-[#EAE6DF] text-[#0A0D14] text-[10px]">STAGE-GATE 4</span></div>
+          <h3 class="text-sm font-extrabold text-[#0A0D14]">API-Underwritten Miller Act Surety Bid Bonds &amp; AIA G702 Factoring</h3>
+          <p class="text-[#111827] font-medium leading-relaxed">Instant programmatic Miller Act (40 U.S.C. &sect; 3131) 5%–10% Bid Bond &amp; 100% Performance/Payment Bond underwriting plus AIA G702/G703 progress pay-application working-capital advances.</p>
+        </div>
       </div>
     </section>
 

@@ -1288,6 +1288,23 @@ def check_master_plan_and_domain_native_depth() -> List[str]:
             crows = list(csv.DictReader(cf))
             if len(crows) < 200:
                 errors.append(f"[RULE-024] `campaign_leads.csv` has {len(crows)} rows (expected >= 200)")
+
+    # RULE-025: Website Differentiation, 52-Portal Full Seed Table & Master-Plan Roadmap
+    for html_name in ("index.html", "apis.html"):
+        hp = os.path.join(BASE_DIR, html_name)
+        if os.path.exists(hp):
+            htxt = open(hp, "r", encoding="utf-8").read()
+            for stale_token in ('"active_lettings_count": 12', '"count": 12', "12 PREVIEW LETTINGS SHOWN"):
+                if stale_token in htxt:
+                    errors.append(f"[RULE-025] `{html_name}` contains stale partial-seed token `{stale_token}` (expected 52)")
+            if html_name == "index.html":
+                if 'id="master-plan-roadmap"' not in htxt:
+                    errors.append("[RULE-025] `index.html` missing `<section id=\"master-plan-roadmap\">` Master Plan Phase & Unicorn Roadmap section")
+                if "52 PREVIEW LETTINGS SHOWN" not in htxt:
+                    errors.append("[RULE-025] `index.html` `#contract-directory` does not display `52 PREVIEW LETTINGS SHOWN`")
+                row_count = htxt.count("data-letting-row")
+                if row_count < 52:
+                    errors.append(f"[RULE-025] `index.html` `#contract-directory` renders only {row_count} rows (expected >= 52)")
     return errors
 
 
