@@ -2651,7 +2651,7 @@ def build_site_files() -> None:
       // 0c. Direct Human / Founder Support Escalation Request
       if (/\\b(human|real\\s+person|talk\\s+to\\s+a\\s+person|speak\\s+to\\s+someone|agent|representative|support\\s+ticket|escalat|contact\\s+support|customer\\s+service|help\\s+desk|not\\s+helpful|still\\s+need\\s+help)\\b/i.test(ql)) {{
         return {{
-          text: "Need to speak with a real person? You can send a direct, priority message to our Founder & Engineering Support desk right here in the Support & Contact panel:\\n• Tracked Priority Ticket (< 2 Business Hours SLA): Click 'Message Founder & Engineering Support' below to submit your question, work email, and urgency level — our system immediately alerts our founder and engineering team and assigns a tracked #CD-SUP-... ticket ID.\\n• Direct Founder Support Email: You can also copy our direct founder support email in the Support & Contact panel.",
+          text: "To send a message, click 'Contact' below to open the Contact form.",
           ctaLabel: 'Contact',
           ctaFn: function() {{ openHumanEscalationForm(q); }},
           actions: [
@@ -3092,7 +3092,7 @@ def build_site_files() -> None:
         }};
       }}
 
-      // 9e. Contact Support / Instant Self-Serve Test Drive / Account Access
+      // 9e. Contact / Instant Self-Serve Test Drive / Account Access
       if (/human|real\\s+person|talk\\s+to\\s+someone|support\\s+email|email\\s+address|contact\\s+support|customer\\s+service|phone\\s+call|sales\\s+call|book\\s+a\\s+call|zoom|demo|free\\s+trial|login|sign\\s+in|forgot\\s+key|recover\\s+key/i.test(ql)) {{
         return {{
           text: "CamberDesk is 100% self-serve with zero sales-call gatekeeping and instant account resolution:\\n• Self-Serve Client Portal: Manage your plan, download corporate B2B tax receipts, configure 52-portal trade alert filters, add unlimited estimating team CC seats, or retrieve your production cd_live_... API key in 1 click.\\n• Instant No-Card Test Drive: Download a live 6-File OpenXML (.DOCX + .XLSX) Bid Package sample right now, or paste your own specification text into the Interactive Evaluation Workbench on the Self-Serve Pricing view.",
