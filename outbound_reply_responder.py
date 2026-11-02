@@ -264,7 +264,7 @@ def run_reply_responder() -> Dict[str, Any]:
                     continue
                 eaccount = str(item.get("eaccount") or "").strip().lower()
                 from_em = str(item.get("from_address_email") or item.get("lead") or "").strip()
-                if "camberdesk" not in eaccount or "signaltender" in eaccount or "signaltender" in from_em.lower() or "camberdesk" in from_em.lower():
+                if "camberdesk" not in eaccount or "signaltender" in eaccount or "rubricward" in eaccount or "signaltender" in from_em.lower() or "camberdesk" in from_em.lower() or "rubricward" in from_em.lower():
                     continue
                 summary["checked"] += 1
                 body_obj = item.get("body") or {}

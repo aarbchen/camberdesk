@@ -151,3 +151,14 @@
 [2026-11-01 22:35:22 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
 [2026-11-01 22:52:46 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
 [2026-11-01 22:52:55 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+
+=== ARCHIVED & RESOLVED AT 2026-11-01 23:23:33 UTC (3 lines) ===
+[2026-11-01 23:08:06 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+[2026-11-01 23:18:44 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+[2026-11-01 23:23:14 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+
+=== ARCHIVED & RESOLVED AT 2026-11-01 23:56:00 UTC (4 lines) ===
+[2026-11-01 23:38:48 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+[2026-11-01 23:39:47 UTC] [WARNING] [autonomous_mailbox_scaler.py] Cloudflare DNS provisioning warning for trycamberdesk.com: HTTPSConnectionPool(host='api.cloudflare.com', port=443): Max retries exceeded with url: /client/v4/zones/8b92ac14d76d2e64a9a6c205ba0e7206/dns_records/9e13bad9ca145b114d64077bf00e2c8e (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)')))
+[2026-11-01 23:48:41 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+[2026-11-01 23:54:58 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)

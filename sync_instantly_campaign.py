@@ -40,6 +40,7 @@ CAMPAIGN_NAME = "CamberDesk — 50-State DOT Planholder & Unit Bid-Tab Outreach"
 SIGNALTENDER_BLOCKED_CAMPAIGN_IDS = {
     "c7727dff-92cc-4621-9e96-c960938d5a47",
     "748eecf5-6b63-4dff-b9f2-1d2ff1a4a96f",
+    "672de7d4-7ff6-42ec-be56-9b6ce8519e8c",
 }
 
 
@@ -151,8 +152,8 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
     #    and strictly *camberdesk* mailboxes on Campaign e69941d4-b5c0-45a7-ac67-ae8947761d4b
     _, warmed_cd, warming_cd = fetch_live_camberdesk_instantly_accounts()
     camberdesk_emails = sorted(
-        em for em in set(warmed_cd + warming_cd)
-        if "camberdesk" in em.lower() and "signaltender" not in em.lower()
+        em for em in set(warmed_cd)
+        if "camberdesk" in em.lower() and "signaltender" not in em.lower() and "rubricward" not in em.lower()
     )
     dynamic_daily_cap, _, ramp_phase_label = compute_dynamic_daily_limit()
     three_step_sequences = [
@@ -160,7 +161,9 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
             "steps": [
                 {
                     "type": "email",
-                    "delay": 0,
+                    "delay": 3,
+                    "delay_unit": "days",
+                    "pre_delay_unit": "days",
                     "variants": [
                         {
                             "subject": "{{step1_subject}}",
@@ -170,7 +173,9 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
                 },
                 {
                     "type": "email",
-                    "delay": 3,
+                    "delay": 4,
+                    "delay_unit": "days",
+                    "pre_delay_unit": "days",
                     "variants": [
                         {
                             "subject": "Re: {{step1_subject}}",
@@ -181,6 +186,8 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
                 {
                     "type": "email",
                     "delay": 4,
+                    "delay_unit": "days",
+                    "pre_delay_unit": "days",
                     "variants": [
                         {
                             "subject": "Re: {{step1_subject}}",

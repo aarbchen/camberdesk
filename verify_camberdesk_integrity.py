@@ -1163,6 +1163,32 @@ def check_zero_signaltender_overlap() -> List[str]:
     if shared_domains:
         errors.append(f"Cross-brand domain overlap with SignalTender: {shared_domains[:5]}")
 
+    # Also verify 100% Zero Overlap with RubricWard AND zero synthetic emails outside verified_public_dot_contacts.json
+    verified_json_p = os.path.join(BASE_DIR, "verified_public_dot_contacts.json")
+    verified_set = set()
+    if os.path.exists(verified_json_p):
+        for r in json.load(open(verified_json_p, "r", encoding="utf-8")):
+            if isinstance(r, dict) and r.get("email") and r.get("source_url"):
+                verified_set.add(str(r["email"]).strip().lower())
+    unverified_in_csv = sorted(cd_emails - verified_set)
+    if unverified_in_csv:
+        errors.append(f"CamberDesk `campaign_leads.csv` contains synthetic/unverified emails not in `verified_public_dot_contacts.json`: {unverified_in_csv[:5]}")
+
+    rw_csv_p = r"D:\RubricWard\campaign_leads.csv"
+    if os.path.exists(rw_csv_p):
+        import csv as _csv2
+        rw_em, rw_dom = set(), set()
+        with open(rw_csv_p, "r", encoding="utf-8-sig", newline="") as cf2:
+            for r in _csv2.DictReader(cf2):
+                em = str(r.get("email") or r.get("Email") or "").strip().lower()
+                if "@" in em:
+                    rw_em.add(em)
+                    rw_dom.add(em.split("@", 1)[1])
+        if cd_emails & rw_em:
+            errors.append(f"Cross-brand email overlap between CamberDesk and RubricWard: {sorted(cd_emails & rw_em)[:5]}")
+        if cd_domains & rw_dom:
+            errors.append(f"Cross-brand domain overlap between CamberDesk and RubricWard: {sorted(cd_domains & rw_dom)[:5]}")
+
     env_p = os.path.join(BASE_DIR, ".env")
     if os.path.exists(env_p):
         with open(env_p, "r", encoding="utf-8") as ef:
