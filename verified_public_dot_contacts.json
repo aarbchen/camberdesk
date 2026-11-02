@@ -1,6 +1,6 @@
 [
   {
-    "company_name": "Kossmeyer / Weaver-Bailey Contractors",
+    "company_name": "Weaver-Bailey Contractors",
     "email": "contactus@weaverbailey.com",
     "first_name": "Estimating",
     "license_or_dot_id": "ARDOT-PREQ-91085",
@@ -9,7 +9,7 @@
     "source_url": "https://weaverbailey.com"
   },
   {
-    "company_name": "Fann Contracting Inc.",
+    "company_name": "Fann Contracting",
     "email": "inquiry@fanncontracting.com",
     "first_name": "Estimating",
     "license_or_dot_id": "ADOT-PREQ-2204",
@@ -18,7 +18,7 @@
     "source_url": "https://fanncontracting.com/"
   },
   {
-    "company_name": "Haydon Building Corp Heavy Civil",
+    "company_name": "Haydon Building",
     "email": "info@haydon.com",
     "first_name": "Estimating",
     "license_or_dot_id": "ADOT-PREQ-94010",
@@ -27,16 +27,16 @@
     "source_url": "https://haydon.com"
   },
   {
-    "company_name": "Hunter Contracting Co.",
+    "company_name": "Hunter Contracting",
     "email": "hunter@huntercontracting.com",
-    "first_name": "Estimating",
+    "first_name": "Hunter",
     "license_or_dot_id": "ADOT-PREQ-4102",
     "state": "AZ",
     "source_type": "website_html_mailto",
     "source_url": "https://www.huntercontracting.com/"
   },
   {
-    "company_name": "Pulice Construction Inc.",
+    "company_name": "Pulice Construction",
     "email": "communications@pulice.com",
     "first_name": "Estimating",
     "license_or_dot_id": "ADOT-PREQ-1190",
@@ -45,16 +45,7 @@
     "source_url": "https://www.pulice.com"
   },
   {
-    "company_name": "Rummel Construction Inc.",
-    "email": "general@rummelconstruction.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "ADOT-PREQ-3381",
-    "state": "AZ",
-    "source_type": "website_html_mailto",
-    "source_url": "https://www.rummelconstruction.com/"
-  },
-  {
-    "company_name": "Argonaut Constructors Inc.",
+    "company_name": "Argonaut Constructors",
     "email": "info@argonautconstructors.com",
     "first_name": "Estimating",
     "license_or_dot_id": "CALTRANS-PREQ-93046",
@@ -72,7 +63,7 @@
     "source_url": "https://www.baycities.us/about/leadership-team/"
   },
   {
-    "company_name": "C.A. Rasmussen Inc. Earthwork",
+    "company_name": "C.A. Rasmussen",
     "email": "info@carasmussen.com",
     "first_name": "Estimating",
     "license_or_dot_id": "CALTRANS-PREQ-94030",
@@ -81,7 +72,7 @@
     "source_url": "https://carasmussen.com/contact/"
   },
   {
-    "company_name": "Curtin Maritime Corp.",
+    "company_name": "Curtin Maritime",
     "email": "sales@curtinmaritime.com",
     "first_name": "Estimating",
     "license_or_dot_id": "USACE-CAGE-91023",
@@ -99,7 +90,7 @@
     "source_url": "https://desilvagates.com/"
   },
   {
-    "company_name": "Disney Construction Bridge & Civil",
+    "company_name": "Disney Construction",
     "email": "estimating@disneyconstruction.com",
     "first_name": "Estimating",
     "license_or_dot_id": "CALTRANS-PREQ-94024",
@@ -119,7 +110,7 @@
   {
     "company_name": "Hat Creek Construction & Materials",
     "email": "denise@hatcreekconstruction.com",
-    "first_name": "Estimating",
+    "first_name": "Denise",
     "license_or_dot_id": "CALTRANS-PREQ-94041",
     "state": "CA",
     "source_type": "website_html_mailto",
@@ -135,16 +126,25 @@
     "source_url": "https://hazardconstruction.com/contact-us/"
   },
   {
-    "company_name": "Kodiak Construction / Ranger Pipelines",
-    "email": "info@rangerpipelines.com",
+    "company_name": "LB Civil Construction",
+    "email": "estimating@lbcivil.com",
     "first_name": "Estimating",
-    "license_or_dot_id": "CALTRANS-PREQ-93052",
+    "license_or_dot_id": "CALTRANS-PREQ-93041",
     "state": "CA",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.rangerpipelines.com"
+    "source_url": "https://www.lbcivil.com"
   },
   {
-    "company_name": "O.C. Jones & Sons Inc.",
+    "company_name": "Lyles Construction Group",
+    "email": "info@lylescg.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "CALTRANS-A-91013",
+    "state": "CA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://lylesgroup.com/contact/"
+  },
+  {
+    "company_name": "O.C. Jones & Sons",
     "email": "estimating@ocjones.com",
     "first_name": "Estimating",
     "license_or_dot_id": "CALTRANS-A-158921",
@@ -153,7 +153,16 @@
     "source_url": "https://www.ocjones.com/bid-room/"
   },
   {
-    "company_name": "Reyes Construction Inc. Heavy Civil",
+    "company_name": "Ranger Pipelines",
+    "email": "info@rangerpipelines.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "CALTRANS-PREQ-93052",
+    "state": "CA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.rangerpipelines.com"
+  },
+  {
+    "company_name": "Reyes Construction",
     "email": "info@reyesconstruction.com",
     "first_name": "Estimating",
     "license_or_dot_id": "CALTRANS-PREQ-93036",
@@ -162,7 +171,7 @@
     "source_url": "https://reyesconstruction.com/"
   },
   {
-    "company_name": "Security Paving Company",
+    "company_name": "Security Paving",
     "email": "northern@securitypaving.com",
     "first_name": "Estimating",
     "license_or_dot_id": "CALTRANS-A-512098",
@@ -180,7 +189,16 @@
     "source_url": "https://teichert.com/contact/"
   },
   {
-    "company_name": "Tullis Inc. Paving Redding",
+    "company_name": "Toro Enterprises",
+    "email": "estimating@toroenterprises.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "CALTRANS-PREQ-94031",
+    "state": "CA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://toroenterprises.com/contact-us/"
+  },
+  {
+    "company_name": "Tullis",
     "email": "info@tullisinc.com",
     "first_name": "Estimating",
     "license_or_dot_id": "CALTRANS-PREQ-94040",
@@ -189,25 +207,16 @@
     "source_url": "https://www.tullisinc.com"
   },
   {
-    "company_name": "lb civil construction",
-    "email": "estimating@lbcivil.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "CALTRANS-PREQ-93041",
-    "state": "CA",
-    "source_type": "website_html_mailto",
-    "source_url": "https://www.lbcivil.com"
-  },
-  {
-    "company_name": "A&S Construction Co. Asphalt",
+    "company_name": "A&S Construction",
     "email": "info@asconstruction.com",
     "first_name": "Estimating",
     "license_or_dot_id": "CDOT-PREQ-93094",
     "state": "CO",
     "source_type": "website_html_mailto",
-    "source_url": "https://asconstruction.com"
+    "source_url": "https://asconstruction.com/"
   },
   {
-    "company_name": "Fort Myer Construction Corp.",
+    "company_name": "Fort Myer Construction",
     "email": "estimating@fortmyer.com",
     "first_name": "Estimating",
     "license_or_dot_id": "DDOT-PREQ-91061",
@@ -216,7 +225,7 @@
     "source_url": "https://www.fortmyer.com/contact"
   },
   {
-    "company_name": "Anderson Columbia Co. Inc.",
+    "company_name": "Anderson Columbia",
     "email": "justin.jones@andersoncolumbia.com",
     "first_name": "Justin",
     "license_or_dot_id": "FDOT-PREQ-92037",
@@ -225,7 +234,7 @@
     "source_url": "https://www.andersoncolumbia.com"
   },
   {
-    "company_name": "Cone & Graham Inc. Bridge & Road",
+    "company_name": "Cone & Graham",
     "email": "estimating@conegraham.com",
     "first_name": "Estimating",
     "license_or_dot_id": "FDOT-PREQ-92042",
@@ -243,7 +252,7 @@
     "source_url": "https://www.downrite.com"
   },
   {
-    "company_name": "General Asphalt Co. Miami",
+    "company_name": "General Asphalt",
     "email": "estimating@generalasphalt.com",
     "first_name": "Estimating",
     "license_or_dot_id": "FDOT-PREQ-94049",
@@ -252,7 +261,7 @@
     "source_url": "https://generalasphalt.com/contact-us/"
   },
   {
-    "company_name": "H&R Paving Inc. Miami",
+    "company_name": "H&R Paving",
     "email": "info@hrpaving.com",
     "first_name": "Estimating",
     "license_or_dot_id": "FDOT-PREQ-94050",
@@ -261,16 +270,16 @@
     "source_url": "https://hrpaving.com"
   },
   {
-    "company_name": "Hubbard Construction Company",
-    "email": "estimates@hubbard.com",
+    "company_name": "J.W. Cheatham",
+    "email": "estimating@jwcheatham.com",
     "first_name": "Estimating",
-    "license_or_dot_id": "FDOT-PREQ-11402",
+    "license_or_dot_id": "FDOT-PREQ-94056",
     "state": "FL",
     "source_type": "website_html_mailto",
-    "source_url": "https://hubbard.com/contact-us/"
+    "source_url": "https://jwcheatham.com/contact/"
   },
   {
-    "company_name": "Johnson-Davis Inc. Underground",
+    "company_name": "Johnson-Davis",
     "email": "info@johnsondavis.com",
     "first_name": "Estimating",
     "license_or_dot_id": "FDOT-PREQ-94061",
@@ -288,7 +297,7 @@
     "source_url": "https://maschmeyer.com/contact-us/"
   },
   {
-    "company_name": "Preferred Materials Inc.",
+    "company_name": "Preferred Materials",
     "email": "contactpmi@preferredmaterials.com",
     "first_name": "Estimating",
     "license_or_dot_id": "FDOT-PREQ-92038",
@@ -306,7 +315,7 @@
     "source_url": "https://www.rangerconstruction.com/contact-us/"
   },
   {
-    "company_name": "Ric-Man Construction Florida",
+    "company_name": "Ric-Man Construction",
     "email": "info@ric-manfl.com",
     "first_name": "Estimating",
     "license_or_dot_id": "FDOT-PREQ-94062",
@@ -315,7 +324,7 @@
     "source_url": "https://ric-manfl.com/about-us/"
   },
   {
-    "company_name": "Russell Engineering Inc. Highway",
+    "company_name": "Russell Engineering",
     "email": "info@russellengineering.com",
     "first_name": "Estimating",
     "license_or_dot_id": "FDOT-PREQ-94055",
@@ -324,7 +333,7 @@
     "source_url": "https://www.russellengineering.com"
   },
   {
-    "company_name": "Superior Construction Co.",
+    "company_name": "Superior Construction",
     "email": "mwestimating@superiorconstruction.com",
     "first_name": "Estimating",
     "license_or_dot_id": "FDOT-PREQ-55201",
@@ -333,7 +342,7 @@
     "source_url": "https://www.superiorconstruction.com/contact-us/"
   },
   {
-    "company_name": "Vallencourt Construction Co.",
+    "company_name": "Vallencourt Construction",
     "email": "info@vallencourt.com",
     "first_name": "Estimating",
     "license_or_dot_id": "FDOT-PREQ-94065",
@@ -351,16 +360,7 @@
     "source_url": "https://watsoncivil.com/estimating"
   },
   {
-    "company_name": "Welleby / J.W. Cheatham Highway",
-    "email": "estimating@jwcheatham.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "FDOT-PREQ-94056",
-    "state": "FL",
-    "source_type": "website_html_mailto",
-    "source_url": "https://jwcheatham.com/contact/"
-  },
-  {
-    "company_name": "Astra Group LLC",
+    "company_name": "Astra Group",
     "email": "info@astragroupinc.com",
     "first_name": "Estimating",
     "license_or_dot_id": "GDOT-2AS308",
@@ -369,7 +369,7 @@
     "source_url": "https://astragroupinc.com/contact-us/"
   },
   {
-    "company_name": "Backbone Infrastructure GA",
+    "company_name": "Backbone Infrastructure",
     "email": "info@backboneinfra.com",
     "first_name": "Estimating",
     "license_or_dot_id": "GDOT-PREQ-94078",
@@ -378,7 +378,7 @@
     "source_url": "https://www.backboneinfra.com"
   },
   {
-    "company_name": "McLendon Enterprises Inc.",
+    "company_name": "McLendon Enterprises",
     "email": "info@mclendonenterprises.com",
     "first_name": "Estimating",
     "license_or_dot_id": "GDOT-PREQ-92050",
@@ -387,7 +387,7 @@
     "source_url": "https://www.mclendonenterprises.com"
   },
   {
-    "company_name": "Oxford Construction Company",
+    "company_name": "Oxford Construction",
     "email": "info@oxfordconstruction.com",
     "first_name": "Estimating",
     "license_or_dot_id": "GDOT-PREQ-92049",
@@ -396,7 +396,7 @@
     "source_url": "http://oxfordconstruction.com/"
   },
   {
-    "company_name": "Scruggs Company Highway Paving",
+    "company_name": "Scruggs Company",
     "email": "info@scruggscompany.com",
     "first_name": "Estimating",
     "license_or_dot_id": "GDOT-PREQ-92048",
@@ -405,7 +405,7 @@
     "source_url": "https://scruggscompany.com/"
   },
   {
-    "company_name": "Sikes Brothers Inc. Paving",
+    "company_name": "Sikes Brothers",
     "email": "davids@sikesbrothers.com",
     "first_name": "Estimating",
     "license_or_dot_id": "GDOT-PREQ-94071",
@@ -414,7 +414,7 @@
     "source_url": "https://sikesbrothers.com"
   },
   {
-    "company_name": "vertical earth civil contractors",
+    "company_name": "Vertical Earth Civil Contractors",
     "email": "info@vertical-earth.com",
     "first_name": "Estimating",
     "license_or_dot_id": "GDOT-PREQ-94077",
@@ -423,7 +423,7 @@
     "source_url": "https://www.vertical-earth.com"
   },
   {
-    "company_name": "Western Construction Inc. Boise",
+    "company_name": "Western Construction",
     "email": "info@westernconstructioninc.com",
     "first_name": "Estimating",
     "license_or_dot_id": "ITD-PREQ-93120",
@@ -441,7 +441,16 @@
     "source_url": "https://www.aldridgegroup.com"
   },
   {
-    "company_name": "Curran Contracting Company",
+    "company_name": "Builder's Paving",
+    "email": "info@builderspavingllc.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "IDOT-PREQ-94090",
+    "state": "IL",
+    "source_type": "website_html_mailto",
+    "source_url": "https://thebuildersco.com/"
+  },
+  {
+    "company_name": "Curran Contracting",
     "email": "scarlson@currancontracting.com",
     "first_name": "Estimating",
     "license_or_dot_id": "IDOT-PREQ-5190",
@@ -459,7 +468,7 @@
     "source_url": "https://www.fhpaschen.com"
   },
   {
-    "company_name": "Gallagher Asphalt Corporation",
+    "company_name": "Gallagher Asphalt",
     "email": "info@gallagherasphalt.com",
     "first_name": "Estimating",
     "license_or_dot_id": "IDOT-PREQ-92010",
@@ -468,7 +477,7 @@
     "source_url": "https://gallagherasphalt.com"
   },
   {
-    "company_name": "Lorig Construction Bridge & Hwy",
+    "company_name": "Lorig Construction",
     "email": "estimating@lorigconstruction.com",
     "first_name": "Estimating",
     "license_or_dot_id": "IDOT-PREQ-94084",
@@ -477,7 +486,16 @@
     "source_url": "https://www.lorigconstruction.com/contact-us-1"
   },
   {
-    "company_name": "P.T. Ferro Construction Co.",
+    "company_name": "Martam Construction",
+    "email": "info@martam.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "IDOT-PREQ-94088",
+    "state": "IL",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.martam.com"
+  },
+  {
+    "company_name": "P.T. Ferro Construction",
     "email": "estimating@ptferro.com",
     "first_name": "Estimating",
     "license_or_dot_id": "IDOT-PREQ-94094",
@@ -486,7 +504,7 @@
     "source_url": "https://ptferro.com"
   },
   {
-    "company_name": "Samron Midwest Contracting",
+    "company_name": "Samron",
     "email": "info@samron.com",
     "first_name": "Estimating",
     "license_or_dot_id": "IDOT-PREQ-94104",
@@ -495,16 +513,7 @@
     "source_url": "https://samron.com"
   },
   {
-    "company_name": "builder's paving llc",
-    "email": "info@builderspavingllc.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "IDOT-PREQ-94090",
-    "state": "IL",
-    "source_type": "website_html_mailto",
-    "source_url": "https://thebuildersco.com/"
-  },
-  {
-    "company_name": "Beaty Construction Inc. Bridge",
+    "company_name": "Beaty Construction",
     "email": "info@beatyinc.com",
     "first_name": "Estimating",
     "license_or_dot_id": "INDOT-PREQ-93055",
@@ -513,7 +522,7 @@
     "source_url": "https://www.beatyinc.com"
   },
   {
-    "company_name": "Fox Contractors Corp. Excavation",
+    "company_name": "Fox Contractors",
     "email": "info@foxcontractors.com",
     "first_name": "Estimating",
     "license_or_dot_id": "INDOT-PREQ-93059",
@@ -522,7 +531,7 @@
     "source_url": "https://www.foxcontractors.com"
   },
   {
-    "company_name": "Milestone Contractors LP",
+    "company_name": "Milestone Contractors",
     "email": "info@milestonelp.com",
     "first_name": "Estimating",
     "license_or_dot_id": "INDOT-PREQ-1840",
@@ -531,7 +540,16 @@
     "source_url": "https://milestonelp.com"
   },
   {
-    "company_name": "Boh Bros Construction Co.",
+    "company_name": "Barriere Construction",
+    "email": "estimating@barriere.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "LADOTD-PREQ-91081",
+    "state": "LA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.barriere.com/contact/"
+  },
+  {
+    "company_name": "Boh Bros Construction",
     "email": "contact@bohbros.com",
     "first_name": "Estimating",
     "license_or_dot_id": "LADOTD-PREQ-91014",
@@ -540,7 +558,7 @@
     "source_url": "https://bohbros.com/contact-us/"
   },
   {
-    "company_name": "Cashman Dredging & Marine",
+    "company_name": "Cashman",
     "email": "info@jaycashman.com",
     "first_name": "Estimating",
     "license_or_dot_id": "USACE-CAGE-91018",
@@ -549,7 +567,7 @@
     "source_url": "https://www.cashmandredging.com/contact/"
   },
   {
-    "company_name": "Cianbro Corporation",
+    "company_name": "Cianbro",
     "email": "info@cianbro.com",
     "first_name": "Estimating",
     "license_or_dot_id": "MAINEDOT-PREQ-3019",
@@ -558,7 +576,7 @@
     "source_url": "https://www.cianbro.com"
   },
   {
-    "company_name": "Anlaan Corporation Bridge",
+    "company_name": "Anlaan",
     "email": "info@anlaan.com",
     "first_name": "Estimating",
     "license_or_dot_id": "MDOT-PREQ-93070",
@@ -567,7 +585,7 @@
     "source_url": "https://www.anlaan.com"
   },
   {
-    "company_name": "Cadillac Asphalt LLC",
+    "company_name": "Cadillac Asphalt",
     "email": "estimating@cadillacasphalt.com",
     "first_name": "Estimating",
     "license_or_dot_id": "MDOT-PREQ-93062",
@@ -576,7 +594,16 @@
     "source_url": "https://www.cadillacasphalt.com/bid-opportunities"
   },
   {
-    "company_name": "Hoffman Bros. Inc. Earthwork",
+    "company_name": "Hardman Construction",
+    "email": "bidding@hardmanconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MDOT-PREQ-93069",
+    "state": "MI",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.hardmanconstruction.com/company/our-team/"
+  },
+  {
+    "company_name": "Hoffman Bros",
     "email": "generalinfo@hoffmanbrosinc.com",
     "first_name": "Estimating",
     "license_or_dot_id": "MDOT-PREQ-93067",
@@ -585,7 +612,7 @@
     "source_url": "https://www.hoffmanbrosinc.com"
   },
   {
-    "company_name": "Kamminga & Roodvoets Inc.",
+    "company_name": "Kamminga & Roodvoets",
     "email": "estimating@kandrinc.com",
     "first_name": "Estimating",
     "license_or_dot_id": "MDOT-PREQ-2180",
@@ -612,13 +639,13 @@
     "source_url": "https://www.mjelectric.com/contact-us/"
   },
   {
-    "company_name": "hardman construction heavy civil",
-    "email": "bidding@hardmanconstruction.com",
+    "company_name": "Bolander Civil Construction",
+    "email": "info@bolander.com",
     "first_name": "Estimating",
-    "license_or_dot_id": "MDOT-PREQ-93069",
-    "state": "MI",
+    "license_or_dot_id": "MNDOT-PREQ-92017",
+    "state": "MN",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.hardmanconstruction.com/company/our-team/"
+    "source_url": "https://bolander.com"
   },
   {
     "company_name": "CS McCrossan Construction",
@@ -630,7 +657,7 @@
     "source_url": "https://www.mccrossan.com"
   },
   {
-    "company_name": "Duininck Inc. Heavy Civil",
+    "company_name": "Duininck",
     "email": "jordan.thompson@duininck.com",
     "first_name": "Jordan",
     "license_or_dot_id": "MNDOT-PREQ-92025",
@@ -639,7 +666,7 @@
     "source_url": "https://www.duininck.com/contact/"
   },
   {
-    "company_name": "Park Construction Company",
+    "company_name": "Park Construction",
     "email": "estimating@parkconstructionco.com",
     "first_name": "Estimating",
     "license_or_dot_id": "MNDOT-PREQ-92016",
@@ -648,16 +675,7 @@
     "source_url": "https://parkconstructionco.com"
   },
   {
-    "company_name": "bolander civil construction",
-    "email": "info@bolander.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "MNDOT-PREQ-92017",
-    "state": "MN",
-    "source_type": "website_html_mailto",
-    "source_url": "https://bolander.com"
-  },
-  {
-    "company_name": "Clarkson Construction Company",
+    "company_name": "Clarkson Construction",
     "email": "ksweeten@clarksonconstruction.com",
     "first_name": "Estimating",
     "license_or_dot_id": "MODOT-PREQ-1088",
@@ -666,7 +684,7 @@
     "source_url": "https://clarksonconstruction.com/home/contact-us/"
   },
   {
-    "company_name": "Fred Weber Inc.",
+    "company_name": "Fred Weber",
     "email": "info@fredweberinc.com",
     "first_name": "Estimating",
     "license_or_dot_id": "MODOT-PREQ-1920",
@@ -675,7 +693,7 @@
     "source_url": "https://fredweberinc.com/contact/"
   },
   {
-    "company_name": "Ideker Inc. Highway Paving",
+    "company_name": "Ideker",
     "email": "info@ideker.net",
     "first_name": "Estimating",
     "license_or_dot_id": "MODOT-PREQ-92031",
@@ -684,7 +702,7 @@
     "source_url": "https://www.ideker.net"
   },
   {
-    "company_name": "Millstone Weber LLC",
+    "company_name": "Millstone Weber",
     "email": "bids@millstoneweber.com",
     "first_name": "Estimating",
     "license_or_dot_id": "MODOT-PREQ-3112",
@@ -693,7 +711,7 @@
     "source_url": "https://www.millstoneweber.com/contact/"
   },
   {
-    "company_name": "Barnard Construction Company",
+    "company_name": "Barnard Construction",
     "email": "info@barnard-inc.com",
     "first_name": "Estimating",
     "license_or_dot_id": "MDT-PREQ-91012",
@@ -702,7 +720,7 @@
     "source_url": "https://www.barnard-inc.com"
   },
   {
-    "company_name": "Blythe Construction Inc.",
+    "company_name": "Blythe Construction",
     "email": "shane.bailey@blytheconstruction.com",
     "first_name": "Shane",
     "license_or_dot_id": "NCDOT-PREQ-5510",
@@ -711,7 +729,7 @@
     "source_url": "https://blytheconstruction.com/contact-us/"
   },
   {
-    "company_name": "Crowder Construction Company",
+    "company_name": "Crowder Construction",
     "email": "pq@crowderusa.com",
     "first_name": "Estimating",
     "license_or_dot_id": "NCDOT-PREQ-2041",
@@ -720,7 +738,7 @@
     "source_url": "https://www.crowderusa.com/subcontractor-prequalification"
   },
   {
-    "company_name": "Sanford Contractors Inc.",
+    "company_name": "Sanford Contractors",
     "email": "info.request@sanfordcontractors.com",
     "first_name": "Estimating",
     "license_or_dot_id": "NCDOT-PREQ-91067",
@@ -729,7 +747,7 @@
     "source_url": "https://sanfordcontractors.com/contact-sanford-contractors/"
   },
   {
-    "company_name": "Vecellio & Grogan Inc.",
+    "company_name": "Vecellio & Grogan",
     "email": "cory.butz@vecelliogrogan.com",
     "first_name": "Cory",
     "license_or_dot_id": "NCDOT-PREQ-3192",
@@ -738,7 +756,7 @@
     "source_url": "https://www.vecelliogrogan.com/contact-us/"
   },
   {
-    "company_name": "Border States Paving Inc.",
+    "company_name": "Border States Paving",
     "email": "contactus@borderstatespaving.com",
     "first_name": "Estimating",
     "license_or_dot_id": "NDDOT-PREQ-92020",
@@ -747,7 +765,7 @@
     "source_url": "https://www.borderstatespaving.com"
   },
   {
-    "company_name": "Industrial Builders Inc.",
+    "company_name": "Industrial Builders",
     "email": "info@industrialbuilders.com",
     "first_name": "Estimating",
     "license_or_dot_id": "NDDOT-PREQ-92022",
@@ -756,7 +774,7 @@
     "source_url": "https://www.industrialbuilders.com"
   },
   {
-    "company_name": "Knife River Corporation Heavy Civil",
+    "company_name": "Knife River",
     "email": "tony.spilde@kniferiver.com",
     "first_name": "Tony",
     "license_or_dot_id": "NDDOT-PREQ-92019",
@@ -765,7 +783,7 @@
     "source_url": "https://www.kniferiver.com"
   },
   {
-    "company_name": "Pike Industries Inc.",
+    "company_name": "Pike Industries",
     "email": "info@pikeindustries.com",
     "first_name": "Estimating",
     "license_or_dot_id": "NHDOT-PREQ-1042",
@@ -774,7 +792,7 @@
     "source_url": "https://pikeindustries.com"
   },
   {
-    "company_name": "Anselmi & DeCicco Heavy Highway",
+    "company_name": "Anselmi & DeCicco Heavy",
     "email": "estimating@anselminj.com",
     "first_name": "Estimating",
     "license_or_dot_id": "NJDOT-PREQ-93025",
@@ -783,7 +801,7 @@
     "source_url": "https://anselmidecicco.com"
   },
   {
-    "company_name": "Ferreira Construction Co.",
+    "company_name": "Ferreira Construction",
     "email": "info@ferreiragroup.com",
     "first_name": "Estimating",
     "license_or_dot_id": "NJDOT-PREQ-1042",
@@ -819,7 +837,7 @@
     "source_url": "https://www.bancker.com"
   },
   {
-    "company_name": "C.P. Ward Inc. Bridge & Highway",
+    "company_name": "C.P. Ward",
     "email": "chalbert@cpward.com",
     "first_name": "Estimating",
     "license_or_dot_id": "NYSDOT-PREQ-94195",
@@ -846,13 +864,31 @@
     "source_url": "https://ca-inc.net/"
   },
   {
-    "company_name": "Elderlee Inc. Highway Guardrail & Sign",
+    "company_name": "Elderlee",
     "email": "information@elderlee.com",
     "first_name": "Estimating",
     "license_or_dot_id": "NYSDOT-PREQ-93015",
     "state": "NY",
     "source_type": "website_html_mailto",
     "source_url": "https://www.elderlee.com"
+  },
+  {
+    "company_name": "Gianfia",
+    "email": "general@gianfiacorp.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "NYSDOT-PREQ-94178",
+    "state": "NY",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.gianfiacorp.com/"
+  },
+  {
+    "company_name": "Grace Industries",
+    "email": "sales@graceindustries.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "NYSDOT-D265-91037",
+    "state": "NY",
+    "source_type": "website_html_mailto",
+    "source_url": "https://graceindustries.com/contact/"
   },
   {
     "company_name": "Harrison & Burrowes Bridge Constructors",
@@ -864,7 +900,7 @@
     "source_url": "https://harrisonburrowes.com/"
   },
   {
-    "company_name": "Keeler Construction Co. Inc.",
+    "company_name": "Keeler Construction",
     "email": "info@keelerconstruction.com",
     "first_name": "Estimating",
     "license_or_dot_id": "NYSDOT-PREQ-93018",
@@ -882,7 +918,16 @@
     "source_url": "https://laserindustriesinc.com"
   },
   {
-    "company_name": "Montesano Bros. Inc. Highway",
+    "company_name": "Luizzi Companies Civil",
+    "email": "frontdesk@luizzicompanies.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "NYSDOT-PREQ-94186",
+    "state": "NY",
+    "source_type": "website_html_mailto",
+    "source_url": "https://luizzicompanies.com/contact-us/"
+  },
+  {
+    "company_name": "Montesano Bros",
     "email": "inquiries@montesanobros.com",
     "first_name": "Estimating",
     "license_or_dot_id": "NYSDOT-PREQ-94177",
@@ -891,7 +936,7 @@
     "source_url": "https://montesanobros.com/"
   },
   {
-    "company_name": "Perfetto Contracting Co.",
+    "company_name": "Perfetto Contracting",
     "email": "estimating@perfettocontracting.com",
     "first_name": "Estimating",
     "license_or_dot_id": "NYSDOT-PREQ-94173",
@@ -900,7 +945,7 @@
     "source_url": "https://www.perfettocontracting.com/contact-us/"
   },
   {
-    "company_name": "Posillico Civil Inc.",
+    "company_name": "Posillico Civil",
     "email": "dsposito@posillicoinc.com",
     "first_name": "Estimating",
     "license_or_dot_id": "NYSDOT-D265-044",
@@ -909,7 +954,16 @@
     "source_url": "https://posillicoinc.com/contact-us/"
   },
   {
-    "company_name": "Tioga Construction Co. Bridge",
+    "company_name": "Slate Hill Constructors",
+    "email": "info@slatehillconstructors.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "NYSDOT-PREQ-93020",
+    "state": "NY",
+    "source_type": "website_html_mailto",
+    "source_url": "https://slatehillconstructors.com/"
+  },
+  {
+    "company_name": "Tioga Construction",
     "email": "info@tiogaconstruction.com",
     "first_name": "Estimating",
     "license_or_dot_id": "NYSDOT-PREQ-93021",
@@ -918,7 +972,7 @@
     "source_url": "https://tiogaconstruction.com/contact-us/"
   },
   {
-    "company_name": "Triumph Construction Corp NY",
+    "company_name": "Triumph Construction",
     "email": "estimating@triumphconstructionny.com",
     "first_name": "Estimating",
     "license_or_dot_id": "NYSDOT-PREQ-94175",
@@ -936,7 +990,7 @@
     "source_url": "https://www.tullygroup.com"
   },
   {
-    "company_name": "Yonkers Contracting Company",
+    "company_name": "Yonkers Contracting",
     "email": "quotes@yonkerscontractingco.com",
     "first_name": "Estimating",
     "license_or_dot_id": "NYSDOT-D265-91034",
@@ -945,7 +999,7 @@
     "source_url": "https://www.yonkerscontractingco.com/contact-us"
   },
   {
-    "company_name": "eccO III Enterprises Highway",
+    "company_name": "eccO III Enterprises",
     "email": "contact@eccoiii.com",
     "first_name": "Estimating",
     "license_or_dot_id": "NYSDOT-PREQ-94179",
@@ -954,34 +1008,16 @@
     "source_url": "https://ecco-iii.com/"
   },
   {
-    "company_name": "gianfia corp heavy civil",
-    "email": "general@gianfiacorp.com",
+    "company_name": "Brumbaugh Construction Bridge",
+    "email": "info@brumbaughconstruction.com",
     "first_name": "Estimating",
-    "license_or_dot_id": "NYSDOT-PREQ-94178",
-    "state": "NY",
+    "license_or_dot_id": "ODOT-PREQ-94127",
+    "state": "OH",
     "source_type": "website_html_mailto",
-    "source_url": "https://www.gianfiacorp.com/"
+    "source_url": "https://brumbaughconstruction.com"
   },
   {
-    "company_name": "luizzi companies civil",
-    "email": "frontdesk@luizzicompanies.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "NYSDOT-PREQ-94186",
-    "state": "NY",
-    "source_type": "website_html_mailto",
-    "source_url": "https://luizzicompanies.com/contact-us/"
-  },
-  {
-    "company_name": "slate hill constructors",
-    "email": "info@slatehillconstructors.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "NYSDOT-PREQ-93020",
-    "state": "NY",
-    "source_type": "website_html_mailto",
-    "source_url": "https://slatehillconstructors.com/"
-  },
-  {
-    "company_name": "Catts Construction Inc. Utility",
+    "company_name": "Catts Construction",
     "email": "azacharias@cattsconstruction.com",
     "first_name": "Estimating",
     "license_or_dot_id": "ODOT-PREQ-94131",
@@ -990,7 +1026,7 @@
     "source_url": "https://cattsconstruction.com/contact-us"
   },
   {
-    "company_name": "Complete General Construction Co.",
+    "company_name": "Complete General Construction",
     "email": "jthompson@completegeneral.com",
     "first_name": "Estimating",
     "license_or_dot_id": "ODOT-PREQ-5018",
@@ -999,7 +1035,7 @@
     "source_url": "https://www.completegeneral.com/contact-us/"
   },
   {
-    "company_name": "John R. Jurgensen Company",
+    "company_name": "John R. Jurgensen",
     "email": "info@jrjnet.com",
     "first_name": "Estimating",
     "license_or_dot_id": "ODOT-PREQ-6129",
@@ -1008,7 +1044,7 @@
     "source_url": "https://www.jrjnet.com/"
   },
   {
-    "company_name": "Karvo Companies Inc. Paving & Civil",
+    "company_name": "Karvo Companies",
     "email": "karvo@karvocompanies.com",
     "first_name": "Estimating",
     "license_or_dot_id": "ODOT-PREQ-93005",
@@ -1017,25 +1053,7 @@
     "source_url": "https://www.karvocompanies.com"
   },
   {
-    "company_name": "Shelly Company Asphalt & Paving",
-    "email": "info@shellyco.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "ODOT-PREQ-93002",
-    "state": "OH",
-    "source_type": "website_html_mailto",
-    "source_url": "https://www.shellyco.com"
-  },
-  {
-    "company_name": "The Ruhlin Company",
-    "email": "ruhlin@ruhlin.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "ODOT-PREQ-4192",
-    "state": "OH",
-    "source_type": "website_html_mailto",
-    "source_url": "https://ruhlin.com/"
-  },
-  {
-    "company_name": "W.L. Markers / Marker Construction",
+    "company_name": "Marker Construction",
     "email": "info@buildwithmarker.com",
     "first_name": "Estimating",
     "license_or_dot_id": "ODOT-PREQ-93001",
@@ -1044,13 +1062,22 @@
     "source_url": "https://buildwithmarker.com"
   },
   {
-    "company_name": "brumbaugh construction bridge",
-    "email": "info@brumbaughconstruction.com",
+    "company_name": "Shelly Company",
+    "email": "info@shellyco.com",
     "first_name": "Estimating",
-    "license_or_dot_id": "ODOT-PREQ-94127",
+    "license_or_dot_id": "ODOT-PREQ-93002",
     "state": "OH",
     "source_type": "website_html_mailto",
-    "source_url": "https://brumbaughconstruction.com"
+    "source_url": "https://www.shellyco.com"
+  },
+  {
+    "company_name": "The Ruhlin",
+    "email": "ruhlin@ruhlin.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "ODOT-PREQ-4192",
+    "state": "OH",
+    "source_type": "website_html_mailto",
+    "source_url": "https://ruhlin.com/"
   },
   {
     "company_name": "Kerr Contractors Oregon",
@@ -1062,16 +1089,7 @@
     "source_url": "https://kerrcontractors.com/"
   },
   {
-    "company_name": "Brayman Construction Corporation",
-    "email": "info@brayman.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "PENNDOT-PREQ-5201",
-    "state": "PA",
-    "source_type": "website_html_mailto",
-    "source_url": "https://www.brayman.com/contact"
-  },
-  {
-    "company_name": "Carr & Duff Electrical Utility",
+    "company_name": "Carr & Duff",
     "email": "info@carrduff.com",
     "first_name": "Estimating",
     "license_or_dot_id": "PENNDOT-PREQ-94155",
@@ -1080,7 +1098,7 @@
     "source_url": "https://carrduff.com/contact"
   },
   {
-    "company_name": "Driscoll Construction Co.",
+    "company_name": "Driscoll Construction",
     "email": "justin@driscollconstruction.com",
     "first_name": "Justin",
     "license_or_dot_id": "PENNDOT-ECMS-11720",
@@ -1098,70 +1116,7 @@
     "source_url": "https://www.gtconstruction.com/contact"
   },
   {
-    "company_name": "Kriger Construction Inc.",
-    "email": "info@krigerconstruction.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "PENNDOT-PREQ-94149",
-    "state": "PA",
-    "source_type": "website_html_mailto",
-    "source_url": "https://www.krigerconstruction.com/contact/"
-  },
-  {
-    "company_name": "Loftus Construction Inc. Bridge",
-    "email": "kloftus@loftusconstruction.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "PENNDOT-PREQ-94153",
-    "state": "PA",
-    "source_type": "website_html_mailto",
-    "source_url": "https://loftusconstruction.com"
-  },
-  {
-    "company_name": "Mekis Construction Corp. Bridge",
-    "email": "info@mekisconstruction.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "PENNDOT-PREQ-94144",
-    "state": "PA",
-    "source_type": "website_html_mailto",
-    "source_url": "https://www.mekisconstruction.com/contact"
-  },
-  {
-    "company_name": "Pennsy Supply Inc.",
-    "email": "brad.vores@pennsysupply.com",
-    "first_name": "Brad",
-    "license_or_dot_id": "PENNDOT-PREQ-91057",
-    "state": "PA",
-    "source_type": "website_html_mailto",
-    "source_url": "https://www.pennsysupply.com/contact/"
-  },
-  {
-    "company_name": "Road-Con Inc. West Chester",
-    "email": "estimating@road-con.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "PENNDOT-PREQ-94152",
-    "state": "PA",
-    "source_type": "website_html_mailto",
-    "source_url": "https://road-con.com/contact"
-  },
-  {
-    "company_name": "Trumbull Corporation",
-    "email": "info@trumbullcorp.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "PENNDOT-PREQ-2291",
-    "state": "PA",
-    "source_type": "website_html_mailto",
-    "source_url": "https://www.trumbullcorp.com/"
-  },
-  {
-    "company_name": "Wagman Heavy Civil Inc.",
-    "email": "info@wagman.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "PENNDOT-PREQ-6612",
-    "state": "PA",
-    "source_type": "website_html_mailto",
-    "source_url": "https://www.wagman.com/contact/"
-  },
-  {
-    "company_name": "Wohlsen / Horst Excavating",
+    "company_name": "Horst Excavating",
     "email": "jhess@horstgroup.com",
     "first_name": "Estimating",
     "license_or_dot_id": "PENNDOT-PREQ-94156",
@@ -1170,7 +1125,25 @@
     "source_url": "https://www.horstexcavating.com/about/"
   },
   {
-    "company_name": "mascaro construction",
+    "company_name": "Kriger Construction",
+    "email": "info@krigerconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "PENNDOT-PREQ-94149",
+    "state": "PA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.krigerconstruction.com/contact/"
+  },
+  {
+    "company_name": "Loftus Construction",
+    "email": "kloftus@loftusconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "PENNDOT-PREQ-94153",
+    "state": "PA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://loftusconstruction.com"
+  },
+  {
+    "company_name": "Mascaro Construction",
     "email": "mcc@mascaroconstruction.com",
     "first_name": "Estimating",
     "license_or_dot_id": "PENNDOT-PREQ-91055",
@@ -1179,7 +1152,52 @@
     "source_url": "https://www.mascaroconstruction.com"
   },
   {
-    "company_name": "C.R. Jackson Inc.",
+    "company_name": "Mekis Construction",
+    "email": "info@mekisconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "PENNDOT-PREQ-94144",
+    "state": "PA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.mekisconstruction.com/contact"
+  },
+  {
+    "company_name": "Pennsy Supply",
+    "email": "brad.vores@pennsysupply.com",
+    "first_name": "Brad",
+    "license_or_dot_id": "PENNDOT-PREQ-91057",
+    "state": "PA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.pennsysupply.com/contact/"
+  },
+  {
+    "company_name": "Road-Con",
+    "email": "estimating@road-con.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "PENNDOT-PREQ-94152",
+    "state": "PA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://road-con.com/contact"
+  },
+  {
+    "company_name": "Trumbull",
+    "email": "info@trumbullcorp.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "PENNDOT-PREQ-2291",
+    "state": "PA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.trumbullcorp.com/"
+  },
+  {
+    "company_name": "Wagman",
+    "email": "info@wagman.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "PENNDOT-PREQ-6612",
+    "state": "PA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.wagman.com/contact/"
+  },
+  {
+    "company_name": "C.R. Jackson",
     "email": "cwarren@crjackson.com",
     "first_name": "Estimating",
     "license_or_dot_id": "SCDOT-PREQ-3091",
@@ -1206,7 +1224,16 @@
     "source_url": "https://www.bellconstruction.com"
   },
   {
-    "company_name": "Jones Bros. Contractors LLC",
+    "company_name": "Dement Construction",
+    "email": "info@dementconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "TDOT-PREQ-2190",
+    "state": "TN",
+    "source_type": "website_html_mailto",
+    "source_url": "https://dementconstruction.com/contact/"
+  },
+  {
+    "company_name": "Jones Bros. Contractors",
     "email": "jbcbids@jonesbroscont.com",
     "first_name": "Estimating",
     "license_or_dot_id": "TDOT-PREQ-3081",
@@ -1224,7 +1251,7 @@
     "source_url": "https://www.lojac.com"
   },
   {
-    "company_name": "Abrams Construction Inc.",
+    "company_name": "Abrams Construction",
     "email": "quote@jdabrams.com",
     "first_name": "Estimating",
     "license_or_dot_id": "TXDOT-PREQ-94001",
@@ -1233,7 +1260,7 @@
     "source_url": "https://www.jdabrams.com/about/contact-us/"
   },
   {
-    "company_name": "Austin Bridge & Road",
+    "company_name": "Austin",
     "email": "dvnicholas@austin-ind.com",
     "first_name": "Estimating",
     "license_or_dot_id": "TXDOT-PREQ-94002",
@@ -1251,7 +1278,7 @@
     "source_url": "https://gldd.com"
   },
   {
-    "company_name": "Harper Brothers Construction LLC",
+    "company_name": "Harper Brothers Construction",
     "email": "info@harperbrothers.com",
     "first_name": "Estimating",
     "license_or_dot_id": "TXDOT-PREQ-55812",
@@ -1260,7 +1287,7 @@
     "source_url": "https://www.harperbrothers.com/Price_Quotes.htm"
   },
   {
-    "company_name": "Jordan Foster Construction LLC",
+    "company_name": "Jordan Foster Construction",
     "email": "prequal@jordanfosterconstruction.com",
     "first_name": "Estimating",
     "license_or_dot_id": "TXDOT-PREQ-77104",
@@ -1269,7 +1296,7 @@
     "source_url": "https://jordanfosterconstruction.com/prequalification/"
   },
   {
-    "company_name": "SER Construction Partners LLC",
+    "company_name": "SER Construction Partners",
     "email": "contact@serconstruction.net",
     "first_name": "Estimating",
     "license_or_dot_id": "TXDOT-PREQ-71920",
@@ -1296,7 +1323,7 @@
     "source_url": "https://stakerparson.com/"
   },
   {
-    "company_name": "Whitaker Construction Company",
+    "company_name": "Whitaker Construction",
     "email": "reception@whitcon.com",
     "first_name": "Estimating",
     "license_or_dot_id": "UDOT-PREQ-93102",
@@ -1305,7 +1332,7 @@
     "source_url": "https://www.whitcon.com/contact"
   },
   {
-    "company_name": "Allan Myers Inc.",
+    "company_name": "Allan Myers",
     "email": "brian.hart@allanmyers.com",
     "first_name": "Brian",
     "license_or_dot_id": "VDOT-PREQ-4091",
@@ -1314,7 +1341,7 @@
     "source_url": "https://www.allanmyers.com/contact/"
   },
   {
-    "company_name": "Branscome Paving Company",
+    "company_name": "Branscome Paving",
     "email": "estimating@branscome.com",
     "first_name": "Estimating",
     "license_or_dot_id": "VDOT-PREQ-93012",
@@ -1323,7 +1350,7 @@
     "source_url": "https://branscome.com"
   },
   {
-    "company_name": "Cottrell Contracting Corp.",
+    "company_name": "Cottrell Contracting",
     "email": "dcarlock@cottrellcontracting.com",
     "first_name": "Estimating",
     "license_or_dot_id": "USACE-CAGE-91020",
@@ -1332,7 +1359,7 @@
     "source_url": "https://www.cottrellcontracting.com"
   },
   {
-    "company_name": "Norfolk Dredging Company",
+    "company_name": "Norfolk Dredging",
     "email": "info@norfolkdredging.com",
     "first_name": "Estimating",
     "license_or_dot_id": "USACE-CAGE-91021",
@@ -1341,7 +1368,7 @@
     "source_url": "https://www.norfolkdredging.com/contact"
   },
   {
-    "company_name": "Orders Construction Company",
+    "company_name": "Orders Construction",
     "email": "mail@ordersconstruction.com",
     "first_name": "Estimating",
     "license_or_dot_id": "VDOT-PREQ-4182",
@@ -1350,7 +1377,7 @@
     "source_url": "https://www.ordersconstruction.com/"
   },
   {
-    "company_name": "Cascade Bridge LLC",
+    "company_name": "Cascade Bridge",
     "email": "estimating@cascadebridge.com",
     "first_name": "Estimating",
     "license_or_dot_id": "WSDOT-PREQ-93134",
@@ -1359,7 +1386,16 @@
     "source_url": "https://www.cascadebridge.com/contact.html"
   },
   {
-    "company_name": "Colvico Inc. Bridge & Electrical",
+    "company_name": "Ceccanti Inc. Heavy",
+    "email": "rick@ceccantiinc.com",
+    "first_name": "Rick",
+    "license_or_dot_id": "WSDOT-PREQ-93130",
+    "state": "WA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.ceccantiinc.com/our-team"
+  },
+  {
+    "company_name": "Colvico",
     "email": "colvicoadmin@colvicoinc.com",
     "first_name": "Estimating",
     "license_or_dot_id": "WSDOT-PREQ-93136",
@@ -1368,7 +1404,7 @@
     "source_url": "https://colvicoinc.com/our-team"
   },
   {
-    "company_name": "Miles Resources LLC Paving",
+    "company_name": "Miles Resources",
     "email": "estimating@milesresources.com",
     "first_name": "Estimating",
     "license_or_dot_id": "WSDOT-PREQ-93128",
@@ -1377,7 +1413,7 @@
     "source_url": "https://milesresources.com/contact-us/"
   },
   {
-    "company_name": "Pipkin Construction Heavy Civil",
+    "company_name": "Pipkin Construction",
     "email": "info@pipkininc.com",
     "first_name": "Estimating",
     "license_or_dot_id": "WSDOT-PREQ-93140",
@@ -1386,7 +1422,7 @@
     "source_url": "https://pipkinconstruction.com/"
   },
   {
-    "company_name": "Scarsella Bros. Inc.",
+    "company_name": "Scarsella Bros",
     "email": "estimating@scarsellabros.com",
     "first_name": "Estimating",
     "license_or_dot_id": "WSDOT-PREQ-1044",
@@ -1395,7 +1431,7 @@
     "source_url": "https://www.scarsellabros.com/"
   },
   {
-    "company_name": "Selland Construction Inc.",
+    "company_name": "Selland Construction",
     "email": "info@sellandconstruction.com",
     "first_name": "Estimating",
     "license_or_dot_id": "WSDOT-PREQ-93137",
@@ -1404,7 +1440,7 @@
     "source_url": "https://www.sellandconstruction.com"
   },
   {
-    "company_name": "Tucci & Sons Inc. Paving",
+    "company_name": "Tucci & Sons",
     "email": "applications@tucciandsons.com",
     "first_name": "Estimating",
     "license_or_dot_id": "WSDOT-PREQ-93127",
@@ -1422,7 +1458,7 @@
     "source_url": "https://www.awoakes.com"
   },
   {
-    "company_name": "Edgerton Contractors Inc.",
+    "company_name": "Edgerton Contractors",
     "email": "inquiries@edgerton.us",
     "first_name": "Estimating",
     "license_or_dot_id": "WISDOT-PREQ-4102",
@@ -1431,7 +1467,7 @@
     "source_url": "https://edgerton.us"
   },
   {
-    "company_name": "Lunda Construction Company",
+    "company_name": "Lunda Construction",
     "email": "sgaier@lundaconstruction.com",
     "first_name": "Estimating",
     "license_or_dot_id": "WISDOT-PREQ-1180",
@@ -1440,7 +1476,7 @@
     "source_url": "https://www.lundaconstruction.com/subcontractors"
   },
   {
-    "company_name": "Mathy Construction Company",
+    "company_name": "Mathy Construction",
     "email": "info@mathy.com",
     "first_name": "Estimating",
     "license_or_dot_id": "WISDOT-PREQ-94116",
@@ -1449,7 +1485,7 @@
     "source_url": "https://www.mathy.com/contact/"
   },
   {
-    "company_name": "Monarch Paving Company",
+    "company_name": "Monarch Paving",
     "email": "info@monarchpaving.com",
     "first_name": "Estimating",
     "license_or_dot_id": "WISDOT-PREQ-94117",
@@ -1467,7 +1503,7 @@
     "source_url": "https://www.pheifer.com/"
   },
   {
-    "company_name": "Precision Pipeline LLC",
+    "company_name": "Precision Pipeline",
     "email": "ray.schnebelen@precisionpipeline.com",
     "first_name": "Ray",
     "license_or_dot_id": "WISDOT-PREQ-92003",
@@ -1485,7 +1521,7 @@
     "source_url": "https://www.rockroads.com/contact"
   },
   {
-    "company_name": "Zignego Company Concrete Hwy",
+    "company_name": "Zignego Company",
     "email": "dzignego@zignego.com",
     "first_name": "Estimating",
     "license_or_dot_id": "WISDOT-PREQ-94109",
@@ -1494,7 +1530,7 @@
     "source_url": "https://zignego.com/contact/"
   },
   {
-    "company_name": "Hladky Construction Inc.",
+    "company_name": "Hladky Construction",
     "email": "office@hladkyconstruction.com",
     "first_name": "Estimating",
     "license_or_dot_id": "WYDOT-PREQ-93117",
@@ -1503,7 +1539,7 @@
     "source_url": "https://www.hladkyconstruction.com/contact-us/"
   },
   {
-    "company_name": "oftedal construction heavy highway",
+    "company_name": "Oftedal Construction Heavy",
     "email": "oftedal@oftedalconstruction.com",
     "first_name": "Estimating",
     "license_or_dot_id": "WYDOT-PREQ-93112",

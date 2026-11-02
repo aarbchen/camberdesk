@@ -10,13 +10,15 @@ CamberDesk — Dedicated Instantly.ai V2 Campaign Provisioner & Planholder Lead 
    - `stop_on_reply: True`
    - `email_list`: strictly `*camberdesk*` mailboxes (`aaron@trycamberdesk.com`, `estimating@trycamberdesk.com`,
      `desk@trycamberdesk.com`) — never attaching any `*signaltender*` mailbox.
-3. Purges any guessed role emails or legacy leads containing `$` or `http` links in Step 1 / Step 2,
-   and syncs the 100% live HTML/Directory-verified, Zero-`$`, Zero-Link leads from `D:\CamberDesk\campaign_leads.csv`.
+3. Purges any bounced leads (`status < 0`), guessed role emails, or legacy leads containing `$` or `http` links
+   in Step 1 / Step 2, patches existing leads in-place with updated clean variables, and syncs the 100% live
+   HTML/Directory-verified, Zero-`$`, Zero-Link leads from `D:\CamberDesk\campaign_leads.csv`.
 """
 
 from error_telemetry import configure_utf8_stdio
 configure_utf8_stdio()
 
+from concurrent.futures import ThreadPoolExecutor
 import csv
 import json
 import os
@@ -33,6 +35,7 @@ from outreach_generator import generate_outreach_queue
 ROOT_DIR = Path(__file__).resolve().parent
 ENV_PATH = ROOT_DIR / ".env"
 CSV_PATH = ROOT_DIR / "campaign_leads.csv"
+BLACKLIST_PATH = ROOT_DIR / "bounced_leads_blacklist.json"
 load_dotenv(dotenv_path=str(ENV_PATH))
 
 INSTANTLY_API_KEY = (os.getenv("INSTANTLY_API_KEY") or "").strip()
@@ -80,7 +83,7 @@ def ensure_camberdesk_campaign() -> str:
                 "steps": [
                     {
                         "type": "email",
-                        "delay": 0,
+                        "delay": 2,
                         "variants": [
                             {
                                 "subject": "{{step1_subject}}",
@@ -148,22 +151,18 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
         "Authorization": f"Bearer {INSTANTLY_API_KEY}",
     }
 
-    # 1. Enforce open_tracking: False, link_tracking: False, text_only: True, stop_on_reply: True,
-    #    and strictly *camberdesk* mailboxes on Campaign e69941d4-b5c0-45a7-ac67-ae8947761d4b
     _, warmed_cd, warming_cd = fetch_live_camberdesk_instantly_accounts()
     camberdesk_emails = sorted(
         em for em in set(warmed_cd)
         if "camberdesk" in em.lower() and "signaltender" not in em.lower() and "rubricward" not in em.lower()
     )
-    dynamic_daily_cap, _, ramp_phase_label = compute_dynamic_daily_limit()
+    dynamic_daily_cap, _, _ = compute_dynamic_daily_limit()
     three_step_sequences = [
         {
             "steps": [
                 {
                     "type": "email",
                     "delay": 2,
-                    "delay_unit": "days",
-                    "pre_delay_unit": "days",
                     "variants": [
                         {
                             "subject": "{{step1_subject}}",
@@ -173,9 +172,7 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
                 },
                 {
                     "type": "email",
-                    "delay": 2,
-                    "delay_unit": "days",
-                    "pre_delay_unit": "days",
+                    "delay": 3,
                     "variants": [
                         {
                             "subject": "Re: {{step1_subject}}",
@@ -185,9 +182,7 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
                 },
                 {
                     "type": "email",
-                    "delay": 2,
-                    "delay_unit": "days",
-                    "pre_delay_unit": "days",
+                    "delay": 4,
                     "variants": [
                         {
                             "subject": "Re: {{step1_subject}}",
@@ -208,7 +203,6 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
         "text_only": True,
         "stop_on_reply": True,
         "daily_limit": dynamic_daily_cap,
-        "sequences": three_step_sequences,
     }
     if camberdesk_emails:
         patch_payload["email_list"] = camberdesk_emails
@@ -220,31 +214,60 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
             json=patch_payload,
             timeout=15,
         )
+        requests.patch(
+            f"https://api.instantly.ai/api/v2/campaigns/{cid}",
+            headers=headers,
+            json={"sequences": three_step_sequences},
+            timeout=15,
+        )
     except Exception:
         pass
 
-    # 2. Purge any old guessed role leads, leads overlapping with SignalTender, or leads with '$' / 'http' in Step 1 or Step 2
+    bl_data = {"bounced_emails": [], "bounced_domains": []}
+    if BLACKLIST_PATH.exists():
+        try:
+            bl_data.update(json.loads(BLACKLIST_PATH.read_text(encoding="utf-8")) or {})
+        except Exception:
+            pass
+    bl_emails = set(bl_data.get("bounced_emails") or [])
+    bl_domains = set(bl_data.get("bounced_domains") or [])
+
     st_excluded_emails, st_excluded_domains = load_signaltender_exclusion_sets()
     valid_email_map = {
         l["email"].strip().lower(): l
         for l in leads
         if l["email"].strip().lower() not in st_excluded_emails
         and l["email"].strip().lower().split("@", 1)[-1] not in st_excluded_domains
+        and l["email"].strip().lower() not in bl_emails
+        and l["email"].strip().lower().split("@", 1)[-1] not in bl_domains
     }
+
     purged_count = 0
-    existing_clean_emails = set()
+    existing_clean_map: Dict[str, Dict[str, Any]] = {}
+    new_bounces_found = False
+
     try:
-        r_existing = requests.post(
-            "https://api.instantly.ai/api/v2/leads/list",
-            headers=headers,
-            json={"campaign": cid, "limit": 100},
-            timeout=15,
-        )
-        if r_existing.status_code == 200:
-            for item in (r_existing.json() or {}).get("items") or []:
+        starting_after = None
+        for _ in range(15):
+            list_req: Dict[str, Any] = {"campaign": cid, "limit": 100}
+            if starting_after:
+                list_req["starting_after"] = starting_after
+            r_existing = requests.post(
+                "https://api.instantly.ai/api/v2/leads/list",
+                headers=headers,
+                json=list_req,
+                timeout=15,
+            )
+            if r_existing.status_code != 200:
+                break
+            r_json = r_existing.json() or {}
+            items = r_json.get("items") or []
+            for item in items:
                 em_existing = str(item.get("email") or "").strip().lower()
                 dom_existing = em_existing.split("@", 1)[-1] if "@" in em_existing else ""
-                lid = item.get("id")
+                lid = str(item.get("id") or "").strip()
+                lead_status = int(item.get("status") or 0)
+                interest_status = int(item.get("lt_interest_status") or 0)
                 payload_vars = item.get("payload") or {}
                 s1 = str(payload_vars.get("step1_body_zero_link") or "")
                 s2 = str(payload_vars.get("step2_body_dossier_link") or "")
@@ -252,59 +275,110 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
                 comp_url = str(payload_vars.get("compiler_url") or "")
                 has_dollar_or_link = ("$" in s1) or ("$" in s2) or ("$" in subj1) or ("http://" in s1) or ("https://" in s1) or ("http://" in s2) or ("https://" in s2) or ("api.camberdesk.com" in comp_url)
                 is_st_overlap = (em_existing in st_excluded_emails) or (dom_existing in st_excluded_domains)
-                is_in_flight = bool(item.get("timestamp_last_contact")) or (int(item.get("email_open_count") or 0) > 0)
-                if lid and (is_st_overlap or has_dollar_or_link or (em_existing not in valid_email_map) or (not is_in_flight and not payload_vars.get("source_url"))):
+                is_bounced_or_bad = (lead_status < 0) or (interest_status < 0) or (em_existing in bl_emails) or (dom_existing in bl_domains) or ("%" in em_existing)
+                if lead_status < 0 and em_existing and em_existing not in bl_emails:
+                    bl_emails.add(em_existing)
+                    new_bounces_found = True
+
+                if lid and (is_bounced_or_bad or is_st_overlap or has_dollar_or_link or (em_existing not in valid_email_map)):
                     requests.delete(f"https://api.instantly.ai/api/v2/leads/{lid}", headers=auth_only_headers, timeout=10)
                     purged_count += 1
-                elif em_existing in valid_email_map or is_in_flight:
-                    existing_clean_emails.add(em_existing)
+                elif em_existing in valid_email_map and lid:
+                    existing_clean_map[em_existing] = item
+            starting_after = r_json.get("next_starting_after")
+            if not starting_after or len(items) < 100:
+                break
     except Exception:
         pass
 
-    # 3. Upload all verified HTML/Directory-scraped leads with Zero-$, Zero-Link Step 1 & Step 2
-    uploaded = 0
-    for lead in leads:
+    if new_bounces_found:
+        try:
+            BLACKLIST_PATH.write_text(
+                json.dumps({"bounced_emails": sorted(bl_emails), "bounced_domains": sorted(bl_domains)}, indent=2),
+                encoding="utf-8",
+            )
+        except Exception:
+            pass
+
+    patched_count = 0
+
+    def _sync_one_lead(lead: Dict[str, Any]) -> tuple[int, int]:
         em_clean = lead["email"].strip().lower()
-        if em_clean in existing_clean_emails:
-            uploaded += 1
-            continue
+        custom_vars = {
+            "license_or_dot_id": lead["license_or_dot_id"],
+            "state": lead["state"],
+            "project_id": lead["project_id"],
+            "project_title": lead["project_title"],
+            "letting_date": lead["letting_date"],
+            "dossier_url": lead["dossier_url"],
+            "compiler_url": lead["compiler_url"],
+            "source_type": lead.get("source_type", "website_html_mailto"),
+            "source_url": lead.get("source_url", ""),
+            "step1_subject": lead["step1_subject"],
+            "step1_body_zero_link": lead["step1_body_zero_link"],
+            "step2_body_dossier_link": lead["step2_body_dossier_link"],
+        }
+        if em_clean in existing_clean_map:
+            ex_item = existing_clean_map[em_clean]
+            ex_id = str(ex_item.get("id") or "")
+            ex_payload = ex_item.get("payload") or {}
+            needs_patch = (
+                str(ex_item.get("first_name") or "") != str(lead["first_name"])
+                or str(ex_item.get("company_name") or "") != str(lead["company_name"])
+                or str(ex_payload.get("step1_subject") or "") != str(lead["step1_subject"])
+                or str(ex_payload.get("step1_body_zero_link") or "") != str(lead["step1_body_zero_link"])
+                or str(ex_payload.get("step2_body_dossier_link") or "") != str(lead["step2_body_dossier_link"])
+            )
+            if needs_patch and ex_id:
+                try:
+                    rp = requests.patch(
+                        f"https://api.instantly.ai/api/v2/leads/{ex_id}",
+                        headers=headers,
+                        json={
+                            "first_name": lead["first_name"],
+                            "company_name": lead["company_name"],
+                            "custom_variables": custom_vars,
+                        },
+                        timeout=12,
+                    )
+                    if 200 <= rp.status_code < 300:
+                        return (1, 1)
+                except Exception:
+                    pass
+            return (1, 0)
+
         payload = {
             "campaign": cid,
             "email": em_clean,
             "first_name": lead["first_name"],
             "company_name": lead["company_name"],
-            "custom_variables": {
-                "license_or_dot_id": lead["license_or_dot_id"],
-                "state": lead["state"],
-                "project_id": lead["project_id"],
-                "project_title": lead["project_title"],
-                "letting_date": lead["letting_date"],
-                "dossier_url": lead["dossier_url"],
-                "compiler_url": lead["compiler_url"],
-                "source_type": lead.get("source_type", "website_html_mailto"),
-                "source_url": lead.get("source_url", ""),
-                "step1_subject": lead["step1_subject"],
-                "step1_body_zero_link": lead["step1_body_zero_link"],
-                "step2_body_dossier_link": lead["step2_body_dossier_link"],
-            },
+            "custom_variables": custom_vars,
             "skip_if_in_workspace": True,
         }
         try:
             r = requests.post("https://api.instantly.ai/api/v2/leads", headers=headers, json=payload, timeout=15)
             if r.status_code in (200, 201):
-                uploaded += 1
+                return (1, 0)
         except Exception:
             pass
+        return (0, 0)
+
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        results = list(pool.map(_sync_one_lead, leads))
+
+    uploaded = sum(x[0] for x in results)
+    patched_count = sum(x[1] for x in results)
 
     print(
-        f"[CAMBERDESK INSTANTLY] Campaign {cid}: purged {purged_count} legacy/guessed leads, "
-        f"synced {uploaded}/{len(leads)} HTML/Directory-verified Zero-$ Zero-Link leads "
+        f"[CAMBERDESK INSTANTLY] Campaign {cid}: purged {purged_count} bounced/legacy leads, "
+        f"patched {patched_count} existing leads, synced {uploaded}/{len(leads)} HTML/Directory-verified Zero-$ Zero-Link leads "
         f"(open_tracking=False, link_tracking=False, senders={camberdesk_emails})."
     )
     return {
         "status": "synced",
         "campaign_id": cid,
         "purged_legacy_leads": purged_count,
+        "patched_existing_leads": patched_count,
         "uploaded": uploaded,
         "total": len(leads),
         "open_tracking": False,

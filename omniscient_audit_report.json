@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-11-02T10:09:48.024935+00:00",
-  "mode": "fast",
-  "elapsed_seconds": 43.56,
+  "timestamp": "2026-11-02T12:59:58.199135+00:00",
+  "mode": "full",
+  "elapsed_seconds": 69.05,
   "status": "healthy",
   "total_learned_rules": 19,
   "pillars": {

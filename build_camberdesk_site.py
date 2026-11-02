@@ -313,47 +313,39 @@ FIFTY_TWO_PORTALS = [
 
 
 FAVICON_SVG_XML = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <rect x="2" y="2" width="60" height="60" rx="14" fill="#FAF8F5" stroke="#0A0D14" stroke-width="3"/>
-  <path fill="#0A0D14" d="M32 9A23 23 0 1 0 55 32H32V9Z"/>
-  <rect x="36" y="11" width="16" height="16" rx="2.5" fill="#1E3A8A"/>
+  <circle cx="32" cy="32" r="32" fill="#FAF8F5"/>
+  <path fill="#0A0D14" d="M32 10A22 22 0 1 0 54 32H32V10Z"/>
+  <rect x="36" y="14" width="14" height="14" rx="2.5" fill="#1E3A8A"/>
 </svg>
 """
 
 
 def _sample_logo_pixel(nx: float, ny: float) -> tuple[int, int, int, int]:
-    """Samples the CamberDesk Symbol #07 (Compass Quadrant Lock) in normalized 64x64 RGBA coordinates with rounded-square badge."""
+    """Samples the CamberDesk Symbol #07 (Compass Quadrant Lock) in normalized 64x64 RGBA coordinates with a borderless circular disc."""
     import math
 
     vellum = (250, 248, 245, 255)
     obsidian = (10, 13, 20, 255)
     navy = (30, 58, 138, 255)
-    transparent = (0, 0, 0, 0)
+    transparent = (250, 248, 245, 0)
 
-    # Outer rounded square (0..64, corner radius 13)
-    r_outer = 13.0
-    qx = max(abs(nx - 32.0) - (32.0 - r_outer), 0.0)
-    qy = max(abs(ny - 32.0) - (32.0 - r_outer), 0.0)
-    if math.hypot(qx, qy) > r_outer:
+    dx = nx - 32.0
+    dy = ny - 32.0
+    dist = math.hypot(dx, dy)
+
+    # Borderless circular disc (radius 32.0, transparent outside, zero outer border)
+    if dist > 32.0:
         return transparent
 
-    # Inner rounded square (3.5..60.5, corner radius 9.5)
-    r_inner = 9.5
-    ix = max(abs(nx - 32.0) - (28.5 - r_inner), 0.0)
-    iy = max(abs(ny - 32.0) - (28.5 - r_inner), 0.0)
-    if math.hypot(ix, iy) > r_inner:
-        return obsidian
-
-    # Blueprint Navy upper-right quadrant block (with slight rounded corner rx=2.5)
-    if 36.0 <= nx <= 52.0 and 11.0 <= ny <= 27.0:
-        bx = max(abs(nx - 44.0) - 5.5, 0.0)
-        by = max(abs(ny - 19.0) - 5.5, 0.0)
+    # Blueprint Navy upper-right quadrant block (x in 36..50, y in 14..28, rx=2.5)
+    if 36.0 <= nx <= 50.0 and 14.0 <= ny <= 28.0:
+        bx = max(abs(nx - 43.0) - 4.5, 0.0)
+        by = max(abs(ny - 21.0) - 4.5, 0.0)
         if math.hypot(bx, by) <= 2.5:
             return navy
 
-    # Obsidian Ink 270-degree compass sector
-    dx = nx - 32.0
-    dy = ny - 32.0
-    if math.hypot(dx, dy) <= 23.0 and not (dx > 0 and dy < 0):
+    # Obsidian Ink 270-degree compass sector (radius 22.0)
+    if dist <= 22.0 and not (dx > 0 and dy < 0):
         return obsidian
     return vellum
 
@@ -501,12 +493,12 @@ WEB_MANIFEST_JSON = json.dumps(
         "background_color": "#FAF8F5",
         "theme_color": "#0A0D14",
         "icons": [
-            {"src": "https://camberdesk.com/favicon-48x48.png?v=6", "sizes": "48x48", "type": "image/png"},
-            {"src": "https://camberdesk.com/favicon-96x96.png?v=6", "sizes": "96x96", "type": "image/png"},
-            {"src": "https://camberdesk.com/favicon-144x144.png?v=6", "sizes": "144x144", "type": "image/png"},
-            {"src": "https://camberdesk.com/apple-touch-icon.png?v=6", "sizes": "180x180", "type": "image/png"},
-            {"src": "https://camberdesk.com/favicon-192x192.png?v=6", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
-            {"src": "https://camberdesk.com/favicon-512x512.png?v=6", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"},
+            {"src": "https://camberdesk.com/favicon-48x48.png?v=8", "sizes": "48x48", "type": "image/png"},
+            {"src": "https://camberdesk.com/favicon-96x96.png?v=8", "sizes": "96x96", "type": "image/png"},
+            {"src": "https://camberdesk.com/favicon-144x144.png?v=8", "sizes": "144x144", "type": "image/png"},
+            {"src": "https://camberdesk.com/apple-touch-icon.png?v=8", "sizes": "180x180", "type": "image/png"},
+            {"src": "https://camberdesk.com/favicon-192x192.png?v=8", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+            {"src": "https://camberdesk.com/favicon-512x512.png?v=8", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"},
         ],
     },
     indent=2,
@@ -571,11 +563,11 @@ def build_social_and_favicon_head(
                     "url": "https://camberdesk.com/",
                     "logo": {
                         "@type": "ImageObject",
-                        "url": "https://camberdesk.com/favicon-512x512.png?v=6",
+                        "url": "https://camberdesk.com/favicon-512x512.png?v=8",
                         "width": 512,
                         "height": 512,
                     },
-                    "image": "https://camberdesk.com/og-image.png?v=6",
+                    "image": "https://camberdesk.com/og-image.png?v=8",
                     "description": page_desc,
                 },
                 {
@@ -600,27 +592,27 @@ def build_social_and_favicon_head(
         }
     )
     return f"""  <meta name="theme-color" content="#FAF8F5" />
-  <link rel="icon" type="image/png" sizes="96x96" href="https://camberdesk.com/favicon-96x96.png?v=6" />
-  <link rel="icon" type="image/png" sizes="512x512" href="https://camberdesk.com/favicon-512x512.png?v=6" />
-  <link rel="icon" type="image/png" sizes="192x192" href="https://camberdesk.com/favicon-192x192.png?v=6" />
-  <link rel="icon" type="image/png" sizes="144x144" href="https://camberdesk.com/favicon-144x144.png?v=6" />
-  <link rel="icon" type="image/svg+xml" href="https://camberdesk.com/favicon.svg?v=6" />
-  <link rel="icon" type="image/png" sizes="48x48" href="https://camberdesk.com/favicon-48x48.png?v=6" />
-  <link rel="icon" type="image/png" sizes="32x32" href="https://camberdesk.com/favicon-32x32.png?v=6" />
-  <link rel="icon" type="image/x-icon" sizes="48x48" href="https://camberdesk.com/favicon.ico?v=6" />
-  <link rel="shortcut icon" href="https://camberdesk.com/favicon.ico?v=6" />
-  <link rel="apple-touch-icon" sizes="180x180" href="https://camberdesk.com/apple-touch-icon.png?v=6" />
-  <link rel="apple-touch-icon-precomposed" sizes="180x180" href="https://camberdesk.com/apple-touch-icon.png?v=6" />
-  <link rel="manifest" href="https://camberdesk.com/site.webmanifest?v=6" />
+  <link rel="icon" type="image/png" sizes="96x96" href="https://camberdesk.com/favicon-96x96.png?v=8" />
+  <link rel="icon" type="image/png" sizes="512x512" href="https://camberdesk.com/favicon-512x512.png?v=8" />
+  <link rel="icon" type="image/png" sizes="192x192" href="https://camberdesk.com/favicon-192x192.png?v=8" />
+  <link rel="icon" type="image/png" sizes="144x144" href="https://camberdesk.com/favicon-144x144.png?v=8" />
+  <link rel="icon" type="image/svg+xml" href="https://camberdesk.com/favicon.svg?v=8" />
+  <link rel="icon" type="image/png" sizes="48x48" href="https://camberdesk.com/favicon-48x48.png?v=8" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://camberdesk.com/favicon-32x32.png?v=8" />
+  <link rel="icon" type="image/x-icon" sizes="48x48" href="https://camberdesk.com/favicon.ico?v=8" />
+  <link rel="shortcut icon" href="https://camberdesk.com/favicon.ico?v=8" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://camberdesk.com/apple-touch-icon.png?v=8" />
+  <link rel="apple-touch-icon-precomposed" sizes="180x180" href="https://camberdesk.com/apple-touch-icon.png?v=8" />
+  <link rel="manifest" href="https://camberdesk.com/site.webmanifest?v=8" />
   <link rel="canonical" href="{canonical_url}" />
   <meta property="og:site_name" content="CamberDesk" />
   <meta property="og:title" content="{page_title}" />
   <meta property="og:description" content="{page_desc}" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="{canonical_url}" />
-  <meta property="og:logo" content="https://camberdesk.com/favicon-512x512.png?v=6" />
-  <meta property="og:image" content="https://camberdesk.com/og-image.png?v=6" />
-  <meta property="og:image:secure_url" content="https://camberdesk.com/og-image.png?v=6" />
+  <meta property="og:logo" content="https://camberdesk.com/favicon-512x512.png?v=8" />
+  <meta property="og:image" content="https://camberdesk.com/og-image.png?v=8" />
+  <meta property="og:image:secure_url" content="https://camberdesk.com/og-image.png?v=8" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -628,7 +620,7 @@ def build_social_and_favicon_head(
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="{page_title}" />
   <meta name="twitter:description" content="{page_desc}" />
-  <meta name="twitter:image" content="https://camberdesk.com/og-image.png?v=6" />
+  <meta name="twitter:image" content="https://camberdesk.com/og-image.png?v=8" />
   <meta name="twitter:image:alt" content="CamberDesk — 50-State DOT Bid-Tab, Prevailing-Wage &amp; Construction Takeoff Intelligence" />
   <script type="application/ld+json">{schema_ld}</script>"""
 
