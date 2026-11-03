@@ -274,7 +274,7 @@ def build_zip_fulfillment_reply(from_email: str, reply_text: str = "", label: st
         f"   {ctx['dossier_url']}\n\n"
         f"If you want automated 50-State DOT planholder alerts, 36-month historical unit bid tabulations, and unlimited 6-File .ZIP compilations across all upcoming lettings:\n"
         f"- Tier 1 // CamberWire Pro ($199/mo): {ctx['tier1_stripe_url']}\n"
-        f"- Tier 2 // CamberDesk Autopilot ($499/mo — Recommended): {ctx['tier2_stripe_url']}\n"
+        f"- Tier 2 // CamberDesk Autopilot ($499/mo — Recommended: includes your first full custom 6-File .ZIP Civil Bid & Takeoff Package, $500 standalone value + 30 days unlimited dossiers, 1-click cancel anytime): {ctx['tier2_stripe_url']}\n"
         f"- Tier 3 // Unlimited 6-File .ZIP Takeoff Compiler ($1,499/mo): {ctx['tier3_stripe_url']}\n\n"
         f"Best,\n"
         f"Aaron // CamberDesk Preconstruction & DOT Systems\n"

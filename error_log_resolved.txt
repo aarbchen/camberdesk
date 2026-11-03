@@ -493,3 +493,35 @@
 
 === ARCHIVED & RESOLVED AT 2026-11-02 23:23:10 UTC (1 lines) ===
 [2026-11-02 23:22:55 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+
+=== ARCHIVED & RESOLVED AT 2026-11-02 23:56:54 UTC (6 lines) ===
+[2026-11-02 23:26:05 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+[2026-11-02 23:38:30 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+[2026-11-02 23:41:31 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+[2026-11-02 23:48:46 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+[2026-11-02 23:53:35 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+[2026-11-02 23:56:39 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+
+=== ARCHIVED & RESOLVED AT 2026-11-03 00:23:48 UTC (4 lines) ===
+[2026-11-03 00:08:39 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+[2026-11-03 00:12:10 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+[2026-11-03 00:18:39 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+[2026-11-03 00:23:43 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+
+=== ARCHIVED & RESOLVED AT 2026-11-03 01:00:48 UTC (7 lines) ===
+[2026-11-03 00:27:19 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+[2026-11-03 00:38:53 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+[2026-11-03 00:42:29 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+[2026-11-03 00:52:02 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+[2026-11-03 00:54:17 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+[2026-11-03 00:55:59 UTC] [WARNING] [autonomous_mailbox_scaler.py] Instantly campaign expansion patch warning: HTTPSConnectionPool(host='api.instantly.ai', port=443): Max retries exceeded with url: /api/v2/campaigns/e69941d4-b5c0-45a7-ac67-ae8947761d4b (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1082)')))
+[2026-11-03 01:00:07 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+
+=== ARCHIVED & RESOLVED AT 2026-11-03 01:27:18 UTC (4 lines) ===
+[2026-11-03 01:12:03 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+[2026-11-03 01:15:50 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+[2026-11-03 01:18:42 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+[2026-11-03 01:27:10 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)
+
+=== ARCHIVED & RESOLVED AT 2026-11-03 01:35:01 UTC (1 lines) ===
+[2026-11-03 01:31:13 UTC] [ERROR] [outbound_reply_responder.py] Reply polling note: slice(-500, None, None)

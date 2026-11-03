@@ -96,18 +96,6 @@
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
-    "company_name": "Rummel Construction",
-    "email": "general@rummelconstruction.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "ADOT-PREQ-3381",
-    "state": "AZ",
-    "source_type": "website_html_mailto",
-    "source_url": "https://www.rummelconstruction.com",
-    "historical_award_id": "70B01C26F00000017",
-    "historical_award_usd": 2833494611.7,
-    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
-  },
-  {
     "company_name": "Southwest Slurry Seal",
     "email": "contact@slurry.com",
     "first_name": "Estimating",
@@ -441,18 +429,6 @@
     "source_url": "https://www.warasic.com/contact/",
     "historical_award_id": "70B01C25F00001112",
     "historical_award_usd": 1225325000.0,
-    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
-  },
-  {
-    "company_name": "A&S Construction",
-    "email": "info@asconstruction.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "CDOT-PREQ-93094",
-    "state": "CO",
-    "source_type": "website_html_mailto",
-    "source_url": "https://asconstruction.com",
-    "historical_award_id": "FA890319C0021",
-    "historical_award_usd": 387092434.0,
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
@@ -900,18 +876,6 @@
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
-    "company_name": "Gallagher Asphalt",
-    "email": "info@gallagherasphalt.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "IDOT-PREQ-92010",
-    "state": "IL",
-    "source_type": "website_html_mailto",
-    "source_url": "https://gallagherasphalt.com",
-    "historical_award_id": "W912QR04C0004",
-    "historical_award_usd": 1870676938.26,
-    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
-  },
-  {
     "company_name": "Lorig Construction",
     "email": "estimating@lorigconstruction.com",
     "first_name": "Estimating",
@@ -1200,7 +1164,7 @@
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
-    "company_name": "C.A. Hull Co",
+    "company_name": "C.A. Hull",
     "email": "quotes@cahull.com",
     "first_name": "Estimating",
     "license_or_dot_id": "MDOT-PREQ-1890",
@@ -1212,7 +1176,7 @@
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
-    "company_name": "C.A. Hull Co",
+    "company_name": "C.A. Hull",
     "email": "info@cahull.com",
     "first_name": "Estimating",
     "license_or_dot_id": "MDOT-PREQ-1890",
@@ -2121,18 +2085,6 @@
     "source_url": "https://kerrcontractors.com/",
     "historical_award_id": "USACE-OR-W912-202723",
     "historical_award_usd": 21825000.0,
-    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
-  },
-  {
-    "company_name": "Brayman Construction",
-    "email": "info@brayman.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "PENNDOT-PREQ-4540",
-    "state": "PA",
-    "source_type": "website_html_mailto",
-    "source_url": "https://www.brayman.com/contact",
-    "historical_award_id": "W911WN24C8011",
-    "historical_award_usd": 914945706.49,
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
