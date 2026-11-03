@@ -1,5 +1,5 @@
 {
-  "count": 236,
+  "count": 235,
   "outbox_queue": [
     {
       "email": "ashley.sodosky@kanawhastone.com",
@@ -354,9 +354,9 @@
       "compiler_url": "https://camberdesk.com/v1/camber-autopilot/compile-bid-package?project_id=NCDOT-C204891&state_code=NC&format=binary",
       "source_type": "website_html_mailto",
       "source_url": "https://blytheconstruction.com/contact-us/",
-      "step1_subject": "NCDOT-C204891 unit bid tabs & NCDOT rates (Blythe Construction)",
-      "step1_body_zero_link": "Hi Shane,\n\nNoticed Blythe Construction's heavy-civil profile (NCDOT-PREQ-5510) in NC while indexing NCDOT letting NCDOT-C204891 (USD 22,600,000 Engineer's Estimate opening 2026-12-01).\n\nWe already compiled the 36-month NCDOT unit-price bid tabulations (Item 610-A (Asphalt Concrete Surface Course Type S9.5C) at USD 131.50/TON median) and NC20260028 (Heavy & Highway) prevailing wage fringes into a 6-file Word/Excel takeoff package.\n\nIs Blythe Construction pricing NCDOT-C204891 this cycle? Reply 'SEND ZIP' and I will send the 6-file .DOCX + .XLSX bid-tab package over.\n\nBest,\nAaron Chen\nCamberDesk Preconstruction Desk",
-      "step2_body_dossier_link": "Hi Shane,\n\nQuick follow-up in case Blythe Construction's estimating desk wants the 36-month NCDOT unit-bid spread (Item 610-A (Asphalt Concrete Surface Course Type S9.5C) at USD 131.50/TON median), NC20260028 (Heavy & Highway) Davis-Bacon WH-347 wage workbook, and 6-file Word/Excel takeoff package for NCDOT-C204891 (NC).\n\nReply 'SEND ZIP' and I will send it right over, or let me know if I should hold off.\n\nBest,\nAaron Chen\nCamberDesk Preconstruction Desk"
+      "step1_subject": "NCDOT-C204891 unit bid-tab spread & NCDOT rates (Blythe Construction)",
+      "step1_body_zero_link": "Hi Shane,\n\nWe indexed the 36-month NCDOT unit-price bid tabulations for NCDOT-C204891 in NC (where #1 and #2 bidders separated by 2.75% / USD 620,000 across Asphalt Surface S9.5C (USD 126.00/TON) & 42-Inch Force Main (USD 381.00/LF)).\n\nWe already compiled the planholder unit-bid spread and Davis-Bacon WH-347 wage fringes into a 6-file Word/Excel takeoff package.\n\nIs Blythe Construction bidding NC heavy-civil work this cycle? Reply 'SEND ZIP' and I will send the 6-file .DOCX + .XLSX package over.\n\nBest,\nAaron Chen\nCamberDesk Preconstruction Desk",
+      "step2_body_dossier_link": "Hi Shane,\n\nQuick follow-up \u2014 want me to send over the 36-month NCDOT unit-price bid tabulations (Asphalt Surface S9.5C (USD 126.00/TON) & 42-Inch Force Main (USD 381.00/LF)) and 6-file Word/Excel takeoff package for NCDOT-C204891 (NC)?\n\nReply 'SEND ZIP' and I will send it right over, or let me know if I should hold off.\n\nBest,\nAaron Chen\nCamberDesk Preconstruction Desk"
     },
     {
       "email": "todd.hoops@ebpaving.com",
@@ -3808,23 +3808,6 @@
       "step1_subject": "MASSDOT-2026-LET-413 unit bid tabs & MassDOT rates (P.J. Keating)",
       "step1_body_zero_link": "Hi P.J. Keating Estimating team,\n\nNoticed P.J. Keating's heavy-civil profile (MASSDOT-PREQ-1460) in MA while indexing MassDOT letting MASSDOT-2026-LET-413 (USD 27,800,000 Engineer's Estimate opening 2026-11-21).\n\nWe already compiled the 36-month MassDOT unit-price bid tabulations (Item MA-3074-SP (Superpave Polymer-Modified HMA SP-C) at USD 123.09/TON median) and MA20260028 (Heavy & Highway) prevailing wage fringes into a 6-file Word/Excel takeoff package.\n\nIs P.J. Keating pricing MASSDOT-2026-LET-413 this cycle? Reply 'SEND ZIP' and I will send the 6-file .DOCX + .XLSX bid-tab package over.\n\nBest,\nAaron Chen\nCamberDesk Preconstruction Desk",
       "step2_body_dossier_link": "Hi P.J. Keating Estimating team,\n\nQuick follow-up in case P.J. Keating's estimating desk wants the 36-month MassDOT unit-bid spread (Item MA-3074-SP (Superpave Polymer-Modified HMA SP-C) at USD 123.09/TON median), MA20260028 (Heavy & Highway) Davis-Bacon WH-347 wage workbook, and 6-file Word/Excel takeoff package for MASSDOT-2026-LET-413 (MA).\n\nReply 'SEND ZIP' and I will send it right over, or let me know if I should hold off.\n\nBest,\nAaron Chen\nCamberDesk Preconstruction Desk"
-    },
-    {
-      "email": "pq@crowderusa.com",
-      "first_name": "Estimating",
-      "company_name": "Crowder Construction",
-      "license_or_dot_id": "NCDOT-PREQ-2041",
-      "state": "NC",
-      "project_id": "NCDOT-C204891",
-      "project_title": "US-70 Corridor Upgrade to Interstate 42 Standards, Dual Three-Span Bridges & 42-Inch Sanitary Force Main",
-      "letting_date": "2026-12-01",
-      "dossier_url": "https://camberdesk.com/lettings/project/us-70-corridor-upgrade-to-interstate-42-standards-dual-three.html",
-      "compiler_url": "https://camberdesk.com/v1/camber-autopilot/compile-bid-package?project_id=NCDOT-C204891&state_code=NC&format=binary",
-      "source_type": "website_html_mailto",
-      "source_url": "https://www.crowderusa.com/subcontractor-prequalification",
-      "step1_subject": "NCDOT-C204891 unit bid-tab spread & NCDOT rates (Crowder Construction)",
-      "step1_body_zero_link": "Hi Crowder Construction Estimating team,\n\nWe indexed the 36-month NCDOT unit-price bid tabulations for NCDOT-C204891 in NC (where #1 and #2 bidders separated by 2.75% / USD 620,000 across Asphalt Surface S9.5C (USD 126.00/TON) & 42-Inch Force Main (USD 381.00/LF)).\n\nWe already compiled the planholder unit-bid spread and Davis-Bacon WH-347 wage fringes into a 6-file Word/Excel takeoff package.\n\nIs Crowder Construction bidding NC heavy-civil work this cycle? Reply 'SEND ZIP' and I will send the 6-file .DOCX + .XLSX package over.\n\nBest,\nAaron Chen\nCamberDesk Preconstruction Desk",
-      "step2_body_dossier_link": "Hi Crowder Construction Estimating team,\n\nQuick follow-up \u2014 want me to send over the 36-month NCDOT unit-price bid tabulations (Asphalt Surface S9.5C (USD 126.00/TON) & 42-Inch Force Main (USD 381.00/LF)) and 6-file Word/Excel takeoff package for NCDOT-C204891 (NC)?\n\nReply 'SEND ZIP' and I will send it right over, or let me know if I should hold off.\n\nBest,\nAaron Chen\nCamberDesk Preconstruction Desk"
     },
     {
       "email": "prequal@jordanfosterconstruction.com",

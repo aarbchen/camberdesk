@@ -68,15 +68,35 @@ def _clean_pay_item_desc(raw_desc: str, max_len: int = 44) -> str:
     return " ".join(out).rstrip(" ,;-(") or s[:max_len].rstrip()
 
 
-def _lead_inbox_priority(lead: Dict[str, Any]) -> tuple[int, str]:
+def _lead_inbox_priority(lead: Dict[str, Any]) -> tuple[float, int, str]:
     em = str(lead.get("email") or "").strip().lower()
     local = em.split("@", 1)[0] if "@" in em else ""
     fn = str(lead.get("first_name") or "").strip().lower()
+    st = str(lead.get("state") or "TX").strip().upper()
+    intel_weights = {"named_person": 1.0, "dept_desk": 0.9, "generic_info": 0.25}
+    cohort_bonus = 0.0
+    intel_file = os.path.join(BASE_DIR, "learned_outbound_intelligence.json")
+    if os.path.exists(intel_file):
+        try:
+            with open(intel_file, "r", encoding="utf-8") as f:
+                intel_d = json.load(f) or {}
+            intel_weights.update(intel_d.get("adaptive_prefix_priority_weights") or {})
+            c_stats = (intel_d.get("cohort_stats") or {}).get(st) or {}
+            if int(c_stats.get("human_replies") or 0) > 0:
+                cohort_bonus = 0.15
+        except Exception:
+            pass
     if fn not in ("estimating", "capture", "bids", "info", "contact", "office", "sales", ""):
-        return (0, em)
-    if any(k in local for k in ("estimat", "bid", "quote", "precon", "dot", "civil", "project")):
-        return (1, em)
-    return (2, em)
+        bucket = "named_person"
+        tier = 0
+    elif any(k in local for k in ("estimat", "bid", "quote", "precon", "dot", "civil", "project")):
+        bucket = "dept_desk"
+        tier = 1
+    else:
+        bucket = "generic_info"
+        tier = 2
+    score = -(float(intel_weights.get(bucket, 0.5)) + cohort_bonus)
+    return (score, tier, em)
 
 
 def generate_outreach_queue() -> List[Dict[str, Any]]:
