@@ -194,7 +194,9 @@ def generate_pseo_pages() -> Dict[str, Any]:
         with open(proj_file, "w", encoding="utf-8") as fh:
             fh.write(page_html)
         urls.append(f"{SITE_BASE_URL}/lettings/project/{slug}.html")
-        legacy_slug = f"{str(d.get('state_code') or '').lower()}-corridor-bridge-deck-replacement-superpave-hma.html"
+        _st_map = {'AL': 'alabama', 'AK': 'alaska', 'AZ': 'arizona', 'AR': 'arkansas', 'CA': 'california', 'CO': 'colorado', 'CT': 'connecticut', 'DE': 'delaware', 'FL': 'florida', 'GA': 'georgia', 'HI': 'hawaii', 'ID': 'idaho', 'IL': 'illinois', 'IN': 'indiana', 'IA': 'iowa', 'KS': 'kansas', 'KY': 'kentucky', 'LA': 'louisiana', 'ME': 'maine', 'MD': 'maryland', 'MA': 'massachusetts', 'MI': 'michigan', 'MN': 'minnesota', 'MS': 'mississippi', 'MO': 'missouri', 'MT': 'montana', 'NE': 'nebraska', 'NV': 'nevada', 'NH': 'new-hampshire', 'NJ': 'new-jersey', 'NM': 'new-mexico', 'NY': 'new-york', 'NC': 'north-carolina', 'ND': 'north-dakota', 'OH': 'ohio', 'OK': 'oklahoma', 'OR': 'oregon', 'PA': 'pennsylvania', 'RI': 'rhode-island', 'SC': 'south-carolina', 'SD': 'south-dakota', 'TN': 'tennessee', 'TX': 'texas', 'UT': 'utah', 'VT': 'vermont', 'VA': 'virginia', 'WA': 'washington', 'WV': 'west-virginia', 'WI': 'wisconsin', 'WY': 'wyoming'}
+        _st_full = _st_map.get(str(d.get('state_code') or '').upper(), str(d.get('state_code') or '').lower())
+        legacy_slug = f"{_st_full}-corridor-bridge-deck-replacement-superpave-hma.html"
         legacy_file = os.path.join(PROJECT_DIR, legacy_slug)
         if os.path.exists(legacy_file) and legacy_file != proj_file:
             with open(legacy_file, "w", encoding="utf-8") as lfh:
