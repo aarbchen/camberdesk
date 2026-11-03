@@ -194,6 +194,11 @@ def generate_pseo_pages() -> Dict[str, Any]:
         with open(proj_file, "w", encoding="utf-8") as fh:
             fh.write(page_html)
         urls.append(f"{SITE_BASE_URL}/lettings/project/{slug}.html")
+        legacy_slug = f"{str(d.get('state_code') or '').lower()}-corridor-bridge-deck-replacement-superpave-hma.html"
+        legacy_file = os.path.join(PROJECT_DIR, legacy_slug)
+        if os.path.exists(legacy_file) and legacy_file != proj_file:
+            with open(legacy_file, "w", encoding="utf-8") as lfh:
+                lfh.write(page_html)
 
         cards_html.append(
             f"<div data-hub-card='1' data-hub-state='{html.escape(d['state_code'])}' class='p-5 rounded-xl bg-white border border-[#CBD5E1] shadow-sm flex flex-col justify-between gap-3'>"
