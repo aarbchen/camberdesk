@@ -454,17 +454,57 @@ def check_tier_value_prop_and_capture_moat_parity() -> List[str]:
         "$1,499 / mo",
         "$2,499 / mo",
         "All 12 individual CamberDesk microservices",
-        "https://buy.stripe.com/00wbJ08qS0h5cxa2sc7wA0a",
-        "https://buy.stripe.com/8x2eVcgXo2pd2WAfeY7wA0b",
-        "https://buy.stripe.com/5kQ00i9uW5BpgNq6Is7wA0c",
-        "https://buy.stripe.com/7sYaEW22u8NBdBe6Is7wA0d",
-        "https://buy.stripe.com/cNidR8dLc2pdfJmgj27wA0e",
-        "https://buy.stripe.com/3cI28qfTkfbZdBe4Ak7wA0f",
-        "https://buy.stripe.com/fZueVcePg5Bp2WA7Mw7wA0g",
-        "https://buy.stripe.com/3cIeVc4aC4xldBeaYI7wA0h",
+        "refreshLiveBrandedStripeLinks",
     ):
         if checkout_marker not in idx_html:
             errors.append(f"[index.html] Missing checkout surface marker: `{checkout_marker}`")
+
+    # RULE-026: Mandatory Branded Stripe Checkout Isolation & Zero buy.stripe.com Payment Link Gate
+    for rel_file in (
+        "index.html",
+        "apis.html",
+        "build_camberdesk_site.py",
+        "build_cloudflare_edge_worker.py",
+        "outbound_reply_responder.py",
+        os.path.join("api_gateway", "routers", "billing_webhook.py"),
+        os.path.join("v1", "billing", "checkout", "index.html"),
+        os.path.join("v1", "billing", "create-checkout-session", "index.html"),
+    ):
+        abs_f = os.path.join(BASE_DIR, rel_file)
+        if os.path.exists(abs_f):
+            with open(abs_f, "r", encoding="utf-8", errors="ignore") as fchk:
+                if "buy.stripe.com" in fchk.read():
+                    errors.append(
+                        f"[RULE-026 VIOLATION] `{rel_file}` contains unbranded `buy.stripe.com` Payment Link (must use branded `checkout.stripe.com/c/pay/cs_live_...` sessions)"
+                    )
+
+    cs_links = set(re.findall(r"https://checkout\.stripe\.com/c/pay/cs_live_[A-Za-z0-9_#%]+", idx_html))
+    if len(cs_links) < 8:
+        errors.append(f"[RULE-026 VIOLATION] Expected 8 distinct branded `checkout.stripe.com/c/pay/cs_live_...` links in `index.html`, found {len(cs_links)}")
+    else:
+        try:
+            import base64
+            import urllib.parse
+            import urllib.request
+
+            sample_url = sorted(cs_links)[0]
+            cs_id, frag = sample_url.split("/pay/")[1].split("#")
+            dec = "".join(chr(b ^ 5) for b in base64.b64decode(urllib.parse.unquote(frag)))
+            pk = json.loads(dec)["apiKey"]
+            req_data = urllib.parse.urlencode({"key": pk, "eid": "NA", "browser_locale": "en-US"}).encode("utf-8")
+            req = urllib.request.Request(f"https://api.stripe.com/v1/payment_pages/{cs_id}/init", data=req_data, method="POST")
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                init_payload = resp.read().decode("utf-8", errors="ignore")
+                init_json = json.loads(init_payload)
+                acct_s = init_json.get("account_settings") or {}
+                if acct_s.get("order_summary_display_name") != "CamberDesk":
+                    errors.append(f"[RULE-026 VIOLATION] Stripe Checkout `order_summary_display_name` is `{acct_s.get('order_summary_display_name')}` (expected `CamberDesk`)")
+                if (acct_s.get("branding") or {}).get("background_color", "").lower() != "#faf8f5":
+                    errors.append("[RULE-026 VIOLATION] Stripe Checkout `background_color` is not `#faf8f5`")
+                if "signaltender" in init_payload.lower():
+                    errors.append("[RULE-026 VIOLATION] Stripe Checkout `payment_pages/init` payload still contains `signaltender` branding")
+        except Exception as exc:
+            errors.append(f"[RULE-026 WARNING] Live Stripe Checkout branding probe failed: {exc}")
 
     return errors
 

@@ -144,18 +144,6 @@
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
-    "company_name": "C.A. Rasmussen",
-    "email": "info@carasmussen.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "CALTRANS-PREQ-94030",
-    "state": "CA",
-    "source_type": "website_html_mailto",
-    "source_url": "https://carasmussen.com/contact/",
-    "historical_award_id": "70B01C25F00001112",
-    "historical_award_usd": 1225325000.0,
-    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
-  },
-  {
     "company_name": "Curtin Maritime",
     "email": "sales@curtinmaritime.com",
     "first_name": "Estimating",
@@ -312,18 +300,6 @@
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
-    "company_name": "O.C. Jones & Sons",
-    "email": "estimating@ocjones.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "CALTRANS-A-158921",
-    "state": "CA",
-    "source_type": "website_html_mailto",
-    "source_url": "https://www.ocjones.com/bid-room/",
-    "historical_award_id": "70B01C25F00001112",
-    "historical_award_usd": 1225325000.0,
-    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
-  },
-  {
     "company_name": "R.J. Noble",
     "email": "stevemendoza@rjnoblecompany.com",
     "first_name": "Estimating",
@@ -355,18 +331,6 @@
     "state": "CA",
     "source_type": "website_html_mailto",
     "source_url": "https://www.rangerpipelines.com",
-    "historical_award_id": "70B01C25F00001112",
-    "historical_award_usd": 1225325000.0,
-    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
-  },
-  {
-    "company_name": "Reyes Construction",
-    "email": "info@reyesconstruction.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "CALTRANS-PREQ-93036",
-    "state": "CA",
-    "source_type": "website_html_mailto",
-    "source_url": "https://reyesconstruction.com/",
     "historical_award_id": "70B01C25F00001112",
     "historical_award_usd": 1225325000.0,
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
@@ -681,30 +645,6 @@
     "source_url": "https://watsoncivil.com/estimating",
     "historical_award_id": "W912EP24C0018",
     "historical_award_usd": 2514144742.31,
-    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
-  },
-  {
-    "company_name": "Astra Group",
-    "email": "info@astragroupinc.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "GDOT-2AS308",
-    "state": "GA",
-    "source_type": "website_html_mailto",
-    "source_url": "https://astragroupinc.com/contact-us/",
-    "historical_award_id": "N6945020C0016",
-    "historical_award_usd": 620217197.39,
-    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
-  },
-  {
-    "company_name": "Backbone Infrastructure",
-    "email": "info@backboneinfra.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "GDOT-PREQ-94078",
-    "state": "GA",
-    "source_type": "website_html_mailto",
-    "source_url": "https://www.backboneinfra.com",
-    "historical_award_id": "N6945020C0016",
-    "historical_award_usd": 620217197.39,
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {

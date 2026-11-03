@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-03T11:58:09.367314+00:00",
+  "updated_at": "2026-11-03T19:01:29.730978+00:00",
   "campaign_id": "e69941d4-b5c0-45a7-ac67-ae8947761d4b",
-  "recent_rendered_emails_audited": 50,
-  "recent_inbound_replies_detected": 0,
+  "recent_rendered_emails_audited": 49,
+  "recent_inbound_replies_detected": 1,
   "unrendered_template_tags_detected": 0,
   "prefix_delivery_stats": {
     "named_person": {
@@ -10,11 +10,11 @@
       "bounced": 0
     },
     "dept_desk": {
-      "clean": 42,
+      "clean": 41,
       "bounced": 0
     },
     "generic_info": {
-      "clean": 104,
+      "clean": 100,
       "bounced": 0
     }
   },
@@ -94,7 +94,7 @@
     },
     "NC": {
       "sent": 1,
-      "replies": 0
+      "replies": 2
     },
     "IL": {
       "sent": 1,
@@ -113,6 +113,46 @@
       "replies": 0
     },
     "ME": {
+      "sent": 1,
+      "replies": 0
+    },
+    "NJ": {
+      "sent": 1,
+      "replies": 0
+    },
+    "NH": {
+      "sent": 1,
+      "replies": 0
+    },
+    "ND": {
+      "sent": 1,
+      "replies": 0
+    },
+    "MT": {
+      "sent": 1,
+      "replies": 0
+    },
+    "MN": {
+      "sent": 1,
+      "replies": 0
+    },
+    "MI": {
+      "sent": 1,
+      "replies": 0
+    },
+    "UT": {
+      "sent": 1,
+      "replies": 0
+    },
+    "WY": {
+      "sent": 1,
+      "replies": 0
+    },
+    "MA": {
+      "sent": 1,
+      "replies": 0
+    },
+    "LA": {
       "sent": 1,
       "replies": 0
     }
