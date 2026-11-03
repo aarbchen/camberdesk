@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-03T05:28:35.264529+00:00",
+  "updated_at": "2026-11-03T12:02:40.059986+00:00",
   "total_rules": 19,
   "policy": "Silent detection -> Autonomous diagnosis & repair -> Rule codification -> Resolved-only Discord notification",
   "rules": [
@@ -99,8 +99,8 @@
       "rule_statement": "Maintain 100% count and card parity across `index.html`, `apis.html`, `pseo_generator.py`, MCP servers, and Cloudflare Edge Worker (`52 Portals / 50 State DOTs` and `12 APIs`).",
       "invariant_check": "check_portal_and_catalog_parity",
       "created_at": "2026-10-31T15:25:57.791099+00:00",
-      "last_enforced_at": "2026-11-03T05:28:35.264529+00:00",
-      "times_triggered": 319
+      "last_enforced_at": "2026-11-03T11:39:34.249544+00:00",
+      "times_triggered": 400
     },
     {
       "rule_id": "RULE-008-ZERO-SIGNALTENDER-OVERLAP",
@@ -209,8 +209,8 @@
       "rule_statement": "Outbound email infrastructure must maintain valid SPF, DMARC (`p=quarantine`/`reject`), BIMI SVG logo, MX records on all prospect domains, and zero duplicate follow-ups.",
       "invariant_check": "check_email_deliverability_dns",
       "created_at": "2026-11-01T21:09:11.104769+00:00",
-      "last_enforced_at": "2026-11-03T01:00:49.044320+00:00",
-      "times_triggered": 4
+      "last_enforced_at": "2026-11-03T12:02:40.059986+00:00",
+      "times_triggered": 5
     }
   ]
 }

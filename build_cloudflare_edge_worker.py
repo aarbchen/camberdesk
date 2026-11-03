@@ -1469,7 +1469,7 @@ export default {{
 
     compile_dir = ROOT_DIR / "v1" / "camber-autopilot" / "compile-bid-package"
     compile_dir.mkdir(parents=True, exist_ok=True)
-    valid_zip_keys = sorted(zips_by_project.keys())
+    valid_zip_keys = sorted({"".join(ch if ch.isalnum() or ch in ("-", "_") else "_" for ch in k) for k in zips_by_project.keys()})
     compiler_html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
