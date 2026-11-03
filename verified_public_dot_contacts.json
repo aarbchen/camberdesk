@@ -97,18 +97,6 @@
   },
   {
     "company_name": "Southwest Slurry Seal",
-    "email": "contact@slurry.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "ADOT-PREQ-94018",
-    "state": "AZ",
-    "source_type": "website_html_mailto",
-    "source_url": "https://www.slurry.com/contact",
-    "historical_award_id": "70B01C26F00000017",
-    "historical_award_usd": 2833494611.7,
-    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
-  },
-  {
-    "company_name": "Southwest Slurry Seal",
     "email": "azquestions@slurry.com",
     "first_name": "Estimating",
     "license_or_dot_id": "ADOT-PREQ-94018",
@@ -205,24 +193,24 @@
   },
   {
     "company_name": "Hazard Construction Engineering",
-    "email": "info@hazardcon.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "CALTRANS-PREQ-93040",
-    "state": "CA",
-    "source_type": "website_html_mailto",
-    "source_url": "https://hazardconstruction.com/contact-us/",
-    "historical_award_id": "70B01C25F00001112",
-    "historical_award_usd": 1225325000.0,
-    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
-  },
-  {
-    "company_name": "Hazard Construction Engineering",
     "email": "estimating@hazardconstruction.com",
     "first_name": "Estimating",
     "license_or_dot_id": "CALTRANS-PREQ-93040",
     "state": "CA",
     "source_type": "website_html_mailto",
     "source_url": "https://hazardconstruction.com/bidding-subcontractor/",
+    "historical_award_id": "70B01C25F00001112",
+    "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Hazard Construction Engineering",
+    "email": "info@hazardcon.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "CALTRANS-PREQ-93040",
+    "state": "CA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://hazardconstruction.com/contact-us/",
     "historical_award_id": "70B01C25F00001112",
     "historical_award_usd": 1225325000.0,
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
@@ -421,14 +409,14 @@
   },
   {
     "company_name": "Mohawk Northeast",
-    "email": "info@mohawknortheast.com",
+    "email": "dschill@mohawknortheast.com",
     "first_name": "Estimating",
     "license_or_dot_id": "CTDOT-PREQ-1370",
     "state": "CT",
     "source_type": "website_html_mailto",
-    "source_url": "https://mohawknortheast.com/",
-    "historical_award_id": "USACE-CT-W912-202640",
-    "historical_award_usd": 11450000.0,
+    "source_url": "https://mohawknortheast.com/contact/",
+    "historical_award_id": "USACE-CT-W912-202634",
+    "historical_award_usd": 10700000.0,
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
@@ -553,14 +541,14 @@
   },
   {
     "company_name": "Maschmeyer Concrete & Civil",
-    "email": "contactus@maschmeyer.com",
+    "email": "tjackson@maschmeyer.com",
     "first_name": "Estimating",
     "license_or_dot_id": "FDOT-PREQ-92046",
     "state": "FL",
     "source_type": "website_html_mailto",
     "source_url": "https://maschmeyer.com/contact-us/",
-    "historical_award_id": "W912EP24C0018",
-    "historical_award_usd": 2514144742.31,
+    "historical_award_id": "USACE-FL-W912-202645",
+    "historical_award_usd": 12075000.0,
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
@@ -1237,14 +1225,14 @@
   },
   {
     "company_name": "Bolander Civil Construction",
-    "email": "info@bolander.com",
+    "email": "crusher@bolander.com",
     "first_name": "Estimating",
     "license_or_dot_id": "MNDOT-PREQ-92017",
     "state": "MN",
     "source_type": "website_html_mailto",
     "source_url": "https://bolander.com",
-    "historical_award_id": "USACE-MN-W912-202674",
-    "historical_award_usd": 15700000.0,
+    "historical_award_id": "USACE-MN-W912-202702",
+    "historical_award_usd": 19200000.0,
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
@@ -1285,18 +1273,6 @@
   },
   {
     "company_name": "Shafer Contracting",
-    "email": "contact@shafercontracting.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "MNDOT-PREQ-92015",
-    "state": "MN",
-    "source_type": "website_html_mailto",
-    "source_url": "https://shafercontracting.com/",
-    "historical_award_id": "USACE-MN-W912-202715",
-    "historical_award_usd": 20825000.0,
-    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
-  },
-  {
-    "company_name": "Shafer Contracting",
     "email": "jzins@shafercontracting.com",
     "first_name": "Estimating",
     "license_or_dot_id": "MNDOT-PREQ-92015",
@@ -1305,6 +1281,18 @@
     "source_url": "https://shafercontracting.com/",
     "historical_award_id": "USACE-MN-W912-202716",
     "historical_award_usd": 20950000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Shafer Contracting",
+    "email": "contact@shafercontracting.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MNDOT-PREQ-92015",
+    "state": "MN",
+    "source_type": "website_html_mailto",
+    "source_url": "https://shafercontracting.com/",
+    "historical_award_id": "USACE-MN-W912-202715",
+    "historical_award_usd": 20825000.0,
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
@@ -1357,18 +1345,6 @@
   },
   {
     "company_name": "Eutaw Construction",
-    "email": "contact@eutaw.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "MDOT-MS-91078",
-    "state": "MS",
-    "source_type": "website_html_mailto",
-    "source_url": "https://eutaw.com/contact-us/",
-    "historical_award_id": "USACE-MS-W912-202721",
-    "historical_award_usd": 21575000.0,
-    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
-  },
-  {
-    "company_name": "Eutaw Construction",
     "email": "nbagwell@eutaw.com",
     "first_name": "Estimating",
     "license_or_dot_id": "MDOT-MS-91078",
@@ -1377,6 +1353,18 @@
     "source_url": "https://eutaw.com/leadership/",
     "historical_award_id": "USACE-MS-W912-202722",
     "historical_award_usd": 21700000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Eutaw Construction",
+    "email": "contact@eutaw.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "MDOT-MS-91078",
+    "state": "MS",
+    "source_type": "website_html_mailto",
+    "source_url": "https://eutaw.com/contact-us/",
+    "historical_award_id": "USACE-MS-W912-202721",
+    "historical_award_usd": 21575000.0,
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
@@ -1411,18 +1399,6 @@
     "state": "NC",
     "source_type": "website_html_mailto",
     "source_url": "https://blytheconstruction.com/contact-us/",
-    "historical_award_id": "N4008519F4464",
-    "historical_award_usd": 500074964.55,
-    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
-  },
-  {
-    "company_name": "Crowder Construction",
-    "email": "pq@crowderusa.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "NCDOT-PREQ-2041",
-    "state": "NC",
-    "source_type": "website_html_mailto",
-    "source_url": "https://www.crowderusa.com/subcontractor-prequalification",
     "historical_award_id": "N4008519F4464",
     "historical_award_usd": 500074964.55,
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
