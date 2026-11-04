@@ -116,6 +116,14 @@ def generate_pseo_pages() -> Dict[str, Any]:
     </div>
   </header>
   <main class="max-w-6xl mx-auto px-6 py-10 space-y-8">
+    <div id="dossier-prospect-banner" class="hidden p-4 rounded-xl bg-[#EFF6FF] border-2 border-[#1E3A8A] text-[#0A0D14] shadow-sm">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="text-xs font-mono font-extrabold uppercase tracking-wider text-[#1E3A8A]" id="dossier-prospect-headline">PRE-CONFIGURED DOT LETTING DOSSIER</div>
+        <span class="px-2 py-0.5 rounded bg-[#1E3A8A] text-white text-[10px] font-mono font-bold uppercase">6-FILE BID PACKAGE READY</span>
+      </div>
+      <p class="text-xs font-medium text-[#0A0D14] mt-1" id="dossier-prospect-subtext">Your firm&apos;s 6-file OpenXML Bid-Tab .XLSX workbook, Davis-Bacon wage matrix, and Buy America brief are linked below.</p>
+    </div>
+
     <div class="p-6 rounded-2xl bg-white border border-[#CBD5E1] shadow-sm space-y-4">
       <div class="flex flex-wrap items-center gap-3 text-xs font-mono">
         <span class="px-2.5 py-1 rounded bg-[#EAE6DF] text-[#0A0D14] border border-[#94A3B8] font-bold">{html.escape(pid)}</span>
@@ -168,8 +176,8 @@ def generate_pseo_pages() -> Dict[str, Any]:
       <h2 class="text-lg font-extrabold text-[#0A0D14] font-mono">// ACTIVE DOT PLANHOLDERS &amp; HEAD-TO-HEAD COMPETITORS</h2>
       <p class="text-sm font-semibold text-[#111827]">{planholders_esc}</p>
       <div class="pt-3 flex flex-wrap gap-3">
-        <a href="https://camberdesk.com/v1/camber-autopilot/compile-bid-package?project_id={urllib.parse.quote(pid)}&amp;state_code={urllib.parse.quote(str(d.get('state_code') or 'TX'))}&amp;format=binary" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-sm transition">Download 6-File OpenXML Bid-Tab .ZIP</a>
-        <a href="../../index.html#checkout" class="px-4 py-2.5 rounded-lg bg-[#1E3A8A] hover:bg-[#0A0D14] text-white font-bold text-sm transition">Activate CamberDesk Autopilot ($499/mo)</a>
+        <a id="dossier-zip-cta" href="https://camberdesk.com/v1/camber-autopilot/compile-bid-package?project_id={urllib.parse.quote(pid)}&amp;state_code={urllib.parse.quote(str(d.get('state_code') or 'TX'))}&amp;format=binary" class="px-4 py-2.5 rounded-lg bg-[#0A0D14] hover:bg-[#1E3A8A] text-white font-bold text-sm transition">Download 6-File OpenXML Bid-Tab .ZIP</a>
+        <a id="dossier-checkout-cta" href="../../index.html#checkout" class="px-4 py-2.5 rounded-lg bg-[#1E3A8A] hover:bg-[#0A0D14] text-white font-bold text-sm transition">Activate CamberDesk Autopilot ($499/mo)</a>
         <a href="{html.escape(d.get('source_url', '#'))}" target="_blank" rel="noopener" class="px-4 py-2.5 rounded-lg bg-[#EAE6DF] hover:bg-[#DDD8CE] text-[#0A0D14] border border-[#94A3B8] text-sm font-bold transition">Official DOT Letting Notice</a>
       </div>
     </div>
@@ -187,6 +195,47 @@ def generate_pseo_pages() -> Dict[str, Any]:
       </div>
     </div>
   </footer>
+  <script>
+  (function() {{
+    try {{
+      var params = new URLSearchParams(window.location.search || '');
+      var co = (params.get('co') || params.get('company') || '').trim();
+      var st = (params.get('state') || '{html.escape(str(d.get("state_code") or "TX"))}').trim().toUpperCase();
+      var em = (params.get('email') || '').trim();
+      if (co) {{
+        var banner = document.getElementById('dossier-prospect-banner');
+        var headline = document.getElementById('dossier-prospect-headline');
+        var subtext = document.getElementById('dossier-prospect-subtext');
+        if (banner && headline && subtext) {{
+          headline.textContent = 'PRE-CONFIGURED FOR ' + co.toUpperCase() + (st ? ' (' + st + ')' : '') + ' // DOT LETTING & BID-TAB DOSSIER';
+          subtext.textContent = 'Prepared for ' + co + ': Download your 6-file OpenXML Bid-Tab .XLSX workbook, Davis-Bacon wage matrix, and Buy America compliance brief below, or activate continuous 52-portal DOT monitoring.';
+          banner.classList.remove('hidden');
+        }}
+        var zipEl = document.getElementById('dossier-zip-cta');
+        if (zipEl && zipEl.href && zipEl.href.indexOf('co=') === -1) {{
+          zipEl.href += '&co=' + encodeURIComponent(co);
+        }}
+      }}
+      if (co || em || params.get('state')) {{
+        var fwd = new URLSearchParams();
+        if (co) fwd.set('co', co);
+        if (st) fwd.set('state', st);
+        if (em) fwd.set('email', em);
+        var qs = fwd.toString();
+        if (qs) {{
+          var links = document.querySelectorAll('a[href*="index.html#checkout"], a[href*="index.html#account"]');
+          for (var i = 0; i < links.length; i++) {{
+            var href = links[i].getAttribute('href') || '';
+            var parts = href.split('#');
+            if (parts.length === 2 && parts[0].indexOf('?') === -1) {{
+              links[i].setAttribute('href', parts[0] + '?' + qs + '#' + parts[1]);
+            }}
+          }}
+        }}
+      }}
+    }} catch (e) {{}}
+  }})();
+  </script>
 </body>
 </html>"""
 

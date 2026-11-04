@@ -601,7 +601,11 @@ def check_and_heal_client_semantic_quality(root_dir: Path, brand_name: str) -> T
         for zp in list(samples_dir.glob("*_6File_Bid_Package.zip"))[:8]:
             try:
                 with zipfile.ZipFile(zp, "r") as zf:
-                    manifest = json.loads(zf.read("00_Package_Manifest.json").decode("utf-8"))
+                    json_files = [n for n in zf.namelist() if n.endswith(".json")]
+                    if not json_files:
+                        need_rebuild_zips = True
+                        break
+                    manifest = json.loads(zf.read(json_files[0]).decode("utf-8"))
                     c_for = str(manifest.get("compiled_for") or "")
                     if any(bad_co in c_for for bad_co in ("Southwest Valley Constructors", "2047 Palm Beach Lakes")):
                         need_rebuild_zips = True
@@ -610,10 +614,20 @@ def check_and_heal_client_semantic_quality(root_dir: Path, brand_name: str) -> T
                 need_rebuild_zips = True
                 break
 
+    # D. Verify static project dossiers include the ?co= prospect personalization script & banner
+    proj_dir = root_dir / "lettings" / "project"
+    if proj_dir.exists():
+        sample_dossiers = list(proj_dir.glob("*.html"))[:5]
+        for dp in sample_dossiers:
+            d_txt = dp.read_text(encoding="utf-8", errors="replace")
+            if "dossier-prospect-banner" not in d_txt or "PRE-CONFIGURED FOR " not in d_txt:
+                need_regen_pseo = True
+                break
+
     if need_regen_pseo:
         try:
             import pseo_generator
-            pseo_generator.generate_all_pseo_pages()
+            pseo_generator.generate_pseo_pages()
             healed.append(f"Auto-regenerated {brand_name} pSEO specialty/project dossiers (RULE-021)")
         except Exception as exc:
             issues.append(f"{brand_name}: Failed to auto-regenerate pSEO dossiers: {exc}")
