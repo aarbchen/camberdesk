@@ -40,10 +40,10 @@ ARCHIVE_PATH = ROOT_DIR / "completed_outreach_archive.json"
 WARM_FOLLOWUP_PATH = ROOT_DIR / "warm_zip_followup_ledger.json"
 TREASURY_LEDGER_PATH = ROOT_DIR / "reinvestment_treasury_ledger.json"
 
-TIER1_STRIPE_URL = "https://checkout.stripe.com/c/pay/cs_live_b1xf9TvqSShZHkCsPa1vzrlcwPqL2OTmYxySIovJcoFS0Le3iIDyWrDawo#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl"
-TIER2_STRIPE_URL = "https://checkout.stripe.com/c/pay/cs_live_b17gKfCWJEk8jDD9XEn76VDXHhYPoxWZVljGWRcBzrqR8I495AlEtdPCpP#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl"
-TIER3_STRIPE_URL = "https://checkout.stripe.com/c/pay/cs_live_b1yVTKxq6Ki9T5zPf64OI7UaJ1epU3BnIgerGHb3IFJYhxH62FrH3JhQMk#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl"
-TIER4_STRIPE_URL = "https://checkout.stripe.com/c/pay/cs_live_b1jPv81Z5Y8R5IEuPW0UcJ4ZS3olMxMX9PgPQgbPgyLgHjlR3EHbEdi3Lg#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSd2cGd2ZndsdXFsamtQa2x0cGBrYHZ2QGtkZ2lgYSc%2FY2RpdmApJ2JzJz81KSdkdWxOYHwnPyd1blppbHNgWjA0V28yaT1GQm1ITDRMb2x1ZE9cN3VRUncyb3xLXzVRdjNyMEdJRjFtQUZpNXQ2Y0xIbG9tdmNtUXNtfU1XQ0Y1MnFDSlViXDI3NlFyYWhKV2dJVUhDbDwwNTV0VWxAfXxTRycpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjZGM9YzAnKSdpZHxqcHFRfHVgJz8naHBpcWxabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl"
+TIER1_STRIPE_URL = f"{SITE_BASE_URL}/#checkout-tier1"
+TIER2_STRIPE_URL = f"{SITE_BASE_URL}/#checkout-tier2"
+TIER3_STRIPE_URL = f"{SITE_BASE_URL}/#checkout-tier3"
+TIER4_STRIPE_URL = f"{SITE_BASE_URL}/#checkout-tier4"
 
 
 def _append_prefilled_email(stripe_url: str, email: str) -> str:
@@ -115,9 +115,9 @@ def lookup_prospect_context(from_email: str) -> Dict[str, str]:
         "project_title": matched.get("project_title") or "IH-35 Bridge Deck Replacement & Superpave Overlay",
         "dossier_url": raw_dossier,
         "compiler_url": raw_compiler,
-        "tier1_stripe_url": _append_prefilled_email(TIER1_STRIPE_URL, clean_em),
-        "tier2_stripe_url": _append_prefilled_email(TIER2_STRIPE_URL, clean_em),
-        "tier3_stripe_url": _append_prefilled_email(TIER3_STRIPE_URL, clean_em),
+        "tier1_stripe_url": _build_prefilled_site_url("/", comp_name, res_state, clean_em, "checkout-tier1"),
+        "tier2_stripe_url": _build_prefilled_site_url("/", comp_name, res_state, clean_em, "checkout-tier2"),
+        "tier3_stripe_url": _build_prefilled_site_url("/", comp_name, res_state, clean_em, "checkout-tier3"),
         "workspace_checkout_url": _build_prefilled_site_url("/", comp_name, res_state, clean_em, "checkout"),
     }
 
