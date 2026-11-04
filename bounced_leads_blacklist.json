@@ -1,7 +1,10 @@
 {
   "bounced_emails": [
+    "billing@directorthocare.com",
     "estimates@hubbard.com",
+    "estimating@milesresources.com",
     "estimating@ocjones.com",
+    "firstname@flanigan.com",
     "general@rummelconstruction.com",
     "info@asconstruction.com",
     "info@astragroupinc.com",
@@ -10,7 +13,9 @@
     "info@carasmussen.com",
     "info@gallagherasphalt.com",
     "info@reyesconstruction.com",
-    "pq@crowderusa.com"
+    "pq@crowderusa.com",
+    "ticket@icanotes.com",
+    "webadministrator@spawglass.com"
   ],
   "bounced_domains": []
 }

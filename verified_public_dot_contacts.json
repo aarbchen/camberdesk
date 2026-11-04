@@ -1032,18 +1032,6 @@
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
-    "company_name": "P. Flanigan & Sons",
-    "email": "firstname@flanigan.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "MDOT-SHA-1970",
-    "state": "MD",
-    "source_type": "website_html_mailto",
-    "source_url": "https://www.flanigan.com/",
-    "historical_award_id": "75N99022F00003",
-    "historical_award_usd": 765929170.0,
-    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
-  },
-  {
     "company_name": "Cianbro",
     "email": "info@cianbro.com",
     "first_name": "Estimating",
@@ -2316,18 +2304,6 @@
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
-    "company_name": "Jordan Foster Construction",
-    "email": "prequal@jordanfosterconstruction.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "TXDOT-PREQ-77104",
-    "state": "TX",
-    "source_type": "website_html_mailto",
-    "source_url": "https://jordanfosterconstruction.com/prequalification/",
-    "historical_award_id": "70B01C26F00000405",
-    "historical_award_usd": 2594040000.0,
-    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
-  },
-  {
     "company_name": "SER Construction Partners",
     "email": "contact@serconstruction.net",
     "first_name": "Estimating",
@@ -2335,18 +2311,6 @@
     "state": "TX",
     "source_type": "website_html_mailto",
     "source_url": "https://serconstruction.net/",
-    "historical_award_id": "70B01C26F00000405",
-    "historical_award_usd": 2594040000.0,
-    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
-  },
-  {
-    "company_name": "SpawGlass Civil Construction",
-    "email": "webadministrator@spawglass.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "TXDOT-PREQ-31904",
-    "state": "TX",
-    "source_type": "website_html_mailto",
-    "source_url": "https://spawglass.com/subcontractors/",
     "historical_award_id": "70B01C26F00000405",
     "historical_award_usd": 2594040000.0,
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
@@ -2563,18 +2527,6 @@
     "state": "WA",
     "source_type": "website_html_mailto",
     "source_url": "https://colvicoinc.com/our-team",
-    "historical_award_id": "N4425525F0229",
-    "historical_award_usd": 517591409.0,
-    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
-  },
-  {
-    "company_name": "Miles Resources",
-    "email": "estimating@milesresources.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "WSDOT-PREQ-93128",
-    "state": "WA",
-    "source_type": "website_html_mailto",
-    "source_url": "https://milesresources.com/contact-us/",
     "historical_award_id": "N4425525F0229",
     "historical_award_usd": 517591409.0,
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"

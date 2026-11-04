@@ -72,7 +72,25 @@ def is_watcher_alive() -> tuple[bool, str]:
         return False, f"Heartbeat check error: {exc}"
 
 
+def _is_any_watcher_process_running() -> bool:
+    try:
+        import subprocess as _sp
+        out = _sp.check_output(
+            ["powershell", "-NoProfile", "-Command", "Get-CimInstance Win32_Process -Filter \"Name LIKE '%python%'\" | Select-Object -ExpandProperty CommandLine"],
+            text=True,
+            timeout=8,
+            creationflags=0x08000000,
+        )
+        return "silent_camberdesk_watcher.py" in out
+    except Exception:
+        return False
+
+
 def main() -> int:
+    try:
+        ctypes.windll.kernel32.SetPriorityClass(ctypes.windll.kernel32.GetCurrentProcess(), 0x00004000)
+    except Exception:
+        pass
     # 1. Keep RapidAPI session alive
     try:
         s = publish_camberdesk_rapidapi.load_session()
@@ -95,6 +113,8 @@ def main() -> int:
     no_win_flag = getattr(subprocess, "CREATE_NO_WINDOW", 0) if os.name == "nt" else 0
 
     alive, detail = is_watcher_alive()
+    if not alive and _is_any_watcher_process_running():
+        alive, detail = True, 'Process verified running via CIM'
     if not alive:
         try:
             watcher_script = os.path.join(BASE_DIR, "silent_camberdesk_watcher.py")
