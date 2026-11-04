@@ -610,6 +610,15 @@ def check_and_heal_client_semantic_quality(root_dir: Path, brand_name: str) -> T
                     if any(bad_co in c_for for bad_co in ("Southwest Valley Constructors", "2047 Palm Beach Lakes")):
                         need_rebuild_zips = True
                         break
+                    for docx_name in [n for n in zf.namelist() if n.endswith(".docx")]:
+                        m_vol = re.match(r"Volume_([IVX]+)_", docx_name)
+                        if m_vol:
+                            vol_roman = m_vol.group(1)
+                            with zipfile.ZipFile(io.BytesIO(zf.read(docx_name)), "r") as dzf:
+                                doc_xml = dzf.read("word/document.xml").decode("utf-8", errors="replace")
+                                if f"VOLUME {vol_roman} " not in doc_xml:
+                                    need_rebuild_zips = True
+                                    break
             except Exception:
                 need_rebuild_zips = True
                 break
