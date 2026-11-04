@@ -1,9 +1,11 @@
 {
   "bounced_emails": [
     "billing@directorthocare.com",
+    "claims@pjkclaims.com",
     "estimates@hubbard.com",
     "estimating@milesresources.com",
     "estimating@ocjones.com",
+    "felicia.watkins@lemakhealth.com",
     "firstname@flanigan.com",
     "general@rummelconstruction.com",
     "info@asconstruction.com",
@@ -13,8 +15,13 @@
     "info@carasmussen.com",
     "info@gallagherasphalt.com",
     "info@reyesconstruction.com",
+    "leaderalert@gibsondunn.com",
+    "leaderalert@leader.com",
     "pq@crowderusa.com",
+    "purchase@davyinc.com",
     "ticket@icanotes.com",
+    "war-web_contact-us@warasic.com",
+    "wcdept@oausa.com",
     "webadministrator@spawglass.com"
   ],
   "bounced_domains": []

@@ -35,6 +35,7 @@ from harvest_verified_dot_contacts import (
 )
 from mlot_sniper_generator import (
     STATE_DOT_AGENCIES,
+    _sanitize_zero_dollar,
     _sanitize_zero_dollar_zero_link,
     build_mlot_and_runner_up_leads,
     load_verified_dot_contacts,
@@ -174,8 +175,9 @@ def generate_outreach_queue() -> List[Dict[str, Any]]:
                 f"USD {float(pi.get('hist_median_unit_usd') or 135.0):,.2f}/{pi.get('unit', 'UNIT')} median"
             )
 
+        from urllib.parse import quote_plus as _qp
         slug = slugify(slug_title)
-        dossier_url = f"{SITE_BASE_URL}/lettings/project/{slug}.html"
+        dossier_url = f"{SITE_BASE_URL}/lettings/project/{slug}.html?co={_qp(company)}&state={_qp(state)}&email={_qp(clean_em)}"
         compiler_url = f"{API_BASE_URL}/v1/camber-autopilot/compile-bid-package?project_id={pid}&state_code={state}&format=binary"
 
         is_generic_person = clean_fname.lower() in ("estimating", "capture", "bids", "info", "contact", "office", "sales")
@@ -193,7 +195,7 @@ def generate_outreach_queue() -> List[Dict[str, Any]]:
         )
         step1_body = _sanitize_zero_dollar_zero_link(
             f"{greeting_line}\n\n"
-            f"Noticed {company}'s heavy-civil profile ({dot_id}) in {state} while indexing {agency_short} letting {pid} "
+            f"Noticed {company}'s heavy-civil & highway construction work in {state} while indexing {agency_short} letting {pid} "
             f"(USD {est_usd:,.0f} Engineer's Estimate opening {letting_date}).\n\n"
             f"We already compiled the 36-month {agency_short} unit-price bid tabulations ({top_item_str}) "
             f"and {wage_id} prevailing wage fringes into a 6-file Word/Excel takeoff package.\n\n"
@@ -201,11 +203,12 @@ def generate_outreach_queue() -> List[Dict[str, Any]]:
             f"Best,\nAaron Chen\nCamberDesk Preconstruction Desk"
         )
 
-        step2_body = _sanitize_zero_dollar_zero_link(
+        step2_body = _sanitize_zero_dollar(
             f"{greeting_line}\n\n"
-            f"Quick follow-up in case {company}'s estimating desk wants the 36-month {agency_short} unit-bid spread ({top_item_str}), "
-            f"{wage_id} Davis-Bacon WH-347 wage workbook, and 6-file Word/Excel takeoff package for {pid} ({state}).\n\n"
-            f"Reply 'SEND ZIP' and I will send it right over, or let me know if I should hold off.\n\n"
+            f"Quick follow-up on {pid} ({clean_title}) — you can inspect the pre-populated 36-month {agency_short} unit-bid spread ({top_item_str}), "
+            f"{wage_id} Davis-Bacon WH-347 wage workbook, and 6-file Word/Excel takeoff workbench for {company} directly here:\n"
+            f"{dossier_url}\n\n"
+            f"Or reply 'SEND ZIP' and I will reply with the 6-file .DOCX + .XLSX package attached.\n\n"
             f"Best,\nAaron Chen\nCamberDesk Preconstruction Desk"
         )
 

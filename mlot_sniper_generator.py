@@ -118,6 +118,12 @@ HISTORICAL_MLOT_BENCHMARKS: List[Dict[str, Any]] = [
 ]
 
 
+def _sanitize_zero_dollar(text: str) -> str:
+    """Guarantees zero `$` characters while preserving `https://` dossier links in Step 2."""
+    out = re.sub(r"\$(\d)", r"USD \1", str(text or ""))
+    return out.replace("$", "USD ").strip()
+
+
 def _sanitize_zero_dollar_zero_link(text: str) -> str:
     """Guarantees zero `$` characters and zero `http://` or `https://` links in email copy."""
     out = re.sub(r"\$(\d)", r"USD \1", str(text or ""))
@@ -156,7 +162,8 @@ def load_verified_dot_contacts() -> List[Dict[str, str]]:
                         existing_valid.append(r)
         except Exception:
             pass
-    if len(existing_valid) >= min(200, target_leads) or os.getenv("OUTREACH_SKIP_HARVESTER") == "1":
+    non_generic_valid = [r for r in existing_valid if not is_receptionist_or_generic_inbox(str(r.get("email") or ""))]
+    if len(non_generic_valid) >= min(150, target_leads) or os.getenv("OUTREACH_SKIP_HARVESTER") == "1":
         return existing_valid
     return harvest_and_save_verified_dot_contacts(target_count=target_leads)
 
@@ -176,22 +183,22 @@ def build_mlot_and_runner_up_leads(verified_contacts: List[Dict[str, str]] | Non
             (b for b in HISTORICAL_MLOT_BENCHMARKS if b.get("state") == st),
             None,
         )
+        from urllib.parse import quote_plus as _qp
         matched_let = next(
             (l for l in lettings if l.get("state_code") == st),
             None,
         )
+        if not matched_let:
+            matched_let = next((l for l in lettings if l.get("state_code") in ("VA", "MD", "US")), None)
         fallback_let = matched_let or (lettings[idx % len(lettings)] if lettings else {})
         slug_title = re.sub(r"^\[[^\]]+\]\s*", "", str(fallback_let.get("title") or "IH-35 Bridge & Superpave Letting"))
         slug = slugify(slug_title)
-        dossier_url = f"{SITE_BASE_URL}/lettings/project/{slug}.html"
+        company_for_q = clean_company_display_name(str(contact.get("company_name") or ""), em)
+        dossier_url = f"{SITE_BASE_URL}/lettings/project/{slug}.html?co={_qp(company_for_q)}&state={_qp(st)}&email={_qp(em)}"
 
         agency_short = STATE_DOT_AGENCIES.get(st, f"{st} DOT")
-        if matched_let:
-            active_pid = str(matched_let.get("project_id"))
-            clean_title = re.sub(r"^\[[^\]]+\]\s*", "", str(matched_let.get("title") or ""))
-        else:
-            active_pid = f"{agency_short.upper().replace(' ', '')}-2026-{1040 + (idx % 89)}"
-            clean_title = f"{st} Highway Resurfacing, Structural Concrete & Drainage Letting"
+        active_pid = str(fallback_let.get("project_id") or "VDOT-C00118942B01")
+        clean_title = re.sub(r"^\[[^\]]+\]\s*", "", str(fallback_let.get("title") or "Highway & Bridge Letting"))
 
         if bench is None:
             template_b = HISTORICAL_MLOT_BENCHMARKS[idx % len(HISTORICAL_MLOT_BENCHMARKS)]
@@ -233,11 +240,12 @@ def build_mlot_and_runner_up_leads(verified_contacts: List[Dict[str, str]] | Non
             f"Best,\nAaron Chen\nCamberDesk Preconstruction Desk"
         )
 
-        step2_body = _sanitize_zero_dollar_zero_link(
+        step2_body = _sanitize_zero_dollar(
             f"{greeting_line}\n\n"
-            f"Quick follow-up — want me to send over the 36-month {agency_short} unit-price bid tabulations ({rates_clean}) "
-            f"and 6-file Word/Excel takeoff package for {active_pid} ({st})?\n\n"
-            f"Reply 'SEND ZIP' and I will send it right over, or let me know if I should hold off.\n\n"
+            f"Quick follow-up on {active_pid} ({clean_title}) — you can inspect the pre-populated 36-month {agency_short} unit-price bid tabulations ({rates_clean}), "
+            f"Davis-Bacon WH-347 wage determinations, and 6-file Word/Excel takeoff workbench for {company} directly here:\n"
+            f"{dossier_url}\n\n"
+            f"Or reply 'SEND ZIP' and I will reply with the 6-file .DOCX + .XLSX package attached.\n\n"
             f"Best,\nAaron Chen\nCamberDesk Preconstruction Desk"
         )
 

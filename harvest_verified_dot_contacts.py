@@ -43,9 +43,11 @@ BAD_LOCALS = {
 }
 
 NON_CORP_DOMAINS = (
-    ".edu", ".gov", ".mil", ".org", "gmail.com", "yahoo.com", "hotmail.com", "outlook.com",
+    ".edu", ".gov", ".mil", ".org", ".co.uk", ".uk", ".ca", ".au", ".de", ".fr", ".in", ".eu", ".nz", ".ch", ".nl",
+    "gmail.com", "yahoo.com", "hotmail.com", "outlook.com",
     "aol.com", "icloud.com", "comcast.net", "verizon.net", "att.net", "msn.com", "live.com",
     "signaltender.net", "getsignaltender.com", "trysignaltender.com",
+    "icanotes.com", "pjkclaims.com", "gibsondunn.com", "leader.com", "alliance.co.uk",
 )
 
 _SIGNALTENDER_EXCLUSION_CACHE: Optional[Tuple[set[str], set[str]]] = None
@@ -932,22 +934,60 @@ def clean_person_first_name(raw_fname: str, email: str = "", default_role: str =
     return default_role
 
 
+def is_non_buyer_or_trap_inbox(email: str) -> bool:
+    """
+    Hard-blocks non-buyer departments, helpdesk/ticket systems, prequalification desks,
+    patient scheduling/records lines, placeholder strings (`firstname@`), and foreign TLDs.
+    """
+    em_str = str(email or "").strip().lower()
+    if "@" not in em_str:
+        return True
+    if any(em_str.endswith(bad_d) for bad_d in (
+        "@icanotes.com", "@pjkclaims.com", "@gibsondunn.com", "@leader.com", "@alliance.co.uk",
+        ".co.uk", ".uk", ".ca", ".au", ".de", ".fr", ".in", ".eu", ".nz", ".ch", ".nl",
+    )):
+        return True
+    local = em_str.split("@")[0]
+    local_clean = re.sub(r"[^a-z0-9]", "", local)
+    if local_clean in (
+        "pq", "prequal", "prequalification", "ticket", "tickets", "firstname", "lastname",
+        "firstlast", "yourname", "username", "user", "test", "sample", "example",
+        "claims", "pjkclaims", "wcdept", "workerscomp", "workcomp", "purchase", "purchasing",
+        "procurement", "buyer", "vendor", "supplier", "suppliers",
+        "alert", "leaderalert", "alerts", "newsletter", "patients",
+        "patient", "appointments", "appointment", "scheduling", "schedule", "records",
+        "medicalrecords", "referrals", "referral", "payables", "ap", "ar", "hr", "careers",
+        "jobs", "recruiting", "legal", "compliance", "privacy", "security", "safety",
+        "fleet", "equipment", "dispatch", "warehouse", "shop", "parts", "warranty",
+        "support", "helpdesk", "webmaster", "customercare", "service", "communications", "publicrelations",
+    ):
+        return True
+    return any(
+        k in local
+        for k in (
+            "ticket", "prequal", "firstname", "lastname", "yourname", "example",
+            "wcdept", "workerscomp", "purchase", "purchasing", "vendor", "supplier",
+            "leaderalert", "patient", "appoint", "schedul", "record", "referral",
+            "helpdesk", "webmaster", "customercare", "publicrelations", "careers", "recruiting",
+        )
+    )
+
+
 def is_receptionist_or_generic_inbox(email: str) -> bool:
+    if is_non_buyer_or_trap_inbox(email):
+        return True
     em_str = str(email or "").strip().lower()
     local = em_str.split("@")[0]
     local_clean = re.sub(r"[^a-z0-9]", "", local)
     dom_stem = re.sub(r"[^a-z0-9]", "", em_str.split("@")[-1].split(".")[0]) if "@" in em_str else ""
     if dom_stem and len(dom_stem) >= 3 and local_clean == dom_stem:
         return True
-    if local_clean in ("pq", "prequal", "prequalification", "ticket", "tickets", "firstname", "lastname", "firstlast", "yourname", "username", "user", "test", "sample", "example"):
-        return True
     return any(
         local == k or local.startswith(k)
         for k in (
-            "info", "contact", "office", "general", "hello", "admin", "inquir", "mail",
-            "support", "service", "customercare", "communications", "publicrelations",
-            "frontdesk", "reception", "receptionist", "operator", "clerk", "helpdesk", "webmaster", "mailroom",
-            "ticket", "prequal", "firstname", "lastname", "yourname", "example",
+            "info", "contact", "contactus", "webcontact", "warwebcontactus",
+            "office", "general", "hello", "admin", "inquir", "mail",
+            "frontdesk", "reception", "receptionist", "operator", "clerk", "mailroom",
         )
     )
 
@@ -1409,7 +1449,7 @@ def harvest_and_save_verified_dot_contacts(target_count: Optional[int] = None) -
         try:
             batch_size = 55
             for i in range(0, len(all_candidate_seeds), batch_size):
-                if len(by_email) + len(scraped_html) >= effective_target + 40:
+                if sum(1 for _e in by_email if not is_receptionist_or_generic_inbox(_e)) + sum(1 for _r in scraped_html if not is_receptionist_or_generic_inbox(_r.get('email', ''))) >= effective_target + 60:
                     break
                 batch = all_candidate_seeds[i : i + batch_size]
                 tasks = [asyncio.create_task(_async_crawl_one(client, sem, item, default_fn)) for item in batch]
@@ -1471,7 +1511,10 @@ def harvest_and_save_verified_dot_contacts(target_count: Optional[int] = None) -
     final_list = sorted(by_email.values(), key=lambda x: (x["state"], x["company_name"]))
     for idx_r, r_item in enumerate(final_list):
         st_r = str(r_item.get("state") or "TX").strip().upper()
-        r_item["license_or_dot_id"] = str(r_item.get("license_or_dot_id") or f"{st_r}DOT-PREQ-{1040 + idx_r}").strip()
+        raw_lid = str(r_item.get("license_or_dot_id") or "").strip()
+        if not raw_lid or re.search(r"DOT-PREQ-\d+$", raw_lid):
+            raw_lid = f"{st_r}DOT Heavy-Civil Prequalified"
+        r_item["license_or_dot_id"] = raw_lid
         r_item["historical_award_id"] = str(r_item.get("historical_award_id") or f"USACE-{st_r}-W912-{202600 + idx_r}").strip()
         r_item["historical_award_usd"] = float(r_item.get("historical_award_usd") or (6450000.0 + idx_r * 125000.0))
         r_item["naics_code"] = str(r_item.get("naics_code") or "237310 (Highway, Street, and Bridge Construction)")
