@@ -1347,12 +1347,23 @@ export default {{
     print(f"[CAMBERDESK EDGE WORKER] Built {out_path} ({out_path.stat().st_size:,} bytes)")
 
     # Write static GitHub Pages fallback files for /samples/*.zip, /v1/camber-autopilot/compile-bid-package/index.html, /v1/health, /v1/telemetry/errors, and /mcp
+    def _atomic_write_bytes_if_changed(dest: Path, data: bytes) -> None:
+        if dest.exists():
+            try:
+                if dest.read_bytes() == data:
+                    return
+            except Exception:
+                pass
+        tmp = dest.with_suffix(f".tmp.{os.getpid()}")
+        tmp.write_bytes(data)
+        os.replace(tmp, dest)
+
     samples_dir = ROOT_DIR / "samples"
     samples_dir.mkdir(parents=True, exist_ok=True)
-    (samples_dir / "CamberDesk_6File_Bid_Package.zip").write_bytes(base64.b64decode(zip_b64))
+    _atomic_write_bytes_if_changed(samples_dir / "CamberDesk_6File_Bid_Package.zip", base64.b64decode(zip_b64))
     for key, b64_val in zips_by_project.items():
         safe_key = "".join(ch if ch.isalnum() or ch in ("-", "_") else "_" for ch in key)
-        (samples_dir / f"CamberDesk_{safe_key}_6File_Bid_Package.zip").write_bytes(base64.b64decode(b64_val))
+        _atomic_write_bytes_if_changed(samples_dir / f"CamberDesk_{safe_key}_6File_Bid_Package.zip", base64.b64decode(b64_val))
 
     health_payload = json.dumps({
         "status": "healthy",

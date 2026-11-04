@@ -2643,7 +2643,7 @@ console.log(await res.json());`;
       if (statusEl) statusEl.textContent = 'Compiling your 6-File OpenXML (.DOCX + .XLSX) Bid Package for ' + stateDot + '...';
       try { localStorage.setItem('camberdesk_lead_magnet', JSON.stringify({ email, state_dot: stateDot, trade_focus: tradeFocus })); } catch (e) {}
       const stCode = stateDot.startsWith('All') ? 'TX' : stateDot.slice(0, 2).toUpperCase();
-      try { fetch('https://b2b-contract-parser-api.onrender.com/v1/leads/capture', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, target_state: stCode.toLowerCase(), naics_focus: tradeFocus, source_page: 'https://camberdesk.com/apis.html', brand: 'camberdesk' }), keepalive: true }).catch(function () {}); } catch (e) {}
+      try { fetch('https://b2b-contract-parser-api.onrender.com/v1/leads/capture', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, target_state: stCode.toLowerCase(), naics_focus: tradeFocus, source_page: 'https://camberdesk.com/', brand: 'camberdesk' }), keepalive: true }).catch(function () {}); } catch (e) {}
       window.location.href = 'https://camberdesk.com/v1/camber-autopilot/compile-bid-package?state_code=' + encodeURIComponent(stCode) + '&format=binary';
       if (statusEl) statusEl.textContent = 'Success — Your 6-File OpenXML (.DOCX + .XLSX) Bid Package (.ZIP) download has started!';
       return false;

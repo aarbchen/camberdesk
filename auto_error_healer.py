@@ -530,6 +530,7 @@ def check_and_heal_client_semantic_quality(root_dir: Path, brand_name: str) -> T
     6. Reply classifier edge-case regression self-test ('yesterday', 'not sure', hostile '?' unsubscribes, spam-filter challenges).
     """
     import csv
+    import io
     import zipfile
     issues: List[str] = []
     healed: List[str] = []
