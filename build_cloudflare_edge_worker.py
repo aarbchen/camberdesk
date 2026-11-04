@@ -55,6 +55,20 @@ async def _load_precompiled_assets():
                 format="json",
             )
             zips_by_project[st_code.upper()] = pkg_st["zip_base64"]
+    csv_p = ROOT_DIR / "campaign_leads.csv"
+    if csv_p.exists():
+        import csv
+        with open(csv_p, "r", encoding="utf-8-sig", newline="") as cf:
+            for row in csv.DictReader(cf):
+                c_pid = str(row.get("project_id") or "").strip().upper()
+                c_st = str(row.get("state") or "TX").strip().upper()
+                c_title = str(row.get("project_title") or "").strip()
+                if c_pid and c_pid not in zips_by_project:
+                    pkg_c = await compile_full_bid_package(
+                        CompileBidPackageRequest(project_id=c_pid, project_title=c_title, state_code=c_st),
+                        format="json",
+                    )
+                    zips_by_project[c_pid] = pkg_c["zip_base64"]
     pkg = await compile_full_bid_package(CompileBidPackageRequest(), format="json")
     vault = await get_dot_bid_tab_vault(state=None)
     dbe = await match_dbe_sub_clearinghouse(DbeClearinghouseRequest())
