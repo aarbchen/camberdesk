@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-03T21:06:40.792130+00:00",
+  "updated_at": "2026-11-04T02:53:42.359769+00:00",
   "total_rules": 20,
   "policy": "Silent detection -> Autonomous diagnosis & repair -> Rule codification -> Resolved-only Discord notification",
   "rules": [
@@ -88,8 +88,8 @@
       "rule_statement": "Tier 3 Bid Package `.ZIP` archives must always contain 6 valid OpenXML (`.docx`/`.xlsx`) and `.json` files with well-formed XML and live Excel `=SUM()` and `=D6*G6` formulas.",
       "invariant_check": "check_tier3_openxml_zip_integrity",
       "created_at": "2026-10-31T15:25:57.694968+00:00",
-      "last_enforced_at": "2026-10-31T15:25:57.694968+00:00",
-      "times_triggered": 1
+      "last_enforced_at": "2026-11-04T02:52:03.776211+00:00",
+      "times_triggered": 2
     },
     {
       "rule_id": "RULE-PORTAL-CATALOG-PARITY",
@@ -176,8 +176,8 @@
       "rule_statement": "Always use the frontier Anthropic model (`claude-sonnet-5-5`) across all scrapers, `camberdesk_autopilot.py`, `outbound_reply_responder.py`, and `llm_extractor.py`; never use retired models.",
       "invariant_check": "check_frontier_model_strings",
       "created_at": "2026-11-01T04:06:29.438159+00:00",
-      "last_enforced_at": "2026-11-03T21:06:40.792130+00:00",
-      "times_triggered": 9
+      "last_enforced_at": "2026-11-04T02:53:42.359769+00:00",
+      "times_triggered": 10
     },
     {
       "rule_id": "RULE-009-ZERO-UNNECESSARY-AI-TOKEN-WASTE",
@@ -209,8 +209,8 @@
       "rule_statement": "Outbound email infrastructure must maintain valid SPF, DMARC (`p=quarantine`/`reject`), BIMI SVG logo, MX records on all prospect domains, and zero duplicate follow-ups.",
       "invariant_check": "check_email_deliverability_dns",
       "created_at": "2026-11-01T21:09:11.104769+00:00",
-      "last_enforced_at": "2026-11-03T12:02:40.059986+00:00",
-      "times_triggered": 5
+      "last_enforced_at": "2026-11-04T02:52:03.954983+00:00",
+      "times_triggered": 6
     },
     {
       "rule_id": "RULE-026-BRANDED-STRIPE-CHECKOUT-ISOLATION",

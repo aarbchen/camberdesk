@@ -535,16 +535,11 @@ async def compile_full_bid_package(
     eff_scope = str(req.spec_text or let_obj.get("scope_summary") or eff_title).strip()
     eff_planholders: List[str] = list(let_obj.get("planholders") or ([st_reg["contractor"]] if st_reg.get("contractor") else []))
 
-    # Resolve real contractor name (avoid generic default if planholders/verified contractors exist for state)
+    # Resolve contractor desk label when no explicit contractor_name is supplied (never use a competitor's name from eff_planholders)
     default_co = "Apex Civil & Utility Constructors LLC"
     eff_contractor = req.contractor_name.strip()
     if eff_contractor in ("", default_co):
-        if eff_planholders:
-            eff_contractor = eff_planholders[0]
-        elif st_reg.get("contractor"):
-            eff_contractor = st_reg["contractor"]
-        else:
-            eff_contractor = f"{eff_state} Pre-Qualified Heavy Civil Constructors LLC"
+        eff_contractor = f"{eff_state} Pre-Qualified Heavy-Civil & DOT Estimating Desk"
     eff_dot_id = req.license_or_dot_id.strip()
     if eff_dot_id == "TXDOT-PREQUAL-88412" and eff_state != "TX":
         eff_dot_id = f"{eff_state}DOT-PREQUAL-88412"

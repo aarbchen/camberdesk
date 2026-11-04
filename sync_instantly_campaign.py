@@ -255,16 +255,25 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
 
     try:
         starting_after = None
-        for _ in range(15):
-            list_req: Dict[str, Any] = {"campaign": cid, "limit": 100}
+        for _ in range(25):
+            list_req: Dict[str, Any] = {"campaign": cid, "limit": 50}
             if starting_after:
                 list_req["starting_after"] = starting_after
-            r_existing = requests.post(
-                "https://api.instantly.ai/api/v2/leads/list",
-                headers=headers,
-                json=list_req,
-                timeout=15,
-            )
+            r_existing = None
+            for _att in range(3):
+                try:
+                    r_existing = requests.post(
+                        "https://api.instantly.ai/api/v2/leads/list",
+                        headers=headers,
+                        json=list_req,
+                        timeout=35,
+                    )
+                    if r_existing.status_code == 200:
+                        break
+                except Exception:
+                    pass
+            if r_existing is None:
+                break
             if r_existing.status_code != 200:
                 break
             r_json = r_existing.json() or {}
@@ -287,13 +296,13 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
                     bl_emails.add(em_existing)
                     new_bounces_found = True
 
-                if lid and (is_bounced_or_bad or is_st_overlap or has_dollar_or_link or (em_existing not in valid_email_map)):
+                if lid and (is_bounced_or_bad or is_st_overlap or has_dollar_or_link or is_receptionist_or_generic_inbox(em_existing) or (em_existing not in valid_email_map)):
                     requests.delete(f"https://api.instantly.ai/api/v2/leads/{lid}", headers=auth_only_headers, timeout=10)
                     purged_count += 1
                 elif em_existing in valid_email_map and lid:
                     existing_clean_map[em_existing] = item
             starting_after = r_json.get("next_starting_after")
-            if not starting_after or len(items) < 100:
+            if not starting_after or len(items) < 50:
                 break
     except Exception:
         pass
@@ -332,6 +341,9 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
             needs_patch = (
                 str(ex_item.get("first_name") or "") != str(lead["first_name"])
                 or str(ex_item.get("company_name") or "") != str(lead["company_name"])
+                or str(ex_payload.get("project_id") or "") != str(lead["project_id"])
+                or str(ex_payload.get("dossier_url") or "") != str(lead["dossier_url"])
+                or str(ex_payload.get("compiler_url") or "") != str(lead["compiler_url"])
                 or str(ex_payload.get("step1_subject") or "") != str(lead["step1_subject"])
                 or str(ex_payload.get("step1_body_zero_link") or "") != str(lead["step1_body_zero_link"])
                 or str(ex_payload.get("step2_body_dossier_link") or "") != str(lead["step2_body_dossier_link"])
@@ -346,7 +358,7 @@ def sync_leads_to_instantly() -> Dict[str, Any]:
                             "company_name": lead["company_name"],
                             "custom_variables": custom_vars,
                         },
-                        timeout=12,
+                        timeout=25,
                     )
                     if 200 <= rp.status_code < 300:
                         return (1, 1)

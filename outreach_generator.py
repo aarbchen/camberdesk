@@ -231,6 +231,8 @@ def generate_outreach_queue() -> List[Dict[str, Any]]:
     for idx, contact in enumerate(planholder_slice):
         st = str(contact.get("state") or "TX").strip().upper()
         matched_let = next((l for l in lettings if l.get("state_code") == st), None)
+        if not matched_let:
+            matched_let = next((l for l in lettings if l.get("state_code") in ("VA", "MD", "US")), None)
         fallback_let = matched_let or (lettings[idx % len(lettings)] if lettings else {})
         _add_lead(contact=contact, matched_let=matched_let, fallback_let=fallback_let, idx=idx)
 

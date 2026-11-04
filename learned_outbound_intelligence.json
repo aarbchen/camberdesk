@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-11-03T21:44:15.451762+00:00",
+  "updated_at": "2026-11-04T02:53:12.139443+00:00",
   "campaign_id": "e69941d4-b5c0-45a7-ac67-ae8947761d4b",
-  "recent_rendered_emails_audited": 49,
+  "recent_rendered_emails_audited": 99,
   "recent_inbound_replies_detected": 1,
   "unrendered_template_tags_detected": 0,
   "prefix_delivery_stats": {
     "named_person": {
-      "clean": 82,
+      "clean": 75,
       "bounced": 0
     },
     "dept_desk": {
@@ -14,28 +14,27 @@
       "bounced": 0
     },
     "generic_info": {
-      "clean": 0,
+      "clean": 1,
       "bounced": 0
     }
   },
   "adaptive_prefix_priority_weights": {
     "named_person": 1.0,
-    "dept_desk": 0.85,
-    "generic_info": 0.5
+    "dept_desk": 0.9,
+    "generic_info": 0.25
   },
   "cohort_stats": {
     "NY": {
-      "sent": 6,
+      "sent": 5,
       "human_replies": 0,
       "auto_replies": 0,
       "unsubscribes": 0
     },
     "default": {
-      "sent": 63,
+      "sent": 64,
       "human_replies": 0,
       "auto_replies": 1,
-      "unsubscribes": 0,
-      "replies": 1
+      "unsubscribes": 0
     },
     "NJ": {
       "sent": 1,

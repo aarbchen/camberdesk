@@ -67,17 +67,46 @@ def _build_prefilled_site_url(base_path: str, company_name: str, state: str, ema
     return f"{SITE_BASE_URL}{base_path}{qs}{frag}"
 
 
-def lookup_prospect_context(from_email: str) -> Dict[str, str]:
+def _format_estimator_greeting(first_name: str, company_name: str) -> str:
+    fn = str(first_name or "").strip()
+    co = str(company_name or "").strip()
+    role_tokens = {
+        "estimating", "chief estimator", "estimator", "capture", "info", "sales",
+        "team", "there", "contracts", "office", "admin", "bids", "bidding", "project",
+        "estimating team", "preconstruction",
+    }
+    co_first = co.lower().split()[0] if co else ""
+    if not fn or fn.lower() in role_tokens or (co and fn.lower() in (co.lower(), co_first)):
+        if co and co.lower() not in ("your estimating team", "estimating team"):
+            return f"Hi {co} Estimating team,"
+        return "Hi there,"
+    return f"Hi {fn},"
+
+
+def lookup_prospect_context(from_email: str, reply_text: str = "", subject: str = "") -> Dict[str, str]:
     clean_em = str(from_email or "").strip().lower()
     dom = clean_em.split("@", 1)[1] if "@" in clean_em else ""
+    combined_thread = f"{subject or ''}\n{reply_text or ''}"
+    thread_emails = {
+        e.strip().lower()
+        for e in re.findall(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", combined_thread)
+        if "camberdesk" not in e.lower()
+    }
     matched: Dict[str, str] = {}
     for csv_candidate in (CSV_PATH, MLOT_CSV_PATH):
         if csv_candidate.exists() and not matched:
             try:
                 with open(csv_candidate, mode="r", encoding="utf-8", newline="") as f:
-                    for row in csv.DictReader(f):
-                        row_em = str(row.get("email") or "").strip().lower()
-                        if row_em == clean_em or (dom and row_em.endswith("@" + dom)):
+                    rows = list(csv.DictReader(f))
+                for row in rows:
+                    row_em = str(row.get("email") or "").strip().lower()
+                    if row_em == clean_em or (dom and row_em.endswith("@" + dom)) or (row_em and row_em in thread_emails):
+                        matched = dict(row)
+                        break
+                if not matched and combined_thread.strip():
+                    for row in rows:
+                        pid_cand = str(row.get("project_id") or "").strip()
+                        if pid_cand and len(pid_cand) >= 6 and pid_cand.lower() in combined_thread.lower():
                             matched = dict(row)
                             break
             except Exception:
@@ -87,7 +116,7 @@ def lookup_prospect_context(from_email: str) -> Dict[str, str]:
         try:
             for item in json.loads(verified_json.read_text(encoding="utf-8")) or []:
                 row_em = str(item.get("email") or "").strip().lower()
-                if row_em == clean_em or (dom and row_em.endswith("@" + dom)):
+                if row_em == clean_em or (dom and row_em.endswith("@" + dom)) or (row_em and row_em in thread_emails):
                     matched = dict(item)
                     break
         except Exception:
@@ -99,6 +128,9 @@ def lookup_prospect_context(from_email: str) -> Dict[str, str]:
     raw_compiler = matched.get("compiler_url") or ""
     if not raw_compiler or "project_id=" not in raw_compiler or "api.camberdesk.com" in raw_compiler:
         raw_compiler = f"https://camberdesk.com/v1/camber-autopilot/compile-bid-package?project_id={res_pid}&state_code={res_state}&format=binary"
+    if comp_name and comp_name.lower() not in ("your estimating team", "estimating team") and "co=" not in raw_compiler:
+        sep = "&" if "?" in raw_compiler else "?"
+        raw_compiler = f"{raw_compiler}{sep}{urllib.parse.urlencode({'co': comp_name})}"
     raw_dossier = matched.get("dossier_url") or _build_prefilled_site_url("/", comp_name, res_state, clean_em, "lettings")
     if "?" not in raw_dossier and (comp_name or clean_em):
         q_params = urllib.parse.urlencode({"co": comp_name, "state": res_state, "email": clean_em})
@@ -154,12 +186,13 @@ def classify_estimator_reply(reply_text: str, subject: str = "", from_email: str
                 "address not found",
                 "user unknown",
                 "mailbox unavailable",
+                "does not exist",
             )
         )
     ):
         return "BOUNCE"
     if (
-        subj_low.startswith(("automatic reply:", "auto-reply:", "out of office:", "out of the office:"))
+        subj_low.startswith(("automatic reply:", "auto-reply:", "out of office:", "out of the office:", "anti-spam", "email verification"))
         or any(
             ooo_p in txt
             for ooo_p in (
@@ -179,6 +212,14 @@ def classify_estimator_reply(reply_text: str, subject: str = "", from_email: str
                 "we have received your e-mail",
                 "we have received your email",
                 "our typical response time",
+                "barracuda",
+                "mimecast",
+                "proofpoint",
+                "boxbe",
+                "verify your email",
+                "challenge-response",
+                "unattended mailbox",
+                "no longer monitored",
             )
         )
     ):
@@ -192,11 +233,22 @@ def classify_estimator_reply(reply_text: str, subject: str = "", from_email: str
             "don't stop emailing", "do not stop emailing",
         )
     )
-    if not negated_unsub and any(u in txt for u in ("unsubscribe", "remove me", "stop emailing", "not interested", "take me off", "no thanks", "off your list")):
+    unsub_phrases = (
+        "unsubscribe", "remove me", "remove us", "remove this", "take me off", "take us off",
+        "stop emailing", "stop sending", "stop contacting", "do not contact", "don't contact",
+        "dont contact", "never email", "not interested", "no thanks", "off your list",
+        "wrong person", "wrong email", "retired", "no longer with", "left the company",
+        "doesn't work here", "does not work here", "not bidding", "don't bid", "do not bid",
+        "opt out", "opt-out", "who gave you", "why are you emailing",
+    )
+    if not negated_unsub and any(u in txt for u in unsub_phrases):
         return "UNSUBSCRIBE"
     if "?" in stripped and not any(p in txt for p in ("send zip", "send it", "send over")):
         return "QUESTION"
-    if any(p in txt for p in ("send zip", "send it", "yes", "sure", "send over", "interested", "bid tab", "spreadsheet")):
+    if (
+        any(p in txt for p in ("send zip", "send it", "send over", "bid tab", "spreadsheet"))
+        or re.search(r"\b(yes|yeah|yep|please|interested)\b|(?<!not\s)(?<!un)\bsure\b", txt)
+    ):
         return "POSITIVE_INTEREST"
 
     if ANTHROPIC_API_KEY and txt:
@@ -235,8 +287,8 @@ def classify_estimator_reply(reply_text: str, subject: str = "", from_email: str
     return "POSITIVE_INTEREST"
 
 
-def build_zip_fulfillment_reply(from_email: str, reply_text: str = "", label: str = "POSITIVE_INTEREST") -> Dict[str, str]:
-    ctx = lookup_prospect_context(from_email)
+def build_zip_fulfillment_reply(from_email: str, reply_text: str = "", label: str = "POSITIVE_INTEREST", subject: str = "") -> Dict[str, str]:
+    ctx = lookup_prospect_context(from_email, reply_text=reply_text, subject=subject)
     custom_answer_block = ""
     stripped_q = _strip_quoted_thread(reply_text)
     if label == "QUESTION" and stripped_q and ANTHROPIC_API_KEY:
@@ -269,8 +321,9 @@ def build_zip_fulfillment_reply(from_email: str, reply_text: str = "", label: st
         except Exception:
             pass
 
+    greeting_line = _format_estimator_greeting(ctx["first_name"], ctx["company_name"])
     body = (
-        f"Hi {ctx['first_name']},\n\n"
+        f"{greeting_line}\n\n"
         f"{custom_answer_block}"
         f"Here is the pre-shredded DOT Bid-Tab & Preconstruction package for {ctx['project_id']} ({ctx['project_title']}):\n\n"
         f"1. 1-Click 6-File OpenXML (.DOCX + .XLSX) Bid-Tab & Takeoff Package (.ZIP):\n"
@@ -383,6 +436,7 @@ def _process_warm_zip_followups() -> int:
         fname = info.get("first_name") or "Chief Estimator"
         pid = info.get("project_id") or "TXDOT-CSJ-0015-13-412"
         comp = info.get("company_name") or "your estimating team"
+        greeting_line = _format_estimator_greeting(fname, comp)
         t2_url = info.get("tier2_stripe_url") or TIER2_STRIPE_URL
         ws_url = info.get("workspace_checkout_url") or f"{SITE_BASE_URL}/#checkout"
         subj = str(info.get("subject") or f"Re: {pid} unit bid tabs & 6-File .ZIP Takeoff Package")
@@ -391,7 +445,7 @@ def _process_warm_zip_followups() -> int:
 
         if elapsed_hrs >= 48.0 and not info.get("nudge_48h_sent"):
             body_48 = (
-                f"Hi {fname},\n\n"
+                f"{greeting_line}\n\n"
                 f"Quick check-in on the 6-file OpenXML (.DOCX + .XLSX) DOT Bid-Tab & Takeoff package I sent over for {pid} — "
                 f"did the live =ROUND(D6*G6,2) unit-price formulas in Volume II and the Davis-Bacon WH-347 wage schedule in Volume III open cleanly in Excel/HeavyBid for {comp}?\n\n"
                 f"If your estimating desk wants automated 50-State DOT planholder alerts, 36-month winning low unit bid tabulations, and unlimited 6-File .ZIP compilations:\n"
@@ -415,7 +469,7 @@ def _process_warm_zip_followups() -> int:
                 pass
         elif elapsed_hrs >= 96.0 and info.get("nudge_48h_sent") and not info.get("nudge_96h_sent"):
             body_96 = (
-                f"Hi {fname},\n\n"
+                f"{greeting_line}\n\n"
                 f"Closing the loop on {pid} before the upcoming letting deadline — if {comp} wants ongoing 36-month State DOT unit-price bid tabulations, "
                 f"competitor Money-Left-On-Table (MLOT) spread models, and 1-click 6-file OpenXML .ZIP packages across all upcoming lettings, "
                 f"you can lock in your territory seat anytime here:\n"
@@ -571,7 +625,7 @@ def run_reply_responder() -> Dict[str, Any]:
                 subj_in = str(item.get("subject") or "")
                 label = classify_estimator_reply(body_txt, subject=subj_in, from_email=from_em)
                 if label in ("POSITIVE_INTEREST", "QUESTION"):
-                    pkg = build_zip_fulfillment_reply(from_em, reply_text=body_txt, label=label)
+                    pkg = build_zip_fulfillment_reply(from_em, reply_text=body_txt, label=label, subject=subj_in)
                     r_send = requests.post(
                         "https://api.instantly.ai/api/v2/emails/reply",
                         headers={"Authorization": f"Bearer {INSTANTLY_API_KEY}", "Content-Type": "application/json"},
