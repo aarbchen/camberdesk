@@ -36,6 +36,18 @@
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
+    "company_name": "Banicki Construction",
+    "email": "estimating@banicki.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "AZDOT Heavy-Civil Prequalified",
+    "state": "AZ",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.banicki.com/contact/",
+    "historical_award_id": "USACE-AZ-W912-202603",
+    "historical_award_usd": 6825000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
     "company_name": "Combs Construction",
     "email": "info@combsaz.com",
     "first_name": "Estimating",
@@ -93,6 +105,18 @@
     "source_url": "https://www.pulice.com",
     "historical_award_id": "USACE-AZ-W912-202607",
     "historical_award_usd": 7325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Rummel Construction",
+    "email": "estimating@rummelconstruction.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "AZDOT Heavy-Civil Prequalified",
+    "state": "AZ",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.rummelconstruction.com/contact/",
+    "historical_award_id": "USACE-AZ-W912-202608",
+    "historical_award_usd": 7450000.0,
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
@@ -165,6 +189,18 @@
     "source_url": "https://disneyconstruction.com",
     "historical_award_id": "70B01C25F00001112",
     "historical_award_usd": 1225325000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Graniterock Construction Division",
+    "email": "mainoffice@graniterock.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "CALTRANS-PREQ-93047",
+    "state": "CA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.graniterock.com/about-us/contact-us",
+    "historical_award_id": "USACE-CA-W912-202614",
+    "historical_award_usd": 8200000.0,
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
@@ -720,6 +756,18 @@
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
+    "company_name": "Strack",
+    "email": "info@strackinc.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "GADOT Heavy-Civil Prequalified",
+    "state": "GA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://strackinc.com/contact/",
+    "historical_award_id": "USACE-GA-W912-202665",
+    "historical_award_usd": 14575000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
     "company_name": "Vertical Earth Civil Contractors",
     "email": "info@vertical-earth.com",
     "first_name": "Estimating",
@@ -801,18 +849,6 @@
     "source_url": "https://www.fhpaschen.com",
     "historical_award_id": "USACE-IL-W912-202665",
     "historical_award_usd": 14575000.0,
-    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
-  },
-  {
-    "company_name": "Gallagher Asphalt",
-    "email": "info@gallagherasphalt.com",
-    "first_name": "Estimating",
-    "license_or_dot_id": "ILDOT Heavy-Civil Prequalified",
-    "state": "IL",
-    "source_type": "website_html_mailto",
-    "source_url": "https://gallagherasphalt.com",
-    "historical_award_id": "USACE-IL-W912-202667",
-    "historical_award_usd": 14825000.0,
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {

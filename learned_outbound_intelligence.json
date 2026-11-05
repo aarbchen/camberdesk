@@ -1,16 +1,16 @@
 {
-  "updated_at": "2026-11-05T02:40:56.649426+00:00",
+  "updated_at": "2026-11-05T05:52:47.387531+00:00",
   "campaign_id": "e69941d4-b5c0-45a7-ac67-ae8947761d4b",
   "recent_rendered_emails_audited": 100,
   "recent_inbound_replies_detected": 0,
   "unrendered_template_tags_detected": 0,
   "prefix_delivery_stats": {
     "named_person": {
-      "clean": 73,
+      "clean": 75,
       "bounced": 0
     },
     "dept_desk": {
-      "clean": 38,
+      "clean": 40,
       "bounced": 0
     },
     "generic_info": {
