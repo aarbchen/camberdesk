@@ -336,6 +336,18 @@
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
+    "company_name": "Stacy and Witbeck",
+    "email": "portland@stacywitbeck.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "CALTRANS-A-91010",
+    "state": "CA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://stacywitbeck.com/contact/",
+    "historical_award_id": "USACE-CA-W912-202628",
+    "historical_award_usd": 9950000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
     "company_name": "Teichert Construction",
     "email": "jfeusi@teichert.com",
     "first_name": "Estimating",
@@ -789,6 +801,18 @@
     "source_url": "https://www.fhpaschen.com",
     "historical_award_id": "USACE-IL-W912-202665",
     "historical_award_usd": 14575000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Gallagher Asphalt",
+    "email": "info@gallagherasphalt.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "ILDOT Heavy-Civil Prequalified",
+    "state": "IL",
+    "source_type": "website_html_mailto",
+    "source_url": "https://gallagherasphalt.com",
+    "historical_award_id": "USACE-IL-W912-202667",
+    "historical_award_usd": 14825000.0,
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
@@ -1632,6 +1656,18 @@
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
+    "company_name": "Chesterfield Associates Bridge",
+    "email": "lucinda@ca-inc.net",
+    "first_name": "Estimating",
+    "license_or_dot_id": "NYDOT Heavy-Civil Prequalified",
+    "state": "NY",
+    "source_type": "website_html_mailto",
+    "source_url": "https://ca-inc.net/contact-us/",
+    "historical_award_id": "USACE-NY-W912-202736",
+    "historical_award_usd": 23450000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
     "company_name": "Cranesville Aggregate",
     "email": "office@cranesville.com",
     "first_name": "Estimating",
@@ -1761,6 +1797,18 @@
     "source_url": "https://posillicoinc.com/contact-us/",
     "historical_award_id": "W912DS19C0015",
     "historical_award_usd": 450073674.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Rifenburg Construction",
+    "email": "info@rifenburg.com",
+    "first_name": "Estimating",
+    "license_or_dot_id": "NYDOT Heavy-Civil Prequalified",
+    "state": "NY",
+    "source_type": "website_html_mailto",
+    "source_url": "https://rifenburg.com/contact/",
+    "historical_award_id": "USACE-NY-W912-202747",
+    "historical_award_usd": 24825000.0,
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {
@@ -1965,6 +2013,18 @@
     "source_url": "https://kerrcontractors.com/",
     "historical_award_id": "USACE-OR-W912-202723",
     "historical_award_usd": 21825000.0,
+    "naics_code": "237310 (Highway, Street, and Bridge Construction)"
+  },
+  {
+    "company_name": "Brubacher Excavating",
+    "email": "kbrubacher@brubacher.net",
+    "first_name": "Estimating",
+    "license_or_dot_id": "PADOT Heavy-Civil Prequalified",
+    "state": "PA",
+    "source_type": "website_html_mailto",
+    "source_url": "https://www.brubacher.net/about/our-team/",
+    "historical_award_id": "USACE-PA-W912-202765",
+    "historical_award_usd": 27075000.0,
     "naics_code": "237310 (Highway, Street, and Bridge Construction)"
   },
   {

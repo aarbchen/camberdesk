@@ -1,20 +1,20 @@
 {
-  "updated_at": "2026-11-04T20:04:40.220559+00:00",
+  "updated_at": "2026-11-05T02:40:56.649426+00:00",
   "campaign_id": "e69941d4-b5c0-45a7-ac67-ae8947761d4b",
   "recent_rendered_emails_audited": 100,
   "recent_inbound_replies_detected": 0,
   "unrendered_template_tags_detected": 0,
   "prefix_delivery_stats": {
     "named_person": {
-      "clean": 78,
+      "clean": 73,
       "bounced": 0
     },
     "dept_desk": {
-      "clean": 40,
+      "clean": 38,
       "bounced": 0
     },
     "generic_info": {
-      "clean": 51,
+      "clean": 0,
       "bounced": 0
     }
   },
@@ -24,14 +24,8 @@
     "generic_info": 0.25
   },
   "cohort_stats": {
-    "OH": {
-      "sent": 2,
-      "human_replies": 0,
-      "auto_replies": 0,
-      "unsubscribes": 0
-    },
     "default": {
-      "sent": 29,
+      "sent": 32,
       "human_replies": 0,
       "auto_replies": 0,
       "unsubscribes": 0
@@ -55,7 +49,7 @@
       "unsubscribes": 0
     },
     "CA": {
-      "sent": 6,
+      "sent": 5,
       "human_replies": 0,
       "auto_replies": 0,
       "unsubscribes": 0
@@ -115,7 +109,7 @@
       "unsubscribes": 0
     },
     "WA": {
-      "sent": 5,
+      "sent": 6,
       "human_replies": 0,
       "auto_replies": 0,
       "unsubscribes": 0
@@ -168,12 +162,6 @@
       "auto_replies": 0,
       "unsubscribes": 0
     },
-    "NY": {
-      "sent": 3,
-      "human_replies": 0,
-      "auto_replies": 0,
-      "unsubscribes": 0
-    },
     "LA": {
       "sent": 1,
       "human_replies": 0,
@@ -211,6 +199,18 @@
       "unsubscribes": 0
     },
     "TN": {
+      "sent": 1,
+      "human_replies": 0,
+      "auto_replies": 0,
+      "unsubscribes": 0
+    },
+    "OH": {
+      "sent": 1,
+      "human_replies": 0,
+      "auto_replies": 0,
+      "unsubscribes": 0
+    },
+    "NY": {
       "sent": 1,
       "human_replies": 0,
       "auto_replies": 0,
